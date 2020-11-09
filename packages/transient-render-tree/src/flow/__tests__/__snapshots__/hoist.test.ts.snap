@@ -1,0 +1,96 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`hoist function should comply with RFC002 example (hoisting)  1`] = `
+TBlock {
+  "attributes": Object {
+    "href": "https://domain.com",
+  },
+  "children": Array [
+    TPhrasingAnchor {
+      "attributes": Object {},
+      "children": Array [
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "
+This is
+",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "phrasing content",
+          "isAnchor": false,
+          "tagName": "span",
+          "type": "text",
+        },
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "
+",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+      ],
+      "href": "https://domain.com",
+      "isAnchor": true,
+      "tagName": null,
+      "type": "phrasing",
+    },
+    TBlockAnchor {
+      "attributes": Object {
+        "src": "https://domain.com/logo.jpg",
+      },
+      "children": Array [],
+      "domChildren": Array [],
+      "href": "https://domain.com",
+      "isAnchor": true,
+      "tagName": "img",
+      "type": "block",
+    },
+    TPhrasingAnchor {
+      "attributes": Object {},
+      "children": Array [
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "
+    and this is ",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "too",
+          "isAnchor": false,
+          "tagName": "strong",
+          "type": "text",
+        },
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": ".
+",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+      ],
+      "href": "https://domain.com",
+      "isAnchor": true,
+      "tagName": null,
+      "type": "phrasing",
+    },
+  ],
+  "isAnchor": false,
+  "tagName": "a",
+  "type": "block",
+}
+`;

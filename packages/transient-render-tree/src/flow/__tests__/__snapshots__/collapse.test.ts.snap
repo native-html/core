@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`collapse function should collapse a tree such as specified in RFC002 example 1`] = `
+TBlock {
+  "attributes": Object {
+    "href": "https://domain.com",
+  },
+  "children": Array [
+    TPhrasingAnchor {
+      "attributes": Object {},
+      "children": Array [
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "This is ",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "phrasing content",
+          "isAnchor": false,
+          "tagName": "span",
+          "type": "text",
+        },
+      ],
+      "href": "https://domain.com",
+      "isAnchor": true,
+      "tagName": null,
+      "type": "phrasing",
+    },
+    TBlockAnchor {
+      "attributes": Object {
+        "src": "https://domain.com/logo.jpg",
+      },
+      "children": Array [],
+      "domChildren": Array [],
+      "href": "https://domain.com",
+      "isAnchor": true,
+      "tagName": "img",
+      "type": "block",
+    },
+    TPhrasingAnchor {
+      "attributes": Object {},
+      "children": Array [
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "and this is ",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "too",
+          "isAnchor": false,
+          "tagName": "strong",
+          "type": "text",
+        },
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": ".",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+      ],
+      "href": "https://domain.com",
+      "isAnchor": true,
+      "tagName": null,
+      "type": "phrasing",
+    },
+  ],
+  "isAnchor": false,
+  "tagName": "a",
+  "type": "block",
+}
+`;
+
+exports[`collapse function should handle deeply nested HTML 1`] = `
+TBlock {
+  "attributes": Object {},
+  "children": Array [
+    TPhrasing {
+      "attributes": Object {},
+      "children": Array [
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "First implicit paragraph.",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+      ],
+      "isAnchor": false,
+      "tagName": null,
+      "type": "phrasing",
+    },
+    TBlock {
+      "attributes": Object {},
+      "children": Array [
+        TPhrasing {
+          "attributes": Object {},
+          "children": Array [
+            TText {
+              "attributes": Object {},
+              "children": Array [],
+              "data": "Second implicit paragraph",
+              "isAnchor": false,
+              "tagName": null,
+              "type": "text",
+            },
+          ],
+          "isAnchor": false,
+          "tagName": null,
+          "type": "phrasing",
+        },
+        TBlock {
+          "attributes": Object {},
+          "children": Array [
+            TPhrasing {
+              "attributes": Object {},
+              "children": Array [
+                TText {
+                  "attributes": Object {},
+                  "children": Array [],
+                  "data": "A new paragraph.",
+                  "isAnchor": false,
+                  "tagName": null,
+                  "type": "text",
+                },
+                TText {
+                  "attributes": Object {},
+                  "children": Array [],
+                  "data": " And a span within",
+                  "isAnchor": false,
+                  "tagName": "span",
+                  "type": "text",
+                },
+              ],
+              "isAnchor": false,
+              "tagName": null,
+              "type": "phrasing",
+            },
+            TBlock {
+              "attributes": Object {
+                "src": "https://domain.com/logo.jpg",
+              },
+              "children": Array [],
+              "domChildren": Array [],
+              "isAnchor": false,
+              "tagName": "img",
+              "type": "block",
+            },
+          ],
+          "isAnchor": false,
+          "tagName": "p",
+          "type": "block",
+        },
+      ],
+      "isAnchor": false,
+      "tagName": "div",
+      "type": "block",
+    },
+  ],
+  "isAnchor": false,
+  "tagName": "article",
+  "type": "block",
+}
+`;
+
+exports[`collapse function should handle nested anchors 1`] = `
+TPhrasingAnchor {
+  "attributes": Object {
+    "href": "https://domain.com",
+  },
+  "children": Array [
+    TText {
+      "attributes": Object {},
+      "children": Array [],
+      "data": "This is ",
+      "isAnchor": false,
+      "tagName": null,
+      "type": "text",
+    },
+    TText {
+      "attributes": Object {},
+      "children": Array [],
+      "data": "phrasing content",
+      "isAnchor": false,
+      "tagName": "span",
+      "type": "text",
+    },
+    TText {
+      "attributes": Object {},
+      "children": Array [],
+      "data": " ",
+      "isAnchor": false,
+      "tagName": null,
+      "type": "text",
+    },
+    TPhrasingAnchor {
+      "attributes": Object {
+        "href": "https://sub.domain.com",
+      },
+      "children": Array [
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "and this is ",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "too",
+          "isAnchor": false,
+          "tagName": "strong",
+          "type": "text",
+        },
+      ],
+      "href": "https://sub.domain.com",
+      "isAnchor": true,
+      "tagName": "a",
+      "type": "phrasing",
+    },
+  ],
+  "href": "https://domain.com",
+  "isAnchor": true,
+  "tagName": "a",
+  "type": "phrasing",
+}
+`;
+
+exports[`collapse function should hoist blocks recursively 1`] = `
+TBlock {
+  "attributes": Object {},
+  "children": Array [
+    TPhrasing {
+      "attributes": Object {},
+      "children": Array [
+        TText {
+          "attributes": Object {},
+          "children": Array [],
+          "data": "Line1",
+          "isAnchor": false,
+          "tagName": null,
+          "type": "text",
+        },
+      ],
+      "isAnchor": false,
+      "tagName": null,
+      "type": "phrasing",
+    },
+    TBlock {
+      "attributes": Object {},
+      "children": Array [
+        TPhrasing {
+          "attributes": Object {},
+          "children": Array [
+            TText {
+              "attributes": Object {},
+              "children": Array [],
+              "data": "Line2",
+              "isAnchor": false,
+              "tagName": null,
+              "type": "text",
+            },
+            TText {
+              "attributes": Object {},
+              "children": Array [],
+              "data": " Line3",
+              "isAnchor": false,
+              "tagName": "span",
+              "type": "text",
+            },
+          ],
+          "isAnchor": false,
+          "tagName": null,
+          "type": "phrasing",
+        },
+        TBlock {
+          "attributes": Object {
+            "src": "https://domain.com/logo.jpg",
+          },
+          "children": Array [],
+          "domChildren": Array [],
+          "isAnchor": false,
+          "tagName": "img",
+          "type": "block",
+        },
+      ],
+      "isAnchor": false,
+      "tagName": "strong",
+      "type": "block",
+    },
+  ],
+  "isAnchor": false,
+  "tagName": "span",
+  "type": "block",
+}
+`;

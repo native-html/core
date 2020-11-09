@@ -1,0 +1,37 @@
+# This workflow will do a clean install of node dependencies, run JS and Typescript tests.
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+# This workflow will do a clean install of node dependencies, run JS and Typescript tests.
+# For more information see: https://help.github.com/actions/language-and-framework-guides/using-nodejs-with-github-actions
+
+name: transient-render-tree
+
+on: [push, pull_request]
+
+jobs:
+  test:
+    name: Testing
+    runs-on: ubuntu-latest
+
+    strategy:
+      matrix:
+        node-version: [14.x]
+
+    steps:
+    - uses: actions/checkout@v2
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v1
+      with:
+        node-version: ${{ matrix.node-version }}
+    - run: yarn install --immutable
+    - run: yarn test:transient-render-tree:ts
+      name: Typescript Tests
+    - run: yarn run test:transient-render-tree:lint
+      name: Linting Tests
+    - run: yarn run test:transient-render-tree:jest --coverage
+      name: Behavior Tests
+    - run: yarn build:transient-render-tree
+      name: Build
+    - uses: codecov/codecov-action@v1
+      with:
+        flags: transient-render-tree
+        fail_ci_if_error: true

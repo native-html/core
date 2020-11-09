@@ -1,0 +1,54 @@
+{
+  "name": "core",
+  "version": "0.0.0",
+  "description": "Core packages for react-native-render-html",
+  "author": "Jules Sam. Randolph <jules.sam.randolph@gmail.com> (https://github.com/jsamr)",
+  "license": "MIT",
+  "homepage": "https://github.com/native-html/core#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:native-html/core.git"
+  },
+  "private": true,
+  "scripts": {
+    "build:css-processor": "yarn workspace @native-html/css-processor build",
+    "build:transient-render-tree": "yarn workspace @native-html/transient-render-tree build",
+    "test:css-processor": "yarn workspace @native-html/css-processor test",
+    "test:css-processor:ts": "yarn workspace @native-html/css-processor test:ts",
+    "test:css-processor:lint": "yarn workspace @native-html/css-processor test:lint",
+    "test:css-processor:jest": "yarn workspace @native-html/css-processor test:jest",
+    "test:transient-render-tree": "yarn workspace @native-html/transient-render-tree test",
+    "test:transient-render-tree:ts": "yarn workspace @native-html/transient-render-tree test:ts",
+    "test:transient-render-tree:lint": "yarn workspace @native-html/transient-render-tree test:lint",
+    "test:transient-render-tree:jest": "yarn workspace @native-html/transient-render-tree test:jest",
+    "release:css-processor": "yarn workspace @native-html/css-processor release-it",
+    "release:transient-render-tree": "yarn workspace @native-html/transient-render-tree release-it"
+  },
+  "devDependencies": {
+    "@commitlint/cli": "^11.0.0",
+    "@commitlint/config-conventional": "^11.0.0",
+    "@react-native-community/eslint-config": "^2.0.0",
+    "@tsconfig/react-native": "^1.0.2",
+    "commitlint": "^11.0.0",
+    "eslint": "^7.10.0",
+    "eslint-config-prettier": "^6.12.0",
+    "eslint-plugin-compat": "^3.8.0",
+    "eslint-plugin-prettier": "^3.1.4",
+    "husky": "^4.3.0",
+    "prettier": "^2.1.2"
+  },
+  "commitlint": {
+    "extends": [
+      "@commitlint/config-conventional"
+    ]
+  },
+  "husky": {
+    "hooks": {
+      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
+    }
+  },
+  "workspaces": [
+    "packages/*",
+    "acceptance/*"
+  ]
+}

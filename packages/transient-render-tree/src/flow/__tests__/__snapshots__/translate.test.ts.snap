@@ -1,0 +1,78 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`translateNode function should comply with RFC002 example (translating) 1`] = `
+TPhrasingAnchor {
+  "attributes": Object {
+    "href": "https://domain.com",
+  },
+  "children": Array [
+    TText {
+      "attributes": Object {},
+      "children": Array [],
+      "data": "
+This is
+",
+      "isAnchor": false,
+      "tagName": null,
+      "type": "text",
+    },
+    TText {
+      "attributes": Object {},
+      "children": Array [],
+      "data": "phrasing content",
+      "isAnchor": false,
+      "tagName": "span",
+      "type": "text",
+    },
+    TText {
+      "attributes": Object {},
+      "children": Array [],
+      "data": "
+",
+      "isAnchor": false,
+      "tagName": null,
+      "type": "text",
+    },
+    TBlock {
+      "attributes": Object {
+        "src": "https://domain.com/logo.jpg",
+      },
+      "children": Array [],
+      "domChildren": Array [],
+      "isAnchor": false,
+      "tagName": "img",
+      "type": "block",
+    },
+    TText {
+      "attributes": Object {},
+      "children": Array [],
+      "data": "
+    and this is ",
+      "isAnchor": false,
+      "tagName": null,
+      "type": "text",
+    },
+    TText {
+      "attributes": Object {},
+      "children": Array [],
+      "data": "too",
+      "isAnchor": false,
+      "tagName": "strong",
+      "type": "text",
+    },
+    TText {
+      "attributes": Object {},
+      "children": Array [],
+      "data": ".
+",
+      "isAnchor": false,
+      "tagName": null,
+      "type": "text",
+    },
+  ],
+  "href": "https://domain.com",
+  "isAnchor": true,
+  "tagName": "a",
+  "type": "phrasing",
+}
+`;

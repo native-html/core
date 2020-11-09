@@ -1,0 +1,16 @@
+coverage:
+  precision: 1
+  round: up
+  range: '70...100'
+  status:
+    ersatz:
+      flags:
+        - ersatz
+
+flags:
+  css-processor:
+    paths:
+      - packages/css-processor/coverage/cover.xml
+  transient-render-tree:
+    paths:
+      - packages/transient-render-tree/coverage/cover.xml
