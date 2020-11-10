@@ -8,6 +8,7 @@ export class TBlockAnchor extends TBlock {
   public href: string;
   constructor(init: TBlockAnchorInit) {
     super(init);
+    // @ts-ignore
     this.isAnchor = true;
     this.href = init.href;
   }

@@ -30,12 +30,12 @@ function groupText(tnode: TBlock, wrappernode: TPhrasing): TNode {
   if (wrapper.children.length) {
     newChildren.push(wrapper);
   }
-  tnode.children = newChildren;
+  tnode.bindChildren(newChildren);
   return tnode;
 }
 
 function hoistNode(node: TNode): TNode {
-  node.children = node.children.map(hoistNode);
+  node.bindChildren(node.children.map(hoistNode));
   if (node instanceof TPhrasing) {
     for (const child of node.children) {
       if (child instanceof TBlock) {

@@ -9,6 +9,7 @@ export class TPhrasingAnchor extends TPhrasing {
   public href: string;
   constructor(init: TPhrasingAnchorInit) {
     super(init);
+    // @ts-ignore
     this.isAnchor = true;
     this.href = init.href;
   }

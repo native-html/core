@@ -4,7 +4,8 @@ describe('TText class', () => {
   describe('trimLeft method', () => {
     it('should remove the first character', () => {
       const text = new TText({
-        data: ' This is Great'
+        data: ' This is Great',
+        parentStyles: null
       });
       text.trimLeft();
       expect(text.data).toBe('This is Great');
@@ -13,7 +14,8 @@ describe('TText class', () => {
   describe('trimRight method', () => {
     it('should remove the last character', () => {
       const text = new TText({
-        data: 'This is Great '
+        data: 'This is Great ',
+        parentStyles: null
       });
       text.trimRight();
       expect(text.data).toBe('This is Great');

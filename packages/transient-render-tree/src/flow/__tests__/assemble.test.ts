@@ -44,6 +44,7 @@ describe('asssembleTDocument function', () => {
   });
   it('should parse context', async () => {
     const tdoc = await asssembleTDocument(htmlDocument);
+    expect(tdoc).toBeInstanceOf(TDocument);
     expect(tdoc.context).toMatchObject({
       charset: 'latin1',
       title: 'Voici un Titre',

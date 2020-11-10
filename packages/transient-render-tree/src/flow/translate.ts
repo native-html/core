@@ -48,6 +48,7 @@ function translateElement(
   if (model.isDocument) {
     const tdoc = new TDocument({ ...sharedProps });
     bindChildren(tdoc, node.children);
+    tdoc.parseChildren(tdoc.children);
     return tdoc;
   }
   if (model.isAnchor) {
@@ -102,7 +103,8 @@ export function translateNode(
   }
   if (isSerializableText(node)) {
     return new TText({
-      data: node.data
+      data: node.data,
+      parentStyles
     });
   }
   if (isSerializableElement(node)) {

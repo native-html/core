@@ -68,11 +68,16 @@ export class TDocument extends TBlock {
   public readonly context: Readonly<DocumentContext>;
   constructor({ attributes }: TNodeInit) {
     super({ tagName: 'html', attributes, parentStyles: null });
+    // @ts-ignore
     this.type = 'document';
     this.context = defaultContextBase;
   }
 
-  bindChildren(children: TNode[]) {
+  /**
+   * Iterate over children and extract meta-information into context field.
+   * Replace children with a single-element array containing the body.
+   */
+  parseChildren() {
     let head: TNode = new TEmpty({
       tagName: 'head',
       parentStyles: null
@@ -81,14 +86,14 @@ export class TDocument extends TBlock {
       tagName: 'body',
       parentStyles: null
     });
-    for (const child of children) {
+    for (const child of this.children) {
       if (child.tagName === 'head') {
         head = child;
       } else if (child.tagName === 'body') {
         body = child;
       }
     }
-    this.children = [body];
+    this.bindChildren([body]);
     //@ts-ignore
     this.context = Object.freeze(
       extractContextFromHead(head, this.attributes.lang)

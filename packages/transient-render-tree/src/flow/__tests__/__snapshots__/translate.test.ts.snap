@@ -12,8 +12,15 @@ TPhrasingAnchor {
       "data": "
 This is
 ",
+      "hasWhiteSpaceCollapsingEnabled": true,
       "isAnchor": false,
-      "parentStyles": null,
+      "parentStyles": TStyles {
+        "nativeBlockFlow": Object {},
+        "nativeBlockRet": Object {},
+        "nativeTextFlow": Object {},
+        "nativeTextRet": Object {},
+        "webTextFlow": Object {},
+      },
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -28,8 +35,15 @@ This is
       "attributes": Object {},
       "children": Array [],
       "data": "phrasing content",
+      "hasWhiteSpaceCollapsingEnabled": true,
       "isAnchor": false,
-      "parentStyles": null,
+      "parentStyles": TStyles {
+        "nativeBlockFlow": Object {},
+        "nativeBlockRet": Object {},
+        "nativeTextFlow": Object {},
+        "nativeTextRet": Object {},
+        "webTextFlow": Object {},
+      },
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -45,8 +59,15 @@ This is
       "children": Array [],
       "data": "
 ",
+      "hasWhiteSpaceCollapsingEnabled": true,
       "isAnchor": false,
-      "parentStyles": null,
+      "parentStyles": TStyles {
+        "nativeBlockFlow": Object {},
+        "nativeBlockRet": Object {},
+        "nativeTextFlow": Object {},
+        "nativeTextRet": Object {},
+        "webTextFlow": Object {},
+      },
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -62,6 +83,7 @@ This is
         "src": "https://domain.com/logo.jpg",
       },
       "children": Array [],
+      "hasWhiteSpaceCollapsingEnabled": true,
       "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
@@ -85,8 +107,15 @@ This is
       "children": Array [],
       "data": "
     and this is ",
+      "hasWhiteSpaceCollapsingEnabled": true,
       "isAnchor": false,
-      "parentStyles": null,
+      "parentStyles": TStyles {
+        "nativeBlockFlow": Object {},
+        "nativeBlockRet": Object {},
+        "nativeTextFlow": Object {},
+        "nativeTextRet": Object {},
+        "webTextFlow": Object {},
+      },
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -101,8 +130,15 @@ This is
       "attributes": Object {},
       "children": Array [],
       "data": "too",
+      "hasWhiteSpaceCollapsingEnabled": true,
       "isAnchor": false,
-      "parentStyles": null,
+      "parentStyles": TStyles {
+        "nativeBlockFlow": Object {},
+        "nativeBlockRet": Object {},
+        "nativeTextFlow": Object {},
+        "nativeTextRet": Object {},
+        "webTextFlow": Object {},
+      },
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -118,8 +154,15 @@ This is
       "children": Array [],
       "data": ".
 ",
+      "hasWhiteSpaceCollapsingEnabled": true,
       "isAnchor": false,
-      "parentStyles": null,
+      "parentStyles": TStyles {
+        "nativeBlockFlow": Object {},
+        "nativeBlockRet": Object {},
+        "nativeTextFlow": Object {},
+        "nativeTextRet": Object {},
+        "webTextFlow": Object {},
+      },
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -131,6 +174,7 @@ This is
       "type": "text",
     },
   ],
+  "hasWhiteSpaceCollapsingEnabled": true,
   "href": "https://domain.com",
   "isAnchor": true,
   "parentStyles": null,

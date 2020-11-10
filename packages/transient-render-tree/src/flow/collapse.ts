@@ -12,17 +12,19 @@ import {
 } from './text-transforms';
 
 function collapseText(node: TText): TText {
-  node.data = normalizeWhitespaces(
-    replaceSegmentBreaks(
-      normalizeSpaceDiscardingCharset(
-        normalizeZeroWidthWhitespaces(
-          removeConsecutiveSegmentBreaks(
-            removeCollapsibleAroundSegmentBreak(node.data)
+  if (node.hasWhiteSpaceCollapsingEnabled) {
+    node.data = normalizeWhitespaces(
+      replaceSegmentBreaks(
+        normalizeSpaceDiscardingCharset(
+          normalizeZeroWidthWhitespaces(
+            removeConsecutiveSegmentBreaks(
+              removeCollapsibleAroundSegmentBreak(node.data)
+            )
           )
         )
       )
-    )
-  );
+    );
+  }
   return node;
 }
 
@@ -31,18 +33,14 @@ function collapseBlock(node: TBlock): TBlock {
   for (const i in node.children) {
     const child = collapseNode(node.children[i]);
     if (!child.isWhitespace()) {
-      if (child.isCollapsibleLeft()) {
-        child.trimLeft();
-      }
-      if (child.isCollapsibleRight()) {
-        child.trimRight();
-      }
+      child.trimLeft();
+      child.trimRight();
       if (!child.isEmpty()) {
         newChildren.push(child);
       }
     }
   }
-  node.children = newChildren;
+  node.bindChildren(newChildren);
   return node;
 }
 
@@ -77,7 +75,7 @@ function collapsePhrasing(node: TPhrasing): TPhrasing {
       trimmedChildren.push(childI);
     }
   });
-  node.children = trimmedChildren;
+  node.bindChildren(trimmedChildren);
   return node;
 }
 
@@ -96,7 +94,7 @@ function collapseNode(node: TNode): TNode {
 
 export function collapse(tree: TNode): TNode {
   const root = collapseNode(tree);
-  root.isCollapsibleLeft() && root.trimLeft();
-  root.isCollapsibleRight() && root.trimRight();
+  root.trimLeft();
+  root.trimRight();
   return root;
 }

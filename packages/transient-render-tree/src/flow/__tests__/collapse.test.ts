@@ -336,4 +336,124 @@ describe('collapse function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
+  it('should not collapse when white-space CSS property is set to "pre"', async () => {
+    const ttree = await makeTTree(
+      '<div style="white-space: pre;">  This is great!  </div>'
+    );
+    expect(ttree).toMatchObject({
+      type: 'block',
+      isAnchor: false,
+      attributes: {},
+      tagName: 'div',
+      styles: {
+        webTextFlow: { whiteSpace: 'pre' }
+      },
+      children: [
+        {
+          type: 'phrasing',
+          tagName: null,
+          styles: {
+            webTextFlow: { whiteSpace: 'pre' }
+          },
+          children: [
+            {
+              type: 'text',
+              tagName: null,
+              data: '  This is great!  ',
+              styles: {
+                webTextFlow: { whiteSpace: 'pre' }
+              }
+            }
+          ]
+        }
+      ]
+    });
+  });
+  it('should collapse when white-space CSS property is set to "normal"', async () => {
+    const ttree = await makeTTree(
+      '<div style="white-space: normal;">  This is great!  </div>'
+    );
+    expect(ttree).toMatchObject({
+      type: 'block',
+      isAnchor: false,
+      attributes: {},
+      tagName: 'div',
+      styles: {
+        webTextFlow: { whiteSpace: 'normal' }
+      },
+      children: [
+        {
+          type: 'phrasing',
+          tagName: null,
+          styles: {
+            webTextFlow: { whiteSpace: 'normal' }
+          },
+          children: [
+            {
+              type: 'text',
+              tagName: null,
+              data: 'This is great!'
+            }
+          ]
+        }
+      ]
+    });
+  });
+  it('should collapse when white-space CSS property is not set', async () => {
+    const ttree = await makeTTree('<div>  This is great!  </div>');
+    expect(ttree).toMatchObject({
+      type: 'block',
+      isAnchor: false,
+      attributes: {},
+      tagName: 'div',
+      styles: {},
+      children: [
+        {
+          type: 'phrasing',
+          tagName: null,
+          styles: {},
+          children: [
+            {
+              type: 'text',
+              tagName: null,
+              data: 'This is great!'
+            }
+          ]
+        }
+      ]
+    });
+  });
+  it('should collapse in a node with white-space set to "normal" while its parent has white-space set to "pre"', async () => {
+    const ttree = await makeTTree(
+      '<div style="white-space: pre;"><span> This is nice </span><strong style="white-space: normal"> Should collapse </strong></div>'
+    );
+    expect(ttree).toMatchObject({
+      type: 'block',
+      isAnchor: false,
+      attributes: {},
+      tagName: 'div',
+      styles: {},
+      children: [
+        {
+          type: 'phrasing',
+          tagName: null,
+          styles: {},
+          children: [
+            {
+              type: 'text',
+              tagName: 'span',
+              data: ' This is nice '
+            },
+            {
+              type: 'text',
+              tagName: 'strong',
+              // left space should be spared, since left sibling is not
+              // collapsible (tested in Mozilla Firefox and Chromium)
+              data: ' Should collapse'
+            }
+          ]
+        }
+      ]
+    });
+  });
 });

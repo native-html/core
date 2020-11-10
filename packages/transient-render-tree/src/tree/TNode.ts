@@ -12,14 +12,15 @@ export interface TNodeInit {
 }
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';
 export abstract class TNode implements TNodeInit {
-  public type: TNodeType;
-  public styles: TStyles;
-  public attributes: Record<string, string>;
-  public children: TNode[];
-  public domChildren?: SerializableNode[];
-  public tagName: string | null;
-  public isAnchor: boolean;
-  public parentStyles: TStyles | null;
+  public readonly type: TNodeType;
+  public readonly styles: TStyles;
+  public readonly attributes: Record<string, string>;
+  public readonly children: TNode[];
+  public readonly domChildren?: SerializableNode[];
+  public readonly tagName: string | null;
+  public readonly isAnchor: boolean;
+  public readonly parentStyles: TStyles | null;
+  public readonly hasWhiteSpaceCollapsingEnabled: boolean;
 
   constructor(init: TNodeInit, type: TNodeType) {
     this.type = type;
@@ -31,9 +32,14 @@ export abstract class TNode implements TNodeInit {
     this.styles = new TStyles(rawStyles, init.parentStyles);
     this.parentStyles = init.parentStyles;
     this.children = [];
+    this.hasWhiteSpaceCollapsingEnabled =
+      typeof this.styles.webTextFlow.whiteSpace === 'string'
+        ? this.styles.webTextFlow.whiteSpace === 'normal'
+        : true;
   }
 
   bindChildren(children: TNode[]) {
+    // @ts-ignore
     this.children = children;
   }
 
@@ -46,14 +52,20 @@ export abstract class TNode implements TNodeInit {
 
   isCollapsibleLeft(): boolean {
     if (this.children.length) {
-      return this.children[0].isCollapsibleLeft();
+      return (
+        this.hasWhiteSpaceCollapsingEnabled &&
+        this.children[0].isCollapsibleLeft()
+      );
     }
     return false;
   }
 
   isCollapsibleRight(): boolean {
     if (this.children.length) {
-      return this.children[this.children.length - 1].isCollapsibleRight();
+      return (
+        this.hasWhiteSpaceCollapsingEnabled &&
+        this.children[this.children.length - 1].isCollapsibleRight()
+      );
     }
     return false;
   }
