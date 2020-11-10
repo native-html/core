@@ -331,6 +331,8 @@ const tabularModelMap: ModelRegistry<TabularTagNames> = {
   })
 };
 
+// Embedded elements are considered "opaque", i.e. no children will be
+// translated, but a reference to domChildren will be kept.
 const embeddedModelMap: ModelRegistry<EmbeddedTagNames> = {
   audio: new HTMLElementModel({
     tagName: 'audio',

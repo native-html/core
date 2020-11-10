@@ -456,4 +456,23 @@ describe('collapse function', () => {
       ]
     });
   });
+  it('should withold TEmpty nodes', async () => {
+    const ttree = await makeTTree(
+      '<div><span>Hi!</span><link rel="author" href="mailto:don@company.com" /></div>'
+    );
+    expect(ttree).toMatchObject({
+      type: 'block',
+      tagName: 'div',
+      children: [
+        {
+          type: 'phrasing',
+          tagName: null
+        },
+        {
+          type: 'empty',
+          tagName: 'link'
+        }
+      ]
+    });
+  });
 });
