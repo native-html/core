@@ -8,7 +8,10 @@ import { TPhrasing } from '../tree/TPhrasing';
 import { TBlock } from '../tree/TBlock';
 import { isTextNode, isElementNode } from '../dom/utils';
 import { TDocument } from '../tree/TDocument';
-import { serializeChildren, serializeNode } from '../dom/serializer';
+import {
+  toSerializableChildren,
+  toSerializableNode
+} from '../dom/to-serializable';
 
 function mapNodeList(nodeList: Node[]): TNode[] {
   const nextMap: TNode[] = [];
@@ -68,7 +71,7 @@ function translateElement(node: Element): TNode {
     const block = new TBlock({
       ...sharedProps,
       domChildren: model.isOpaque
-        ? serializeChildren(node.children)
+        ? toSerializableChildren(node.children)
         : undefined,
       children: model.isOpaque ? undefined : mapChildren(node)
     });
@@ -77,7 +80,7 @@ function translateElement(node: Element): TNode {
 
   return new TEmpty({
     tagName,
-    domNode: serializeNode(node)
+    domNode: toSerializableNode(node)
   });
 }
 

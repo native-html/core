@@ -1,5 +1,5 @@
 import { TNode, TNodeInit } from './TNode';
-import { SerializableNode } from '../dom/serializer';
+import { SerializableNode } from '../dom/to-serializable';
 
 export interface TBlockInit extends TNodeInit {
   /**

@@ -13,10 +13,10 @@ export interface SerializableElement
   children: SerializableNode[];
 }
 
-export function serializeChildren(children: Node[]): SerializableNode[] {
+export function toSerializableChildren(children: Node[]): SerializableNode[] {
   const serializableNodes: SerializableNode[] = [];
   for (const child of children) {
-    const serialized = serializeNode(child);
+    const serialized = toSerializableNode(child);
     if (serialized) {
       serializableNodes.push(serialized);
     }
@@ -31,7 +31,7 @@ function serializeTextNode({ data }: Text): SerializableText {
   };
 }
 
-function serializeElement({
+function toSerializableElement({
   attribs,
   tagName,
   children
@@ -40,16 +40,16 @@ function serializeElement({
     attribs,
     tagName,
     type: 'element',
-    children: serializeChildren(children)
+    children: toSerializableChildren(children)
   };
 }
 
-export function serializeNode(node?: Node): null | SerializableNode {
+export function toSerializableNode(node?: Node): null | SerializableNode {
   if (isTextNode(node)) {
     return serializeTextNode(node);
   }
   if (isElementNode(node)) {
-    return serializeElement(node);
+    return toSerializableElement(node);
   }
   return null;
 }

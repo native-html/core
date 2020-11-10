@@ -1,4 +1,4 @@
-import { SerializableNode } from '../dom/serializer';
+import { SerializableNode } from '../dom/to-serializable';
 import { TNode, TNodeInit } from './TNode';
 
 export interface TEmptyInit extends Omit<TNodeInit, 'type'> {
