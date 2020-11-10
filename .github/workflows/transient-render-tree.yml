@@ -23,6 +23,8 @@ jobs:
       with:
         node-version: ${{ matrix.node-version }}
     - run: yarn install --immutable
+    - run: yarn build:css-processor
+      name: Build dependencies
     - run: yarn test:transient-render-tree:ts
       name: Typescript Tests
     - run: yarn run test:transient-render-tree:lint
