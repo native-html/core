@@ -1,24 +1,24 @@
 import { DomHandler, Parser, ParserOptions } from 'htmlparser2';
-import { Node } from 'domhandler';
+import { DomHandlerOptions, Node } from 'domhandler';
 
 const defaultParserOptions: ParserOptions = {
   decodeEntities: true
 };
 
-export async function parseHtml(html: string, parserOptions?: ParserOptions) {
+export async function parseHtml(
+  html: string,
+  domHandlerOptions?: DomHandlerOptions,
+  parserOptions?: ParserOptions
+) {
   const options = {
     ...defaultParserOptions,
     ...parserOptions
   };
-  return new Promise<Node[]>((resolve, reject) => {
+  return new Promise<Node[]>((resolve) => {
     const parser = new Parser(
-      new DomHandler((error, documentTree) => {
-        if (error) {
-          reject(error);
-        } else {
-          resolve(documentTree);
-        }
-      }),
+      new DomHandler((_error, documentTree) => {
+        resolve(documentTree);
+      }, domHandlerOptions),
       options
     );
     parser.write(html);

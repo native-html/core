@@ -1,4 +1,7 @@
+import { TBlock } from '../../tree/TBlock';
 import { TNode } from '../../tree/TNode';
+import { TPhrasing } from '../../tree/TPhrasing';
+import { TText } from '../../tree/TText';
 import { collapse } from '../collapse';
 import { hoist } from '../hoist';
 import {
@@ -248,6 +251,53 @@ describe('collapse function', () => {
       ]
     });
   });
+  it('should remove empty children from TBlock nodes', () => {
+    const ttree = new TBlock({
+      parentStyles: null
+    });
+    ttree.bindChildren([new TText({ data: '', parentStyles: null })]);
+    expect(collapse(ttree).children).toHaveLength(0);
+  });
+  it('should remove empty TText children from TPhrasing nodes', () => {
+    const ttree = new TPhrasing({
+      parentStyles: null
+    });
+    ttree.bindChildren([new TText({ data: '', parentStyles: null })]);
+    expect(collapse(ttree).children).toHaveLength(0);
+  });
+  it('should remove empty TPhrasing children from TPhrasing nodes', () => {
+    const ttree = new TPhrasing({
+      parentStyles: null
+    });
+    const tphrasing = new TPhrasing({
+      parentStyles: null
+    });
+    tphrasing.bindChildren([new TText({ data: '', parentStyles: null })]);
+    ttree.bindChildren([tphrasing]);
+    expect(collapse(ttree).children).toHaveLength(0);
+  });
+  it('should remove children from TPhrasing nodes which are not TText or TPhrasing nodes', async () => {
+    const ttree = new TPhrasing({
+      parentStyles: null
+    });
+    const forbiddenChild = new TBlock({
+      parentStyles: null
+    });
+    ttree.bindChildren([forbiddenChild]);
+    expect(collapse(ttree).children).toHaveLength(0);
+  });
+  it('should remove children from TPhrasing nodes which are empty after timming', async () => {
+    const ttree = new TPhrasing({
+      parentStyles: null
+    });
+    ttree.bindChildren([
+      // This node will be empty after trimming right, and should be removed
+      new TText({ data: ' ', parentStyles: null }),
+      new TText({ data: ' Foo', parentStyles: null }),
+      new TText({ data: ' Bar', parentStyles: null })
+    ]);
+    expect(collapse(ttree).children).toHaveLength(2);
+  });
   it('should handle direct style inheritance', async () => {
     const ttree = await makeTTree(
       '<div style="font-size: 18px;border-width: 20px;"><span style="color: red;">This is nice!</span></div>'
@@ -423,7 +473,7 @@ describe('collapse function', () => {
       ]
     });
   });
-  it('should collapse in a node with white-space set to "normal" while its parent has white-space set to "pre"', async () => {
+  it('should collapse a node with white-space set to "normal" while its parent has white-space set to "pre"', async () => {
     const ttree = await makeTTree(
       '<div style="white-space: pre;"><span> This is nice </span><strong style="white-space: normal"> Should collapse </strong></div>'
     );
