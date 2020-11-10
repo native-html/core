@@ -48,7 +48,7 @@ function translateElement(
   if (model.isDocument) {
     const tdoc = new TDocument({ ...sharedProps });
     bindChildren(tdoc, node.children);
-    tdoc.parseChildren(tdoc.children);
+    tdoc.parseChildren();
     return tdoc;
   }
   if (model.isAnchor) {
