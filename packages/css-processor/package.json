@@ -49,6 +49,7 @@
     "param-case": "^3.0.3",
     "prettier": "^2.1.2",
     "react": "16.13.1",
+    "release-config": "workspace:*",
     "release-it": "^14.0.3",
     "typescript": "~3.9.7"
   },

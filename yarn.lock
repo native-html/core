@@ -1882,6 +1882,7 @@ __metadata:
     param-case: ^3.0.3
     prettier: ^2.1.2
     react: 16.13.1
+    release-config: "workspace:*"
     release-it: ^14.0.3
     typescript: ~3.9.7
   peerDependencies:
@@ -1910,6 +1911,7 @@ __metadata:
     metro-react-native-babel-preset: ^0.63.0
     prettier: ^2.1.2
     react: 16.13.1
+    release-config: "workspace:*"
     release-it: ^14.0.3
     typescript: ~3.9.7
   peerDependencies:
@@ -9288,6 +9290,12 @@ fsevents@^1.2.7:
   checksum: cf7838462ebe0256ef25618eab5981dc080501efde6458906a47ee1c017c93f7e27723d4a56f658014d5c8381a60d189e19f05198ef343e106343642471b1594
   languageName: node
   linkType: hard
+
+"release-config@workspace:*, release-config@workspace:packages/release-config":
+  version: 0.0.0-use.local
+  resolution: "release-config@workspace:packages/release-config"
+  languageName: unknown
+  linkType: soft
 
 "release-it@npm:^14.0.3":
   version: 14.2.1
