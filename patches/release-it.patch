@@ -1,0 +1,45 @@
+diff --git a/lib/plugin/GitBase.js b/lib/plugin/GitBase.js
+index dcf35ed4cafb14e1f823a3929e5534039e690652..f4c3129bae4c6c25fe05a72b8d831fe3bda4a7d2 100644
+--- a/lib/plugin/GitBase.js
++++ b/lib/plugin/GitBase.js
+@@ -14,7 +14,7 @@ class GitBase extends Plugin {
+     await this.fetch();
+     const repo = parseGitUrl(this.remoteUrl);
+     const latestTagName = await this.getLatestTagName();
+-    const secondLatestTagName = this.options.isUpdate ? await this.getSecondLatestTagName() : null;
++    const secondLatestTagName = this.options.isUpdate ? await this.getSecondLatestTagName(latestTagName) : null;
+     const tagTemplate = this.options.tagName || ((latestTagName || '').match(/^v/) ? 'v${version}' : '${version}');
+     this.setContext({ repo, tagTemplate, latestTagName, secondLatestTagName });
+     this.config.setContext({ latestTag: latestTagName });
+@@ -89,14 +89,15 @@ class GitBase extends Plugin {
+   }
+ 
+   getLatestTagName() {
+-    return this.exec('git describe --tags --abbrev=0', { options }).then(
++    const match = format(this.options.tagName || '${version}', { version: "*" })
++    return this.exec(`git describe --tags --match "${match}" --abbrev=0`, { options }).then(
+       stdout => stdout || null,
+       () => null
+     );
+   }
+ 
+-  async getSecondLatestTagName() {
+-    const sha = await this.exec('git rev-list --tags --skip=1 --max-count=1', { options });
++  async getSecondLatestTagName(latestTag) {
++    const sha = await this.exec(`git rev-list ${latestTag} --tags --max-count=1`, { options });
+     return this.exec(`git describe --tags --abbrev=0 ${sha}`, { options }).catch(() => null);
+   }
+ }
+diff --git a/lib/plugin/npm/npm.js b/lib/plugin/npm/npm.js
+index 12a28d26db8d78fa7ce011d8d201668fb21b8f97..65be3f3bd7fb370cf95cee794c288ded15149558 100644
+--- a/lib/plugin/npm/npm.js
++++ b/lib/plugin/npm/npm.js
+@@ -229,7 +229,7 @@ class npm extends Plugin {
+       this.log.warn('Skip publish: package is private.');
+       return false;
+     }
+-    return this.exec(`npm publish ${publishPath} --tag ${tag} ${otpArg} ${dryRunArg}`, { options })
++    return (this.config.isDryRun ? this.exec(`npm publish ${publishPath} --tag ${tag} ${otpArg} ${dryRunArg}`, { options }) : this.exec(`yarn npm publish --tag ${tag}`, { options }))
+       .then(() => {
+         this.setContext({ isReleased: true });
+       })

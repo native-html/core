@@ -1,0 +1,32 @@
+diff --git a/index.js b/index.js
+index abbce1815895b044bac47588a327f1b049304b8d..e31f4ee93c6896fefb30552e8bf89f6c182610a4 100644
+--- a/index.js
++++ b/index.js
+@@ -1,6 +1,7 @@
+ const { EOL } = require('os');
+ const fs = require('fs');
+ const { Plugin } = require('release-it');
++const { format } = require('release-it/lib/util');
+ const conventionalRecommendedBump = require('conventional-recommended-bump');
+ const conventionalChangelog = require('conventional-changelog');
+ const semver = require('semver');
+@@ -14,7 +15,8 @@ class ConventionalChangelog extends Plugin {
+ 
+   getInitialOptions(options, namespace) {
+     options[namespace].tagName = options.git.tagName;
+-    return options[namespace];
++    const tagPrefix = format(options.git.tagName || '${version}', { version: '' });
++    return {...options[namespace], path: './', tagPrefix};
+   }
+ 
+   async getChangelog(latestVersion) {
+@@ -68,7 +70,8 @@ class ConventionalChangelog extends Plugin {
+       Object.assign(options, this.options),
+       { version, previousTag, currentTag },
+       {
+-        debug: this.config.isDebug ? this.debug : null
++        debug: this.config.isDebug ? this.debug : null,
++        path: this.options.path
+       }
+     );
+   }
