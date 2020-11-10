@@ -1,22 +1,28 @@
 import { TEmpty } from '../tree/TEmpty';
-import { TNode } from '../tree/TNode';
-import { Node, Element } from 'domhandler';
+import { TNode, TNodeInit } from '../tree/TNode';
+import { Node } from 'domhandler';
 import { TText } from '../tree/TText';
 import { getElementModelFromTagName } from '../dom/elements-model';
 import { TPhrasingAnchor } from '../tree/TPhrasingAnchor';
 import { TPhrasing } from '../tree/TPhrasing';
 import { TBlock } from '../tree/TBlock';
-import { isTextNode, isElementNode } from '../dom/utils';
 import { TDocument } from '../tree/TDocument';
 import {
-  toSerializableChildren,
-  toSerializableNode
+  isSerializableElement,
+  isSerializableText,
+  SerializableElement,
+  SerializableNode,
+  toSerializableChildren
 } from '../dom/to-serializable';
+import { TStyles } from '../TStyles';
 
-function mapNodeList(nodeList: Node[]): TNode[] {
+function mapNodeList(
+  nodeList: SerializableNode[],
+  parentStyles: TStyles | null
+): TNode[] {
   const nextMap: TNode[] = [];
   for (const child of nodeList) {
-    const translated = translateNode(child);
+    const translated = translateNode(child, parentStyles);
     if (translated) {
       nextMap.push(translated);
     }
@@ -24,26 +30,32 @@ function mapNodeList(nodeList: Node[]): TNode[] {
   return nextMap;
 }
 
-function mapChildren(node: Element): TNode[] {
-  return mapNodeList(node.children);
+export function bindChildren(node: TNode, children: SerializableNode[]) {
+  node.bindChildren(mapNodeList(children, node.styles));
 }
 
-function translateElement(node: Element): TNode {
+function translateElement(
+  node: SerializableElement,
+  parentStyles: TStyles | null
+): TNode {
   const tagName = node.tagName.toLowerCase();
   const model = getElementModelFromTagName(tagName);
-  const sharedProps = {
+  const sharedProps: TNodeInit = {
     tagName,
+    parentStyles,
     attributes: node.attribs
   };
   if (model.isDocument) {
-    return new TDocument({ children: mapChildren(node), ...sharedProps });
+    const tdoc = new TDocument({ ...sharedProps });
+    bindChildren(tdoc, node.children);
+    return tdoc;
   }
   if (model.isAnchor) {
     const anchor = new TPhrasingAnchor({
       ...sharedProps,
-      href: node.attribs.href,
-      children: mapChildren(node)
+      href: node.attribs.href
     });
+    bindChildren(anchor, node.children);
     return anchor;
   }
   if (model.isPhrasing) {
@@ -53,57 +65,67 @@ function translateElement(node: Element): TNode {
         data: ''
       });
     } else if (node.children.length === 1) {
-      const child = node.firstChild as Node;
-      if (isTextNode(child)) {
+      const child = node.children[0] as SerializableNode;
+      if (isSerializableText(child)) {
         return new TText({
           ...sharedProps,
           data: child.data
         });
       }
     }
-    const phrasing = new TPhrasing({
-      ...sharedProps,
-      children: mapChildren(node)
-    });
+    const phrasing = new TPhrasing(sharedProps);
+    bindChildren(phrasing, node.children);
     return phrasing;
   }
   if (model.isTranslatableBlock) {
     const block = new TBlock({
       ...sharedProps,
-      domChildren: model.isOpaque
-        ? toSerializableChildren(node.children)
-        : undefined,
-      children: model.isOpaque ? undefined : mapChildren(node)
+      parentStyles,
+      domChildren: model.isOpaque && !model.isVoid ? node.children : undefined
     });
+    bindChildren(block, node.children);
     return block;
   }
 
   return new TEmpty({
-    tagName,
-    domNode: toSerializableNode(node)
+    ...sharedProps,
+    domNode: node
   });
 }
 
-export function translateNode(node: Node): TNode | null {
-  if (isTextNode(node)) {
+export function translateNode(
+  node: SerializableNode | null,
+  parentStyles: TStyles | null
+): TNode | null {
+  if (!node) {
+    return null;
+  }
+  if (isSerializableText(node)) {
     return new TText({
       data: node.data
     });
   }
-  if (isElementNode(node)) {
-    return translateElement(node);
+  if (isSerializableElement(node)) {
+    return translateElement(node, parentStyles);
   }
   return null;
 }
 
 export function translateDocument(documentTree: Node[]): TDocument {
-  const rootNodes = mapNodeList(documentTree);
-  const tdoc = rootNodes.find((n) => n instanceof TDocument);
-  if (tdoc) {
-    return tdoc as TDocument;
+  const rootNodes = mapNodeList(toSerializableChildren(documentTree), null);
+  let foundTdoc = rootNodes.find((n) => n instanceof TDocument);
+  if (foundTdoc) {
+    return foundTdoc as TDocument;
   } else {
-    return new TDocument({
-      children: [new TBlock({ tagName: 'body', children: rootNodes })]
+    const body = new TBlock({
+      tagName: 'body',
+      parentStyles: null
     });
+    body.bindChildren(rootNodes);
+    const newTdoc = new TDocument({
+      parentStyles: null
+    });
+    newTdoc.bindChildren([body]);
+    return newTdoc;
   }
 }

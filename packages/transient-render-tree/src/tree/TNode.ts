@@ -1,22 +1,47 @@
+import { TStyles } from '../TStyles';
+import { SerializableNode } from '../dom/to-serializable';
+
 export interface TNodeInit {
-  children?: TNode[];
+  /**
+   * Opaque nodes will hold a reference to a list of DOM children.
+   */
+  domChildren?: SerializableNode[];
   tagName?: string | null;
   attributes?: Record<string, string>;
+  parentStyles: TStyles | null;
 }
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';
-export abstract class TNode implements Required<TNodeInit> {
+export abstract class TNode implements TNodeInit {
   public type: TNodeType;
+  public styles: TStyles;
   public attributes: Record<string, string>;
   public children: TNode[];
+  public domChildren?: SerializableNode[];
   public tagName: string | null;
   public isAnchor: boolean;
+  public parentStyles: TStyles | null;
 
   constructor(init: TNodeInit, type: TNodeType) {
     this.type = type;
     this.attributes = init.attributes || {};
-    this.children = init.children || [];
     this.isAnchor = false;
     this.tagName = init.tagName || null;
+    const rawStyles = this.attributes.style;
+    this.attributes.style && delete this.attributes.style;
+    this.styles = new TStyles(rawStyles, init.parentStyles);
+    this.parentStyles = init.parentStyles;
+    this.children = [];
+  }
+
+  bindChildren(children: TNode[]) {
+    this.children = children;
+  }
+
+  cloneInitParams<T extends TNodeInit = TNodeInit>(partial?: Partial<T>): T {
+    return ({
+      ...this,
+      ...partial
+    } as any) as T;
   }
 
   isCollapsibleLeft(): boolean {

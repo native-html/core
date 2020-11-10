@@ -18,7 +18,8 @@ function groupText(tnode: TBlock, wrappernode: TPhrasing): TNode {
       if (wrappernode instanceof TPhrasingAnchor) {
         const nextChild = new TBlockAnchor({
           ...newChild,
-          href: wrappernode.href
+          href: wrappernode.href,
+          parentStyles: wrappernode.parentStyles
         });
         newChildren.push(nextChild);
       } else {
@@ -38,12 +39,21 @@ function hoistNode(node: TNode): TNode {
   if (node instanceof TPhrasing) {
     for (const child of node.children) {
       if (child instanceof TBlock) {
-        return groupText(new TBlock({ ...node }), node);
+        const newNode = new TBlock(
+          node.cloneInitParams({ parentStyles: null })
+        );
+        newNode.bindChildren(node.children);
+        return groupText(newNode, node);
       }
     }
   } else if (node instanceof TBlock) {
     if (node.children.length > 0) {
-      return groupText(node, new TPhrasing({}));
+      return groupText(
+        node,
+        new TPhrasing({
+          parentStyles: node.styles
+        })
+      );
     }
   }
   return node;

@@ -1,13 +1,9 @@
-import { translateNode } from '../translate';
-import { parseHtml } from '../parse-html';
 import { imgSrc, rfc002Source, href } from './shared';
 import { hoist } from '../hoist';
-import { TNode } from '../../tree/TNode';
+import { translateTreeTest } from './utils';
 
 async function makeTTree(source: string) {
-  const documentTree = await parseHtml(source);
-  const ttree = translateNode(documentTree[0]);
-  return hoist(ttree as TNode);
+  return hoist(await translateTreeTest(source));
 }
 
 describe('hoist function', () => {

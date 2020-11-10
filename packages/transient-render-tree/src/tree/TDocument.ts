@@ -12,16 +12,18 @@ export interface DocumentContext {
   links: Record<string, string>[];
 }
 
+const defaultContextBase: DocumentContext = Object.freeze({
+  baseHref: 'about:blank',
+  baseTarget: '_blank',
+  charset: 'utf-8',
+  title: '',
+  lang: 'en',
+  links: [],
+  meta: []
+});
+
 function getDefaultDocumentContext(): DocumentContext {
-  return {
-    baseHref: 'about:blank',
-    baseTarget: '_blank',
-    charset: 'utf-8',
-    title: '',
-    lang: 'en',
-    links: [],
-    meta: []
-  };
+  return Object.assign({}, defaultContextBase, { links: [], meta: [] });
 }
 
 function extractContextFromHead(head: TNode, lang?: string) {
@@ -64,11 +66,21 @@ function extractContextFromHead(head: TNode, lang?: string) {
 
 export class TDocument extends TBlock {
   public readonly context: Readonly<DocumentContext>;
-  constructor({ children = [], attributes }: TNodeInit) {
-    super({ tagName: 'html', attributes });
+  constructor({ attributes }: TNodeInit) {
+    super({ tagName: 'html', attributes, parentStyles: null });
     this.type = 'document';
-    let head: TNode = new TEmpty({ tagName: 'head' });
-    let body: TNode = new TBlock({ tagName: 'body' });
+    this.context = defaultContextBase;
+  }
+
+  bindChildren(children: TNode[]) {
+    let head: TNode = new TEmpty({
+      tagName: 'head',
+      parentStyles: null
+    });
+    let body: TNode = new TBlock({
+      tagName: 'body',
+      parentStyles: null
+    });
     for (const child of children) {
       if (child.tagName === 'head') {
         head = child;
@@ -77,6 +89,7 @@ export class TDocument extends TBlock {
       }
     }
     this.children = [body];
+    //@ts-ignore
     this.context = Object.freeze(
       extractContextFromHead(head, this.attributes.lang)
     );

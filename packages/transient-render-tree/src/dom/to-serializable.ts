@@ -13,6 +13,14 @@ export interface SerializableElement
   children: SerializableNode[];
 }
 
+export function isSerializableText(node: any): node is SerializableText {
+  return node && node.type === 'text';
+}
+
+export function isSerializableElement(node: any): node is SerializableElement {
+  return node && node.type === 'element';
+}
+
 export function toSerializableChildren(children: Node[]): SerializableNode[] {
   const serializableNodes: SerializableNode[] = [];
   for (const child of children) {

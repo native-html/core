@@ -1,13 +1,17 @@
 import { TNode, TNodeInit } from './TNode';
 
-export interface TTextInit extends TNodeInit {
+export interface TTextInit
+  extends Omit<TNodeInit, 'bindChildren' | 'parentStyles'> {
   data: string;
 }
 
-export class TText extends TNode implements TTextInit {
+export class TText extends TNode {
   public data: string;
   constructor(init: TTextInit) {
-    super(init, 'text');
+    // Text node don't inherit flowed style properties,
+    // since inheritance will be handled by React Native engine.
+    // TODO test
+    super({ ...init, parentStyles: null }, 'text');
     this.data = init.data;
   }
 

@@ -1,8 +1,6 @@
 import { TNode } from '../../tree/TNode';
 import { collapse } from '../collapse';
 import { hoist } from '../hoist';
-import { parseHtml } from '../parse-html';
-import { translateNode } from '../translate';
 import {
   deeplyNestedSource,
   href,
@@ -12,10 +10,10 @@ import {
   rfc002Source,
   secondaryHref
 } from './shared';
+import { translateTreeTest } from './utils';
 
 async function makeTTree(html: string): Promise<TNode> {
-  const documentTree = await parseHtml(html);
-  return collapse(hoist(translateNode(documentTree[0]) as TNode));
+  return collapse(hoist(await translateTreeTest(html)));
 }
 
 describe('collapse function', () => {
@@ -249,5 +247,93 @@ describe('collapse function', () => {
         }
       ]
     });
+  });
+  it('should handle direct style inheritance', async () => {
+    const ttree = await makeTTree(
+      '<div style="font-size: 18px;border-width: 20px;"><span style="color: red;">This is nice!</span></div>'
+    );
+    expect(ttree).toMatchObject({
+      type: 'block',
+      isAnchor: false,
+      attributes: {},
+      tagName: 'div',
+      styles: {
+        nativeTextFlow: { fontSize: 18 },
+        nativeBlockRet: {
+          borderTopWidth: 20,
+          borderRightWidth: 20,
+          borderBottomWidth: 20,
+          borderLeftWidth: 20
+        }
+      },
+      children: [
+        {
+          type: 'phrasing',
+          isAnchor: false,
+          attributes: {},
+          styles: {
+            nativeTextFlow: { fontSize: 18 },
+            nativeBlockRet: {}
+          },
+          children: [
+            {
+              type: 'text',
+              tagName: 'span',
+              data: 'This is nice!',
+              styles: {
+                nativeTextFlow: { color: 'red' }
+              }
+            }
+          ]
+        }
+      ]
+    });
+    expect(ttree).toMatchSnapshot();
+  });
+  it('should handle indirect style inheritance', async () => {
+    const ttree = await makeTTree(
+      '<div style="font-size: 18px;"><div style="border-width: 20px;">This is great!</div></div>'
+    );
+    expect(ttree).toMatchObject({
+      type: 'block',
+      isAnchor: false,
+      attributes: {},
+      tagName: 'div',
+      styles: {
+        nativeTextFlow: { fontSize: 18 }
+      },
+      children: [
+        {
+          type: 'block',
+          tagName: 'div',
+          styles: {
+            nativeTextFlow: { fontSize: 18 },
+            nativeBlockRet: {
+              borderTopWidth: 20,
+              borderRightWidth: 20,
+              borderBottomWidth: 20,
+              borderLeftWidth: 20
+            }
+          },
+          children: [
+            {
+              type: 'phrasing',
+              tagName: null,
+              styles: {
+                nativeTextFlow: { fontSize: 18 }
+              },
+              children: [
+                {
+                  type: 'text',
+                  data: 'This is great!',
+                  tagName: null
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    });
+    expect(ttree).toMatchSnapshot();
   });
 });

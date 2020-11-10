@@ -58,7 +58,8 @@ export type AttribTagNames =
   | 'colgroup' // Attribute for table
   | 'col' //  Attribute for colgroup
   | 'option' // Attribute for optgroup, select
-  | 'optgroup'; // Attribute for select
+  | 'optgroup' // Attribute for select
+  | 'param'; // Attribute for object
 
 export type MetadataTagNames = 'head' | 'title' | 'base' | 'link' | 'meta';
 
@@ -155,6 +156,10 @@ export interface ElementModelBase<T = TagName, C = ElementCategory> {
    * to the dom node children should be used for rendering. Example: XML
    */
   isOpaque?: boolean;
+  /**
+   * Void elements such as specified in HTML4. Void elements cannot have children.
+   */
+  isVoid?: boolean;
 }
 
 const phrasingCategories: ElementCategory[] = ['textual', 'edits'];
@@ -165,6 +170,7 @@ const translatableBlockCategories: ElementCategory[] = [
   'sectioning',
   'custom'
 ];
+
 export class HTMLElementModel<T extends string> {
   public readonly tagName: T;
   public readonly isOpaque: boolean;
@@ -172,13 +178,16 @@ export class HTMLElementModel<T extends string> {
   public readonly isAnchor: boolean;
   public readonly isPhrasing: boolean;
   public readonly isTranslatableBlock: boolean;
+  public readonly isVoid: boolean;
   constructor({
     tagName,
     category,
-    isOpaque
+    isOpaque,
+    isVoid
   }: ElementModelBase<T, ElementCategory>) {
     this.tagName = tagName;
     this.isOpaque = isOpaque ?? category === 'embedded';
+    this.isVoid = isVoid ?? false;
     this.isAnchor = category === 'anchor';
     this.isDocument = tagName === 'html';
     this.isPhrasing = phrasingCategories.indexOf(category) !== -1;

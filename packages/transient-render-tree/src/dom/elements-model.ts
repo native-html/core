@@ -87,7 +87,8 @@ const sectioningModelMap: ModelRegistry<SectioningTagNames> = {
 const unsupportedModelMap: ModelRegistry<UnsupportedTagNames> = {
   area: new HTMLElementModel({
     tagName: 'area',
-    category: 'untranslatable'
+    category: 'untranslatable',
+    isVoid: true
   }),
   map: new HTMLElementModel({
     tagName: 'map',
@@ -106,7 +107,8 @@ const attribsModelMap: ModelRegistry<AttribTagNames> = {
   }),
   col: new HTMLElementModel({
     tagName: 'col',
-    category: 'untranslatable'
+    category: 'untranslatable',
+    isVoid: true
   }),
   colgroup: new HTMLElementModel({
     tagName: 'colgroup',
@@ -118,11 +120,13 @@ const attribsModelMap: ModelRegistry<AttribTagNames> = {
   }),
   source: new HTMLElementModel({
     tagName: 'source',
-    category: 'untranslatable'
+    category: 'untranslatable',
+    isVoid: true
   }),
   track: new HTMLElementModel({
     tagName: 'track',
-    category: 'untranslatable'
+    category: 'untranslatable',
+    isVoid: true
   }),
   optgroup: new HTMLElementModel({
     tagName: 'optgroup',
@@ -131,6 +135,11 @@ const attribsModelMap: ModelRegistry<AttribTagNames> = {
   option: new HTMLElementModel({
     tagName: 'option',
     category: 'untranslatable'
+  }),
+  param: new HTMLElementModel({
+    tagName: 'param',
+    category: 'untranslatable',
+    isVoid: true
   })
 };
 
@@ -149,7 +158,8 @@ const interactiveModelMap: ModelRegistry<InteractiveTagNames> = {
   }),
   input: new HTMLElementModel({
     tagName: 'input',
-    category: 'interactive'
+    category: 'interactive',
+    isVoid: true
   }),
   label: new HTMLElementModel({
     tagName: 'label',
@@ -196,7 +206,8 @@ const interactiveModelMap: ModelRegistry<InteractiveTagNames> = {
 const metadataModelMap: ModelRegistry<MetadataTagNames> = {
   base: new HTMLElementModel({
     tagName: 'base',
-    category: 'untranslatable'
+    category: 'untranslatable',
+    isVoid: true
   }),
   head: new HTMLElementModel({
     tagName: 'head',
@@ -205,11 +216,13 @@ const metadataModelMap: ModelRegistry<MetadataTagNames> = {
   }),
   link: new HTMLElementModel({
     tagName: 'link',
-    category: 'untranslatable'
+    category: 'untranslatable',
+    isVoid: true
   }),
   meta: new HTMLElementModel({
     tagName: 'meta',
-    category: 'untranslatable'
+    category: 'untranslatable',
+    isVoid: true
   }),
   title: new HTMLElementModel({
     tagName: 'title',
@@ -321,43 +334,53 @@ const tabularModelMap: ModelRegistry<TabularTagNames> = {
 const embeddedModelMap: ModelRegistry<EmbeddedTagNames> = {
   audio: new HTMLElementModel({
     tagName: 'audio',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: false // allows tracks
   }),
   canvas: new HTMLElementModel({
     tagName: 'canvas',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: false // allows specific content
   }),
   embed: new HTMLElementModel({
     tagName: 'embed',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: true
   }),
   iframe: new HTMLElementModel({
     tagName: 'iframe',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: true
   }),
   img: new HTMLElementModel({
     tagName: 'img',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: true
   }),
   math: new HTMLElementModel({
     tagName: 'math',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: false // allows mathml elems
   }),
   object: new HTMLElementModel({
     tagName: 'object',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: false // allows params
   }),
   picture: new HTMLElementModel({
     tagName: 'picture',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: false // allows source and img
   }),
   svg: new HTMLElementModel({
     tagName: 'svg',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: false // allows svg elems
   }),
   video: new HTMLElementModel({
     tagName: 'video',
-    category: 'embedded'
+    category: 'embedded',
+    isVoid: false // allows source, tracks + transparent
   })
 };
 
@@ -479,11 +502,13 @@ const textLevelModelMap: ModelRegistry<TextLevelTagNames> = {
   }),
   br: new HTMLElementModel({
     tagName: 'br',
-    category: 'textual'
+    category: 'textual',
+    isVoid: true
   }),
   wbr: new HTMLElementModel({
     tagName: 'wbr',
-    category: 'textual'
+    category: 'textual',
+    isVoid: true
   })
 };
 

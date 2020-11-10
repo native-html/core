@@ -72,6 +72,7 @@
     ]
   },
   "dependencies": {
+    "@native-html/css-processor": "workspace:*",
     "htmlparser2": "^5.0.1"
   }
 }

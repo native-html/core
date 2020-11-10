@@ -1,12 +1,7 @@
 import { TNode, TNodeInit } from './TNode';
 import { SerializableNode } from '../dom/to-serializable';
 
-export interface TBlockInit extends TNodeInit {
-  /**
-   * Opaque nodes will hold a reference to a list of DOM children.
-   */
-  domChildren?: SerializableNode[];
-}
+export interface TBlockInit extends TNodeInit {}
 
 export class TBlock extends TNode {
   public domChildren?: SerializableNode[];

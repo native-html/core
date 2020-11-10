@@ -1860,7 +1860,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"@native-html/css-processor@workspace:packages/css-processor":
+"@native-html/css-processor@workspace:*, @native-html/css-processor@workspace:packages/css-processor":
   version: 0.0.0-use.local
   resolution: "@native-html/css-processor@workspace:packages/css-processor"
   dependencies:
@@ -1900,6 +1900,7 @@ __metadata:
     "@babel/plugin-transform-react-jsx": ^7.10.4
     "@babel/preset-typescript": ^7.10.4
     "@babel/runtime": ^7.11.2
+    "@native-html/css-processor": "workspace:*"
     "@react-native-community/bob": ^0.16.2
     "@release-it/conventional-changelog": ^2.0.0
     "@types/jest": ^26.0.14

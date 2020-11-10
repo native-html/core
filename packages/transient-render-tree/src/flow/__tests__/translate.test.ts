@@ -1,11 +1,9 @@
-import { translateNode } from '../translate';
-import { parseHtml } from '../parse-html';
 import { rfc002Source, href, imgSrc } from './shared';
+import { translateTreeTest } from './utils';
 
 describe('translateNode function', () => {
   it('should comply with RFC002 example (translating)', async () => {
-    const documentTree = await parseHtml(rfc002Source);
-    const ttree = translateNode(documentTree[0]);
+    const ttree = await translateTreeTest(rfc002Source);
     expect(ttree).toMatchObject({
       type: 'phrasing',
       isAnchor: true,
@@ -55,5 +53,20 @@ describe('translateNode function', () => {
       ]
     });
     expect(ttree).toMatchSnapshot();
+  });
+  it('should translate styles', async () => {
+    const ttree = await translateTreeTest(
+      '<div style="font-size: 18px"></div>'
+    );
+    expect(ttree).toMatchObject({
+      type: 'block',
+      isAnchor: false,
+      attributes: {},
+      styles: {
+        nativeTextFlow: { fontSize: 18 }
+      },
+      children: []
+    });
+    expect(ttree?.attributes).toEqual({});
   });
 });
