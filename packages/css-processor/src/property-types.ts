@@ -135,6 +135,14 @@ export type LngWebTxtFloProperties = Extract<
 >;
 
 /**
+ * Long, Web, Text Retained properties
+ */
+export type LngWebTxtRetProperties = Extract<
+  keyof StandardLonghandProperties,
+  never
+>;
+
+/**
  * Short, Text properties
  */
 export type ShtTxtProperties = Extract<

@@ -12,12 +12,14 @@ import {
 import { CSSPropertyValidator } from './validators';
 
 export class CSSInlineParseRun implements CSSProcessedPropsRegistry {
-  readonly native: CSSDisplayRegistry;
-  readonly web: CSSDisplayRegistry;
+  readonly native: CSSProcessedPropsRegistry['native'];
+  readonly web: CSSProcessedPropsRegistry['web'];
   private rawTransformed: Record<string, any> = {};
   private registry: CSSPropertiesValidationRegistry;
 
-  private newCompatCategory(): CSSDisplayRegistry {
+  private newCompatCategory<
+    T extends CSSRulesCompatCategory
+  >(): CSSProcessedPropsRegistry[T] {
     return {
       block: {
         retain: {},
@@ -35,8 +37,8 @@ export class CSSInlineParseRun implements CSSProcessedPropsRegistry {
     registry: CSSPropertiesValidationRegistry
   ) {
     this.registry = registry;
-    this.native = this.newCompatCategory();
-    this.web = this.newCompatCategory();
+    this.native = this.newCompatCategory<'native'>();
+    this.web = this.newCompatCategory<'web'>();
     this.rawTransformed = rules
       .map((rule) => {
         const rawName = rule[0];
@@ -73,13 +75,14 @@ export class CSSInlineParseRun implements CSSProcessedPropsRegistry {
     this.registerRules();
   }
 
-  private addRule(
-    rule: [string, any],
-    compat: CSSRulesCompatCategory,
-    display: CSSRulesDisplayCategory,
-    inheritability: CSSRulesPropagationCategory
-  ) {
-    this[compat][display][inheritability][rule[0]] = rule[1];
+  private addRule<
+    C extends CSSRulesCompatCategory,
+    D extends CSSRulesDisplayCategory,
+    P extends CSSRulesPropagationCategory
+  >(rule: [string, any], compat: C, display: D, inheritability: P) {
+    this[compat][display][inheritability][
+      rule[0] as keyof CSSProcessedPropsRegistry[C][D][P]
+    ] = rule[1] as any;
   }
 
   public registerRules() {

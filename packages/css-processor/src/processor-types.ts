@@ -1,3 +1,15 @@
+import { TextStyle, ViewStyle } from 'react-native';
+import {
+  LngNtrBlkFloProperties,
+  LngNtrBlkRetProperties,
+  LngNtrTxtFloProperties,
+  LngNtrTxtRetProperties,
+  LngNunBlkFloProperties,
+  LngNunBlkProperties,
+  LngWebTxtFloProperties,
+  LngWebTxtRetProperties
+} from './property-types';
+
 export type CSSRawRulesList = [string, any][];
 export type CSSPropertiesRegistry = Record<string, any>;
 /**
@@ -27,6 +39,34 @@ export type CSSDisplayRegistry = Record<
   CSSPropagationRegistry
 >;
 
-export type CSSProcessedPropsRegistry = Readonly<
-  Record<CSSRulesCompatCategory, CSSDisplayRegistry>
->;
+export interface WebTextFlowPropertiesRegistry
+  extends Record<LngWebTxtFloProperties, any> {
+  whiteSpace: 'normal' | 'pre';
+}
+
+export interface CSSProcessedPropsRegistry
+  extends Record<CSSRulesCompatCategory, CSSDisplayRegistry> {
+  native: {
+    text: {
+      flow: Partial<Pick<TextStyle, LngNtrTxtFloProperties>>;
+      retain: Partial<Pick<TextStyle, LngNtrTxtRetProperties>>;
+    };
+    block: {
+      flow: Partial<Pick<ViewStyle, LngNtrBlkFloProperties>>;
+      retain: Partial<Pick<ViewStyle, LngNtrBlkRetProperties>>;
+    };
+  };
+  web: {
+    text: {
+      flow: Partial<WebTextFlowPropertiesRegistry> & CSSPropertiesRegistry;
+      retain: Partial<Record<LngWebTxtRetProperties, any>> &
+        CSSPropertiesRegistry;
+    };
+    block: {
+      flow: Partial<Pick<ViewStyle, LngNunBlkFloProperties>> &
+        CSSPropertiesRegistry;
+      retain: Partial<Pick<ViewStyle, LngNunBlkProperties>> &
+        CSSPropertiesRegistry;
+    };
+  };
+}
