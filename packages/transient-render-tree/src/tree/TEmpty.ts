@@ -1,14 +1,14 @@
-import { SerializableNode } from '../dom/to-serializable';
+import { SerializableElement } from '../dom/to-serializable';
 import { TNode, TNodeInit } from './TNode';
 
 export interface TEmptyInit extends Omit<TNodeInit, 'type'> {
-  domNode?: SerializableNode | null;
+  domNode: SerializableElement;
 }
 
 export class TEmpty extends TNode {
-  public domNode: SerializableNode | null;
+  public domNode: SerializableElement;
   constructor(init: TEmptyInit) {
     super(init, 'empty');
-    this.domNode = init.domNode || null;
+    this.domNode = init.domNode;
   }
 }

@@ -42,27 +42,78 @@ describe('asssembleTDocument function', () => {
       ]
     });
   });
-  it('should parse context', () => {
-    const tdoc = asssembleTDocument(htmlDocument);
-    expect(tdoc).toBeInstanceOf(TDocument);
-    expect(tdoc.context).toMatchObject({
-      charset: 'latin1',
-      title: 'Voici un Titre',
-      lang: 'fr',
-      baseHref: href,
-      baseTarget: '_self',
-      meta: [
-        {
-          name: 'keywords',
-          value: 'french'
-        }
-      ],
-      links: [
-        {
-          rel: 'author license',
-          href: '/about'
-        }
-      ]
+  describe('regarding context parsing', () => {
+    it('should register html lang attrib', () => {
+      const tdoc = asssembleTDocument('<!doctype html><html lang="fr"></html>');
+      expect(tdoc.context).toMatchObject({ lang: 'fr' });
+    });
+    it('should register charset', () => {
+      const tdoc = asssembleTDocument(
+        '<!doctype html><html><head><meta charset="latin1"></meta></head></html>'
+      );
+      expect(tdoc.context).toMatchObject({ charset: 'latin1' });
+    });
+    it('should register and trim title', () => {
+      const tdoc = asssembleTDocument(
+        '<!doctype html><html><head><title> Voici un Titre </title></head></html>'
+      );
+      expect(tdoc.context).toMatchObject({ title: 'Voici un Titre' });
+    });
+    it('should ignore empty meta tags', () => {
+      const tdoc = asssembleTDocument(
+        '<!doctype html><html><head><meta></meta></head></html>'
+      );
+      expect(tdoc.context).toMatchObject({});
+    });
+    it('should register base with attributes', () => {
+      const tdoc = asssembleTDocument(
+        `<!doctype html><html><head><base href="${href}" target="_blank"></base></head></html>`
+      );
+      expect(tdoc.context).toMatchObject({
+        baseHref: href,
+        baseTarget: '_blank'
+      });
+    });
+    it('should fallback to defaults when base attributes are missing', () => {
+      const tdoc = asssembleTDocument(
+        '<!doctype html><html><head><base></base></head></html>'
+      );
+      expect(tdoc.context).toMatchObject({
+        baseHref: 'about:blank',
+        baseTarget: '_self'
+      });
+    });
+    it('should register other meta tags attribtues in the meta array', () => {
+      const tdoc = asssembleTDocument(
+        '<!doctype html><html><head><meta name="keywords" value="birds"></meta></head></html>'
+      );
+      expect(tdoc.context).toMatchObject({
+        meta: [
+          {
+            name: 'keywords',
+            value: 'birds'
+          }
+        ]
+      });
+    });
+    it('should register link tags attributes in the link array', () => {
+      const tdoc = asssembleTDocument(
+        '<!doctype html><html><head><link rel="author license" href="/about"></link></head></html>'
+      );
+      expect(tdoc.context).toMatchObject({
+        links: [
+          {
+            rel: 'author license',
+            href: '/about'
+          }
+        ]
+      });
+    });
+    it('it should ignore irrelevant tags', () => {
+      const tdoc = asssembleTDocument(
+        '<!doctype html><html><head><span>This tag should be ignored</span></head></html>'
+      );
+      expect(tdoc.context).toMatchObject({});
     });
   });
   it('should handle html snippets', () => {

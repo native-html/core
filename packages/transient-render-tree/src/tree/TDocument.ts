@@ -1,6 +1,10 @@
-import { TNode, TNodeInit } from './TNode';
+import { TNodeInit } from './TNode';
 import { TEmpty } from './TEmpty';
 import { TBlock } from './TBlock';
+import {
+  isSerializableElement,
+  isSerializableText
+} from '../dom/to-serializable';
 
 export interface DocumentContext {
   charset: string;
@@ -14,7 +18,7 @@ export interface DocumentContext {
 
 const defaultContextBase: DocumentContext = Object.freeze({
   baseHref: 'about:blank',
-  baseTarget: '_blank',
+  baseTarget: '_self',
   charset: 'utf-8',
   title: '',
   lang: 'en',
@@ -26,41 +30,32 @@ function getDefaultDocumentContext(): DocumentContext {
   return Object.assign({}, defaultContextBase, { links: [], meta: [] });
 }
 
-function extractContextFromHead(head: TNode, lang?: string) {
+function extractContextFromHead(head: TEmpty, lang?: string) {
   const context = getDefaultDocumentContext();
   if (lang) {
     context.lang = lang;
   }
-  if (head instanceof TEmpty) {
-    const domNode = head.domNode;
-    if (domNode?.type === 'element') {
-      const children = domNode.children;
-      for (const child of children) {
-        if (child.type === 'element') {
-          if (child.tagName === 'meta') {
-            if (child.attribs.name) {
-              context.meta.push(child.attribs as any);
-            } else if (child.attribs.charset) {
-              context.charset = child.attribs.charset.toLowerCase();
-            }
-          } else if (child.tagName === 'link') {
-            context.links.push(child.attribs);
-          } else if (child.tagName === 'title') {
-            for (const titleChild of child.children) {
-              if (titleChild.type === 'text') {
-                context.title = titleChild.data.trim();
-              }
-            }
-          } else if (child.tagName === 'base') {
-            context.baseHref = child.attribs.href || context.baseHref;
-            context.baseTarget =
-              (child.attribs.target as any) || context.baseTarget;
-          }
-        }
+  const domNode = head.domNode;
+  const children = domNode.children;
+  children.filter(isSerializableElement).forEach((child) => {
+    if (child.tagName === 'meta') {
+      if (child.attribs.name) {
+        context.meta.push(child.attribs as any);
+      } else if (child.attribs.charset) {
+        context.charset = child.attribs.charset.toLowerCase();
       }
+    } else if (child.tagName === 'link') {
+      context.links.push(child.attribs);
+    } else if (child.tagName === 'title') {
+      for (const titleChild of child.children.filter(isSerializableText)) {
+        context.title = titleChild.data.trim();
+        break;
+      }
+    } else if (child.tagName === 'base') {
+      context.baseHref = child.attribs.href || context.baseHref;
+      context.baseTarget = (child.attribs.target as any) || context.baseTarget;
     }
-  }
-
+  });
   return context;
 }
 
@@ -78,17 +73,18 @@ export class TDocument extends TBlock {
    * Replace children with a single-element array containing the body.
    */
   parseChildren() {
-    let head: TNode = new TEmpty({
+    let head: TEmpty = new TEmpty({
       tagName: 'head',
-      parentStyles: null
+      parentStyles: null,
+      domNode: { type: 'element', attribs: {}, children: [], tagName: 'head' }
     });
-    let body: TNode = new TBlock({
+    let body: TBlock = new TBlock({
       tagName: 'body',
       parentStyles: null
     });
     for (const child of this.children) {
       if (child.tagName === 'head') {
-        head = child;
+        head = child as TEmpty;
       } else if (child.tagName === 'body') {
         body = child;
       }
