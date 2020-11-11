@@ -1,4 +1,3 @@
-import { TBlock } from './TBlock';
 import { TNode, TNodeInit } from './TNode';
 
 export interface TPhrasingInit extends TNodeInit {}
@@ -30,11 +29,5 @@ export class TPhrasing extends TNode {
 
   isEmpty() {
     return this.children.every((c) => c.isEmpty());
-  }
-
-  toBlock() {
-    this.trimLeft();
-    this.trimRight();
-    return new TBlock(this.cloneInitParams());
   }
 }
