@@ -114,7 +114,9 @@ export class FontCSSValidator<
         break;
       }
     }
-    return base.split(/\s+/).slice(0, -1).join(' ') + fontFamily || 'system';
+    return (
+      base.split(/\s+/).slice(0, -1).join(' ') + ' ' + (fontFamily || 'system')
+    );
   }
 }
 export class ColorCSSPropertyValidator<
@@ -331,5 +333,5 @@ export class FontFamilyPropertyValidator<
 }
 
 function normalizeFontName(fontName: string) {
-  return fontName.replace(/["']/g, '');
+  return fontName.replace(/["']/g, '').trim();
 }
