@@ -71,7 +71,7 @@ const numberSpec: Pick<Required<Specs>, 'in' | 'outValues'> = {
 function testSpecs(examples: Record<string, Specs>) {
   for (const key in examples) {
     const spec = examples[key];
-    const validator = processor.registry.getValidatorForRule(key);
+    const validator = processor.registry.getValidatorForProperty(key);
     spec.in.forEach((v, i) => {
       const outProp = spec.outProps?.[i];
       const outValue = spec.outValues ? spec.outValues[i] : v;
@@ -112,6 +112,16 @@ describe('compileCss function', () => {
     expect(
       processor.compileCss('non-existing-css-property: miscellaneous;')
     ).toMatchObject({});
+  });
+  it('should ignore rules from the ignoreProperties config array', () => {
+    const processorWithIgnoreStyles = new CSSProcessor({
+      ...defaultCSSProcessorConfig,
+      ignoredProperties: ['backgroundColor']
+    });
+    expect(
+      processorWithIgnoreStyles.compileCss('background-color: red;').native
+        .block.retain
+    ).toEqual({});
   });
   describe('regarding specific CSS properties', () => {
     const retainedNativeTextSpec: SpecsModel = {

@@ -44,7 +44,10 @@ export class CSSInlineParseRun implements CSSProcessedPropsRegistry {
         const rawName = rule[0];
         const rawValue = rule[1];
         const camelCaseName = getPropertyName(rawName);
-        const validator = this.registry.getValidatorForRule(camelCaseName);
+        if (this.registry.shouldIgnoreProperty(camelCaseName)) {
+          return null;
+        }
+        const validator = this.registry.getValidatorForProperty(camelCaseName);
         if (!validator) {
           return null;
         }
@@ -61,7 +64,7 @@ export class CSSInlineParseRun implements CSSProcessedPropsRegistry {
           return reg;
         }
         const [camelCaseName, value] = rule;
-        const validator = this.registry.getValidatorForRule(camelCaseName);
+        const validator = this.registry.getValidatorForProperty(camelCaseName);
         if (validator && validator.shouldIgnoreTransform()) {
           return { ...reg, [camelCaseName]: value };
         }
@@ -88,7 +91,7 @@ export class CSSInlineParseRun implements CSSProcessedPropsRegistry {
   public registerRules() {
     Object.keys(this.rawTransformed).forEach((camelCaseName) => {
       const value = this.rawTransformed[camelCaseName];
-      const validator = this.registry.getValidatorForRule(
+      const validator = this.registry.getValidatorForProperty(
         camelCaseName
       ) as CSSPropertyValidator;
       const normalizedValue = validator.normalizeValue(value);

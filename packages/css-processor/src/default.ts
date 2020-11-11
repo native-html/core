@@ -28,6 +28,7 @@ export const defaultCSSProcessorConfig: CSSProcessorConfig = {
     'x-large': 20,
     'xx-large': 24
   },
+  ignoredProperties: [],
   isFontSupported() {
     return true;
   }

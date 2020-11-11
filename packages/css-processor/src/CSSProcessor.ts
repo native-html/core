@@ -12,8 +12,10 @@ import { CSSProcessedPropsRegistry, CSSRawRulesList } from './processor-types';
 
 export class CSSProcessor {
   public readonly registry: CSSPropertiesValidationRegistry;
+  public readonly ignoredProperties: CSSProcessorConfig['ignoredProperties'];
   constructor(config: CSSProcessorConfig) {
     this.registry = new CSSPropertiesValidationRegistry(config);
+    this.ignoredProperties = config.ignoredProperties;
   }
 
   private parseRules(str: string): CSSRawRulesList {

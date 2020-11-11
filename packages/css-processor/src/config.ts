@@ -1,3 +1,5 @@
+import { LngNtrBlkProperties, LngNtrTxtProperties } from './property-types';
+
 export type CSSLengthUnit =
   | 'cm'
   | 'mm'
@@ -48,6 +50,14 @@ export interface CSSProcessorConfig {
     CSSAbsoluteHardcodedFontSize,
     number
   >;
+  /**
+   * Ignore those properties when compiling inline styles. The names should be
+   * camelCased.
+   *
+   * @remarks As of this version, inline styles are considered 100% safe and
+   * predictable, thus this property is generally not advised.
+   */
+  readonly ignoredProperties: Array<LngNtrBlkProperties | LngNtrTxtProperties>;
 
   /**
    * Determine is the provided font is supported on running platform.
