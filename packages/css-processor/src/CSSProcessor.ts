@@ -1,6 +1,7 @@
 import { CSSProcessorConfig } from './config';
 import { CSSInlineParseRun } from './CSSInlineParseRun';
 import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
+import { defaultCSSProcessorConfig } from './default';
 import { CSSProcessedPropsRegistry, CSSRawRulesList } from './processor-types';
 
 // https://www.w3.org/TR/CSS22/
@@ -12,10 +13,12 @@ import { CSSProcessedPropsRegistry, CSSRawRulesList } from './processor-types';
 
 export class CSSProcessor {
   public readonly registry: CSSPropertiesValidationRegistry;
-  public readonly ignoredProperties: CSSProcessorConfig['ignoredProperties'];
-  constructor(config: CSSProcessorConfig) {
+  constructor(userConfig?: Partial<CSSProcessorConfig>) {
+    const config = {
+      ...defaultCSSProcessorConfig,
+      ...userConfig
+    };
     this.registry = new CSSPropertiesValidationRegistry(config);
-    this.ignoredProperties = config.ignoredProperties;
   }
 
   private parseRules(str: string): CSSRawRulesList {
