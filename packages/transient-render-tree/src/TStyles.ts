@@ -1,5 +1,6 @@
 import CSCProcessor, {
   CSSPropertiesRegistry,
+  CSSProcessedPropsRegistry,
   defaultCSSProcessorConfig
 } from '@native-html/css-processor';
 
@@ -29,11 +30,11 @@ function inherit(
 }
 
 export class TStyles {
-  public readonly nativeTextFlow: CSSPropertiesRegistry;
-  public readonly nativeBlockFlow: CSSPropertiesRegistry;
-  public readonly webTextFlow: CSSPropertiesRegistry;
-  public readonly nativeTextRet: CSSPropertiesRegistry;
-  public readonly nativeBlockRet: CSSPropertiesRegistry;
+  public readonly nativeTextFlow: CSSProcessedPropsRegistry['native']['text']['flow'];
+  public readonly nativeBlockFlow: CSSProcessedPropsRegistry['native']['block']['flow'];
+  public readonly nativeTextRet: CSSProcessedPropsRegistry['native']['text']['retain'];
+  public readonly nativeBlockRet: CSSProcessedPropsRegistry['native']['block']['retain'];
+  public readonly webTextFlow: CSSProcessedPropsRegistry['web']['text']['flow'];
   constructor(inlineStyles: string | undefined, parentStyles?: TStyles | null) {
     const processedProps = inlineStyles
       ? processor.compileCss(inlineStyles)
