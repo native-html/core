@@ -16,7 +16,7 @@ import {
 } from '../dom/to-serializable';
 import { TStyles } from '../TStyles';
 
-function mapNodeList(
+export function mapNodeList(
   nodeList: SerializableNode[],
   parentStyles: TStyles | null
 ): TNode[] {
@@ -60,12 +60,7 @@ function translateElement(
     return anchor;
   }
   if (model.isPhrasing) {
-    if (!node.children.length) {
-      return new TText({
-        ...sharedProps,
-        data: ''
-      });
-    } else if (node.children.length === 1) {
+    if (node.children.length === 1) {
       const child = node.children[0] as SerializableNode;
       if (isSerializableText(child)) {
         return new TText({
@@ -98,9 +93,6 @@ export function translateNode(
   node: SerializableNode | null,
   parentStyles: TStyles | null
 ): TNode | null {
-  if (!node) {
-    return null;
-  }
   if (isSerializableText(node)) {
     return new TText({
       data: node.data,

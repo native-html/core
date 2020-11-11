@@ -1,3 +1,5 @@
+import { TBlock } from '../../tree/TBlock';
+import { mapNodeList } from '../translate';
 import { rfc002Source, href, imgSrc } from './shared';
 import { translateTreeTest } from './utils';
 
@@ -66,5 +68,41 @@ describe('translateNode function', () => {
       children: []
     });
     expect(ttree?.attributes).toEqual({});
+  });
+  it('should translate a phrasing element with one text child node to a TText element', () => {
+    const ttree = translateTreeTest('<span><strong>Hello!</strong></span>');
+    expect(ttree).toMatchObject({
+      type: 'phrasing',
+      tagName: 'span',
+      children: [
+        {
+          type: 'text',
+          tagName: 'strong',
+          data: 'Hello!'
+        }
+      ]
+    });
+  });
+  describe('regarding opaque blocks', () => {
+    const pictureSrc =
+      '<picture><source srcset="/media/cc0-images/surfer-240-200.jpg" media="(min-width: 800px)"><img src="/media/cc0-images/painted-hand-298-332.jpg" alt="" /></picture>';
+    const ttree = translateTreeTest(pictureSrc);
+    it('should translate to TBlock', () => {
+      expect(ttree).toBeInstanceOf(TBlock);
+    });
+    it('should set domChildren attribute', () => {
+      expect(ttree).toMatchObject({
+        domChildren: expect.any(Array)
+      });
+    });
+    it('should translate children', () => {
+      expect(ttree.children).toHaveLength(2);
+    });
+  });
+});
+
+describe('mapNodeList function', () => {
+  it('should ignore untranslated nodes', () => {
+    expect(mapNodeList([null] as any, null)).toHaveLength(0);
   });
 });
