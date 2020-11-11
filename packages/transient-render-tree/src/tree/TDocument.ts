@@ -61,8 +61,8 @@ function extractContextFromHead(head: TEmpty, lang?: string) {
 
 export class TDocument extends TBlock {
   public readonly context: Readonly<DocumentContext>;
-  constructor({ attributes }: TNodeInit) {
-    super({ tagName: 'html', attributes, parentStyles: null });
+  constructor({ attributes, stylesMerger }: TNodeInit) {
+    super({ tagName: 'html', attributes, parentStyles: null, stylesMerger });
     // @ts-ignore
     this.type = 'document';
     this.context = defaultContextBase;
@@ -75,11 +75,13 @@ export class TDocument extends TBlock {
   parseChildren() {
     let head: TEmpty = new TEmpty({
       tagName: 'head',
+      stylesMerger: this.stylesMerger,
       parentStyles: null,
       domNode: { type: 'element', attribs: {}, children: [], tagName: 'head' }
     });
     let body: TBlock = new TBlock({
       tagName: 'body',
+      stylesMerger: this.stylesMerger,
       parentStyles: null
     });
     for (const child of this.children) {

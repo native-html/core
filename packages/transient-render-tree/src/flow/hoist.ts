@@ -17,7 +17,7 @@ function groupText(tnode: TBlock, wrappernode: TPhrasing): TNode {
       wrapper = wrappernode.newEmpty();
       if (wrappernode instanceof TPhrasingAnchor) {
         const nextChild = new TBlockAnchor({
-          ...newChild,
+          ...newChild.cloneInitParams(),
           href: wrappernode.href,
           parentStyles: wrappernode.parentStyles
         });
@@ -51,7 +51,8 @@ function hoistNode(node: TNode): TNode {
       return groupText(
         node,
         new TPhrasing({
-          parentStyles: node.styles
+          parentStyles: node.styles,
+          stylesMerger: node.stylesMerger
         })
       );
     }

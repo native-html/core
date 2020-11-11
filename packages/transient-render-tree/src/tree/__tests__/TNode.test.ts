@@ -1,15 +1,11 @@
 import { TNode } from '../TNode';
 import { TText } from '../TText';
+import { defaultInit } from './shared';
 
 class TTest extends TNode {}
 
 function newTNode() {
-  return new TTest(
-    {
-      parentStyles: null
-    },
-    'block'
-  );
+  return new TTest(defaultInit, 'block');
 }
 
 describe('TNode class', () => {
@@ -28,7 +24,7 @@ describe('TNode class', () => {
       const node = newTNode();
       const collapsibleChild = new TText({
         data: '  ',
-        parentStyles: null
+        ...defaultInit
       });
       node.bindChildren([collapsibleChild]);
       expect(node.isCollapsibleRight()).toBe(true);

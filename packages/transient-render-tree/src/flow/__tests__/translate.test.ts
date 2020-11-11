@@ -1,7 +1,7 @@
 import { TBlock } from '../../tree/TBlock';
 import { mapNodeList } from '../translate';
 import { rfc002Source, href, imgSrc } from './shared';
-import { translateTreeTest } from './utils';
+import { defaultStylesMerger, translateTreeTest } from './utils';
 
 describe('translateNode function', () => {
   it('should comply with RFC002 example (translating)', () => {
@@ -103,6 +103,8 @@ describe('translateNode function', () => {
 
 describe('mapNodeList function', () => {
   it('should ignore untranslated nodes', () => {
-    expect(mapNodeList([null] as any, null)).toHaveLength(0);
+    expect(
+      mapNodeList([null] as any, null, { stylesMerger: defaultStylesMerger })
+    ).toHaveLength(0);
   });
 });

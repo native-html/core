@@ -9,10 +9,12 @@ TPhrasingAnchor {
     TText {
       "attributes": Object {},
       "children": Array [],
+      "className": null,
       "data": "
 This is
 ",
       "hasWhiteSpaceCollapsingEnabled": true,
+      "id": null,
       "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
@@ -34,8 +36,10 @@ This is
     TText {
       "attributes": Object {},
       "children": Array [],
+      "className": null,
       "data": "phrasing content",
       "hasWhiteSpaceCollapsingEnabled": true,
+      "id": null,
       "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
@@ -57,9 +61,11 @@ This is
     TText {
       "attributes": Object {},
       "children": Array [],
+      "className": null,
       "data": "
 ",
       "hasWhiteSpaceCollapsingEnabled": true,
+      "id": null,
       "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
@@ -83,7 +89,9 @@ This is
         "src": "https://domain.com/logo.jpg",
       },
       "children": Array [],
+      "className": null,
       "hasWhiteSpaceCollapsingEnabled": true,
+      "id": null,
       "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
@@ -105,9 +113,11 @@ This is
     TText {
       "attributes": Object {},
       "children": Array [],
+      "className": null,
       "data": "
     and this is ",
       "hasWhiteSpaceCollapsingEnabled": true,
+      "id": null,
       "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
@@ -129,8 +139,10 @@ This is
     TText {
       "attributes": Object {},
       "children": Array [],
+      "className": null,
       "data": "too",
       "hasWhiteSpaceCollapsingEnabled": true,
+      "id": null,
       "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
@@ -152,9 +164,11 @@ This is
     TText {
       "attributes": Object {},
       "children": Array [],
+      "className": null,
       "data": ".
 ",
       "hasWhiteSpaceCollapsingEnabled": true,
+      "id": null,
       "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
@@ -174,8 +188,10 @@ This is
       "type": "text",
     },
   ],
+  "className": null,
   "hasWhiteSpaceCollapsingEnabled": true,
   "href": "https://domain.com",
+  "id": null,
   "isAnchor": true,
   "parentStyles": null,
   "styles": TStyles {

@@ -13,11 +13,13 @@ import {
   rfc002Source,
   secondaryHref
 } from './shared';
-import { translateTreeTest } from './utils';
+import { defaultInit, translateTreeTest } from './utils';
 
 function makeTTree(html: string): TNode {
   return collapse(hoist(translateTreeTest(html)));
 }
+
+
 
 describe('collapse function', () => {
   it('should collapse a tree such as specified in RFC002 example', () => {
@@ -252,49 +254,35 @@ describe('collapse function', () => {
     });
   });
   it('should remove empty children from TBlock nodes', () => {
-    const ttree = new TBlock({
-      parentStyles: null
-    });
-    ttree.bindChildren([new TText({ data: '', parentStyles: null })]);
+    const ttree = new TBlock(defaultInit);
+    ttree.bindChildren([new TText({ data: '', ...defaultInit })]);
     expect(collapse(ttree).children).toHaveLength(0);
   });
   it('should remove empty TText children from TPhrasing nodes', () => {
-    const ttree = new TPhrasing({
-      parentStyles: null
-    });
-    ttree.bindChildren([new TText({ data: '', parentStyles: null })]);
+    const ttree = new TPhrasing(defaultInit);
+    ttree.bindChildren([new TText({ data: '', ...defaultInit })]);
     expect(collapse(ttree).children).toHaveLength(0);
   });
   it('should remove empty TPhrasing children from TPhrasing nodes', () => {
-    const ttree = new TPhrasing({
-      parentStyles: null
-    });
-    const tphrasing = new TPhrasing({
-      parentStyles: null
-    });
-    tphrasing.bindChildren([new TText({ data: '', parentStyles: null })]);
+    const ttree = new TPhrasing(defaultInit);
+    const tphrasing = new TPhrasing(defaultInit);
+    tphrasing.bindChildren([new TText({ data: '', ...defaultInit })]);
     ttree.bindChildren([tphrasing]);
     expect(collapse(ttree).children).toHaveLength(0);
   });
   it('should remove children from TPhrasing nodes which are not TText or TPhrasing nodes', () => {
-    const ttree = new TPhrasing({
-      parentStyles: null
-    });
-    const forbiddenChild = new TBlock({
-      parentStyles: null
-    });
+    const ttree = new TPhrasing(defaultInit);
+    const forbiddenChild = new TBlock(defaultInit);
     ttree.bindChildren([forbiddenChild]);
     expect(collapse(ttree).children).toHaveLength(0);
   });
   it('should remove children from TPhrasing nodes which are empty after timming', () => {
-    const ttree = new TPhrasing({
-      parentStyles: null
-    });
+    const ttree = new TPhrasing(defaultInit);
     ttree.bindChildren([
       // This node will be empty after trimming right, and should be removed
-      new TText({ data: ' ', parentStyles: null }),
-      new TText({ data: ' Foo', parentStyles: null }),
-      new TText({ data: ' Bar', parentStyles: null })
+      new TText({ data: ' ', ...defaultInit }),
+      new TText({ data: ' Foo', ...defaultInit }),
+      new TText({ data: ' Bar', ...defaultInit })
     ]);
     expect(collapse(ttree).children).toHaveLength(2);
   });

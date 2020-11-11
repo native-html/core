@@ -1,8 +1,7 @@
-import { TBlock } from '../../tree/TBlock';
-import { TDocument } from '../../tree/TDocument';
-import { asssembleTDocument } from '../assemble';
-import { href } from './shared';
-
+import { TBlock } from '../tree/TBlock';
+import { TDocument } from '../tree/TDocument';
+import { asssembleTTree } from '../assemble';
+const href = 'https://domain.com';
 const htmlDocument = `
 <!doctype html>
 <html lang="fr">
@@ -18,9 +17,9 @@ const htmlDocument = `
 </body>
 `;
 
-describe('asssembleTDocument function', () => {
+describe('asssembleTTree function', () => {
   it('given a HTML document, should return an instance of TDocument which has one TBlock(body) child', () => {
-    const tdoc = asssembleTDocument(htmlDocument);
+    const tdoc = asssembleTTree(htmlDocument);
     expect(tdoc).toBeInstanceOf(TDocument);
     expect(tdoc.children).toHaveLength(1);
     expect(tdoc.children[0]).toBeInstanceOf(TBlock);
@@ -44,29 +43,29 @@ describe('asssembleTDocument function', () => {
   });
   describe('regarding context parsing', () => {
     it('should register html lang attrib', () => {
-      const tdoc = asssembleTDocument('<!doctype html><html lang="fr"></html>');
+      const tdoc = asssembleTTree('<!doctype html><html lang="fr"></html>');
       expect(tdoc.context).toMatchObject({ lang: 'fr' });
     });
     it('should register charset', () => {
-      const tdoc = asssembleTDocument(
+      const tdoc = asssembleTTree(
         '<!doctype html><html><head><meta charset="latin1"></meta></head></html>'
       );
       expect(tdoc.context).toMatchObject({ charset: 'latin1' });
     });
     it('should register and trim title', () => {
-      const tdoc = asssembleTDocument(
+      const tdoc = asssembleTTree(
         '<!doctype html><html><head><title> Voici un Titre </title></head></html>'
       );
       expect(tdoc.context).toMatchObject({ title: 'Voici un Titre' });
     });
     it('should ignore empty meta tags', () => {
-      const tdoc = asssembleTDocument(
+      const tdoc = asssembleTTree(
         '<!doctype html><html><head><meta></meta></head></html>'
       );
       expect(tdoc.context).toMatchObject({});
     });
     it('should register base with attributes', () => {
-      const tdoc = asssembleTDocument(
+      const tdoc = asssembleTTree(
         `<!doctype html><html><head><base href="${href}" target="_blank"></base></head></html>`
       );
       expect(tdoc.context).toMatchObject({
@@ -75,7 +74,7 @@ describe('asssembleTDocument function', () => {
       });
     });
     it('should fallback to defaults when base attributes are missing', () => {
-      const tdoc = asssembleTDocument(
+      const tdoc = asssembleTTree(
         '<!doctype html><html><head><base></base></head></html>'
       );
       expect(tdoc.context).toMatchObject({
@@ -84,7 +83,7 @@ describe('asssembleTDocument function', () => {
       });
     });
     it('should register other meta tags attribtues in the meta array', () => {
-      const tdoc = asssembleTDocument(
+      const tdoc = asssembleTTree(
         '<!doctype html><html><head><meta name="keywords" value="birds"></meta></head></html>'
       );
       expect(tdoc.context).toMatchObject({
@@ -97,7 +96,7 @@ describe('asssembleTDocument function', () => {
       });
     });
     it('should register link tags attributes in the link array', () => {
-      const tdoc = asssembleTDocument(
+      const tdoc = asssembleTTree(
         '<!doctype html><html><head><link rel="author license" href="/about"></link></head></html>'
       );
       expect(tdoc.context).toMatchObject({
@@ -110,7 +109,7 @@ describe('asssembleTDocument function', () => {
       });
     });
     it('it should ignore irrelevant tags', () => {
-      const tdoc = asssembleTDocument(
+      const tdoc = asssembleTTree(
         '<!doctype html><html><head><span>This tag should be ignored</span></head></html>'
       );
       expect(tdoc.context).toMatchObject({});
@@ -118,7 +117,7 @@ describe('asssembleTDocument function', () => {
   });
   it('should handle html snippets', () => {
     const snippet = '<div></div>';
-    const tdoc = asssembleTDocument(snippet);
+    const tdoc = asssembleTTree(snippet);
     expect(tdoc).toBeInstanceOf(TDocument);
     expect(tdoc).toMatchObject({
       type: 'document',

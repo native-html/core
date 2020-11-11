@@ -1,5 +1,6 @@
-import { TStyles } from '../TStyles';
+import { TStyles } from '../styles/TStyles';
 import { SerializableNode } from '../dom/to-serializable';
+import { TStylesMerger } from '../styles/TStylesMerger';
 
 export interface TNodeInit {
   /**
@@ -9,6 +10,7 @@ export interface TNodeInit {
   tagName?: string | null;
   attributes?: Record<string, string>;
   parentStyles: TStyles | null;
+  stylesMerger: TStylesMerger;
 }
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';
 export abstract class TNode implements TNodeInit {
@@ -18,24 +20,38 @@ export abstract class TNode implements TNodeInit {
   public readonly children: TNode[];
   public readonly domChildren?: SerializableNode[];
   public readonly tagName: string | null;
+  public readonly className: string | null;
+  public readonly id: string | null;
   public readonly isAnchor: boolean;
   public readonly parentStyles: TStyles | null;
   public readonly hasWhiteSpaceCollapsingEnabled: boolean;
+  public readonly stylesMerger!: TStylesMerger;
 
   constructor(init: TNodeInit, type: TNodeType) {
     this.type = type;
     this.attributes = init.attributes || {};
     this.isAnchor = false;
     this.tagName = init.tagName || null;
-    const rawStyles = this.attributes.style;
-    this.attributes.style && delete this.attributes.style;
-    this.styles = new TStyles(rawStyles, init.parentStyles);
+    this.id = this.attributes.id || null;
+    this.className = this.attributes.class || null;
+    Object.defineProperty(this, 'stylesMerger', {
+      enumerable: false,
+      value: init.stylesMerger
+    });
+    this.styles = init.stylesMerger.buildStyles(
+      this.attributes.style,
+      init.parentStyles,
+      this
+    );
     this.parentStyles = init.parentStyles;
     this.children = [];
     this.hasWhiteSpaceCollapsingEnabled =
       typeof this.styles.webTextFlow.whiteSpace === 'string'
         ? this.styles.webTextFlow.whiteSpace === 'normal'
         : true;
+    delete this.attributes.style;
+    delete this.attributes.class;
+    delete this.attributes.id;
   }
 
   bindChildren(children: TNode[]) {
@@ -46,6 +62,7 @@ export abstract class TNode implements TNodeInit {
   cloneInitParams<T extends TNodeInit = TNodeInit>(partial?: Partial<T>): T {
     return ({
       ...this,
+      stylesMerger: this.stylesMerger,
       ...partial
     } as any) as T;
   }
