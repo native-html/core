@@ -15,13 +15,13 @@ import {
 } from './shared';
 import { translateTreeTest } from './utils';
 
-async function makeTTree(html: string): Promise<TNode> {
-  return collapse(hoist(await translateTreeTest(html)));
+function makeTTree(html: string): TNode {
+  return collapse(hoist(translateTreeTest(html)));
 }
 
 describe('collapse function', () => {
-  it('should collapse a tree such as specified in RFC002 example', async () => {
-    const ttree = await makeTTree(rfc002Source);
+  it('should collapse a tree such as specified in RFC002 example', () => {
+    const ttree = makeTTree(rfc002Source);
     expect(ttree).toMatchObject({
       type: 'block',
       isAnchor: false,
@@ -74,8 +74,8 @@ describe('collapse function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
-  it('should handle nested anchors', async () => {
-    const ttree = await makeTTree(nestedHyperlinksSource);
+  it('should handle nested anchors', () => {
+    const ttree = makeTTree(nestedHyperlinksSource);
     expect(ttree).toMatchObject({
       type: 'phrasing',
       isAnchor: true,
@@ -114,8 +114,8 @@ describe('collapse function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
-  it('should handle deeply nested HTML', async () => {
-    const ttree = await makeTTree(deeplyNestedSource);
+  it('should handle deeply nested HTML', () => {
+    const ttree = makeTTree(deeplyNestedSource);
     expect(ttree).toMatchObject({
       type: 'block',
       tagName: 'article',
@@ -174,8 +174,8 @@ describe('collapse function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
-  it('should hoist blocks recursively', async () => {
-    const ttree = await makeTTree(recursiveHoisting);
+  it('should hoist blocks recursively', () => {
+    const ttree = makeTTree(recursiveHoisting);
     expect(ttree).toMatchObject({
       type: 'block',
       tagName: 'span',
@@ -222,11 +222,11 @@ describe('collapse function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
-  it('should handle body tag', async () => {
+  it('should handle body tag', () => {
     const html = `<body><div>
     <span>Hello world!</span>
 </div></body>`;
-    const ttree = await makeTTree(html);
+    const ttree = makeTTree(html);
     expect(ttree).toMatchObject({
       type: 'block',
       tagName: 'body',
@@ -276,7 +276,7 @@ describe('collapse function', () => {
     ttree.bindChildren([tphrasing]);
     expect(collapse(ttree).children).toHaveLength(0);
   });
-  it('should remove children from TPhrasing nodes which are not TText or TPhrasing nodes', async () => {
+  it('should remove children from TPhrasing nodes which are not TText or TPhrasing nodes', () => {
     const ttree = new TPhrasing({
       parentStyles: null
     });
@@ -286,7 +286,7 @@ describe('collapse function', () => {
     ttree.bindChildren([forbiddenChild]);
     expect(collapse(ttree).children).toHaveLength(0);
   });
-  it('should remove children from TPhrasing nodes which are empty after timming', async () => {
+  it('should remove children from TPhrasing nodes which are empty after timming', () => {
     const ttree = new TPhrasing({
       parentStyles: null
     });
@@ -298,8 +298,8 @@ describe('collapse function', () => {
     ]);
     expect(collapse(ttree).children).toHaveLength(2);
   });
-  it('should handle direct style inheritance', async () => {
-    const ttree = await makeTTree(
+  it('should handle direct style inheritance', () => {
+    const ttree = makeTTree(
       '<div style="font-size: 18px;border-width: 20px;"><span style="color: red;">This is nice!</span></div>'
     );
     expect(ttree).toMatchObject({
@@ -340,8 +340,8 @@ describe('collapse function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
-  it('should handle indirect style inheritance', async () => {
-    const ttree = await makeTTree(
+  it('should handle indirect style inheritance', () => {
+    const ttree = makeTTree(
       '<div style="font-size: 18px;"><div style="border-width: 20px;">This is great!</div></div>'
     );
     expect(ttree).toMatchObject({
@@ -386,8 +386,8 @@ describe('collapse function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
-  it('should not collapse when white-space CSS property is set to "pre"', async () => {
-    const ttree = await makeTTree(
+  it('should not collapse when white-space CSS property is set to "pre"', () => {
+    const ttree = makeTTree(
       '<div style="white-space: pre;">  This is great!  </div>'
     );
     expect(ttree).toMatchObject({
@@ -419,8 +419,8 @@ describe('collapse function', () => {
       ]
     });
   });
-  it('should collapse when white-space CSS property is set to "normal"', async () => {
-    const ttree = await makeTTree(
+  it('should collapse when white-space CSS property is set to "normal"', () => {
+    const ttree = makeTTree(
       '<div style="white-space: normal;">  This is great!  </div>'
     );
     expect(ttree).toMatchObject({
@@ -449,8 +449,8 @@ describe('collapse function', () => {
       ]
     });
   });
-  it('should collapse when white-space CSS property is not set', async () => {
-    const ttree = await makeTTree('<div>  This is great!  </div>');
+  it('should collapse when white-space CSS property is not set', () => {
+    const ttree = makeTTree('<div>  This is great!  </div>');
     expect(ttree).toMatchObject({
       type: 'block',
       isAnchor: false,
@@ -473,8 +473,8 @@ describe('collapse function', () => {
       ]
     });
   });
-  it('should collapse a node with white-space set to "normal" while its parent has white-space set to "pre"', async () => {
-    const ttree = await makeTTree(
+  it('should collapse a node with white-space set to "normal" while its parent has white-space set to "pre"', () => {
+    const ttree = makeTTree(
       '<div style="white-space: pre;"><span> This is nice </span><strong style="white-space: normal"> Should collapse </strong></div>'
     );
     expect(ttree).toMatchObject({
@@ -506,8 +506,8 @@ describe('collapse function', () => {
       ]
     });
   });
-  it('should withold TEmpty nodes', async () => {
-    const ttree = await makeTTree(
+  it('should withold TEmpty nodes', () => {
+    const ttree = makeTTree(
       '<div><span>Hi!</span><link rel="author" href="mailto:don@company.com" /></div>'
     );
     expect(ttree).toMatchObject({

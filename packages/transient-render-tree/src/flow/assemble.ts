@@ -1,11 +1,11 @@
 import { collapse } from './collapse';
 import { hoist } from './hoist';
-import { parseHtml } from './parse-html';
 import { translateDocument } from './translate';
 import { TDocument } from '../tree/TDocument';
+import { parseDOM } from 'htmlparser2';
 
-export async function asssembleTDocument(html: string): Promise<TDocument> {
-  const documentTree = await parseHtml(html);
+export function asssembleTDocument(html: string): TDocument {
+  const documentTree = parseDOM(html);
   const tdoc = translateDocument(documentTree);
   return collapse(hoist(tdoc)) as TDocument;
 }

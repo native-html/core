@@ -19,8 +19,8 @@ const htmlDocument = `
 `;
 
 describe('asssembleTDocument function', () => {
-  it('given a HTML document, should return an instance of TDocument which has one TBlock(body) child', async () => {
-    const tdoc = await asssembleTDocument(htmlDocument);
+  it('given a HTML document, should return an instance of TDocument which has one TBlock(body) child', () => {
+    const tdoc = asssembleTDocument(htmlDocument);
     expect(tdoc).toBeInstanceOf(TDocument);
     expect(tdoc.children).toHaveLength(1);
     expect(tdoc.children[0]).toBeInstanceOf(TBlock);
@@ -42,8 +42,8 @@ describe('asssembleTDocument function', () => {
       ]
     });
   });
-  it('should parse context', async () => {
-    const tdoc = await asssembleTDocument(htmlDocument);
+  it('should parse context', () => {
+    const tdoc = asssembleTDocument(htmlDocument);
     expect(tdoc).toBeInstanceOf(TDocument);
     expect(tdoc.context).toMatchObject({
       charset: 'latin1',
@@ -65,9 +65,9 @@ describe('asssembleTDocument function', () => {
       ]
     });
   });
-  it('should handle html snippets', async () => {
+  it('should handle html snippets', () => {
     const snippet = '<div></div>';
-    const tdoc = await asssembleTDocument(snippet);
+    const tdoc = asssembleTDocument(snippet);
     expect(tdoc).toBeInstanceOf(TDocument);
     expect(tdoc).toMatchObject({
       type: 'document',

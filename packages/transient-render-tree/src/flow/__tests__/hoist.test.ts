@@ -2,13 +2,13 @@ import { imgSrc, rfc002Source, href } from './shared';
 import { hoist } from '../hoist';
 import { translateTreeTest } from './utils';
 
-async function makeTTree(source: string) {
-  return hoist(await translateTreeTest(source));
+function makeTTree(source: string) {
+  return hoist(translateTreeTest(source));
 }
 
 describe('hoist function', () => {
-  it('should comply with RFC002 example (hoisting) ', async () => {
-    const hoistedTree = await makeTTree(rfc002Source);
+  it('should comply with RFC002 example (hoisting) ', () => {
+    const hoistedTree = makeTTree(rfc002Source);
     expect(hoistedTree).toMatchObject({
       type: 'block',
       isAnchor: false,

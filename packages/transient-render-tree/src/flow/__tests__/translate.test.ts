@@ -2,8 +2,8 @@ import { rfc002Source, href, imgSrc } from './shared';
 import { translateTreeTest } from './utils';
 
 describe('translateNode function', () => {
-  it('should comply with RFC002 example (translating)', async () => {
-    const ttree = await translateTreeTest(rfc002Source);
+  it('should comply with RFC002 example (translating)', () => {
+    const ttree = translateTreeTest(rfc002Source);
     expect(ttree).toMatchObject({
       type: 'phrasing',
       isAnchor: true,
@@ -54,10 +54,8 @@ describe('translateNode function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
-  it('should translate styles', async () => {
-    const ttree = await translateTreeTest(
-      '<div style="font-size: 18px"></div>'
-    );
+  it('should translate styles', () => {
+    const ttree = translateTreeTest('<div style="font-size: 18px"></div>');
     expect(ttree).toMatchObject({
       type: 'block',
       isAnchor: false,
