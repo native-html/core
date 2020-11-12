@@ -19,8 +19,6 @@ function makeTTree(html: string): TNode {
   return collapse(hoist(translateTreeTest(html)));
 }
 
-
-
 describe('collapse function', () => {
   it('should collapse a tree such as specified in RFC002 example', () => {
     const ttree = makeTTree(rfc002Source);
