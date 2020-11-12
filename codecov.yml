@@ -1,11 +1,19 @@
 coverage:
   precision: 2
   round: down
-  range: '55...95'
+  range: '80...100'
   status:
-    ersatz:
-      flags:
-        - ersatz
+    project:
+      default:
+        target: auto
+      css-processor:
+        target: auto
+        flags:
+          - css-processor
+      transient-render-tree:
+        target: auto
+        flags:
+          - transient-render-tree
 
 flags:
   css-processor:
