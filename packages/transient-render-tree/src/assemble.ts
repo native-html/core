@@ -23,7 +23,7 @@ export interface AssembleTTreeOptions {
   readonly stylesConfig?: StylesConfig;
 }
 
-export function asssembleTTree(
+export function assembleTTree(
   html: string,
   options?: AssembleTTreeOptions
 ): TDocument {
