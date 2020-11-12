@@ -1,14 +1,4 @@
-import { TextStyle, ViewStyle } from 'react-native';
-import {
-  CSSLongNativeTranslatableBlockFlowedPropKey,
-  CSSLongNativeTranslatableBlockRetainedPropKey,
-  CSSLongNativeTranslatableTextFlowedPropKey,
-  CSSLongNativeTranslatableTextRetainedPropKey,
-  CSSLongNativeUntranslatableBlockFlowedPropKey,
-  CSSLongNativeUntranslatableBlockPropKey,
-  CSSLongWebTextFlowedPropKey,
-  CSSLongWebTextRetainedPropKey
-} from './property-types';
+import { CSSLongWebTextFlowedPropKey } from './property-types';
 
 export type CSSRawPropertiesList = [string, any][];
 export type CSSProperties = Record<string, any>;
@@ -44,41 +34,8 @@ export interface WebTextFlowProperties
   whiteSpace?: 'normal' | 'pre';
 }
 
-export interface CSSProcessedPropsRegistry
-  extends Record<CSSPropertyCompatCategory, CSSDisplayRegistry> {
-  native: {
-    text: {
-      flow: Partial<
-        Pick<TextStyle, CSSLongNativeTranslatableTextFlowedPropKey>
-      >;
-      retain: Partial<
-        Pick<TextStyle, CSSLongNativeTranslatableTextRetainedPropKey>
-      >;
-    };
-    block: {
-      flow: Partial<
-        Pick<ViewStyle, CSSLongNativeTranslatableBlockFlowedPropKey>
-      >;
-      retain: Partial<
-        Pick<ViewStyle, CSSLongNativeTranslatableBlockRetainedPropKey>
-      >;
-    };
-  };
-  web: {
-    text: {
-      flow: Partial<WebTextFlowProperties> & CSSProperties;
-      retain: Partial<Record<CSSLongWebTextRetainedPropKey, any>> &
-        CSSProperties;
-    };
-    block: {
-      flow: Partial<
-        Pick<ViewStyle, CSSLongNativeUntranslatableBlockFlowedPropKey>
-      > &
-        CSSProperties;
-      retain: Partial<
-        Pick<ViewStyle, CSSLongNativeUntranslatableBlockPropKey>
-      > &
-        CSSProperties;
-    };
-  };
+export interface CSSPropertySpecs {
+  readonly propagationCategory: CSSPropertyPropagationCategory;
+  readonly compatCategory: CSSPropertyCompatCategory;
+  readonly displayCategory: CSSPropertyDisplayCategory;
 }

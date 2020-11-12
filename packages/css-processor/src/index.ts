@@ -1,4 +1,5 @@
 import { CSSProcessor, MixedStyleDeclaration } from './CSSProcessor';
+export { CSSProcessedPropsRegistry } from './CSSProcessedPropsRegistry';
 export * from './config';
 export * from './default';
 export * from './processor-types';

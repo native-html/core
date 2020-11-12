@@ -1,14 +1,11 @@
 import { CSSProcessorConfig } from './config';
 import { CSSInlineParseRun } from './CSSInlineParseRun';
 import { CSSNativeParseRun } from './CSSNativeParseRun';
+import { CSSProcessedPropsRegistry } from './CSSProcessedPropsRegistry';
 import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
 import { defaultCSSProcessorConfig } from './default';
 import { ExtraNativeTextStyle, ExtraNativeViewStyle } from './native-types';
-import {
-  CSSProcessedPropsRegistry,
-  CSSRawPropertiesList,
-  WebTextFlowProperties
-} from './processor-types';
+import { CSSRawPropertiesList, WebTextFlowProperties } from './processor-types';
 
 // https://www.w3.org/TR/CSS22/
 // https://www.w3.org/TR/css3-cascade/

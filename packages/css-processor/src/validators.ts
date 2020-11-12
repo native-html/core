@@ -7,7 +7,8 @@ import {
 import {
   CSSPropertyCompatCategory,
   CSSPropertyDisplayCategory,
-  CSSPropertyPropagationCategory
+  CSSPropertyPropagationCategory,
+  CSSPropertySpecs
 } from './processor-types';
 
 export interface CSSPropertyModel {
@@ -27,7 +28,7 @@ export interface CSSPropertyValidatorParams<C extends CSSPropertyModel> {
 export abstract class CSSPropertyValidator<
   C extends CSSPropertyModel = any,
   N = any
-> {
+> implements CSSPropertySpecs {
   protected readonly model: C;
   protected readonly config: CSSProcessorConfig;
   protected readonly ignoreTransform: boolean;

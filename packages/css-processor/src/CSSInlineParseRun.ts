@@ -1,32 +1,32 @@
 import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
 import { CSSParseRun } from './CSSParseRun';
 import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
-import {
-  CSSProcessedPropsRegistry,
-  CSSRawPropertiesList,
-  CSSProperties
-} from './processor-types';
+import { CSSRawPropertiesList, CSSProperties } from './processor-types';
 import { CSSPropertyValidator } from './validators';
 
-export class CSSInlineParseRun
-  extends CSSParseRun
-  implements CSSProcessedPropsRegistry {
-  private rawTransformed: Record<string, any> = {};
+export class CSSInlineParseRun extends CSSParseRun {
+  private rules: CSSRawPropertiesList;
 
   constructor(
     rules: CSSRawPropertiesList,
     registry: CSSPropertiesValidationRegistry
   ) {
     super(registry);
-    this.rawTransformed = rules
+    this.rules = rules;
+  }
+
+  fillRegistry() {
+    const rawTransformed: Record<string, any> = this.rules
       .map((rule) => {
         const rawName = rule[0];
         const rawValue = rule[1];
         const camelCaseName = getPropertyName(rawName);
-        if (this.registry.shouldIgnoreProperty(camelCaseName)) {
+        if (this.validationMap.shouldIgnoreProperty(camelCaseName)) {
           return null;
         }
-        const validator = this.registry.getValidatorForProperty(camelCaseName);
+        const validator = this.validationMap.getValidatorForProperty(
+          camelCaseName
+        );
         if (!validator) {
           return null;
         }
@@ -43,7 +43,9 @@ export class CSSInlineParseRun
           return reg;
         }
         const [camelCaseName, value] = rule;
-        const validator = this.registry.getValidatorForProperty(camelCaseName);
+        const validator = this.validationMap.getValidatorForProperty(
+          camelCaseName
+        );
         if (validator && validator.shouldIgnoreTransform()) {
           return { ...reg, [camelCaseName]: value };
         }
@@ -54,17 +56,13 @@ export class CSSInlineParseRun
         }
         return reg;
       }, {} as CSSProperties);
-    this.registerRules();
-  }
-
-  private registerRules() {
-    Object.keys(this.rawTransformed).forEach((camelCaseName) => {
-      const value = this.rawTransformed[camelCaseName];
-      const validator = this.registry.getValidatorForProperty(
+    Object.keys(rawTransformed).forEach((camelCaseName) => {
+      const value = rawTransformed[camelCaseName];
+      const validator = this.validationMap.getValidatorForProperty(
         camelCaseName
       ) as CSSPropertyValidator;
       const normalizedValue = validator.normalizeValue(value);
-      this.registerProperty(camelCaseName, normalizedValue, validator);
+      this.registry.setProperty(camelCaseName, normalizedValue, validator);
     });
   }
 }

@@ -55,19 +55,22 @@ const extraStylesRegistry = {
 };
 
 export class CSSNativeParseRun extends CSSParseRun {
+  private declaration: MixedStyleDeclaration;
+
   constructor(
     declaration: MixedStyleDeclaration,
     registry: CSSPropertiesValidationRegistry
   ) {
     super(registry);
-    this.registerDeclaration(declaration);
+    this.declaration = declaration;
   }
 
-  private registerDeclaration(declaration: MixedStyleDeclaration) {
+  protected fillRegistry(): void {
+    const declaration = this.declaration;
     for (const key of Object.keys(declaration)) {
-      const validator = this.registry.getValidatorForProperty(key);
+      const validator = this.validationMap.getValidatorForProperty(key);
       if (validator) {
-        this.registerProperty(
+        this.registry.setProperty(
           key,
           declaration[key as keyof MixedStyleDeclaration],
           validator
@@ -76,7 +79,7 @@ export class CSSNativeParseRun extends CSSParseRun {
         const extraNativeDisplay =
           extraStylesRegistry[key as keyof typeof extraStylesRegistry];
         if (extraNativeDisplay) {
-          this.registerProperty(
+          this.registry.setProperty(
             key,
             declaration[key as keyof MixedStyleDeclaration],
             {

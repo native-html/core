@@ -1,81 +1,19 @@
-import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
-import {
-  CSSProcessedPropsRegistry,
-  CSSDisplayRegistry,
-  CSSProperties,
-  CSSPropertyCompatCategory,
-  CSSPropertyDisplayCategory
-} from './processor-types';
-import { CSSPropertyValidator } from './validators';
+import { CSSPropertiesValidationRegistry as CSSPropertiesValidationMap } from './CSSPropertiesValidationRegistry';
+import { CSSProcessedPropsRegistry } from './CSSProcessedPropsRegistry';
 
-export class CSSParseRun implements CSSProcessedPropsRegistry {
-  readonly native: CSSProcessedPropsRegistry['native'];
-  readonly web: CSSProcessedPropsRegistry['web'];
-  protected registry: CSSPropertiesValidationRegistry;
+export abstract class CSSParseRun {
+  protected validationMap: CSSPropertiesValidationMap;
+  protected registry: CSSProcessedPropsRegistry;
 
-  protected newCompatCategory<
-    T extends CSSPropertyCompatCategory
-  >(): CSSProcessedPropsRegistry[T] {
-    return {
-      block: {
-        retain: {},
-        flow: {}
-      },
-      text: {
-        retain: {},
-        flow: {}
-      }
-    };
+  constructor(validationMap: CSSPropertiesValidationMap) {
+    this.validationMap = validationMap;
+    this.registry = new CSSProcessedPropsRegistry();
   }
 
-  constructor(registry: CSSPropertiesValidationRegistry) {
-    this.registry = registry;
-    this.native = this.newCompatCategory<'native'>();
-    this.web = this.newCompatCategory<'web'>();
-  }
-
-  private normalize(reg: CSSProperties): CSSProperties {
-    return reg;
-  }
-
-  private assembleDisplayCategory(
-    base: CSSDisplayRegistry,
-    category: CSSPropertyDisplayCategory
-  ) {
-    return {
-      retain: this.normalize(base[category].retain),
-      flow: this.normalize(base[category].flow)
-    };
-  }
-
-  private assembleCompatCategory(compat: CSSPropertyCompatCategory) {
-    return {
-      block: this.assembleDisplayCategory(this[compat], 'block'),
-      text: this.assembleDisplayCategory(this[compat], 'text')
-    };
-  }
-
-  protected registerProperty(
-    propertyName: string,
-    propertyValue: any,
-    {
-      compatCategory,
-      displayCategory,
-      propagationCategory
-    }: Pick<
-      CSSPropertyValidator,
-      'compatCategory' | 'displayCategory' | 'propagationCategory'
-    >
-  ) {
-    (this[compatCategory][displayCategory][propagationCategory] as any)[
-      propertyName
-    ] = propertyValue;
-  }
+  protected abstract fillRegistry(): void;
 
   public exec(): CSSProcessedPropsRegistry {
-    return {
-      native: this.assembleCompatCategory('native'),
-      web: this.assembleCompatCategory('web')
-    };
+    this.fillRegistry();
+    return this.registry;
   }
 }
