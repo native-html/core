@@ -1,72 +1,84 @@
 import { TextStyle, ViewStyle } from 'react-native';
 import {
-  LngNtrBlkFloProperties,
-  LngNtrBlkRetProperties,
-  LngNtrTxtFloProperties,
-  LngNtrTxtRetProperties,
-  LngNunBlkFloProperties,
-  LngNunBlkProperties,
-  LngWebTxtFloProperties,
-  LngWebTxtRetProperties
+  CSSLongNativeTranslatableBlockFlowedPropKey,
+  CSSLongNativeTranslatableBlockRetainedPropKey,
+  CSSLongNativeTranslatableTextFlowedPropKey,
+  CSSLongNativeTranslatableTextRetainedPropKey,
+  CSSLongNativeUntranslatableBlockFlowedPropKey,
+  CSSLongNativeUntranslatableBlockPropKey,
+  CSSLongWebTextFlowedPropKey,
+  CSSLongWebTextRetainedPropKey
 } from './property-types';
 
-export type CSSRawRulesList = [string, any][];
-export type CSSPropertiesRegistry = Record<string, any>;
+export type CSSRawPropertiesList = [string, any][];
+export type CSSProperties = Record<string, any>;
 /**
  * - *flow* CSS properties will be inherited by children TTree nodes;
  * - *retain* CSS properties will only apply to the TTree node to which it is
  *   attached.
  */
-export type CSSRulesPropagationCategory = 'flow' | 'retain';
+export type CSSPropertyPropagationCategory = 'flow' | 'retain';
 /**
  * - *text* displays will only affect textual nodes
  * - *block* displays will affect all nodes
  */
-export type CSSRulesDisplayCategory = 'text' | 'block';
+export type CSSPropertyDisplayCategory = 'text' | 'block';
 /**
  * - *native* properties can be injected in React Native components style prop;
  * - *web* properties are solely used in the transient tree render engine.
  */
-export type CSSRulesCompatCategory = 'native' | 'web';
+export type CSSPropertyCompatCategory = 'native' | 'web';
 
 export type CSSPropagationRegistry = Record<
-  CSSRulesPropagationCategory,
-  CSSPropertiesRegistry
+  CSSPropertyPropagationCategory,
+  CSSProperties
 >;
 
 export type CSSDisplayRegistry = Record<
-  CSSRulesDisplayCategory,
+  CSSPropertyDisplayCategory,
   CSSPropagationRegistry
 >;
 
-export interface WebTextFlowPropertiesRegistry
-  extends Record<LngWebTxtFloProperties, any> {
-  whiteSpace: 'normal' | 'pre';
+export interface WebTextFlowProperties
+  extends Partial<Record<CSSLongWebTextFlowedPropKey, any>> {
+  whiteSpace?: 'normal' | 'pre';
 }
 
 export interface CSSProcessedPropsRegistry
-  extends Record<CSSRulesCompatCategory, CSSDisplayRegistry> {
+  extends Record<CSSPropertyCompatCategory, CSSDisplayRegistry> {
   native: {
     text: {
-      flow: Partial<Pick<TextStyle, LngNtrTxtFloProperties>>;
-      retain: Partial<Pick<TextStyle, LngNtrTxtRetProperties>>;
+      flow: Partial<
+        Pick<TextStyle, CSSLongNativeTranslatableTextFlowedPropKey>
+      >;
+      retain: Partial<
+        Pick<TextStyle, CSSLongNativeTranslatableTextRetainedPropKey>
+      >;
     };
     block: {
-      flow: Partial<Pick<ViewStyle, LngNtrBlkFloProperties>>;
-      retain: Partial<Pick<ViewStyle, LngNtrBlkRetProperties>>;
+      flow: Partial<
+        Pick<ViewStyle, CSSLongNativeTranslatableBlockFlowedPropKey>
+      >;
+      retain: Partial<
+        Pick<ViewStyle, CSSLongNativeTranslatableBlockRetainedPropKey>
+      >;
     };
   };
   web: {
     text: {
-      flow: Partial<WebTextFlowPropertiesRegistry> & CSSPropertiesRegistry;
-      retain: Partial<Record<LngWebTxtRetProperties, any>> &
-        CSSPropertiesRegistry;
+      flow: Partial<WebTextFlowProperties> & CSSProperties;
+      retain: Partial<Record<CSSLongWebTextRetainedPropKey, any>> &
+        CSSProperties;
     };
     block: {
-      flow: Partial<Pick<ViewStyle, LngNunBlkFloProperties>> &
-        CSSPropertiesRegistry;
-      retain: Partial<Pick<ViewStyle, LngNunBlkProperties>> &
-        CSSPropertiesRegistry;
+      flow: Partial<
+        Pick<ViewStyle, CSSLongNativeUntranslatableBlockFlowedPropKey>
+      > &
+        CSSProperties;
+      retain: Partial<
+        Pick<ViewStyle, CSSLongNativeUntranslatableBlockPropKey>
+      > &
+        CSSProperties;
     };
   };
 }

@@ -9,12 +9,10 @@ import {
 // borderStyle, overflow, placeItems, placeSelf,
 // textEmphasis
 
-// Type: Shorthand / Longhand : Sht / Lng
-// Compat: Web / Native-translatable / Native-untranslatable : Web / Ntr / Nun
-// Display: Text / Block : Txt / Blk
-// Propagation: Flow / Retain : Flo / Ret
-//
-// Order: Type Compat Display Propagation
+/**
+ * React Native style keys which are exclusive to TextStyle.
+ */
+export type NativeTextStyleKey = Exclude<keyof TextStyle, keyof ViewStyle>;
 
 /**
  * Shorthand properties.
@@ -22,7 +20,7 @@ import {
  * These properties are not considered "native, web, flow ... etc" because
  * they won't be translated per-se.
  */
-export type ShtProperties = Extract<
+export type CSSShortPropsKey = Extract<
   keyof StandardShorthandProperties,
   | 'background'
   | 'border'
@@ -42,7 +40,7 @@ export type ShtProperties = Extract<
  * Flowed properties.
  * Such properties propagate recursively to children nodes.
  */
-export type FloProperties = Extract<
+export type CSSFlowedPropKey = Extract<
   keyof StandardLonghandProperties,
   | 'borderCollapse'
   | 'borderSpacing'
@@ -77,59 +75,59 @@ export type FloProperties = Extract<
 /**
  * Long, Native Text properties
  */
-export type LngNativeTxtProperties = Extract<
+export type CSSLongNativeTextPropKey = Extract<
   keyof StandardLonghandProperties,
-  Exclude<keyof TextStyle, keyof ViewStyle>
+  NativeTextStyleKey
 >;
 
 /**
  * Long, Native-untranslatable, Text properties
  */
-export type LngNunTxtProperties = never;
+export type CSSLongNativeUntranslatableTextPropKey = never;
 
 /**
  * Long, Native-translatable, Text properties
  */
-export type LngNtrTxtProperties = Exclude<
-  LngNativeTxtProperties,
-  LngNunTxtProperties
+export type CSSLongNativeTranslatableTextPropKey = Exclude<
+  CSSLongNativeTextPropKey,
+  CSSLongNativeUntranslatableTextPropKey
 >;
 
 /**
  * Long, Native-translatable, Text, Flowed properties
  */
-export type LngNtrTxtFloProperties = Extract<
-  LngNativeTxtProperties,
-  FloProperties
+export type CSSLongNativeTranslatableTextFlowedPropKey = Extract<
+  CSSLongNativeTextPropKey,
+  CSSFlowedPropKey
 >;
 
 /**
  * Long, Native-translatable, Text, Retained properties
  */
-export type LngNtrTxtRetProperties = Exclude<
-  LngNativeTxtProperties,
-  FloProperties
+export type CSSLongNativeTranslatableTextRetainedPropKey = Exclude<
+  CSSLongNativeTextPropKey,
+  CSSFlowedPropKey
 >;
 
 /**
  * Long, Native-untranslatable, Text Retained properties
  */
-export type LngNunTxtRetProperties = Exclude<
-  LngNunTxtProperties,
-  FloProperties
+export type CSSLongNativeUntranslatableTextRetainedPropKey = Exclude<
+  CSSLongNativeUntranslatableTextPropKey,
+  CSSFlowedPropKey
 >;
 /**
  * Long, Native-untranslatable, Text Flowed properties
  */
-export type LngNunTxtFloProperties = Extract<
-  LngNunTxtProperties,
-  FloProperties
+export type CSSLongNativeUntranslatableTextFlowedPropKey = Extract<
+  CSSLongNativeUntranslatableTextPropKey,
+  CSSFlowedPropKey
 >;
 
 /**
  * Long, Web, Text Flowed properties
  */
-export type LngWebTxtFloProperties = Extract<
+export type CSSLongWebTextFlowedPropKey = Extract<
   keyof StandardLonghandProperties,
   'whiteSpace'
 >;
@@ -137,7 +135,7 @@ export type LngWebTxtFloProperties = Extract<
 /**
  * Long, Web, Text Retained properties
  */
-export type LngWebTxtRetProperties = Extract<
+export type CSSLongWebTextRetainedPropKey = Extract<
   keyof StandardLonghandProperties,
   never
 >;
@@ -145,25 +143,31 @@ export type LngWebTxtRetProperties = Extract<
 /**
  * Short, Text properties
  */
-export type ShtTxtProperties = Extract<
-  ShtProperties,
+export type CSSShortTextPropKey = Extract<
+  CSSShortPropsKey,
   'textDecoration' | 'font'
 >;
 
 /**
  * Short, Block properties
  */
-export type ShtBlkProperties = Exclude<ShtProperties, ShtTxtProperties>;
+export type CSSShortBlockPropKey = Exclude<
+  CSSShortPropsKey,
+  CSSShortTextPropKey
+>;
 
 /**
  * Short, Native-translatable, Block properties
  */
-export type ShtNtrBlkProperties = Exclude<ShtProperties, ShtTxtProperties>;
+export type CSSShortNativeTranslatableBlockPropKey = Exclude<
+  CSSShortPropsKey,
+  CSSShortTextPropKey
+>;
 
 /**
  * Long, Native, Block properties
  */
-export type LngNativeBlkProperties = Extract<
+export type CSSLongNativeBlockPropKey = Extract<
   keyof StandardLonghandProperties,
   keyof ViewStyle
 >;
@@ -171,16 +175,16 @@ export type LngNativeBlkProperties = Extract<
 /**
  * Long, Native-translatable, Block properties
  */
-export type LngNtrBlkProperties = Exclude<
-  LngNativeBlkProperties,
-  LngNunBlkProperties
+export type CSSLongNativeTranslatableBlockPropKey = Exclude<
+  CSSLongNativeBlockPropKey,
+  CSSLongNativeUntranslatableBlockPropKey
 >;
 
 /**
  * Long, Native-untranslatable, Block properties
  */
-export type LngNunBlkProperties = Extract<
-  LngNativeBlkProperties,
+export type CSSLongNativeUntranslatableBlockPropKey = Extract<
+  CSSLongNativeBlockPropKey,
   | 'alignContent'
   | 'alignItems'
   | 'alignSelf'
@@ -202,38 +206,38 @@ export type LngNunBlkProperties = Extract<
 /**
  * Long, Native-untranslatable, Block, Flowed properties
  */
-export type LngNunBlkFloProperties = Extract<
-  LngNunBlkProperties,
-  FloProperties
+export type CSSLongNativeUntranslatableBlockFlowedPropKey = Extract<
+  CSSLongNativeUntranslatableBlockPropKey,
+  CSSFlowedPropKey
 >;
 /**
  * Long, Native-untranslatable, Block, Retained properties
  */
-export type LngNunBlkRetProperties = Exclude<
-  LngNunBlkProperties,
-  FloProperties
+export type CSSLongNativeUntranslatableBlockRetainedPropKey = Exclude<
+  CSSLongNativeUntranslatableBlockPropKey,
+  CSSFlowedPropKey
 >;
 
 /**
  * Long, Native-translatable, Block, Flowed properties
  */
-export type LngNtrBlkFloProperties = Extract<
-  LngNtrBlkProperties,
-  FloProperties
+export type CSSLongNativeTranslatableBlockFlowedPropKey = Extract<
+  CSSLongNativeTranslatableBlockPropKey,
+  CSSFlowedPropKey
 >;
 
 /**
  * Long, Native-translatable, Block, Retained properties
  */
-export type LngNtrBlkRetProperties = Exclude<
-  LngNtrBlkProperties,
-  FloProperties
+export type CSSLongNativeTranslatableBlockRetainedPropKey = Exclude<
+  CSSLongNativeTranslatableBlockPropKey,
+  CSSFlowedPropKey
 >;
 
 /**
  * Native properties
  */
-export type NativeProperties =
-  | LngNativeTxtProperties
-  | LngNativeBlkProperties
-  | ShtProperties;
+export type CSSNativePropKey =
+  | CSSLongNativeTextPropKey
+  | CSSLongNativeBlockPropKey
+  | CSSShortPropsKey;

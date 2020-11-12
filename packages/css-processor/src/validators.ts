@@ -4,6 +4,11 @@ import {
   CSSLengthUnit,
   CSSProcessorConfig
 } from './config';
+import {
+  CSSPropertyCompatCategory,
+  CSSPropertyDisplayCategory,
+  CSSPropertyPropagationCategory
+} from './processor-types';
 
 export interface CSSPropertyModel {
   inheritable: boolean;
@@ -26,6 +31,9 @@ export abstract class CSSPropertyValidator<
   protected readonly model: C;
   protected readonly config: CSSProcessorConfig;
   protected readonly ignoreTransform: boolean;
+  public readonly propagationCategory: CSSPropertyPropagationCategory;
+  public readonly compatCategory: CSSPropertyCompatCategory;
+  public readonly displayCategory: CSSPropertyDisplayCategory;
   constructor({
     model,
     config,
@@ -34,6 +42,9 @@ export abstract class CSSPropertyValidator<
     this.model = model;
     this.ignoreTransform = ignoreTransform;
     this.config = config;
+    this.propagationCategory = model.inheritable ? 'flow' : 'retain';
+    this.compatCategory = model.translatable ? 'native' : 'web';
+    this.displayCategory = model.display;
   }
   /**
    * Normalize a rule value after serialization with css-to-react-native.
@@ -62,24 +73,12 @@ export abstract class CSSPropertyValidator<
    */
   abstract normalizeRaw(value: string): N | null;
 
-  isInheritable(): boolean {
-    return this.model.inheritable;
-  }
-
-  isTranslatable(): boolean {
-    return this.model.translatable;
-  }
-
   isShorthand(): boolean {
     return this.model.shorthand;
   }
 
   shouldIgnoreTransform(): boolean {
     return this.ignoreTransform;
-  }
-
-  display() {
-    return this.model.display;
   }
 }
 

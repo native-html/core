@@ -1,4 +1,7 @@
-import { LngNtrBlkProperties, LngNtrTxtProperties } from './property-types';
+import {
+  CSSLongNativeTranslatableBlockPropKey,
+  CSSLongNativeTranslatableTextPropKey
+} from './property-types';
 
 export type CSSLengthUnit =
   | 'cm'
@@ -57,7 +60,9 @@ export interface CSSProcessorConfig {
    * @remarks As of this version, inline styles are considered 100% safe and
    * predictable, thus this property is generally not advised.
    */
-  readonly ignoredProperties: Array<LngNtrBlkProperties | LngNtrTxtProperties>;
+  readonly ignoredProperties: Array<
+    CSSLongNativeTranslatableBlockPropKey | CSSLongNativeTranslatableTextPropKey
+  >;
 
   /**
    * Determine is the provided font is supported on running platform.
