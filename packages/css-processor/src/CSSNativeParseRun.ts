@@ -67,27 +67,21 @@ export class CSSNativeParseRun extends CSSParseRun {
 
   protected fillRegistry(): void {
     const declaration = this.declaration;
-    for (const key of Object.keys(declaration)) {
+    for (const key of Object.keys(declaration) as Array<
+      keyof MixedStyleDeclaration
+    >) {
       const validator = this.validationMap.getValidatorForProperty(key);
       if (validator) {
-        this.registry.setProperty(
-          key,
-          declaration[key as keyof MixedStyleDeclaration],
-          validator
-        );
+        this.registry.withProperty(key, declaration[key], validator);
       } else {
         const extraNativeDisplay =
           extraStylesRegistry[key as keyof typeof extraStylesRegistry];
         if (extraNativeDisplay) {
-          this.registry.setProperty(
-            key,
-            declaration[key as keyof MixedStyleDeclaration],
-            {
-              compatCategory: 'native',
-              displayCategory: extraNativeDisplay,
-              propagationCategory: 'retain'
-            }
-          );
+          this.registry.withProperty(key, declaration[key], {
+            compatCategory: 'native',
+            displayCategory: extraNativeDisplay,
+            propagationCategory: 'retain'
+          });
         } else {
           console.warn(
             `Native style property "${key}" has been ignored. If it is a shorthand property, use the equivalent longhand instead.`

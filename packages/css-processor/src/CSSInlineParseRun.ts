@@ -1,5 +1,6 @@
 import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
 import { CSSParseRun } from './CSSParseRun';
+import { MixedStyleDeclaration } from './CSSProcessor';
 import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
 import { CSSRawPropertiesList, CSSProperties } from './processor-types';
 import { CSSPropertyValidator } from './validators';
@@ -62,7 +63,11 @@ export class CSSInlineParseRun extends CSSParseRun {
         camelCaseName
       ) as CSSPropertyValidator;
       const normalizedValue = validator.normalizeValue(value);
-      this.registry.setProperty(camelCaseName, normalizedValue, validator);
+      this.registry.withProperty(
+        camelCaseName as keyof MixedStyleDeclaration,
+        normalizedValue,
+        validator
+      );
     });
   }
 }

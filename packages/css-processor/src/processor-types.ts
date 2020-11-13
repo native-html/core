@@ -34,8 +34,12 @@ export interface WebTextFlowProperties
   whiteSpace?: 'normal' | 'pre';
 }
 
-export interface CSSPropertySpecs {
-  readonly propagationCategory: CSSPropertyPropagationCategory;
-  readonly compatCategory: CSSPropertyCompatCategory;
-  readonly displayCategory: CSSPropertyDisplayCategory;
+export interface CSSPropertySpecs<
+  C extends CSSPropertyCompatCategory = CSSPropertyCompatCategory,
+  D extends CSSPropertyDisplayCategory = CSSPropertyDisplayCategory,
+  P extends CSSPropertyPropagationCategory = CSSPropertyPropagationCategory
+> {
+  readonly compatCategory: C;
+  readonly displayCategory: D;
+  readonly propagationCategory: P;
 }
