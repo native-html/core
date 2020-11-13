@@ -89,7 +89,7 @@ export class TStylesMerger {
         ) || null
       : null;
     const userAgentTagProps = this.enableUserAgentStyles
-      ? model?.defaultCSSPropsRegistry ?? null
+      ? model?.defaultCSSProcessedProps ?? null
       : null;
     // Latest properties will override former properties.
     const mergedOwnProps = mergePropsRegistries([

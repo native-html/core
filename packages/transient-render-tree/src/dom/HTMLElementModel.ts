@@ -199,7 +199,7 @@ export class HTMLElementModel<T extends string> {
   public readonly isPhrasing: boolean;
   public readonly isTranslatableBlock: boolean;
   public readonly isVoid: boolean;
-  public readonly defaultCSSPropsRegistry: CSSProcessedProps | null;
+  public readonly defaultCSSProcessedProps: CSSProcessedProps | null;
   private readonly _getDerivedStylesFromAttributes: ElementModelBase['getUADerivedCSSProcessedPropsFromAttributes'];
   constructor({
     tagName,
@@ -217,7 +217,7 @@ export class HTMLElementModel<T extends string> {
     this.isPhrasing = phrasingCategories.indexOf(category) !== -1;
     this.isTranslatableBlock =
       translatableBlockCategories.indexOf(category) !== -1;
-    this.defaultCSSPropsRegistry = defaultCSSPropsRegistry || null;
+    this.defaultCSSProcessedProps = defaultCSSPropsRegistry || null;
     this._getDerivedStylesFromAttributes = getDerivedStylesFromAttributes;
   }
 
