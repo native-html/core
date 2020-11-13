@@ -28,4 +28,10 @@ export interface StylesConfig {
    * @defaultvalue true
    */
   readonly enableCSSInlineProcessing: boolean;
+  /**
+   * Enable or disable default styles for tags.
+   *
+   * @defaultValue false
+   */
+  readonly enableUserAgentStyles: boolean;
 }

@@ -1,7 +1,4 @@
-import {
-  CSSProperties,
-  CSSProcessedPropsRegistry
-} from '@native-html/css-processor';
+import { CSSProperties, CSSProcessedProps } from '@native-html/css-processor';
 
 /**
  * A cheap merge method using prototype inheritance.
@@ -24,13 +21,13 @@ function inheritProperties(
 }
 
 export class TStyles {
-  public readonly nativeTextFlow: CSSProcessedPropsRegistry['native']['text']['flow'];
-  public readonly nativeBlockFlow: CSSProcessedPropsRegistry['native']['block']['flow'];
-  public readonly nativeTextRet: CSSProcessedPropsRegistry['native']['text']['retain'];
-  public readonly nativeBlockRet: CSSProcessedPropsRegistry['native']['block']['retain'];
-  public readonly webTextFlow: CSSProcessedPropsRegistry['web']['text']['flow'];
+  public readonly nativeTextFlow: CSSProcessedProps['native']['text']['flow'];
+  public readonly nativeBlockFlow: CSSProcessedProps['native']['block']['flow'];
+  public readonly nativeTextRet: CSSProcessedProps['native']['text']['retain'];
+  public readonly nativeBlockRet: CSSProcessedProps['native']['block']['retain'];
+  public readonly webTextFlow: CSSProcessedProps['web']['text']['flow'];
   constructor(
-    ownProcessedProps: CSSProcessedPropsRegistry,
+    ownProcessedProps: CSSProcessedProps,
     parentStyles?: TStyles | null
   ) {
     this.nativeTextFlow = inheritProperties(

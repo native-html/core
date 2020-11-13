@@ -1,4 +1,8 @@
 import {
+  CSSProcessedProps,
+  CSSPropertySpecs
+} from '@native-html/css-processor';
+import {
   TagName,
   HTMLElementModel,
   ElementCategory,
@@ -21,10 +25,102 @@ export type ModelRegistry<T extends TagName> = {
   [k in T]: HTMLElementModel<k>;
 };
 
+const nativeTextFlow: CSSPropertySpecs = {
+  compatCategory: 'native',
+  displayCategory: 'text',
+  propagationCategory: 'flow'
+};
+
+const nativeBlockRetain: CSSPropertySpecs = {
+  compatCategory: 'native',
+  displayCategory: 'block',
+  propagationCategory: 'retain'
+};
+
+const nativeTextRetain: CSSPropertySpecs = {
+  compatCategory: 'native',
+  displayCategory: 'text',
+  propagationCategory: 'retain'
+};
+
+const bigMarginTopBottomPropsRegistry = CSSProcessedProps.new()
+  .withProperty('marginTop', 16, nativeBlockRetain) // TODO: 1em
+  .withProperty('marginBottom', 16, nativeBlockRetain); // TODO: 1em
+
+const shortMarginTopBottomPropsRegistry = CSSProcessedProps.new()
+  .withProperty('marginTop', 8, nativeBlockRetain) // TODO: .5em
+  .withProperty('marginBottom', 8, nativeBlockRetain); // TODO: .5em
+
+const lineThroughPropsRegistry = CSSProcessedProps.new().withProperty(
+  'textDecorationLine',
+  'line-through',
+  nativeTextRetain
+);
+
+const italicPropsRegistry = CSSProcessedProps.new().withProperty(
+  'fontStyle',
+  'italic',
+  nativeTextFlow
+);
+
+const monoPropsRegistry = CSSProcessedProps.new().withProperty(
+  'fontFamily',
+  'monospace',
+  nativeTextFlow
+);
+
+const boldPropsRegistry = CSSProcessedProps.new().withProperty(
+  'fontWeight',
+  'bold',
+  nativeTextFlow
+);
+
+const whiteSpacePrePropsRegistry = CSSProcessedProps.new().withProperty(
+  'whiteSpace',
+  'pre',
+  {
+    compatCategory: 'web',
+    displayCategory: 'text',
+    propagationCategory: 'flow'
+  }
+);
+
+const spacedBlockPropsRegistry = CSSProcessedProps.new()
+  .withProperty('marginLeft', 40, nativeBlockRetain)
+  .withProperty('marginRight', 40, nativeBlockRetain)
+  .merge(bigMarginTopBottomPropsRegistry);
+
+const anchorPropsRegistry = CSSProcessedProps.new()
+  .withProperty('color', 'blue', nativeTextFlow)
+  .withProperty('textDecorationLine', 'underline', nativeTextRetain)
+  .withProperty('textDecorationColor', 'blue', nativeTextRetain);
+
+const leftBorderQuote = CSSProcessedProps.new()
+  .withProperty('borderLeftWidth', 2, nativeBlockRetain)
+  .withProperty('borderLeftColor', 'gray', nativeBlockRetain);
+
+const dottedUnderlinePropsRegistry = CSSProcessedProps.new()
+  .withProperty('textDecorationLine', 'underline', nativeTextRetain)
+  .withProperty('textDecorationStyle', 'dotted', nativeTextRetain);
+
+const solidUnderlinePropsRegistry = CSSProcessedProps.new()
+  .withProperty('textDecorationLine', 'underline', nativeTextRetain)
+  .withProperty('textDecorationStyle', 'solid', nativeTextRetain);
+
+const listPropsRegistry = CSSProcessedProps.new()
+  .withProperty('paddingStart', 40, nativeBlockRetain)
+  .merge(bigMarginTopBottomPropsRegistry);
+
+// whitespace + mono + spacing
+const prePropsRegistry = whiteSpacePrePropsRegistry
+  .merge(monoPropsRegistry)
+  .merge(bigMarginTopBottomPropsRegistry);
+
 const sectioningModelMap: ModelRegistry<SectioningTagNames> = {
   address: new HTMLElementModel({
     category: 'sectioning',
-    tagName: 'address'
+    tagName: 'address',
+    defaultUACSSProcessedProps: italicPropsRegistry
   }),
   article: new HTMLElementModel({
     category: 'sectioning',
@@ -44,27 +140,57 @@ const sectioningModelMap: ModelRegistry<SectioningTagNames> = {
   }),
   h1: new HTMLElementModel({
     category: 'sectioning',
-    tagName: 'h1'
+    tagName: 'h1',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('fontSize', 32, nativeTextFlow) // TODO 2em
+      .withProperty('marginTop', 10.72, nativeTextFlow) // TODO 0.67em
+      .withProperty('marginBottom', 10.72, nativeTextFlow) // TODO 0.67em
+      .merge(boldPropsRegistry)
   }),
   h2: new HTMLElementModel({
     category: 'sectioning',
-    tagName: 'h2'
+    tagName: 'h2',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('fontSize', 24, nativeTextFlow) // TODO 1.5em
+      .withProperty('marginTop', 13.28, nativeTextFlow) // TODO .83em
+      .withProperty('marginBottom', 13.28, nativeTextFlow) // TODO .83em
+      .merge(boldPropsRegistry)
   }),
   h3: new HTMLElementModel({
     category: 'sectioning',
-    tagName: 'h3'
+    tagName: 'h3',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('fontSize', 18.72, nativeTextFlow) // TODO 1.17em
+      .withProperty('marginTop', 16, nativeTextFlow) // TODO 1em
+      .withProperty('marginBottom', 16, nativeTextFlow) // TODO 1em
+      .merge(boldPropsRegistry)
   }),
   h4: new HTMLElementModel({
     category: 'sectioning',
-    tagName: 'h4'
+    tagName: 'h4',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('fontSize', 16, nativeTextFlow) // TODO 1em
+      .withProperty('marginTop', 21.28, nativeTextFlow) // TODO 1.33em
+      .withProperty('marginBottom', 21.28, nativeTextFlow) // TODO 1.33em
+      .merge(boldPropsRegistry)
   }),
   h5: new HTMLElementModel({
     category: 'sectioning',
-    tagName: 'h5'
+    tagName: 'h5',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('fontSize', 13.28, nativeTextFlow) // TODO .83em
+      .withProperty('marginTop', 26.72, nativeTextFlow) // TODO 1.67em
+      .withProperty('marginBottom', 26.72, nativeTextFlow) // TODO 1.67em
+      .merge(boldPropsRegistry)
   }),
   h6: new HTMLElementModel({
     category: 'sectioning',
-    tagName: 'h6'
+    tagName: 'h6',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('fontSize', 10.72, nativeTextFlow) // TODO .67em
+      .withProperty('marginTop', 37.28, nativeTextFlow) // TODO 2.33em
+      .withProperty('marginBottom', 37.28, nativeTextFlow) // TODO 2.33em
+      .merge(boldPropsRegistry)
   }),
   header: new HTMLElementModel({
     category: 'sectioning',
@@ -240,11 +366,23 @@ const untranslatableModelMap: ModelRegistry<UntranslatableTagNames> = {
 const groupingModelMap: ModelRegistry<GroupingTagNames> = {
   blockquote: new HTMLElementModel({
     tagName: 'blockquote',
-    category: 'grouping'
+    category: 'grouping',
+    getUADerivedCSSProcessedPropsFromAttributes: (attributes) => {
+      if (attributes.type === 'cite') {
+        return leftBorderQuote;
+      }
+      return null;
+    },
+    defaultUACSSProcessedProps: spacedBlockPropsRegistry
   }),
   dd: new HTMLElementModel({
     tagName: 'dd',
-    category: 'grouping'
+    category: 'grouping',
+    defaultUACSSProcessedProps: CSSProcessedProps.new().withProperty(
+      'marginStart', // TODO test conflicts with marginLeft
+      40,
+      nativeBlockRetain
+    )
   }),
   div: new HTMLElementModel({
     tagName: 'div',
@@ -252,23 +390,36 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
   }),
   dl: new HTMLElementModel({
     tagName: 'dl',
-    category: 'grouping'
+    category: 'grouping',
+    defaultUACSSProcessedProps: bigMarginTopBottomPropsRegistry
   }),
   dt: new HTMLElementModel({
     tagName: 'dt',
-    category: 'grouping'
+    category: 'grouping',
+    defaultUACSSProcessedProps: boldPropsRegistry
   }),
   figcaption: new HTMLElementModel({
     tagName: 'figcaption',
-    category: 'grouping'
+    category: 'grouping',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('textAlign', 'center', nativeTextFlow)
+      .merge(italicPropsRegistry)
   }),
   figure: new HTMLElementModel({
     tagName: 'figure',
-    category: 'grouping'
+    category: 'grouping',
+    defaultUACSSProcessedProps: spacedBlockPropsRegistry
   }),
   hr: new HTMLElementModel({
     tagName: 'hr',
-    category: 'grouping'
+    category: 'grouping',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('marginLeft', 'auto', nativeBlockRetain)
+      .withProperty('marginRight', 'auto', nativeBlockRetain)
+      .withProperty('height', 1, nativeBlockRetain)
+      .withProperty('width', '100%', nativeBlockRetain)
+      .withProperty('backgroundColor', 'gray', nativeBlockRetain)
+      .merge(shortMarginTopBottomPropsRegistry)
   }),
   li: new HTMLElementModel({
     tagName: 'li',
@@ -284,19 +435,46 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
   }),
   ol: new HTMLElementModel({
     tagName: 'ol',
-    category: 'grouping'
+    category: 'grouping',
+    // TODO list-style-type: decimal;
+    defaultUACSSProcessedProps: listPropsRegistry
   }),
   p: new HTMLElementModel({
     tagName: 'p',
-    category: 'grouping'
+    category: 'grouping',
+    defaultUACSSProcessedProps: bigMarginTopBottomPropsRegistry
   }),
   pre: new HTMLElementModel({
     tagName: 'pre',
-    category: 'grouping'
+    category: 'grouping',
+    defaultUACSSProcessedProps: prePropsRegistry
+  }),
+  xmp: new HTMLElementModel({
+    tagName: 'xmp',
+    category: 'grouping',
+    defaultUACSSProcessedProps: prePropsRegistry
+  }),
+  listing: new HTMLElementModel({
+    tagName: 'listing',
+    category: 'grouping',
+    defaultUACSSProcessedProps: prePropsRegistry
+  }),
+  plaintext: new HTMLElementModel({
+    tagName: 'plaintext',
+    category: 'grouping',
+    defaultUACSSProcessedProps: prePropsRegistry
   }),
   ul: new HTMLElementModel({
     tagName: 'ul',
-    category: 'grouping'
+    category: 'grouping',
+    // TODO list-style-type: disc;
+    defaultUACSSProcessedProps: listPropsRegistry
+  }),
+  dir: new HTMLElementModel({
+    tagName: 'dir',
+    category: 'grouping',
+    // TODO list-style-type: disc;
+    defaultUACSSProcessedProps: listPropsRegistry
   })
 };
 
@@ -390,46 +568,79 @@ const embeddedModelMap: ModelRegistry<EmbeddedTagNames> = {
 const editsModelMap: ModelRegistry<EditsTagNames> = {
   ins: new HTMLElementModel({
     tagName: 'ins',
-    category: 'edits'
+    category: 'edits',
+    defaultUACSSProcessedProps: solidUnderlinePropsRegistry
   }),
   del: new HTMLElementModel({
     tagName: 'del',
-    category: 'edits'
+    category: 'edits',
+    defaultUACSSProcessedProps: lineThroughPropsRegistry
   })
 };
 
 const textLevelModelMap: ModelRegistry<TextLevelTagNames> = {
   em: new HTMLElementModel({
     tagName: 'em',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: italicPropsRegistry
   }),
   strong: new HTMLElementModel({
     tagName: 'strong',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: boldPropsRegistry
   }),
   small: new HTMLElementModel({
     tagName: 'small',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: CSSProcessedProps.new().withProperty(
+      'fontSize',
+      12, // TODO fix with "smaller"
+      nativeTextFlow
+    )
+  }),
+  big: new HTMLElementModel({
+    tagName: 'big',
+    category: 'textual',
+    defaultUACSSProcessedProps: CSSProcessedProps.new().withProperty(
+      'fontSize',
+      24, // TODO fix with "larger"
+      nativeTextFlow
+    )
   }),
   s: new HTMLElementModel({
     tagName: 's',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: lineThroughPropsRegistry
+  }),
+  strike: new HTMLElementModel({
+    tagName: 'strike',
+    category: 'textual',
+    defaultUACSSProcessedProps: lineThroughPropsRegistry
   }),
   cite: new HTMLElementModel({
     tagName: 'cite',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: italicPropsRegistry
   }),
   q: new HTMLElementModel({
     tagName: 'q',
     category: 'textual'
+    // default style, content: "open,close-quote"
   }),
   dfn: new HTMLElementModel({
     tagName: 'dfn',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: italicPropsRegistry
   }),
   abbr: new HTMLElementModel({
     tagName: 'abbr',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: dottedUnderlinePropsRegistry
+  }),
+  acronym: new HTMLElementModel({
+    tagName: 'acronym',
+    category: 'textual',
+    defaultUACSSProcessedProps: dottedUnderlinePropsRegistry
   }),
   ruby: new HTMLElementModel({
     tagName: 'ruby',
@@ -453,31 +664,47 @@ const textLevelModelMap: ModelRegistry<TextLevelTagNames> = {
   }),
   code: new HTMLElementModel({
     tagName: 'code',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: monoPropsRegistry
+  }),
+  tt: new HTMLElementModel({
+    tagName: 'tt',
+    category: 'textual',
+    defaultUACSSProcessedProps: monoPropsRegistry
   }),
   var: new HTMLElementModel({
     tagName: 'var',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: italicPropsRegistry
   }),
   samp: new HTMLElementModel({
     tagName: 'samp',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: monoPropsRegistry
   }),
   kbd: new HTMLElementModel({
     tagName: 'kbd',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: monoPropsRegistry
   }),
   sub: new HTMLElementModel({
     tagName: 'sub',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('textAlignVertical', 'bottom', nativeTextRetain)
+      .withProperty('fontSize', 12, nativeTextFlow) // TODO fix to "smaller"
   }),
   sup: new HTMLElementModel({
     tagName: 'sup',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('textAlignVertical', 'top', nativeTextRetain)
+      .withProperty('fontSize', 12, nativeTextFlow) // TODO fix to "smaller"
   }),
   i: new HTMLElementModel({
     tagName: 'i',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: italicPropsRegistry
   }),
   b: new HTMLElementModel({
     tagName: 'b',
@@ -485,19 +712,25 @@ const textLevelModelMap: ModelRegistry<TextLevelTagNames> = {
   }),
   u: new HTMLElementModel({
     tagName: 'u',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: solidUnderlinePropsRegistry
   }),
   mark: new HTMLElementModel({
     tagName: 'mark',
-    category: 'textual'
+    category: 'textual',
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('backgroundColor', 'yellow', nativeBlockRetain)
+      .withProperty('color', 'black', nativeTextFlow)
   }),
   bdi: new HTMLElementModel({
     tagName: 'bdi',
     category: 'textual'
+    // unicode-bidi: isolate;
   }),
   bdo: new HTMLElementModel({
     tagName: 'bdo',
     category: 'textual'
+    //  unicode-bidi: isolate-override;
   }),
   span: new HTMLElementModel({
     tagName: 'span',
@@ -518,7 +751,13 @@ const textLevelModelMap: ModelRegistry<TextLevelTagNames> = {
 const elementsModelMap: Record<TagName, HTMLElementModel<TagName>> = {
   a: new HTMLElementModel({
     tagName: 'a',
-    category: 'anchor'
+    category: 'anchor',
+    getUADerivedCSSProcessedPropsFromAttributes: (attributes) => {
+      if (typeof attributes.href === 'string') {
+        return anchorPropsRegistry;
+      }
+      return null;
+    }
   }),
   ...textLevelModelMap,
   ...editsModelMap,

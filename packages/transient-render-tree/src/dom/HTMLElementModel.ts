@@ -1,3 +1,5 @@
+import { CSSProcessedProps } from '@native-html/css-processor';
+
 export type ElementCategory =
   | 'anchor'
   | 'textual'
@@ -39,6 +41,7 @@ export type GroupingTagNames =
   | 'blockquote'
   | 'ol'
   | 'ul'
+  | 'dir'
   | 'menu'
   | 'li'
   | 'dl'
@@ -47,7 +50,10 @@ export type GroupingTagNames =
   | 'figure'
   | 'figcaption'
   | 'main'
-  | 'div';
+  | 'div'
+  | 'xmp' // deprecated, behaves like pre
+  | 'listing' // deprecated, behaves like pre
+  | 'plaintext'; // deprecated, behaves like pre
 
 export type AttribTagNames =
   | 'accesskey' // Attribute for fieldset
@@ -119,17 +125,21 @@ export type SectioningTagNames =
 export type TextLevelTagNames =
   | 'em'
   | 'strong'
+  | 'strike'
   | 'small'
+  | 'big'
   | 's'
   | 'cite'
   | 'q'
   | 'dfn'
   | 'abbr'
+  | 'acronym'
   | 'ruby'
   | 'rt'
   | 'rp'
   | 'data'
   | 'time'
+  | 'tt'
   | 'code'
   | 'var'
   | 'samp'
@@ -160,6 +170,16 @@ export interface ElementModelBase<T = TagName, C = ElementCategory> {
    * Void elements such as specified in HTML4. Void elements cannot have children.
    */
   isVoid?: boolean;
+  /**
+   * Equivalent of "user-agent" styles.
+   */
+  defaultUACSSProcessedProps?: CSSProcessedProps;
+  /**
+   * For example, "width" and "height" attributes for &lt;img&gt; tags.
+   */
+  getUADerivedCSSProcessedPropsFromAttributes?: (
+    attributes: Record<string, string>
+  ) => CSSProcessedProps | null;
 }
 
 const phrasingCategories: ElementCategory[] = ['textual', 'edits'];
@@ -179,11 +199,15 @@ export class HTMLElementModel<T extends string> {
   public readonly isPhrasing: boolean;
   public readonly isTranslatableBlock: boolean;
   public readonly isVoid: boolean;
+  public readonly defaultCSSPropsRegistry: CSSProcessedProps | null;
+  private readonly _getDerivedStylesFromAttributes: ElementModelBase['getUADerivedCSSProcessedPropsFromAttributes'];
   constructor({
     tagName,
     category,
     isOpaque,
-    isVoid
+    isVoid,
+    defaultUACSSProcessedProps: defaultCSSPropsRegistry,
+    getUADerivedCSSProcessedPropsFromAttributes: getDerivedStylesFromAttributes
   }: ElementModelBase<T, ElementCategory>) {
     this.tagName = tagName;
     this.isOpaque = isOpaque ?? category === 'embedded';
@@ -193,5 +217,16 @@ export class HTMLElementModel<T extends string> {
     this.isPhrasing = phrasingCategories.indexOf(category) !== -1;
     this.isTranslatableBlock =
       translatableBlockCategories.indexOf(category) !== -1;
+    this.defaultCSSPropsRegistry = defaultCSSPropsRegistry || null;
+    this._getDerivedStylesFromAttributes = getDerivedStylesFromAttributes;
+  }
+
+  getUADerivedCSSProcessedPropsFromAttributes(
+    attributes: Record<string, string>
+  ): CSSProcessedProps | null {
+    if (this._getDerivedStylesFromAttributes) {
+      return this._getDerivedStylesFromAttributes(attributes);
+    }
+    return null;
   }
 }

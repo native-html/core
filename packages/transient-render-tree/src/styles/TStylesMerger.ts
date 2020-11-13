@@ -1,41 +1,19 @@
 import CSSProcessor, {
-  CSSProcessedPropsRegistry,
+  CSSProcessedProps,
   CSSProcessorConfig,
-  CSSProperties,
   MixedStyleDeclaration
 } from '@native-html/css-processor';
+import { getElementModelFromTagName } from '../dom/elements-model';
 import { TStyles } from './TStyles';
 import { StylesConfig } from './types';
 
-const emptyProperties: CSSProperties = Object.freeze({});
-export const emptyProcessedPropsReg: CSSProcessedPropsRegistry = Object.freeze({
-  native: {
-    block: {
-      flow: emptyProperties,
-      retain: emptyProperties
-    },
-    text: {
-      flow: emptyProperties,
-      retain: emptyProperties
-    }
-  },
-  web: {
-    block: {
-      flow: emptyProperties,
-      retain: emptyProperties
-    },
-    text: {
-      flow: emptyProperties,
-      retain: emptyProperties
-    }
-  }
-});
+export const emptyProcessedPropsReg: CSSProcessedProps = new CSSProcessedProps();
 
 function mapMixedStyleRecordToCSSProcessedPropsReg(
   processor: CSSProcessor,
   styles?: Record<string, MixedStyleDeclaration>
-): Record<string, CSSProcessedPropsRegistry> {
-  let regStyles: Record<string, CSSProcessedPropsRegistry> = {};
+): Record<string, CSSProcessedProps> {
+  let regStyles: Record<string, CSSProcessedProps> = {};
   for (const key in styles) {
     regStyles[key] = processor.compileStyleDeclaration(styles[key]);
   }
@@ -52,10 +30,11 @@ function mapMixedStyleRecordToCSSProcessedPropsReg(
 // 7. Inherited styles (baseFontStyles)
 export class TStylesMerger {
   private processor: CSSProcessor;
-  private tagsStyles: Record<string, CSSProcessedPropsRegistry>;
-  private classesStyles: Record<string, CSSProcessedPropsRegistry>;
-  private idsStyles: Record<string, CSSProcessedPropsRegistry>;
+  private tagsStyles: Record<string, CSSProcessedProps>;
+  private classesStyles: Record<string, CSSProcessedProps>;
+  private idsStyles: Record<string, CSSProcessedProps>;
   private enableCSSInlineProcessing: boolean;
+  private enableUserAgentStyles: boolean;
   constructor(config: StylesConfig, cssProcessorConfig?: CSSProcessorConfig) {
     this.processor = new CSSProcessor(cssProcessorConfig);
     this.classesStyles = mapMixedStyleRecordToCSSProcessedPropsReg(
@@ -71,6 +50,7 @@ export class TStylesMerger {
       config.idsStyles
     );
     this.enableCSSInlineProcessing = config.enableCSSInlineProcessing;
+    this.enableUserAgentStyles = config.enableUserAgentStyles;
   }
 
   compileCss(inlineStyles: string) {
@@ -84,21 +64,40 @@ export class TStylesMerger {
       tagName: string | null;
       className: string | null;
       id: string | null;
+      attributes: Record<string, string>;
     }
   ): TStyles {
     const ownInlinePropsReg =
       this.enableCSSInlineProcessing && inlineStyle
         ? this.compileCss(inlineStyle)
         : null;
-    const tagOwnProps = this.tagsStyles[descriptor.tagName as string] ?? null;
-    const idOwnProps = this.idsStyles[descriptor.id as string] ?? null;
-    const classesOwnProps =
-      this.classesStyles[descriptor.className as string] ?? null;
+    const model = descriptor.tagName
+      ? getElementModelFromTagName(descriptor.tagName)
+      : null;
+    const userTagOwnProps =
+      this.tagsStyles[descriptor.tagName as string] ?? null;
+    const userIdOwnProps = this.idsStyles[descriptor.id as string] ?? null;
+    const classes = descriptor.className
+      ? descriptor.className.split(/\s+/)
+      : [];
+    const userClassesOwnPropsList = classes.map(
+      (c) => this.classesStyles[c] || null
+    );
+    const derivedPropsFromAttributes = this.enableUserAgentStyles
+      ? model?.getUADerivedCSSProcessedPropsFromAttributes(
+          descriptor.attributes
+        ) || null
+      : null;
+    const userAgentTagProps = this.enableUserAgentStyles
+      ? model?.defaultCSSPropsRegistry ?? null
+      : null;
     // Latest properties will override former properties.
     const mergedOwnProps = mergePropsRegistries([
-      tagOwnProps,
-      classesOwnProps,
-      idOwnProps,
+      userAgentTagProps,
+      derivedPropsFromAttributes,
+      userTagOwnProps,
+      ...userClassesOwnPropsList,
+      userIdOwnProps,
       ownInlinePropsReg
     ]);
     return new TStyles(mergedOwnProps, parentStyles);
@@ -110,56 +109,12 @@ export class TStylesMerger {
  * @param registries
  */
 function mergePropsRegistries(
-  registries: Array<CSSProcessedPropsRegistry | null>
-): CSSProcessedPropsRegistry {
-  return (registries.filter((e) => e != null) as Array<
-    CSSProcessedPropsRegistry
-  >).reduce((prev, curr) => {
-    return {
-      native: {
-        block: {
-          flow: {
-            ...prev.native.block.flow,
-            ...curr.native.block.flow
-          },
-          retain: {
-            ...prev.native.block.retain,
-            ...curr.native.block.retain
-          }
-        },
-        text: {
-          flow: {
-            ...prev.native.text.flow,
-            ...curr.native.text.flow
-          },
-          retain: {
-            ...prev.native.text.retain,
-            ...curr.native.text.retain
-          }
-        }
-      },
-      web: {
-        block: {
-          flow: {
-            ...prev.web.block.flow,
-            ...curr.web.block.flow
-          },
-          retain: {
-            ...prev.web.block.retain,
-            ...curr.web.block.retain
-          }
-        },
-        text: {
-          flow: {
-            ...prev.web.text.flow,
-            ...curr.web.text.flow
-          },
-          retain: {
-            ...prev.web.text.retain,
-            ...curr.web.text.retain
-          }
-        }
-      }
-    };
-  }, emptyProcessedPropsReg);
+  registries: Array<CSSProcessedProps | null>
+): CSSProcessedProps {
+  const filteredProps = registries.filter(isNotNull);
+  return emptyProcessedPropsReg.merge(...filteredProps);
+}
+
+function isNotNull<T>(item: T): item is Exclude<T, null> {
+  return item !== null;
 }
