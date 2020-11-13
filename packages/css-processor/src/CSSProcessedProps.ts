@@ -32,7 +32,12 @@ const propagationCategories: ReadonlyArray<CSSPropertyPropagationCategory> = [
   'retain'
 ];
 
-export class CSSProcessedPropsRegistry
+/**
+ * An object representing categorized style props. Props are categorized
+ * depending on their inheritability (flow, retain), target (block, text)
+ * and (react) native support (native, web).
+ */
+export class CSSProcessedProps
   implements Record<CSSPropertyCompatCategory, CSSDisplayRegistry> {
   readonly native: {
     text: {
@@ -77,7 +82,7 @@ export class CSSProcessedPropsRegistry
 
   private newCompatCategory<
     T extends CSSPropertyCompatCategory
-  >(): CSSProcessedPropsRegistry[T] {
+  >(): CSSProcessedProps[T] {
     return {
       block: {
         retain: {},
@@ -108,8 +113,8 @@ export class CSSProcessedPropsRegistry
    * @param overriders - The processed props which will be merged into this
    * processed prop. Rightmost props will override leftmost props.
    */
-  public merge(...overriders: CSSProcessedPropsRegistry[]) {
-    const next = new CSSProcessedPropsRegistry();
+  public merge(...overriders: CSSProcessedProps[]) {
+    const next = new CSSProcessedProps();
     for (const compat of compatCategories) {
       for (const display of displayCategories) {
         for (const propagation of propagationCategories) {
@@ -125,6 +130,6 @@ export class CSSProcessedPropsRegistry
   }
 
   static new() {
-    return new CSSProcessedPropsRegistry();
+    return new CSSProcessedProps();
   }
 }

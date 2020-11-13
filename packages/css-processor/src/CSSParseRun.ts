@@ -1,19 +1,19 @@
 import { CSSPropertiesValidationRegistry as CSSPropertiesValidationMap } from './CSSPropertiesValidationRegistry';
-import { CSSProcessedPropsRegistry } from './CSSProcessedPropsRegistry';
+import { CSSProcessedProps } from './CSSProcessedProps';
 
 export abstract class CSSParseRun {
   protected validationMap: CSSPropertiesValidationMap;
-  protected registry: CSSProcessedPropsRegistry;
+  protected processedProps: CSSProcessedProps;
 
   constructor(validationMap: CSSPropertiesValidationMap) {
     this.validationMap = validationMap;
-    this.registry = new CSSProcessedPropsRegistry();
+    this.processedProps = new CSSProcessedProps();
   }
 
-  protected abstract fillRegistry(): void;
+  protected abstract fillProcessedProps(): void;
 
-  public exec(): CSSProcessedPropsRegistry {
-    this.fillRegistry();
-    return this.registry;
+  public exec(): CSSProcessedProps {
+    this.fillProcessedProps();
+    return this.processedProps;
   }
 }

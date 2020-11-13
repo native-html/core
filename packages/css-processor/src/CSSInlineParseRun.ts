@@ -16,7 +16,7 @@ export class CSSInlineParseRun extends CSSParseRun {
     this.rules = rules;
   }
 
-  fillRegistry() {
+  fillProcessedProps() {
     const rawTransformed: Record<string, any> = this.rules
       .map((rule) => {
         const rawName = rule[0];
@@ -63,7 +63,7 @@ export class CSSInlineParseRun extends CSSParseRun {
         camelCaseName
       ) as CSSPropertyValidator;
       const normalizedValue = validator.normalizeValue(value);
-      this.registry.withProperty(
+      this.processedProps.withProperty(
         camelCaseName as keyof MixedStyleDeclaration,
         normalizedValue,
         validator

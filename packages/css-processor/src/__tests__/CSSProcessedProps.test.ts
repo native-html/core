@@ -1,4 +1,4 @@
-import { CSSProcessedPropsRegistry } from '../CSSProcessedPropsRegistry';
+import { CSSProcessedProps } from '../CSSProcessedProps';
 import { CSSPropertySpecs } from '../processor-types';
 
 const testCSSSpecs: CSSPropertySpecs = {
@@ -7,21 +7,21 @@ const testCSSSpecs: CSSPropertySpecs = {
   propagationCategory: 'retain'
 };
 
-describe('CSSProcessedPropsRegistry', () => {
+describe('CSSProcessedProps', () => {
   describe('merge method', () => {
     it('should merge categorized properties from left to right', () => {
-      const mergee = CSSProcessedPropsRegistry.new().withProperty(
+      const mergee = CSSProcessedProps.new().withProperty(
         'backgroundColor',
         'red',
         testCSSSpecs
       );
       const overriders = [
-        CSSProcessedPropsRegistry.new().withProperty(
+        CSSProcessedProps.new().withProperty(
           'backgroundColor',
           'blue',
           testCSSSpecs
         ),
-        CSSProcessedPropsRegistry.new().withProperty(
+        CSSProcessedProps.new().withProperty(
           'backgroundColor',
           'green',
           testCSSSpecs

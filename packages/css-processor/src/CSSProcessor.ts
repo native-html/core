@@ -1,7 +1,7 @@
 import { CSSProcessorConfig } from './config';
 import { CSSInlineParseRun } from './CSSInlineParseRun';
 import { CSSNativeParseRun } from './CSSNativeParseRun';
-import { CSSProcessedPropsRegistry } from './CSSProcessedPropsRegistry';
+import { CSSProcessedProps } from './CSSProcessedProps';
 import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
 import { defaultCSSProcessorConfig } from './default';
 import { ExtraNativeTextStyle, ExtraNativeViewStyle } from './native-types';
@@ -17,10 +17,10 @@ import { CSSRawPropertiesList, WebTextFlowProperties } from './processor-types';
 /**
  *
  */
-export type MixedStyleDeclaration = CSSProcessedPropsRegistry['native']['text']['flow'] &
-  CSSProcessedPropsRegistry['native']['block']['flow'] &
-  CSSProcessedPropsRegistry['native']['text']['retain'] &
-  CSSProcessedPropsRegistry['native']['block']['retain'] &
+export type MixedStyleDeclaration = CSSProcessedProps['native']['text']['flow'] &
+  CSSProcessedProps['native']['block']['flow'] &
+  CSSProcessedProps['native']['text']['retain'] &
+  CSSProcessedProps['native']['block']['retain'] &
   WebTextFlowProperties &
   ExtraNativeTextStyle &
   ExtraNativeViewStyle;
@@ -49,12 +49,12 @@ export class CSSProcessor {
 
   compileStyleDeclaration(
     declaration: MixedStyleDeclaration
-  ): CSSProcessedPropsRegistry {
+  ): CSSProcessedProps {
     const parseRun = new CSSNativeParseRun(declaration, this.registry);
     return parseRun.exec();
   }
 
-  compileCss(str: string): CSSProcessedPropsRegistry {
+  compileCss(str: string): CSSProcessedProps {
     const properties = this.parseInlineProperties(str);
     const parseRun = new CSSInlineParseRun(properties, this.registry);
     return parseRun.exec();

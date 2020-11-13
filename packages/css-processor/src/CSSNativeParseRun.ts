@@ -65,19 +65,19 @@ export class CSSNativeParseRun extends CSSParseRun {
     this.declaration = declaration;
   }
 
-  protected fillRegistry(): void {
+  protected fillProcessedProps(): void {
     const declaration = this.declaration;
     for (const key of Object.keys(declaration) as Array<
       keyof MixedStyleDeclaration
     >) {
       const validator = this.validationMap.getValidatorForProperty(key);
       if (validator) {
-        this.registry.withProperty(key, declaration[key], validator);
+        this.processedProps.withProperty(key, declaration[key], validator);
       } else {
         const extraNativeDisplay =
           extraStylesRegistry[key as keyof typeof extraStylesRegistry];
         if (extraNativeDisplay) {
-          this.registry.withProperty(key, declaration[key], {
+          this.processedProps.withProperty(key, declaration[key], {
             compatCategory: 'native',
             displayCategory: extraNativeDisplay,
             propagationCategory: 'retain'
