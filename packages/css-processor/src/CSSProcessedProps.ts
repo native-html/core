@@ -100,9 +100,11 @@ export class CSSProcessedProps
     propertyValue: MixedStyleDeclaration[K],
     { compatCategory, displayCategory, propagationCategory }: CSSPropertySpecs
   ) {
-    (this[compatCategory][displayCategory][propagationCategory] as any)[
-      propertyName
-    ] = propertyValue;
+    if (propertyValue !== null) {
+      (this[compatCategory][displayCategory][propagationCategory] as any)[
+        propertyName
+      ] = propertyValue;
+    }
     return this;
   }
 

@@ -1,9 +1,11 @@
-import { getPropertyName, getStylesForProperty } from 'css-to-react-native';
+import { getPropertyName } from 'css-to-react-native';
 import { CSSParseRun } from './CSSParseRun';
 import { MixedStyleDeclaration } from './CSSProcessor';
 import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
+import { ValidatorsType } from './makepropertiesValidators';
 import { CSSRawPropertiesList, CSSProperties } from './processor-types';
-import { CSSPropertyValidator } from './validators';
+import { ShortMergeRequest } from './ShortMergeRequest';
+import { LongCSSPropertyValidator } from './validators/LongCSSPropertyValidator';
 
 export class CSSInlineParseRun extends CSSParseRun {
   private rules: CSSRawPropertiesList;
@@ -14,60 +16,74 @@ export class CSSInlineParseRun extends CSSParseRun {
   ) {
     super(registry);
     this.rules = rules;
+    this.normalizeProp = this.normalizeProp.bind(this);
+    this.reduceProps = this.reduceProps.bind(this);
+  }
+
+  normalizeProp(
+    rule: CSSRawPropertiesList[number],
+    strict = false
+  ): null | [keyof ValidatorsType, any] {
+    const rawName = rule[0];
+    const rawValue = rule[1];
+    const camelCaseName = getPropertyName(rawName);
+    if (!this.validationMap.shouldRegisterProperty(camelCaseName)) {
+      return null;
+    }
+    const validator = this.validationMap.getValidatorForProperty(camelCaseName);
+    const normalizedValue = validator.normalizeInlineCSSValue(rawValue);
+    if (normalizedValue === null) {
+      if (strict) {
+        throw new TypeError();
+      }
+      return null;
+    }
+    return [camelCaseName, normalizedValue];
+  }
+
+  reduceProps(
+    reg: CSSProperties,
+    rule: null | [keyof ValidatorsType, Exclude<any, null>]
+  ): CSSProperties {
+    if (!rule) {
+      return reg;
+    }
+    const [camelCaseName, normalizedValue] = rule;
+    if (normalizedValue instanceof ShortMergeRequest) {
+      try {
+        return normalizedValue
+          .map((r) => this.normalizeProp(r, true))
+          .reduce(this.reduceProps, reg);
+      } catch (e) {
+        return reg;
+      }
+    }
+    return {
+      ...reg,
+      [camelCaseName]: normalizedValue
+    };
   }
 
   fillProcessedProps() {
-    const rawTransformed: Record<string, any> = this.rules
-      .map((rule) => {
-        const rawName = rule[0];
-        const rawValue = rule[1];
-        const camelCaseName = getPropertyName(rawName);
-        if (this.validationMap.shouldIgnoreProperty(camelCaseName)) {
-          return null;
-        }
+    const rawTransformed: Record<
+      keyof ValidatorsType,
+      any
+    > = this.rules
+      .map((r) => this.normalizeProp(r))
+      .reduce(this.reduceProps, {});
+    (Object.keys(rawTransformed) as Array<keyof ValidatorsType>).forEach(
+      (camelCaseName) => {
+        const value = rawTransformed[camelCaseName];
         const validator = this.validationMap.getValidatorForProperty(
           camelCaseName
+        ) as LongCSSPropertyValidator;
+        const normalizedValue = validator.normalizeInlineCSSValue(value);
+        this.processedProps.withProperty(
+          camelCaseName as keyof MixedStyleDeclaration,
+          normalizedValue,
+          validator
         );
-        if (!validator) {
-          return null;
-        }
-        const normalizedValue = validator.isShorthand()
-          ? validator.normalizeBeforeCSSToRNTransform(rawValue)
-          : validator.normalizeRaw(rawValue);
-        if (normalizedValue === null) {
-          return null;
-        }
-        return [camelCaseName, normalizedValue];
-      })
-      .reduce((reg, rule) => {
-        if (!rule) {
-          return reg;
-        }
-        const [camelCaseName, value] = rule;
-        const validator = this.validationMap.getValidatorForProperty(
-          camelCaseName
-        );
-        if (validator && validator.shouldIgnoreTransform()) {
-          return { ...reg, [camelCaseName]: value };
-        }
-        try {
-          return { ...reg, ...getStylesForProperty(camelCaseName, value) };
-        } catch (e) {
-          // Ignore this rule if parsing failed
-        }
-        return reg;
-      }, {} as CSSProperties);
-    Object.keys(rawTransformed).forEach((camelCaseName) => {
-      const value = rawTransformed[camelCaseName];
-      const validator = this.validationMap.getValidatorForProperty(
-        camelCaseName
-      ) as CSSPropertyValidator;
-      const normalizedValue = validator.normalizeValue(value);
-      this.processedProps.withProperty(
-        camelCaseName as keyof MixedStyleDeclaration,
-        normalizedValue,
-        validator
-      );
-    });
+      }
+    );
   }
 }

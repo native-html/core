@@ -3,15 +3,64 @@ import {
   CSSLongNativeBlockPropKey,
   CSSLongNativeTextPropKey,
   NativeTextStyleKey,
-  CSSShortPropsKey
+  CSSShortPropsKey,
+  CSSLongNativeUntranslatableBlockPropKey
 } from './property-types';
 
+export type ExtendedNativeViewStyleKeys = keyof ViewStyle | keyof ImageStyle;
+
+export type NativeDirectionalStyleKeys = Extract<
+  ExtendedNativeViewStyleKeys,
+  | 'borderBottomEndRadius'
+  | 'borderBottomStartRadius'
+  | 'borderTopEndRadius'
+  | 'borderTopStartRadius'
+  | 'borderEndColor'
+  | 'borderEndWidth'
+  | 'borderStartColor'
+  | 'borderStartWidth'
+  | 'marginEnd'
+  | 'marginStart'
+  | 'paddingEnd'
+  | 'paddingStart'
+  | 'start'
+  | 'end'
+>;
+
+export type ExtraNativeShortViewStyleKeys = Extract<
+  ExtendedNativeViewStyleKeys,
+  | 'marginHorizontal'
+  | 'marginVertical'
+  | 'paddingHorizontal'
+  | 'paddingVertical'
+>;
+
+export type ExtraNativeShortStyle = Pick<
+  TextStyle & ViewStyle,
+  ExtraNativeShortViewStyleKeys | NativeShortKeys
+>;
+
+export type ExtraNativeUntranslatedLongStyles = Pick<
+  ViewStyle,
+  CSSLongNativeUntranslatableBlockPropKey
+>;
+
 /**
- * Extraneous longhand React Native ViewStyle keys.
+ * Extraneous React Native ViewStyle keys.
  */
-export type ExtraNativeViewStyleKeys = Exclude<
-  Exclude<keyof ViewStyle | keyof ImageStyle, CSSShortPropsKey>,
-  CSSLongNativeBlockPropKey
+export type ExtraNativeLongViewStyleKeys = Exclude<
+  Exclude<ExtendedNativeViewStyleKeys, CSSShortPropsKey>,
+  | CSSLongNativeBlockPropKey
+  | NativeDirectionalStyleKeys
+  | ExtraNativeShortViewStyleKeys
+>;
+
+/**
+ * Native Short keys.
+ */
+export type NativeShortKeys = Extract<
+  CSSShortPropsKey,
+  NativeTextStyleKey | keyof ViewStyle
 >;
 
 /**
@@ -27,5 +76,8 @@ export type ExtraNativeTextStyle = Partial<
 >;
 
 export type ExtraNativeViewStyle = Partial<
-  Pick<ViewStyle & ImageStyle, ExtraNativeViewStyleKeys>
+  Pick<
+    ViewStyle & ImageStyle,
+    ExtraNativeLongViewStyleKeys | ExtraNativeShortViewStyleKeys
+  >
 >;

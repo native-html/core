@@ -27,7 +27,6 @@ export type CSSShortPropsKey = Extract<
   | 'borderColor'
   | 'borderRadius'
   | 'borderWidth'
-  | 'borderStyle'
   | 'flex'
   | 'flexFlow'
   | 'font'
@@ -168,7 +167,7 @@ export type CSSShortNativeTranslatableBlockPropKey = Exclude<
  * Long, Native, Block properties
  */
 export type CSSLongNativeBlockPropKey = Extract<
-  keyof StandardLonghandProperties,
+  keyof StandardLonghandProperties | 'borderStyle',
   keyof ViewStyle
 >;
 

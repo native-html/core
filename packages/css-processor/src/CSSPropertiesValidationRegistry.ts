@@ -1,5 +1,8 @@
 import { CSSProcessorConfig } from './config';
-import { makepropertiesValidators, ValidatorsType } from './make-validators';
+import makepropertiesValidators, {
+  ValidatorsType
+} from './makepropertiesValidators';
+import { GenericCSSPropertyValidator } from './validators/GenericPropertyValidator';
 
 export class CSSPropertiesValidationRegistry {
   public readonly validators: Readonly<ValidatorsType>;
@@ -14,14 +17,16 @@ export class CSSPropertiesValidationRegistry {
     this.ignoredPropertiesRegistry = registry;
   }
 
-  shouldIgnoreProperty(name: string) {
-    return this.ignoredPropertiesRegistry[name] || false;
+  shouldRegisterProperty(name: string): name is keyof ValidatorsType {
+    return (
+      !this.ignoredPropertiesRegistry[name] &&
+      !!this.validators[name as keyof ValidatorsType]
+    );
   }
 
-  getValidatorForProperty(name: string) {
-    if (Object.prototype.hasOwnProperty.call(this.validators, name)) {
-      return this.validators[name as keyof ValidatorsType];
-    }
-    return null;
+  getValidatorForProperty<T extends string>(
+    name: T
+  ): T extends keyof ValidatorsType ? GenericCSSPropertyValidator : null {
+    return (this.validators[name as keyof ValidatorsType] as any) || null;
   }
 }

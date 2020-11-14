@@ -1,9 +1,19 @@
 import { CSSParseRun } from './CSSParseRun';
 import { MixedStyleDeclaration } from './CSSProcessor';
 import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
-import { ExtraNativeTextStyle, ExtraNativeViewStyle } from './native-types';
+import { lookupRecord } from './helpers';
+import {
+  ExtraNativeTextStyle,
+  NativeDirectionalStyleKeys,
+  ExtraNativeLongViewStyleKeys
+} from './native-types';
+import { CSSPropertySpecs } from './processor-types';
+import { ShortMergeRequest } from './ShortMergeRequest';
 
-const extraViewStyles: Record<keyof ExtraNativeViewStyle, 'block'> = {
+const nativeDirectionalStyleKeys: Record<
+  NativeDirectionalStyleKeys,
+  'block'
+> = {
   borderBottomEndRadius: 'block',
   borderBottomStartRadius: 'block',
   borderEndColor: 'block',
@@ -12,18 +22,18 @@ const extraViewStyles: Record<keyof ExtraNativeViewStyle, 'block'> = {
   borderStartWidth: 'block',
   borderTopEndRadius: 'block',
   borderTopStartRadius: 'block',
-  elevation: 'block',
   end: 'block',
   marginEnd: 'block',
-  marginHorizontal: 'block',
   marginStart: 'block',
-  marginVertical: 'block',
+  paddingEnd: 'block',
+  paddingStart: 'block',
+  start: 'block'
+};
+
+const extraLongViewStyles: Record<ExtraNativeLongViewStyleKeys, 'block'> = {
+  elevation: 'block',
   overflow: 'block',
   overlayColor: 'block',
-  paddingEnd: 'block',
-  paddingHorizontal: 'block',
-  paddingStart: 'block',
-  paddingVertical: 'block',
   resizeMode: 'block',
   rotation: 'block',
   scaleX: 'block',
@@ -32,7 +42,6 @@ const extraViewStyles: Record<keyof ExtraNativeViewStyle, 'block'> = {
   shadowOffset: 'block',
   shadowOpacity: 'block',
   shadowRadius: 'block',
-  start: 'block',
   testID: 'block',
   tintColor: 'block',
   transformMatrix: 'block',
@@ -51,7 +60,7 @@ const extraTextStyles: Record<keyof ExtraNativeTextStyle, 'text'> = {
 
 const extraStylesRegistry = {
   ...extraTextStyles,
-  ...extraViewStyles
+  ...extraLongViewStyles
 };
 
 export class CSSNativeParseRun extends CSSParseRun {
@@ -65,29 +74,48 @@ export class CSSNativeParseRun extends CSSParseRun {
     this.declaration = declaration;
   }
 
+  private fillProp<K extends keyof MixedStyleDeclaration>(
+    key: K,
+    value: any
+  ): void {
+    const validator = this.validationMap.getValidatorForProperty(key);
+    if (validator) {
+      const normalizedValue = validator.normalizeNativeValue(value);
+      if (normalizedValue instanceof ShortMergeRequest) {
+        normalizedValue.forEach(([innerKey, innerValue]) => {
+          this.fillProp(innerKey as any, innerValue);
+        });
+      } else {
+        // assume longhand merge
+        this.processedProps.withProperty(
+          key,
+          normalizedValue,
+          validator as CSSPropertySpecs
+        );
+      }
+    } else if (lookupRecord(extraStylesRegistry, key)) {
+      this.processedProps.withProperty(key, value, {
+        compatCategory: 'native',
+        displayCategory: extraStylesRegistry[key],
+        propagationCategory: 'retain'
+      });
+    } else if (lookupRecord(nativeDirectionalStyleKeys, key)) {
+      console.warn(
+        `Native style property "${key}" is a directional style property. These are not yet supported.`
+      );
+    } else {
+      console.warn(
+        `Native style property "${key}" is not supported and has been ignored.`
+      );
+    }
+  }
+
   protected fillProcessedProps(): void {
     const declaration = this.declaration;
     for (const key of Object.keys(declaration) as Array<
       keyof MixedStyleDeclaration
     >) {
-      const validator = this.validationMap.getValidatorForProperty(key);
-      if (validator) {
-        this.processedProps.withProperty(key, declaration[key], validator);
-      } else {
-        const extraNativeDisplay =
-          extraStylesRegistry[key as keyof typeof extraStylesRegistry];
-        if (extraNativeDisplay) {
-          this.processedProps.withProperty(key, declaration[key], {
-            compatCategory: 'native',
-            displayCategory: extraNativeDisplay,
-            propagationCategory: 'retain'
-          });
-        } else {
-          console.warn(
-            `Native style property "${key}" has been ignored. If it is a shorthand property, use the equivalent longhand instead.`
-          );
-        }
-      }
+      this.fillProp(key, this.declaration[key]);
     }
   }
 }

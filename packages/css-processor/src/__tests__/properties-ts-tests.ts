@@ -1,5 +1,6 @@
 import { TextStyle, ViewStyle } from 'react-native';
-import { makepropertiesValidators } from '../make-validators';
+import makepropertiesValidators from '../makepropertiesValidators';
+import { ExtraNativeShortViewStyleKeys } from '../native-types';
 import {
   CSSLongNativeTextPropKey,
   CSSLongNativeTranslatableBlockFlowedPropKey,
@@ -23,6 +24,11 @@ type PropertiesValidator = ReturnType<typeof makepropertiesValidators>;
 // all required rules
 
 type NativeTextStyleKeys = Exclude<keyof TextStyle, keyof ViewStyle>;
+
+export const testExtraShortNativeProps: AssertEqual<
+  Extract<keyof PropertiesValidator, ExtraNativeShortViewStyleKeys>,
+  ExtraNativeShortViewStyleKeys
+> = true;
 
 export const testRNTextProps: AssertEqual<
   NativeTextStyleKeys,
