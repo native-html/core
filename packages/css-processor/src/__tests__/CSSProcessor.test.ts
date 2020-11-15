@@ -383,18 +383,18 @@ describe('CSSProcessor', () => {
       compat: 'web',
       display: 'text'
     };
-    const nativeRetainedViewSpec: SpecsModel = {
+    const nativeRetainedBlockSpec: SpecsModel = {
       compat: 'native',
       display: 'block',
       propagation: 'retain'
     };
     const nativeRetainedBlockColorSpecModel = {
       ...colorSpec,
-      ...nativeRetainedViewSpec
+      ...nativeRetainedBlockSpec
     };
     const nativeRetainedBlockSizeSpecModel = {
       ...sizeSpec,
-      ...nativeRetainedViewSpec
+      ...nativeRetainedBlockSpec
     };
     const retainedWebBlockSpec: SpecsModel = {
       compat: 'web',
@@ -422,7 +422,7 @@ describe('CSSProcessor', () => {
       'xx-large'
     ];
     const borderWidthSpec: Specs = {
-      ...nativeRetainedViewSpec,
+      ...nativeRetainedBlockSpec,
       inlineIncomingValues: borderWidthValues,
       mixedIncomingValues: borderWidthValues,
       outValues: [
@@ -437,7 +437,7 @@ describe('CSSProcessor', () => {
       Specs
     > = {
       display: {
-        ...retainedWebBlockSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: propertiesValidators.display.allowedList,
         mixedIncomingValues: propertiesValidators.display.allowedList
       },
@@ -503,7 +503,7 @@ describe('CSSProcessor', () => {
         mixedIncomingValues: propertiesValidators.direction.allowedList
       },
       backfaceVisibility: {
-        ...nativeRetainedViewSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues:
           propertiesValidators.backfaceVisibility.allowedList,
         mixedIncomingValues: propertiesValidators.backfaceVisibility.allowedList
@@ -531,7 +531,7 @@ describe('CSSProcessor', () => {
       minHeight: nativeRetainedBlockSizeSpecModel,
       minWidth: nativeRetainedBlockSizeSpecModel,
       opacity: {
-        ...nativeRetainedViewSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: ['0.5'],
         mixedIncomingValues: [0.5],
         outValues: [0.5]
@@ -541,7 +541,7 @@ describe('CSSProcessor', () => {
       paddingRight: nativeRetainedBlockSizeSpecModel,
       paddingTop: nativeRetainedBlockSizeSpecModel,
       transform: {
-        ...nativeRetainedViewSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: ['scaleX(10)', 'matrix(1, 2, 3, 4, 5, 6)'],
         mixedIncomingValues: [
           [
@@ -563,7 +563,7 @@ describe('CSSProcessor', () => {
       width: nativeRetainedBlockSizeSpecModel,
       zIndex: {
         ...numberSpec,
-        ...nativeRetainedViewSpec
+        ...nativeRetainedBlockSpec
       },
       whiteSpace: {
         ...flowedWebTextSpec,
