@@ -108,7 +108,7 @@ const solidUnderlinePropsRegistry = CSSProcessedProps.new()
   .withProperty('textDecorationStyle', 'solid', nativeTextRetain);
 
 const listPropsRegistry = CSSProcessedProps.new()
-  .withProperty('paddingStart', 40, nativeBlockRetain)
+  .withProperty('paddingLeft', 40, nativeBlockRetain) // TODO, support directional styles
   .merge(bigMarginTopBottomPropsRegistry);
 
 // whitespace + mono + spacing
@@ -379,7 +379,7 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
     tagName: 'dd',
     category: 'grouping',
     defaultUACSSProcessedProps: CSSProcessedProps.new().withProperty(
-      'marginStart', // TODO test conflicts with marginLeft
+      'marginLeft', // TODO support directional styles
       40,
       nativeBlockRetain
     )
