@@ -53,8 +53,8 @@ export class TStylesMerger {
     this.enableUserAgentStyles = config.enableUserAgentStyles;
   }
 
-  compileCss(inlineStyles: string) {
-    return this.processor.compileCss(inlineStyles);
+  compileInlineCSS(inlineCSS: string) {
+    return this.processor.compileInlineCSS(inlineCSS);
   }
 
   buildStyles(
@@ -69,7 +69,7 @@ export class TStylesMerger {
   ): TStyles {
     const ownInlinePropsReg =
       this.enableCSSInlineProcessing && inlineStyle
-        ? this.compileCss(inlineStyle)
+        ? this.compileInlineCSS(inlineStyle)
         : null;
     const model = descriptor.tagName
       ? getElementModelFromTagName(descriptor.tagName)

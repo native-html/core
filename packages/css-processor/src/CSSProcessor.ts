@@ -71,7 +71,7 @@ export class CSSProcessor {
     return parseRun.exec();
   }
 
-  compileCss(inlineCSS: string): CSSProcessedProps {
+  compileInlineCSS(inlineCSS: string): CSSProcessedProps {
     const parseRun = new CSSInlineParseRun(inlineCSS, this.registry);
     return parseRun.exec();
   }

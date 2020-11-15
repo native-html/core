@@ -173,7 +173,9 @@ describe('TStylesMerger', () => {
       const stylesMerger = new TStylesMerger({
         ...defaultStylesConfig
       });
-      const parentStyles = new TStyles(stylesMerger.compileCss('color:red;'));
+      const parentStyles = new TStyles(
+        stylesMerger.compileInlineCSS('color:red;')
+      );
       const styles = stylesMerger.buildStyles('', parentStyles, {
         className: null,
         id: null,
@@ -194,7 +196,7 @@ describe('TStylesMerger', () => {
       expect(
         stylesMerger.buildStyles(
           '',
-          new TStyles(stylesMerger.compileCss('color:red;')),
+          new TStyles(stylesMerger.compileInlineCSS('color:red;')),
           {
             className: null,
             id: null,

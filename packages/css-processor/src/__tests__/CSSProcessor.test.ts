@@ -101,12 +101,12 @@ function testSpecs(examples: Record<string, Specs>) {
           : outValue != null
           ? { [key]: outValue }
           : null;
-      it(`compileCSS method should ${
+      it(`compileInlineCSS method should ${
         expectedValue === null ? 'ignore' : 'register'
       } "${paramCase(key)}" ${
         validator?.isShorthand() ? 'shorhand' : 'longhand'
       } CSS inline property with value "${v}"`, () => {
-        const output = processor.compileCss(`${paramCase(key)}: ${v}`);
+        const output = processor.compileInlineCSS(`${paramCase(key)}: ${v}`);
         expect(
           output[spec.compat][spec.display][spec.propagation]
         ).toStrictEqual(expectedValue === null ? {} : expectedValue);
@@ -325,21 +325,21 @@ describe('CSSProcessor', () => {
       expect(console.warn).toHaveBeenCalled();
     });
   });
-  describe('compileCss method', () => {
+  describe('compileInlineCSS method', () => {
     it('should ignore malformed strings', () => {
-      expect(processor.compileCss('this is not a rule')).toStrictEqual(
+      expect(processor.compileInlineCSS('this is not a rule')).toStrictEqual(
         new CSSProcessedProps()
       );
     });
     it('should ignore unknown rules', () => {
       expect(
-        processor.compileCss('non-existing-css-property: miscellaneous;')
+        processor.compileInlineCSS('non-existing-css-property: miscellaneous;')
       ).toStrictEqual(new CSSProcessedProps());
     });
     it('should ignore native-exclusive rules', () => {
-      expect(processor.compileCss('padding-horizontal: 10px;')).toStrictEqual(
-        new CSSProcessedProps()
-      );
+      expect(
+        processor.compileInlineCSS('padding-horizontal: 10px;')
+      ).toStrictEqual(new CSSProcessedProps());
     });
     it('should ignore rules from the ignoreProperties config array', () => {
       const processorWithIgnoreStyles = new CSSProcessor({
@@ -347,7 +347,7 @@ describe('CSSProcessor', () => {
         ignoredProperties: ['backgroundColor']
       });
       expect(
-        processorWithIgnoreStyles.compileCss('background-color: red;')
+        processorWithIgnoreStyles.compileInlineCSS('background-color: red;')
       ).toStrictEqual(new CSSProcessedProps());
     });
   });
