@@ -35,7 +35,10 @@ export class TStylesMerger {
   private idsStyles: Record<string, CSSProcessedProps>;
   private enableCSSInlineProcessing: boolean;
   private enableUserAgentStyles: boolean;
-  constructor(config: StylesConfig, cssProcessorConfig?: CSSProcessorConfig) {
+  constructor(
+    config: Required<StylesConfig>,
+    cssProcessorConfig?: CSSProcessorConfig
+  ) {
     this.processor = new CSSProcessor(cssProcessorConfig);
     this.classesStyles = mapMixedStyleRecordToCSSProcessedPropsReg(
       this.processor,
@@ -55,6 +58,10 @@ export class TStylesMerger {
 
   compileInlineCSS(inlineCSS: string) {
     return this.processor.compileInlineCSS(inlineCSS);
+  }
+
+  compileStyleDeclaration(styleDeclaration: MixedStyleDeclaration) {
+    return this.processor.compileStyleDeclaration(styleDeclaration);
   }
 
   buildStyles(

@@ -23,15 +23,20 @@ export interface StylesConfig {
    */
   readonly idsStyles?: Readonly<Record<string, MixedStyleDeclaration>>;
   /**
+   * Styles for the root element. Inheritable properties will be transferred
+   * recursively to child nodes, including text styles.
+   */
+  readonly baseStyles?: Readonly<MixedStyleDeclaration>;
+  /**
    * Enable or disable inline styles.
    *
    * @defaultvalue true
    */
-  readonly enableCSSInlineProcessing: boolean;
+  readonly enableCSSInlineProcessing?: boolean;
   /**
    * Enable or disable default styles for tags.
    *
    * @defaultValue false
    */
-  readonly enableUserAgentStyles: boolean;
+  readonly enableUserAgentStyles?: boolean;
 }

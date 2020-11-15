@@ -1,3 +1,4 @@
+import { TStyles } from '../../styles/TStyles';
 import { TBlock } from '../../tree/TBlock';
 import { mapNodeList } from '../translate';
 import { rfc002Source, href, imgSrc } from './shared';
@@ -104,7 +105,10 @@ describe('translateNode function', () => {
 describe('mapNodeList function', () => {
   it('should ignore untranslated nodes', () => {
     expect(
-      mapNodeList([null] as any, null, { stylesMerger: defaultStylesMerger })
+      mapNodeList([null] as any, null, {
+        stylesMerger: defaultStylesMerger,
+        baseStyles: TStyles.empty()
+      })
     ).toHaveLength(0);
   });
 });

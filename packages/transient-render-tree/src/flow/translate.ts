@@ -116,6 +116,7 @@ export function translateNode(
 }
 
 interface DataFlowParams {
+  baseStyles: TStyles;
   stylesMerger: TStylesMerger;
 }
 
@@ -123,11 +124,8 @@ export function translateDocument(
   documentTree: Node[],
   params: DataFlowParams
 ): TDocument {
-  const rootNodes = mapNodeList(
-    toSerializableChildren(documentTree),
-    null,
-    params
-  );
+  const serializableDocTree = toSerializableChildren(documentTree);
+  const rootNodes = mapNodeList(serializableDocTree, params.baseStyles, params);
   let foundTdoc = rootNodes.find((n) => n instanceof TDocument);
   if (foundTdoc) {
     return foundTdoc as TDocument;
@@ -139,7 +137,7 @@ export function translateDocument(
     });
     body.bindChildren(rootNodes);
     const newTdoc = new TDocument({
-      parentStyles: null,
+      parentStyles: params.baseStyles,
       stylesMerger: params.stylesMerger
     });
     newTdoc.bindChildren([body]);

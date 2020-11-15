@@ -1,6 +1,8 @@
 import { TBlock } from '../tree/TBlock';
 import { TDocument } from '../tree/TDocument';
 import { assembleTTree } from '../assemble';
+import { TStyles } from '../styles/TStyles';
+import { CSSProcessedProps } from '@native-html/css-processor';
 const href = 'https://domain.com';
 const htmlDocument = `
 <!doctype html>
@@ -135,6 +137,52 @@ describe('asssembleTTree function', () => {
           ]
         }
       ]
+    });
+  });
+  describe('should have its children inherit from baseStyles', () => {
+    const baseStyles = new TStyles(
+      new CSSProcessedProps().withProperty('fontSize', 12, {
+        compatCategory: 'native',
+        displayCategory: 'text',
+        propagationCategory: 'flow'
+      })
+    );
+    const expectedObject = {
+      type: 'block',
+      tagName: 'div',
+      children: [
+        {
+          type: 'phrasing',
+          styles: baseStyles,
+          children: [
+            {
+              type: 'text',
+              data: 'This text should inherit baseStyles'
+            }
+          ]
+        }
+      ]
+    };
+    const config = {
+      stylesConfig: {
+        baseStyles: {
+          fontSize: 12
+        }
+      }
+    };
+    it('when provided a full html page markup', () => {
+      const tdoc = assembleTTree(
+        '<!doctype html><html><head></head><body><div>This text should inherit baseStyles</div></body></html>',
+        config
+      );
+      expect(tdoc.children[0].children[0]).toMatchObject(expectedObject);
+    });
+    it('when provided a html snippet', () => {
+      const tdoc = assembleTTree(
+        '<div>This text should inherit baseStyles</div>',
+        config
+      );
+      expect(tdoc.children[0].children[0]).toMatchObject(expectedObject);
     });
   });
 });

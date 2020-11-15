@@ -61,8 +61,13 @@ function extractContextFromHead(head: TEmpty, lang?: string) {
 
 export class TDocument extends TBlock {
   public readonly context: Readonly<DocumentContext>;
-  constructor({ attributes, stylesMerger }: TNodeInit) {
-    super({ tagName: 'html', attributes, parentStyles: null, stylesMerger });
+  constructor({ attributes, stylesMerger, parentStyles }: TNodeInit) {
+    super({
+      tagName: 'html',
+      attributes,
+      parentStyles: parentStyles,
+      stylesMerger
+    });
     // @ts-ignore
     this.type = 'document';
     this.context = defaultContextBase;
@@ -73,28 +78,43 @@ export class TDocument extends TBlock {
    * Replace children with a single-element array containing the body.
    */
   parseChildren() {
-    let head: TEmpty = new TEmpty({
-      tagName: 'head',
-      stylesMerger: this.stylesMerger,
-      parentStyles: null,
-      domNode: { type: 'element', attribs: {}, children: [], tagName: 'head' }
-    });
-    let body: TBlock = new TBlock({
-      tagName: 'body',
-      stylesMerger: this.stylesMerger,
-      parentStyles: null
-    });
+    let head: TEmpty | undefined;
+    let body: TBlock | undefined;
     for (const child of this.children) {
+      if (head && body) {
+        break;
+      }
       if (child.tagName === 'head') {
         head = child as TEmpty;
       } else if (child.tagName === 'body') {
         body = child;
       }
     }
-    this.bindChildren([body]);
+    this.bindChildren([
+      body ||
+        new TBlock({
+          tagName: 'body',
+          stylesMerger: this.stylesMerger,
+          parentStyles: this.styles
+        })
+    ]);
     //@ts-ignore
     this.context = Object.freeze(
-      extractContextFromHead(head, this.attributes.lang)
+      extractContextFromHead(
+        head ||
+          new TEmpty({
+            tagName: 'head',
+            stylesMerger: this.stylesMerger,
+            parentStyles: null,
+            domNode: {
+              type: 'element',
+              attribs: {},
+              children: [],
+              tagName: 'head'
+            }
+          }),
+        this.attributes.lang
+      )
     );
   }
 }

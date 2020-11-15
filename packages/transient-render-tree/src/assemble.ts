@@ -7,6 +7,7 @@ import { CSSProcessorConfig } from '@native-html/css-processor';
 import { StylesConfig } from './styles/types';
 import { TStylesMerger } from './styles/TStylesMerger';
 import { defaultStylesConfig } from './styles/defaults';
+import { TStyles } from './styles/TStyles';
 
 export interface AssembleTTreeOptions {
   /**
@@ -31,13 +32,22 @@ export function assembleTTree(
     decodeEntities: true,
     ...options?.htmlParserOptions
   });
+  const stylesConfig: Required<StylesConfig> = {
+    ...defaultStylesConfig,
+    ...options?.stylesConfig,
+    baseStyles: {
+      ...defaultStylesConfig.baseStyles,
+      ...options?.stylesConfig?.baseStyles
+    }
+  };
+  const stylesMerger = new TStylesMerger(
+    stylesConfig,
+    options?.cssProcessorConfig
+  );
   const tdoc = translateDocument(documentTree, {
-    stylesMerger: new TStylesMerger(
-      {
-        ...defaultStylesConfig,
-        ...options?.stylesConfig
-      },
-      options?.cssProcessorConfig
+    stylesMerger: stylesMerger,
+    baseStyles: new TStyles(
+      stylesMerger.compileStyleDeclaration(stylesConfig.baseStyles)
     )
   });
   return collapse(hoist(tdoc)) as TDocument;

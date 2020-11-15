@@ -45,4 +45,8 @@ export class TStyles {
     this.nativeTextRet = ownProcessedProps.native.text.retain;
     this.nativeBlockRet = ownProcessedProps.native.block.retain;
   }
+
+  static empty(): TStyles {
+    return new TStyles(new CSSProcessedProps());
+  }
 }
