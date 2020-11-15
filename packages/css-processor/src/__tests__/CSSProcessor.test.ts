@@ -1,4 +1,4 @@
-import { CSSProcessor } from '../CSSProcessor';
+import { CSSProcessor, MixedStyleDeclaration } from '../CSSProcessor';
 import { paramCase } from 'param-case';
 import { TextStyle, ViewStyle } from 'react-native';
 import { defaultCSSProcessorConfig } from '../default';
@@ -9,7 +9,6 @@ import {
 } from '../processor-types';
 import { CSSProcessedProps } from '../CSSProcessedProps';
 import { ExtraNativeShortViewStyleKeys } from '../native-types';
-import { MixedStyleDeclaration } from '..';
 
 const processor = new CSSProcessor(defaultCSSProcessorConfig);
 const propertiesValidators = processor.registry.validators;
