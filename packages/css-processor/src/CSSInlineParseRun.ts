@@ -3,21 +3,32 @@ import { CSSParseRun } from './CSSParseRun';
 import { MixedStyleDeclaration } from './CSSProcessor';
 import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
 import { ValidatorsType } from './makepropertiesValidators';
-import { CSSRawPropertiesList, CSSProperties } from './processor-types';
+import { CSSProperties } from './processor-types';
 import { ShortMergeRequest } from './ShortMergeRequest';
 import { LongCSSPropertyValidator } from './validators/LongCSSPropertyValidator';
+
+type CSSRawPropertiesList = [string, any][];
 
 export class CSSInlineParseRun extends CSSParseRun {
   private rules: CSSRawPropertiesList;
 
-  constructor(
-    rules: CSSRawPropertiesList,
-    registry: CSSPropertiesValidationRegistry
-  ) {
+  constructor(inlineCSS: string, registry: CSSPropertiesValidationRegistry) {
     super(registry);
-    this.rules = rules;
+    this.rules = this.parseInlineCSS(inlineCSS);
     this.normalizeProp = this.normalizeProp.bind(this);
     this.reduceProps = this.reduceProps.bind(this);
+  }
+
+  private parseInlineCSS(inlineCSS: string): CSSRawPropertiesList {
+    return inlineCSS
+      .split(';')
+      .map((prop) => prop.split(':'))
+      .reduce<CSSRawPropertiesList>((acc, prop) => {
+        if (prop.length === 2) {
+          return [...acc, [prop[0].trim(), prop[1].trim()]];
+        }
+        return acc;
+      }, []);
   }
 
   normalizeProp(

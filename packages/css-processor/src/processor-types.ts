@@ -1,6 +1,5 @@
 import { CSSLongWebTextFlowedPropKey } from './property-types';
 
-export type CSSRawPropertiesList = [string, any][];
 export type CSSProperties = Record<string, any>;
 /**
  * - *flow* CSS properties will be inherited by children TTree nodes;

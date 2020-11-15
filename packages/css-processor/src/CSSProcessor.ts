@@ -10,7 +10,7 @@ import {
   ExtraNativeUntranslatedLongStyles,
   ExtraNativeViewStyle
 } from './native-types';
-import { CSSRawPropertiesList, WebTextFlowProperties } from './processor-types';
+import { WebTextFlowProperties } from './processor-types';
 
 // https://www.w3.org/TR/CSS22/
 // https://www.w3.org/TR/css3-cascade/
@@ -56,18 +56,6 @@ export class CSSProcessor {
     this.registry = new CSSPropertiesValidationRegistry(config);
   }
 
-  private parseInlineProperties(str: string): CSSRawPropertiesList {
-    return str
-      .split(';')
-      .map((prop) => prop.split(':'))
-      .reduce<CSSRawPropertiesList>((acc, prop) => {
-        if (prop.length === 2) {
-          return [...acc, [prop[0].trim(), prop[1].trim()]];
-        }
-        return acc;
-      }, []);
-  }
-
   /**
    *
    * Incoming style declaration:
@@ -83,9 +71,8 @@ export class CSSProcessor {
     return parseRun.exec();
   }
 
-  compileCss(str: string): CSSProcessedProps {
-    const properties = this.parseInlineProperties(str);
-    const parseRun = new CSSInlineParseRun(properties, this.registry);
+  compileCss(inlineCSS: string): CSSProcessedProps {
+    const parseRun = new CSSInlineParseRun(inlineCSS, this.registry);
     return parseRun.exec();
   }
 }
