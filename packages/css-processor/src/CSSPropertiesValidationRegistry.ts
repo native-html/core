@@ -1,25 +1,44 @@
-import { CSSProcessorConfig } from './config';
+import { CSSProcessorConfig, CSSPropertyNameList } from './config';
 import makepropertiesValidators, {
   ValidatorsType
 } from './makepropertiesValidators';
 import { GenericCSSPropertyValidator } from './validators/GenericPropertyValidator';
 
+function makeRegistry(list: CSSPropertyNameList) {
+  const registry = {} as any;
+  list.forEach((prop) => {
+    registry[prop] = true;
+  });
+  return registry;
+}
+
 export class CSSPropertiesValidationRegistry {
   public readonly validators: Readonly<ValidatorsType>;
   public readonly ignoredPropertiesRegistry: Partial<Record<string, true>>;
+  public readonly allowedPropertiesRegistry: Partial<
+    Record<string, true>
+  > | null;
 
   constructor(config: CSSProcessorConfig) {
     this.validators = makepropertiesValidators(config);
-    const registry = {} as any;
-    config.ignoredProperties.forEach((prop) => {
-      registry[prop] = true;
-    });
-    this.ignoredPropertiesRegistry = registry;
+    this.ignoredPropertiesRegistry = makeRegistry(
+      config.inlinePropertiesBlacklist
+    );
+    this.allowedPropertiesRegistry = config.inlinePropertiesWhitelist
+      ? makeRegistry(config.inlinePropertiesWhitelist)
+      : null;
   }
 
-  shouldRegisterProperty(name: string): name is keyof ValidatorsType {
+  private isInlinePropertyAllowed(name: string) {
+    if (this.allowedPropertiesRegistry) {
+      return !!this.allowedPropertiesRegistry[name];
+    }
+    return !this.ignoredPropertiesRegistry[name];
+  }
+
+  shouldRegisterInlineProperty(name: string): name is keyof ValidatorsType {
     return (
-      !this.ignoredPropertiesRegistry[name] &&
+      this.isInlinePropertyAllowed(name) &&
       !!this.validators[name as keyof ValidatorsType]
     );
   }

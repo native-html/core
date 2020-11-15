@@ -38,7 +38,7 @@ export class CSSInlineParseRun extends CSSParseRun {
     const rawName = rule[0];
     const rawValue = rule[1];
     const camelCaseName = getPropertyName(rawName);
-    if (!this.validationMap.shouldRegisterProperty(camelCaseName)) {
+    if (!this.validationMap.shouldRegisterInlineProperty(camelCaseName)) {
       return null;
     }
     const validator = this.validationMap.getValidatorForProperty(camelCaseName);

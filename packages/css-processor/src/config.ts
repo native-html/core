@@ -43,6 +43,10 @@ export type CSSAbsoluteLengthUnitsMultiplicators = Record<
   number
 >;
 
+export type CSSPropertyNameList = Array<
+  CSSLongNativeTranslatableBlockPropKey | CSSLongNativeTranslatableTextPropKey
+>;
+
 export interface CSSProcessorConfig {
   readonly absoluteLengthUnitsMultiplicators: CSSAbsoluteLengthUnitsMultiplicators;
   readonly hardcodedBorderWidthsPixelMap: Record<
@@ -60,9 +64,15 @@ export interface CSSProcessorConfig {
    * @remarks As of this version, inline styles are considered 100% safe and
    * predictable, thus this property is generally not advised.
    */
-  readonly ignoredProperties: Array<
-    CSSLongNativeTranslatableBlockPropKey | CSSLongNativeTranslatableTextPropKey
-  >;
+  readonly inlinePropertiesBlacklist: CSSPropertyNameList;
+
+  /**
+   * Allow those properties when compiling inline styles. The names should be
+   * camelCased.
+   *
+   * @remarks When present, inlinePropertiesBlacklist will be ignored.
+   */
+  readonly inlinePropertiesWhitelist: CSSPropertyNameList | null;
 
   /**
    * Determine is the provided font is supported on running platform.

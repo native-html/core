@@ -28,7 +28,8 @@ export const defaultCSSProcessorConfig: CSSProcessorConfig = {
     'x-large': 20,
     'xx-large': 24
   },
-  ignoredProperties: [],
+  inlinePropertiesBlacklist: [],
+  inlinePropertiesWhitelist: null,
   isFontSupported() {
     return true;
   }

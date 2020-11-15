@@ -340,14 +340,31 @@ describe('CSSProcessor', () => {
         processor.compileInlineCSS('padding-horizontal: 10px;')
       ).toStrictEqual(new CSSProcessedProps());
     });
-    it('should ignore rules from the ignoreProperties config array', () => {
+    it('should ignore rules from the inlinePropertiesBlacklist config array', () => {
       const processorWithIgnoreStyles = new CSSProcessor({
         ...defaultCSSProcessorConfig,
-        ignoredProperties: ['backgroundColor']
+        inlinePropertiesBlacklist: ['backgroundColor']
       });
       expect(
         processorWithIgnoreStyles.compileInlineCSS('background-color: red;')
       ).toStrictEqual(new CSSProcessedProps());
+    });
+    it('should only allow rules from the inlinePropertiesWhitelist config array when non-null', () => {
+      const processorWithIgnoreStyles = new CSSProcessor({
+        ...defaultCSSProcessorConfig,
+        inlinePropertiesWhitelist: ['backgroundColor']
+      });
+      expect(
+        processorWithIgnoreStyles.compileInlineCSS(
+          'background-color: red; color: blue;'
+        )
+      ).toStrictEqual(
+        new CSSProcessedProps().withProperty(
+          'backgroundColor',
+          'red',
+          propertiesValidators.backgroundColor
+        )
+      );
     });
   });
   describe('regarding specific properties', () => {
