@@ -27,10 +27,12 @@ export interface StylesConfig {
    */
   readonly idsStyles?: MixedStyleRecord;
   /**
-   * Styles for the root element. Inheritable properties will be transferred
+   * Style for the root element. Inheritable properties will be transferred
    * recursively to child nodes, including text styles.
+   *
+   * @remarks Non-inheritable properties will be ignored.
    */
-  readonly baseStyles?: Readonly<MixedStyleDeclaration>;
+  readonly baseStyle?: Readonly<MixedStyleDeclaration>;
   /**
    * Enable or disable inline styles.
    *

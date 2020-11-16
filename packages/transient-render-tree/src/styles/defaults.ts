@@ -6,7 +6,7 @@ export const defaultStylesConfig: Required<StylesConfig> = {
   enableUserAgentStyles: false,
   idsStyles: {},
   tagsStyles: {},
-  baseStyles: {
+  baseStyle: {
     fontSize: 14,
     whiteSpace: 'normal'
   }

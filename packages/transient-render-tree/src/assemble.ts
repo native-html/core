@@ -38,9 +38,9 @@ export function assembleTTree(
   const stylesConfig: Required<StylesConfig> = {
     ...defaultStylesConfig,
     ...options?.stylesConfig,
-    baseStyles: {
-      ...defaultStylesConfig.baseStyles,
-      ...options?.stylesConfig?.baseStyles
+    baseStyle: {
+      ...defaultStylesConfig.baseStyle,
+      ...options?.stylesConfig?.baseStyle
     }
   };
   const stylesMerger = new TStylesMerger(stylesConfig, {
@@ -50,7 +50,7 @@ export function assembleTTree(
   const tdoc = translateDocument(documentTree, {
     stylesMerger: stylesMerger,
     baseStyles: new TStyles(
-      stylesMerger.compileStyleDeclaration(stylesConfig.baseStyles)
+      stylesMerger.compileStyleDeclaration(stylesConfig.baseStyle)
     )
   });
   return collapse(hoist(tdoc)) as TDocument;
