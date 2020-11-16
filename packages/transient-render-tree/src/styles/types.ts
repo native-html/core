@@ -1,5 +1,9 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
 
+export type MixedStyleRecord<T extends string = string> = Readonly<
+  Record<T, MixedStyleDeclaration>
+>;
+
 export interface StylesConfig {
   /**
    * Custom styles for tags.
@@ -7,21 +11,21 @@ export interface StylesConfig {
    * @remarks Tags styles have a specificity of 1, in compliance with the CSS
    * standard.
    */
-  readonly tagsStyles?: Readonly<Record<string, MixedStyleDeclaration>>;
+  readonly tagsStyles?: MixedStyleRecord;
   /**
    * Styles from classes.
    *
    * @remarks Classes styles have a specificity of 10, in compliance with the
    * CSS standard.
    */
-  readonly classesStyles?: Readonly<Record<string, MixedStyleDeclaration>>;
+  readonly classesStyles?: MixedStyleRecord;
   /**
    * Styles from ids.
    *
    * @remarks Ids styles have a specificity of 100, in compliance with the
    * CSS standard.
    */
-  readonly idsStyles?: Readonly<Record<string, MixedStyleDeclaration>>;
+  readonly idsStyles?: MixedStyleRecord;
   /**
    * Styles for the root element. Inheritable properties will be transferred
    * recursively to child nodes, including text styles.
