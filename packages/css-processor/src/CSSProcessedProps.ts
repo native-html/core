@@ -120,11 +120,12 @@ export class CSSProcessedProps
     for (const compat of compatCategories) {
       for (const display of displayCategories) {
         for (const propagation of propagationCategories) {
-          next[compat][display][propagation] = Object.assign(
-            {},
-            this[compat][display][propagation],
-            ...overriders.map((o) => o[compat][display][propagation])
-          );
+          next[compat][display][propagation] = {
+            ...this[compat][display][propagation],
+            ...overriders
+              .map((o) => o[compat][display][propagation])
+              .reduce((p, c) => ({ ...p, ...c } as any), {})
+          } as any;
         }
       }
     }
