@@ -1,11 +1,12 @@
 export * from './assemble';
 export type { StylesConfig, MixedStyleRecord } from './styles/types';
-export type { TDocument, DocumentContext } from './tree/TDocument';
-export type { TBlock } from './tree/TBlock';
-export type { TNode } from './tree/TNode';
-export type { TText } from './tree/TText';
-export type { TPhrasing } from './tree/TPhrasing';
-export type { TEmpty } from './tree/TEmpty';
+export type { DocumentContext } from './tree/TDocument';
+export { TDocument } from './tree/TDocument';
+export { TBlock } from './tree/TBlock';
+export { TNode } from './tree/TNode';
+export { TText } from './tree/TText';
+export { TPhrasing } from './tree/TPhrasing';
+export { TEmpty } from './tree/TEmpty';
 export type {
   SerializableElement,
   SerializableNode,
