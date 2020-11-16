@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.0.0...@native-html/css-processor@1.0.1) (2020-11-16)
+
+
+### Bug Fixes
+
+* **css-processor:** replace Object.assign with spread operator ([0835dc1](https://github.com/native-html/core/commit/0835dc1e6d009a34200bdc46be87f4b82bad90c0))
+
 # 1.0.0 (2020-11-16)
 
 
