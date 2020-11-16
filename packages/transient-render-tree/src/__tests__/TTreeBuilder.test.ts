@@ -1,8 +1,8 @@
 import { TBlock } from '../tree/TBlock';
 import { TDocument } from '../tree/TDocument';
-import { assembleTTree } from '../assemble';
 import { TStyles } from '../styles/TStyles';
 import { CSSProcessedProps } from '@native-html/css-processor';
+import { TTreeBuilder } from '../TTreeBuilder';
 const href = 'https://domain.com';
 const htmlDocument = `
 <!doctype html>
@@ -19,9 +19,11 @@ const htmlDocument = `
 </body>
 `;
 
-describe('asssembleTTree function', () => {
+const defaultTTreeBuilder = new TTreeBuilder();
+
+describe('TTreeBuilder > buildTTree method', () => {
   it('given a HTML document, should return an instance of TDocument which has one TBlock(body) child', () => {
-    const tdoc = assembleTTree(htmlDocument);
+    const tdoc = defaultTTreeBuilder.buildTTree(htmlDocument);
     expect(tdoc).toBeInstanceOf(TDocument);
     expect(tdoc.children).toHaveLength(1);
     expect(tdoc.children[0]).toBeInstanceOf(TBlock);
@@ -45,29 +47,31 @@ describe('asssembleTTree function', () => {
   });
   describe('regarding context parsing', () => {
     it('should register html lang attrib', () => {
-      const tdoc = assembleTTree('<!doctype html><html lang="fr"></html>');
+      const tdoc = defaultTTreeBuilder.buildTTree(
+        '<!doctype html><html lang="fr"></html>'
+      );
       expect(tdoc.context).toMatchObject({ lang: 'fr' });
     });
     it('should register charset', () => {
-      const tdoc = assembleTTree(
+      const tdoc = defaultTTreeBuilder.buildTTree(
         '<!doctype html><html><head><meta charset="latin1"></meta></head></html>'
       );
       expect(tdoc.context).toMatchObject({ charset: 'latin1' });
     });
     it('should register and trim title', () => {
-      const tdoc = assembleTTree(
+      const tdoc = defaultTTreeBuilder.buildTTree(
         '<!doctype html><html><head><title> Voici un Titre </title></head></html>'
       );
       expect(tdoc.context).toMatchObject({ title: 'Voici un Titre' });
     });
     it('should ignore empty meta tags', () => {
-      const tdoc = assembleTTree(
+      const tdoc = defaultTTreeBuilder.buildTTree(
         '<!doctype html><html><head><meta></meta></head></html>'
       );
       expect(tdoc.context).toMatchObject({});
     });
     it('should register base with attributes', () => {
-      const tdoc = assembleTTree(
+      const tdoc = defaultTTreeBuilder.buildTTree(
         `<!doctype html><html><head><base href="${href}" target="_blank"></base></head></html>`
       );
       expect(tdoc.context).toMatchObject({
@@ -76,7 +80,7 @@ describe('asssembleTTree function', () => {
       });
     });
     it('should fallback to defaults when base attributes are missing', () => {
-      const tdoc = assembleTTree(
+      const tdoc = defaultTTreeBuilder.buildTTree(
         '<!doctype html><html><head><base></base></head></html>'
       );
       expect(tdoc.context).toMatchObject({
@@ -85,7 +89,7 @@ describe('asssembleTTree function', () => {
       });
     });
     it('should register other meta tags attribtues in the meta array', () => {
-      const tdoc = assembleTTree(
+      const tdoc = defaultTTreeBuilder.buildTTree(
         '<!doctype html><html><head><meta name="keywords" value="birds"></meta></head></html>'
       );
       expect(tdoc.context).toMatchObject({
@@ -98,7 +102,7 @@ describe('asssembleTTree function', () => {
       });
     });
     it('should register link tags attributes in the link array', () => {
-      const tdoc = assembleTTree(
+      const tdoc = defaultTTreeBuilder.buildTTree(
         '<!doctype html><html><head><link rel="author license" href="/about"></link></head></html>'
       );
       expect(tdoc.context).toMatchObject({
@@ -111,7 +115,7 @@ describe('asssembleTTree function', () => {
       });
     });
     it('it should ignore irrelevant tags', () => {
-      const tdoc = assembleTTree(
+      const tdoc = defaultTTreeBuilder.buildTTree(
         '<!doctype html><html><head><span>This tag should be ignored</span></head></html>'
       );
       expect(tdoc.context).toMatchObject({});
@@ -119,7 +123,7 @@ describe('asssembleTTree function', () => {
   });
   it('should handle html snippets', () => {
     const snippet = '<div></div>';
-    const tdoc = assembleTTree(snippet);
+    const tdoc = defaultTTreeBuilder.buildTTree(snippet);
     expect(tdoc).toBeInstanceOf(TDocument);
     expect(tdoc).toMatchObject({
       type: 'document',
@@ -165,22 +169,21 @@ describe('asssembleTTree function', () => {
     };
     const config = {
       stylesConfig: {
-        baseStyles: {
+        baseStyle: {
           fontSize: 12
         }
       }
     };
+    const customTTreeBuilder = new TTreeBuilder(config);
     it('when provided a full html page markup', () => {
-      const tdoc = assembleTTree(
-        '<!doctype html><html><head></head><body><div>This text should inherit baseStyles</div></body></html>',
-        config
+      const tdoc = customTTreeBuilder.buildTTree(
+        '<!doctype html><html><head></head><body><div>This text should inherit baseStyles</div></body></html>'
       );
       expect(tdoc.children[0].children[0]).toMatchObject(expectedObject);
     });
     it('when provided a html snippet', () => {
-      const tdoc = assembleTTree(
-        '<div>This text should inherit baseStyles</div>',
-        config
+      const tdoc = customTTreeBuilder.buildTTree(
+        '<div>This text should inherit baseStyles</div>'
       );
       expect(tdoc.children[0].children[0]).toMatchObject(expectedObject);
     });

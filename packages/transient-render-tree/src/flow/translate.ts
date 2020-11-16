@@ -115,7 +115,7 @@ export function translateNode(
   return null;
 }
 
-interface DataFlowParams {
+export interface DataFlowParams {
   baseStyles: TStyles;
   stylesMerger: TStylesMerger;
 }

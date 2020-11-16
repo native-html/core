@@ -1,4 +1,3 @@
-export * from './assemble';
 export type { StylesConfig, MixedStyleRecord } from './styles/types';
 export type { DocumentContext } from './tree/TDocument';
 export { TDocument } from './tree/TDocument';
@@ -16,9 +15,10 @@ export {
   isSerializableElement,
   isSerializableText
 } from './dom/to-serializable';
-export { assembleTTree as default } from './assemble';
 export {
   Node as DOMNode,
   Text as DOMText,
   Element as DOMElement
 } from 'domhandler';
+export { TTreeBuilder } from './TTreeBuilder';
+export type { TTreeBuilderOptions } from './TTreeBuilder';
