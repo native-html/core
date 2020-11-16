@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.0.0...@native-html/transient-render-tree@1.0.1) (2020-11-16)
+
+
+### Bug Fixes
+
+* **transient-render-tree:** avoid using Object.create for styles ([676855a](https://github.com/native-html/core/commit/676855a19ea5f4154336d4dda2102fc18989bcbc))
+
 # 1.0.0 (2020-11-16)
 
 
