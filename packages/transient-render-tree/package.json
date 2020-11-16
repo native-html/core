@@ -1,6 +1,6 @@
 {
   "name": "@native-html/transient-render-tree",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Produce an intermediary structure from HTML to create a React Native render tree.",
   "main": "lib/commonjs/index.js",
   "types": "lib/typescript/index.d.ts",
