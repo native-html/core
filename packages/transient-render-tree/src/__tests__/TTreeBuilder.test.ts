@@ -2,7 +2,7 @@ import { TBlock } from '../tree/TBlock';
 import { TDocument } from '../tree/TDocument';
 import { TStyles } from '../styles/TStyles';
 import { CSSProcessedProps } from '@native-html/css-processor';
-import { TTreeBuilder } from '../TTreeBuilder';
+import { TTreeBuilder, TTreeBuilderOptions } from '../TTreeBuilder';
 const href = 'https://domain.com';
 const htmlDocument = `
 <!doctype html>
@@ -141,6 +141,25 @@ describe('TTreeBuilder > buildTTree method', () => {
           ]
         }
       ]
+    });
+  });
+  describe('should have its children inherit from UA styles when enableUserAgentStyles is enabled', () => {
+    const config: TTreeBuilderOptions = {
+      stylesConfig: {
+        enableUserAgentStyles: true
+      }
+    };
+    const customTTreeBuilder = new TTreeBuilder(config);
+    const tdoc = customTTreeBuilder.buildTTree(
+      '<em>This should be italic</em>'
+    );
+    expect(tdoc.children[0].children[0].children[0]).toMatchObject({
+      type: 'text',
+      styles: {
+        nativeTextFlow: {
+          fontStyle: 'italic'
+        }
+      }
     });
   });
   describe('should have its children inherit from baseStyles', () => {
