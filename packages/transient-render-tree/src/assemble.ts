@@ -3,7 +3,10 @@ import { hoist } from './flow/hoist';
 import { translateDocument } from './flow/translate';
 import { TDocument } from './tree/TDocument';
 import { parseDOM, ParserOptions } from 'htmlparser2';
-import { CSSProcessorConfig } from '@native-html/css-processor';
+import {
+  CSSProcessorConfig,
+  defaultCSSProcessorConfig
+} from '@native-html/css-processor';
 import { StylesConfig } from './styles/types';
 import { TStylesMerger } from './styles/TStylesMerger';
 import { defaultStylesConfig } from './styles/defaults';
@@ -13,7 +16,7 @@ export interface AssembleTTreeOptions {
   /**
    * Customization for CSS inline processing.
    */
-  readonly cssProcessorConfig?: CSSProcessorConfig;
+  readonly cssProcessorConfig?: Partial<CSSProcessorConfig>;
   /**
    * Options for htmlparser2 library parser.
    */
@@ -40,10 +43,10 @@ export function assembleTTree(
       ...options?.stylesConfig?.baseStyles
     }
   };
-  const stylesMerger = new TStylesMerger(
-    stylesConfig,
-    options?.cssProcessorConfig
-  );
+  const stylesMerger = new TStylesMerger(stylesConfig, {
+    ...defaultCSSProcessorConfig,
+    ...options?.cssProcessorConfig
+  });
   const tdoc = translateDocument(documentTree, {
     stylesMerger: stylesMerger,
     baseStyles: new TStyles(
