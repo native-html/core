@@ -515,7 +515,10 @@ TBlock {
           "styles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
-            "nativeTextFlow": Object {},
+            "nativeTextFlow": Object {
+              "color": "red",
+              "fontSize": 18,
+            },
             "nativeTextRet": Object {},
             "webTextFlow": Object {},
           },
@@ -544,7 +547,9 @@ TBlock {
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
-        "nativeTextFlow": Object {},
+        "nativeTextFlow": Object {
+          "fontSize": 18,
+        },
         "nativeTextRet": Object {},
         "webTextFlow": Object {},
       },
@@ -602,14 +607,18 @@ TBlock {
                   "borderRightWidth": 20,
                   "borderTopWidth": 20,
                 },
-                "nativeTextFlow": Object {},
+                "nativeTextFlow": Object {
+                  "fontSize": 18,
+                },
                 "nativeTextRet": Object {},
                 "webTextFlow": Object {},
               },
               "styles": TStyles {
                 "nativeBlockFlow": Object {},
                 "nativeBlockRet": Object {},
-                "nativeTextFlow": Object {},
+                "nativeTextFlow": Object {
+                  "fontSize": 18,
+                },
                 "nativeTextRet": Object {},
                 "webTextFlow": Object {},
               },
@@ -629,14 +638,18 @@ TBlock {
               "borderRightWidth": 20,
               "borderTopWidth": 20,
             },
-            "nativeTextFlow": Object {},
+            "nativeTextFlow": Object {
+              "fontSize": 18,
+            },
             "nativeTextRet": Object {},
             "webTextFlow": Object {},
           },
           "styles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
-            "nativeTextFlow": Object {},
+            "nativeTextFlow": Object {
+              "fontSize": 18,
+            },
             "nativeTextRet": Object {},
             "webTextFlow": Object {},
           },
@@ -665,7 +678,9 @@ TBlock {
           "borderRightWidth": 20,
           "borderTopWidth": 20,
         },
-        "nativeTextFlow": Object {},
+        "nativeTextFlow": Object {
+          "fontSize": 18,
+        },
         "nativeTextRet": Object {},
         "webTextFlow": Object {},
       },

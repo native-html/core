@@ -13,11 +13,10 @@ function inheritProperties(
   if (!parent) {
     return child;
   }
-  let childDescriptor: any = {};
-  for (const key of Object.keys(child)) {
-    childDescriptor[key] = { value: child[key], writable: true };
-  }
-  return Object.create(parent, childDescriptor);
+  return {
+    ...parent,
+    ...child
+  };
 }
 
 export class TStyles {
