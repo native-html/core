@@ -16,3 +16,8 @@ export {
   isSerializableText
 } from './dom/to-serializable';
 export { assembleTTree as default } from './assemble';
+export {
+  Node as DOMNode,
+  Text as DOMText,
+  Element as DOMElement
+} from 'domhandler';
