@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.0.1...@native-html/css-processor@1.1.0) (2020-11-17)
+
+
+### Features
+
+* **css-processor:** support list-style-type CSS property ([65dc56a](https://github.com/native-html/core/commit/65dc56a7adb00eedc2e59e0ef3c98d24bd8d2320))
+
 ## [1.0.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.0.0...@native-html/css-processor@1.0.1) (2020-11-16)
 
 
