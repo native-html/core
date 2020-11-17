@@ -15,6 +15,7 @@ import { ShortFlexCSSPropertyValidator } from './validators/ShortFlexCSSProperty
 import { LongCSSToReactNativeValidator } from './validators/LongCSSToReactNativeValidator';
 import { ShortCardinalCSSpropertyValidator } from './validators/ShortCardinalCSSPropertyValidator';
 import { ShortDualNativepropertyValidator } from './validators/ShortDualNativePropertyValidator';
+import { LongForgivingCSSPropertyValidator } from './validators/LongForgivingCSSPropertyValidator';
 
 const nativeTranslatableBlockFlowModel = {
   inheritable: true as true,
@@ -305,6 +306,11 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
       { config, model: webTextFlowModel, propertyName: 'whiteSpace' },
       ['normal', 'pre']
     ),
+    listStyleType: new LongForgivingCSSPropertyValidator({
+      config,
+      model: webTextFlowModel,
+      propertyName: 'listStyleType'
+    }),
     alignContent: new LongEnumerationCSSPropertyValidator(
       {
         config,

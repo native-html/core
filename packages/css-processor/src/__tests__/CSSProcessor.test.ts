@@ -560,6 +560,12 @@ describe('CSSProcessor', () => {
           null
         ]
       },
+      listStyleType: {
+        ...flowedWebTextSpec,
+        inlineIncomingValues: ['disc'],
+        mixedIncomingValues: ['disc'],
+        outValues: ['disc']
+      },
       width: nativeRetainedBlockSizeSpecModel,
       zIndex: {
         ...numberSpec,

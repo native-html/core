@@ -15,5 +15,5 @@ export const mixedTypesShouldSupportShorthandNativeProps: AssertEqual<
 
 export const mixedTypesShouldSupportSpecialWebProps: AssertEqual<
   Extract<keyof MixedStyleDeclaration, 'whiteSpace'>,
-  'whiteSpace'
+  'whiteSpace' | 'listStyleType'
 > = true;

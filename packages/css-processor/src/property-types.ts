@@ -67,6 +67,7 @@ export type CSSFlowedPropKey = Extract<
   | 'textTransform'
   | 'visibility'
   | 'whiteSpace'
+  | 'listStyleType'
   | 'widows'
   | 'wordSpacing'
 >;
@@ -128,7 +129,7 @@ export type CSSLongNativeUntranslatableTextFlowedPropKey = Extract<
  */
 export type CSSLongWebTextFlowedPropKey = Extract<
   keyof StandardLonghandProperties,
-  'whiteSpace'
+  'whiteSpace' | 'listStyleType'
 >;
 
 /**

@@ -29,7 +29,7 @@ export type CSSFlattenProcessedTypes = CSSProcessedProps['native']['text']['flow
 
 /**
  * A Style object that can contain mixins of a subset of ViewStyle, TextStyle,
- * and special style entries such as "whiteSpace".
+ * and special style entries such as "whiteSpace", "listStyleType".
  *
  * @remarks Also note that special lengths,
  * such as "em", "rem" units, and special values, such as "%" for fontSize, and
