@@ -1,3 +1,10 @@
+## [1.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.0...@native-html/transient-render-tree@1.1.1) (2020-11-17)
+
+
+### Bug Fixes
+
+* **transient-render-tree:** ol user agent styles overriden by ul styles ([548880c](https://github.com/native-html/core/commit/548880cd93fcee7dfba2d2cbc0fd89b363f75b4d))
+
 # [1.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.0.4...@native-html/transient-render-tree@1.1.0) (2020-11-17)
 
 
