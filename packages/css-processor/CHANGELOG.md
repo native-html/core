@@ -1,3 +1,10 @@
+# [1.2.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.1.0...@native-html/css-processor@1.2.0) (2020-11-17)
+
+
+### Features
+
+* **css-processor:** export CSSListStyleTypePropertyBase ([4104fef](https://github.com/native-html/core/commit/4104fef2e788f42c973fa702701eb591546be91d))
+
 # [1.1.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.0.1...@native-html/css-processor@1.1.0) (2020-11-17)
 
 
