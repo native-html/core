@@ -43,6 +43,12 @@ const nativeTextRetain: CSSPropertySpecs = {
   propagationCategory: 'retain'
 };
 
+const webTextFlow: CSSPropertySpecs = {
+  compatCategory: 'web',
+  displayCategory: 'text',
+  propagationCategory: 'flow'
+};
+
 const bigMarginTopBottomPropsRegistry = CSSProcessedProps.new()
   .withProperty('marginTop', 16, nativeBlockRetain) // TODO: 1em
   .withProperty('marginBottom', 16, nativeBlockRetain); // TODO: 1em
@@ -78,11 +84,7 @@ const boldPropsRegistry = CSSProcessedProps.new().withProperty(
 const whiteSpacePrePropsRegistry = CSSProcessedProps.new().withProperty(
   'whiteSpace',
   'pre',
-  {
-    compatCategory: 'web',
-    displayCategory: 'text',
-    propagationCategory: 'flow'
-  }
+  webTextFlow
 );
 
 const spacedBlockPropsRegistry = CSSProcessedProps.new()
@@ -436,8 +438,11 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
   ol: new HTMLElementModel({
     tagName: 'ol',
     category: 'grouping',
-    // TODO list-style-type: decimal;
-    defaultUACSSProcessedProps: listPropsRegistry
+    defaultUACSSProcessedProps: listPropsRegistry.withProperty(
+      'listStyleType',
+      'decimal',
+      webTextFlow
+    )
   }),
   p: new HTMLElementModel({
     tagName: 'p',
@@ -467,8 +472,11 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
   ul: new HTMLElementModel({
     tagName: 'ul',
     category: 'grouping',
-    // TODO list-style-type: disc;
-    defaultUACSSProcessedProps: listPropsRegistry
+    defaultUACSSProcessedProps: listPropsRegistry.withProperty(
+      'listStyleType',
+      'disc',
+      webTextFlow
+    )
   }),
   dir: new HTMLElementModel({
     tagName: 'dir',
