@@ -438,11 +438,9 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
   ol: new HTMLElementModel({
     tagName: 'ol',
     category: 'grouping',
-    defaultUACSSProcessedProps: listPropsRegistry.withProperty(
-      'listStyleType',
-      'decimal',
-      webTextFlow
-    )
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('listStyleType', 'decimal', webTextFlow)
+      .merge(listPropsRegistry)
   }),
   p: new HTMLElementModel({
     tagName: 'p',
@@ -472,11 +470,9 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
   ul: new HTMLElementModel({
     tagName: 'ul',
     category: 'grouping',
-    defaultUACSSProcessedProps: listPropsRegistry.withProperty(
-      'listStyleType',
-      'disc',
-      webTextFlow
-    )
+    defaultUACSSProcessedProps: CSSProcessedProps.new()
+      .withProperty('listStyleType', 'disc', webTextFlow)
+      .merge(listPropsRegistry)
   }),
   dir: new HTMLElementModel({
     tagName: 'dir',

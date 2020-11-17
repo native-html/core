@@ -150,16 +150,27 @@ describe('TTreeBuilder > buildTTree method', () => {
       }
     };
     const customTTreeBuilder = new TTreeBuilder(config);
-    const tdoc = customTTreeBuilder.buildTTree(
-      '<em>This should be italic</em>'
-    );
-    expect(tdoc.children[0].children[0].children[0]).toMatchObject({
-      type: 'text',
-      styles: {
-        nativeTextFlow: {
-          fontStyle: 'italic'
+    it('should work with em tags', () => {
+      const tdoc = customTTreeBuilder.buildTTree(
+        '<em>This should be italic</em>'
+      );
+      expect(tdoc.children[0].children[0].children[0]).toMatchObject({
+        type: 'text',
+        styles: {
+          nativeTextFlow: {
+            fontStyle: 'italic'
+          }
         }
-      }
+      });
+    });
+    it('should work with ol tags', () => {
+      const tdoc = customTTreeBuilder.buildTTree('<ol><li>Sneaky</li></ol>');
+      const tol = tdoc.children[0].children[0];
+      expect(tol).toMatchObject({
+        type: 'block',
+        tagName: 'ol'
+      });
+      expect(tol.styles.webTextFlow.listStyleType).toBe('decimal');
     });
   });
   describe('should have its children inherit from baseStyles', () => {
