@@ -3,7 +3,7 @@ import CSSProcessor, {
   CSSProcessorConfig,
   MixedStyleDeclaration
 } from '@native-html/css-processor';
-import { getElementModelFromTagName } from '../dom/elements-model';
+import { getElementModelFromTagName } from '../model/elements-model';
 import { TStyles } from './TStyles';
 import { StylesConfig } from './types';
 

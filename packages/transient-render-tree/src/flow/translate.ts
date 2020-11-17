@@ -2,7 +2,7 @@ import { TEmpty } from '../tree/TEmpty';
 import { TNode, TNodeInit } from '../tree/TNode';
 import { Node } from 'domhandler';
 import { TText } from '../tree/TText';
-import { getElementModelFromTagName } from '../dom/elements-model';
+import { getElementModelFromTagName } from '../model/elements-model';
 import { TPhrasingAnchor } from '../tree/TPhrasingAnchor';
 import { TPhrasing } from '../tree/TPhrasing';
 import { TBlock } from '../tree/TBlock';
