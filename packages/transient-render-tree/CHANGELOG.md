@@ -1,3 +1,10 @@
+# [1.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.0.4...@native-html/transient-render-tree@1.1.0) (2020-11-17)
+
+
+### Features
+
+* **transient-render-tree:** add default listStyleType in ul and ol models ([16d93ad](https://github.com/native-html/core/commit/16d93ad2b28dc504e8fcfdc4d630910aff695f75))
+
 ## [1.0.4](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.0.3...@native-html/transient-render-tree@1.0.4) (2020-11-17)
 
 ## [1.0.3](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.0.2...@native-html/transient-render-tree@1.0.3) (2020-11-17)
