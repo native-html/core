@@ -13,8 +13,10 @@ function groupText(tnode: TBlock, wrappernode: TPhrasing): TNode {
     if (newChild instanceof TText || newChild instanceof TPhrasing) {
       wrapper.children.push(newChild);
     } else {
-      newChildren.push(wrapper);
-      wrapper = wrappernode.newEmpty();
+      if (wrapper.children.length) {
+        newChildren.push(wrapper);
+        wrapper = wrappernode.newEmpty();
+      }
       if (wrappernode instanceof TPhrasingAnchor) {
         const nextChild = new TBlockAnchor({
           ...newChild.cloneInitParams(),
