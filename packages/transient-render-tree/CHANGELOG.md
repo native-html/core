@@ -1,3 +1,10 @@
+## [1.1.3](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.2...@native-html/transient-render-tree@1.1.3) (2020-11-18)
+
+
+### Bug Fixes
+
+* **transient-render-tree:** preserve the anchors color from legacy ([0ec10e6](https://github.com/native-html/core/commit/0ec10e669e67fe55bae07707dfacf4f2c5594545))
+
 ## [1.1.2](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.1...@native-html/transient-render-tree@1.1.2) (2020-11-18)
 
 
