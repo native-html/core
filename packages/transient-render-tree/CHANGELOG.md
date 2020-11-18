@@ -1,3 +1,10 @@
+## [1.1.2](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.1...@native-html/transient-render-tree@1.1.2) (2020-11-18)
+
+
+### Bug Fixes
+
+* **transient-render-tree:** merge retained text styles (textDecoration*) ([4c16105](https://github.com/native-html/core/commit/4c161059c34d2d1926877a5c5280048418193fa1))
+
 ## [1.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.0...@native-html/transient-render-tree@1.1.1) (2020-11-17)
 
 
