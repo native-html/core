@@ -12,11 +12,13 @@ describe('hoist function', () => {
     expect(hoistedTree).toMatchObject({
       type: 'block',
       isAnchor: false,
+      tagName: 'a',
       attributes: { href }, // Should preserve attributes in TBlock
       children: [
         {
           type: 'phrasing',
           isAnchor: true,
+          tagName: null,
           href,
           attributes: {}
         },
@@ -32,6 +34,7 @@ describe('hoist function', () => {
         {
           type: 'phrasing',
           isAnchor: true,
+          tagName: null,
           attributes: {},
           href
         }
