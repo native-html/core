@@ -280,7 +280,7 @@ describe('TStylesMerger', () => {
           expect(processedProps.nativeTextFlow).toStrictEqual({});
           expect(processedProps.nativeTextRet).toStrictEqual({});
         });
-        it('should default to UA styles with color #245dc1 (pale blue) and uderlined text when attribute "href" is set', () => {
+        it('should default to UA styles with color #245dc1 (pale blue) and underlined text when attribute "href" is set', () => {
           const stylesMerger = new TStylesMerger({
             ...defaultStylesConfig,
             enableUserAgentStyles: true
@@ -301,7 +301,7 @@ describe('TStylesMerger', () => {
             textDecorationColor: '#245dc1'
           });
         });
-        it('should have UA styles when attribute "href" is set overriden by user tag styles', () => {
+        it('should have UA styles when attribute "href" is set overridden by user tag styles', () => {
           const stylesMerger = new TStylesMerger({
             ...defaultStylesConfig,
             enableUserAgentStyles: true,
