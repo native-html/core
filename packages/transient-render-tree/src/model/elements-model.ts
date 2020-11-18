@@ -93,9 +93,9 @@ const spacedBlockPropsRegistry = CSSProcessedProps.new()
   .merge(bigMarginTopBottomPropsRegistry);
 
 const anchorPropsRegistry = CSSProcessedProps.new()
-  .withProperty('color', 'blue', nativeTextFlow)
+  .withProperty('color', '#245dc1', nativeTextFlow)
   .withProperty('textDecorationLine', 'underline', nativeTextRetain)
-  .withProperty('textDecorationColor', 'blue', nativeTextRetain);
+  .withProperty('textDecorationColor', '#245dc1', nativeTextRetain);
 
 const leftBorderQuote = CSSProcessedProps.new()
   .withProperty('borderLeftWidth', 2, nativeBlockRetain)
