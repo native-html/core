@@ -1,3 +1,11 @@
+## [1.1.4](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.3...@native-html/transient-render-tree@1.1.4) (2020-11-18)
+
+
+### Bug Fixes
+
+* **transient-render-tree:** only push wrapper nodes when not-empty (hoist) ([c331cb8](https://github.com/native-html/core/commit/c331cb88afcfade43d54f143edf00034f9bc31fb))
+* **transient-renderer-tree:** preserve styles in hoisted nodes ([992c693](https://github.com/native-html/core/commit/992c6930fe6a52da1c7fa4307bb87443e88774eb))
+
 ## [1.1.3](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.2...@native-html/transient-render-tree@1.1.3) (2020-11-18)
 
 
