@@ -57,7 +57,7 @@ describe('translateNode function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
-  it('should translate styles', () => {
+  it('should translate styles (1)', () => {
     const ttree = translateTreeTest('<div style="font-size: 18px"></div>');
     expect(ttree).toMatchObject({
       type: 'block',
@@ -69,6 +69,12 @@ describe('translateNode function', () => {
       children: []
     });
     expect(ttree?.attributes).toEqual({});
+  });
+  it('should translate styles (2)', () => {
+    const tdoc = translateTreeTest(
+      '<a href="http://google.fr"><div style="background-color: red;"></div></a>'
+    );
+    expect(tdoc.children[0].styles.nativeBlockRet.backgroundColor).toBe('red');
   });
   it('should translate a phrasing element with one text child node to a TText element', () => {
     const ttree = translateTreeTest('<span><strong>Hello!</strong></span>');

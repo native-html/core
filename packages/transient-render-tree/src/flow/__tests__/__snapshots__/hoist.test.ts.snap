@@ -227,7 +227,13 @@ This is
   "hasWhiteSpaceCollapsingEnabled": true,
   "id": null,
   "isAnchor": false,
-  "parentStyles": null,
+  "parentStyles": TStyles {
+    "nativeBlockFlow": Object {},
+    "nativeBlockRet": Object {},
+    "nativeTextFlow": Object {},
+    "nativeTextRet": Object {},
+    "webTextFlow": Object {},
+  },
   "styles": TStyles {
     "nativeBlockFlow": Object {},
     "nativeBlockRet": Object {},

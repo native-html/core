@@ -40,7 +40,10 @@ function hoistNode(node: TNode): TNode {
     for (const child of node.children) {
       if (child instanceof TBlock) {
         const newNode = new TBlock(
-          node.cloneInitParams({ parentStyles: null })
+          node.cloneInitParams({
+            parentStyles: child.parentStyles,
+            styles: child.styles
+          })
         );
         newNode.bindChildren(node.children);
         return groupText(newNode, node);

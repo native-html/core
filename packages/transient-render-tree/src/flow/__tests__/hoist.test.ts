@@ -42,4 +42,15 @@ describe('hoist function', () => {
     });
     expect(hoistedTree).toMatchSnapshot();
   });
+  it('should preserve styles of encompassing blocks', () => {
+    const tdoc = makeTTree(
+      '<a href="http://google.fr"><div style="background-color: red;"></div></a>'
+    );
+    const tdiv = tdoc.children[1];
+    expect(tdiv).toMatchObject({
+      type: 'block',
+      tagName: 'div'
+    });
+    expect(tdiv.styles.nativeBlockRet.backgroundColor).toBe('red');
+  });
 });

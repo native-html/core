@@ -10,6 +10,7 @@ export interface TNodeInit {
   tagName?: string | null;
   attributes?: Record<string, string>;
   parentStyles: TStyles | null;
+  styles?: TStyles;
   stylesMerger: TStylesMerger;
 }
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';
@@ -38,11 +39,13 @@ export abstract class TNode implements TNodeInit {
       enumerable: false,
       value: init.stylesMerger
     });
-    this.styles = init.stylesMerger.buildStyles(
-      this.attributes.style,
-      init.parentStyles,
-      this
-    );
+    this.styles =
+      init.styles ||
+      init.stylesMerger.buildStyles(
+        this.attributes.style,
+        init.parentStyles,
+        this
+      );
     this.parentStyles = init.parentStyles;
     this.children = [];
     this.hasWhiteSpaceCollapsingEnabled =
