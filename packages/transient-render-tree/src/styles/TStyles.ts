@@ -1,22 +1,22 @@
 import { CSSProperties, CSSProcessedProps } from '@native-html/css-processor';
 
 /**
- * A cheap merge method using prototype inheritance.
+ * A merge properties from left to right.
  *
  * @param child
  * @param parent
  */
 function inheritProperties(
-  child: CSSProperties,
-  parent: CSSProperties | undefined
-) {
-  if (!parent) {
-    return child;
+  ...properties: Array<CSSProperties | null | undefined>
+): CSSProperties {
+  const realProperties = properties.filter((p) => p != null);
+  if (realProperties.length === 1) {
+    return realProperties[0] as CSSProperties;
   }
-  return {
-    ...parent,
-    ...child
-  };
+  return realProperties.reduce(
+    (prev, curr) => ({ ...prev, ...curr }),
+    {} as CSSProperties
+  ) as CSSProperties;
 }
 
 export class TStyles {
@@ -30,18 +30,26 @@ export class TStyles {
     parentStyles?: TStyles | null
   ) {
     this.nativeTextFlow = inheritProperties(
-      ownProcessedProps.native.text.flow,
-      parentStyles?.nativeTextFlow
+      parentStyles?.nativeTextFlow,
+      ownProcessedProps.native.text.flow
     );
     this.nativeBlockFlow = inheritProperties(
-      ownProcessedProps.native.block.flow,
-      parentStyles?.nativeBlockFlow
+      parentStyles?.nativeBlockFlow,
+      ownProcessedProps.native.block.flow
     );
     this.webTextFlow = inheritProperties(
-      ownProcessedProps.web.text.flow,
-      parentStyles?.webTextFlow
+      parentStyles?.webTextFlow,
+      ownProcessedProps.web.text.flow
     );
-    this.nativeTextRet = ownProcessedProps.native.text.retain;
+    // In theory, we shouldn't merge those properties. However, these
+    // properties being textDecoration*, we actually want children nodes to
+    // inherit from them. A cleaner solution would be to to let each TNode
+    // handle its merging logic, because only TPhrasing and TText nodes would
+    // need to merge these.
+    this.nativeTextRet = inheritProperties(
+      parentStyles?.nativeTextRet,
+      ownProcessedProps.native.text.retain
+    );
     this.nativeBlockRet = ownProcessedProps.native.block.retain;
   }
 
