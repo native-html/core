@@ -222,8 +222,8 @@ describe('TStylesMerger', () => {
           expect(processedProps.nativeBlockRet).toStrictEqual({
             marginBottom: 16,
             marginTop: 16,
-            marginLeft: 40,
-            marginRight: 40
+            marginLeft: 30,
+            marginRight: 30
           });
         });
         it('should default to UA styles with left border gray when attribute "type" is set to "cite"', () => {
@@ -244,8 +244,8 @@ describe('TStylesMerger', () => {
             borderLeftColor: 'gray',
             marginBottom: 16,
             marginTop: 16,
-            marginLeft: 40,
-            marginRight: 40
+            marginLeft: 30,
+            marginRight: 30
           });
         });
       });
