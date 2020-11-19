@@ -88,8 +88,8 @@ const whiteSpacePrePropsRegistry = CSSProcessedProps.new().withProperty(
 );
 
 const spacedBlockPropsRegistry = CSSProcessedProps.new()
-  .withProperty('marginLeft', 40, nativeBlockRetain)
-  .withProperty('marginRight', 40, nativeBlockRetain)
+  .withProperty('marginLeft', 30, nativeBlockRetain)
+  .withProperty('marginRight', 30, nativeBlockRetain)
   .merge(bigMarginTopBottomPropsRegistry);
 
 const anchorPropsRegistry = CSSProcessedProps.new()
@@ -110,7 +110,7 @@ const solidUnderlinePropsRegistry = CSSProcessedProps.new()
   .withProperty('textDecorationStyle', 'solid', nativeTextRetain);
 
 const listPropsRegistry = CSSProcessedProps.new()
-  .withProperty('paddingLeft', 40, nativeBlockRetain) // TODO, support directional styles
+  .withProperty('paddingLeft', 30, nativeBlockRetain) // TODO, support directional styles
   .merge(bigMarginTopBottomPropsRegistry);
 
 // whitespace + mono + spacing
@@ -382,7 +382,7 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
     category: 'grouping',
     defaultUACSSProcessedProps: CSSProcessedProps.new().withProperty(
       'marginLeft', // TODO support directional styles
-      40,
+      30,
       nativeBlockRetain
     )
   }),
