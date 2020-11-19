@@ -420,7 +420,7 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
       .withProperty('marginRight', 'auto', nativeBlockRetain)
       .withProperty('height', 1, nativeBlockRetain)
       .withProperty('width', '100%', nativeBlockRetain)
-      .withProperty('backgroundColor', 'gray', nativeBlockRetain)
+      .withProperty('backgroundColor', '#CCC', nativeBlockRetain)
       .merge(shortMarginTopBottomPropsRegistry)
   }),
   li: new HTMLElementModel({
