@@ -1,3 +1,15 @@
+# [1.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.4...@native-html/transient-render-tree@1.2.0) (2020-11-19)
+
+
+### Bug Fixes
+
+* **transient-render-tree:** anchor child losing its children during hoisting ([d8c4a9f](https://github.com/native-html/core/commit/d8c4a9f17a512e30a0237663221b0ee18b3d9291))
+
+
+### Features
+
+* **transient-render-tree:** implement tnodeToString to print a tree ([00acc0c](https://github.com/native-html/core/commit/00acc0cf18f6a83ff6cef977e10c65e66ce8c379))
+
 ## [1.1.4](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.3...@native-html/transient-render-tree@1.1.4) (2020-11-18)
 
 
