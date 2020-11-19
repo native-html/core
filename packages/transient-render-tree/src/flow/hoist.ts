@@ -9,9 +9,8 @@ function groupText(tnode: TBlock, wrappernode: TPhrasing): TNode {
   let newChildren: TNode[] = [];
   let wrapper = wrappernode.newEmpty();
   for (const child of tnode.children) {
-    const newChild = child;
-    if (newChild instanceof TText || newChild instanceof TPhrasing) {
-      wrapper.children.push(newChild);
+    if (child instanceof TText || child instanceof TPhrasing) {
+      wrapper.children.push(child);
     } else {
       if (wrapper.children.length) {
         newChildren.push(wrapper);
@@ -19,13 +18,14 @@ function groupText(tnode: TBlock, wrappernode: TPhrasing): TNode {
       }
       if (wrappernode instanceof TPhrasingAnchor) {
         const nextChild = new TBlockAnchor({
-          ...newChild.cloneInitParams(),
+          ...child.cloneInitParams(),
           href: wrappernode.href,
           parentStyles: wrappernode.parentStyles
         });
+        nextChild.bindChildren(child.children);
         newChildren.push(nextChild);
       } else {
-        newChildren.push(newChild);
+        newChildren.push(child);
       }
     }
   }
@@ -36,33 +36,35 @@ function groupText(tnode: TBlock, wrappernode: TPhrasing): TNode {
   return tnode;
 }
 
-function hoistNode(node: TNode): TNode {
-  node.bindChildren(node.children.map(hoistNode));
-  if (node instanceof TPhrasing) {
-    for (const child of node.children) {
-      if (child instanceof TBlock) {
+function hoistNode(tnode: TNode): TNode {
+  tnode.bindChildren(tnode.children.map(hoistNode));
+  if (tnode instanceof TPhrasing) {
+    for (const cnode of tnode.children) {
+      if (cnode instanceof TBlock) {
         const newNode = new TBlock(
-          node.cloneInitParams({
-            parentStyles: child.parentStyles,
-            styles: child.styles
+          tnode.cloneInitParams({
+            parentStyles: cnode.parentStyles,
+            styles: cnode.styles
           })
         );
-        newNode.bindChildren(node.children);
-        return groupText(newNode, node);
+        newNode.bindChildren(tnode.children);
+        const output = groupText(newNode, tnode);
+        return output;
       }
     }
-  } else if (node instanceof TBlock) {
-    if (node.children.length > 0) {
-      return groupText(
-        node,
+  } else if (tnode instanceof TBlock) {
+    if (tnode.children.length > 0) {
+      const output = groupText(
+        tnode,
         new TPhrasing({
-          parentStyles: node.styles,
-          stylesMerger: node.stylesMerger
+          parentStyles: tnode.styles,
+          stylesMerger: tnode.stylesMerger
         })
       );
+      return output;
     }
   }
-  return node;
+  return tnode;
 }
 
 export function hoist(tree: TNode): TNode {

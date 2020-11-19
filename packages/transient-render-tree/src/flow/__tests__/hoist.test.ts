@@ -54,4 +54,35 @@ describe('hoist function', () => {
     expect(tdoc.children).toHaveLength(1);
     expect(tdiv.styles.nativeBlockRet.backgroundColor).toBe('red');
   });
+  it('should preserve text of encompassing blocks', () => {
+    const tdoc = makeTTree(
+      '<a href="http://google.fr"><div>This is text!</div></a>'
+    );
+    expect(tdoc).toMatchObject({
+      type: 'block',
+      tagName: 'a',
+      isAnchor: false,
+      children: [
+        {
+          type: 'block',
+          isAnchor: true,
+          tagName: 'div',
+          children: [
+            {
+              type: 'phrasing',
+              tagName: null,
+              children: [
+                {
+                  type: 'text',
+                  tagName: null,
+                  data: 'This is text!'
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    });
+    expect(tdoc.children).toHaveLength(1);
+  });
 });
