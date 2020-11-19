@@ -1,3 +1,10 @@
+## [1.3.1](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.3.0...@native-html/transient-render-tree@1.3.1) (2020-11-19)
+
+
+### Bug Fixes
+
+* **transient-render-tree:** align hr UA styles with legacy ([af1ba78](https://github.com/native-html/core/commit/af1ba7874c77348a1aab78cbea0b8db4396614d9))
+
 # [1.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.2.0...@native-html/transient-render-tree@1.3.0) (2020-11-19)
 
 
