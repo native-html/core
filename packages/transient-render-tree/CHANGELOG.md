@@ -1,3 +1,10 @@
+## [1.4.1](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.4.0...@native-html/transient-render-tree@1.4.1) (2020-11-19)
+
+
+### Bug Fixes
+
+* **transient-render-tree:** shrink UA spacing from 40 to 30px ([fbadede](https://github.com/native-html/core/commit/fbadede370bb4760560721939eba26168aeeec3e))
+
 # [1.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.3.1...@native-html/transient-render-tree@1.4.0) (2020-11-19)
 
 
