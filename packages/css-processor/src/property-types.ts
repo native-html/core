@@ -189,17 +189,12 @@ export type CSSLongNativeUntranslatableBlockPropKey = Extract<
   | 'alignItems'
   | 'alignSelf'
   | 'aspectRatio'
-  | 'bottom'
   | 'flexBasis'
   | 'flexDirection'
   | 'flexGrow'
   | 'flexShrink'
   | 'flexWrap'
   | 'justifyContent'
-  | 'left'
-  | 'right'
-  | 'top'
-  | 'bottom'
   | 'position'
 >;
 /**

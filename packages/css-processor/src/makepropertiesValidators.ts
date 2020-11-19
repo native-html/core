@@ -350,7 +350,7 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
     bottom: new LongSizeCSSPropertyValidator({
       config,
       propertyName: 'bottom',
-      model: nativeUntranslatableBlockRetainModel
+      model: nativeTranslatableBlockRetainModel
     }),
     display: new LongEnumerationCSSPropertyValidator(
       {
@@ -409,7 +409,7 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
     left: new LongSizeCSSPropertyValidator({
       config,
       propertyName: 'left',
-      model: nativeUntranslatableBlockRetainModel
+      model: nativeTranslatableBlockRetainModel
     }),
     position: new LongEnumerationCSSPropertyValidator(
       {
@@ -422,11 +422,11 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
     right: new LongSizeCSSPropertyValidator({
       config,
       propertyName: 'right',
-      model: nativeUntranslatableBlockRetainModel
+      model: nativeTranslatableBlockRetainModel
     }),
     top: new LongSizeCSSPropertyValidator({
       config,
-      model: nativeUntranslatableBlockRetainModel,
+      model: nativeTranslatableBlockRetainModel,
       propertyName: 'top'
     }),
     backfaceVisibility: new LongEnumerationCSSPropertyValidator(

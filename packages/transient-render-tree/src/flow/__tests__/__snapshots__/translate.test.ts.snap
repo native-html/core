@@ -13,6 +13,7 @@ TPhrasingAnchor {
       "data": "
 This is
 ",
+      "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "isAnchor": false,
@@ -38,6 +39,7 @@ This is
       "children": Array [],
       "className": null,
       "data": "phrasing content",
+      "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "isAnchor": false,
@@ -64,6 +66,7 @@ This is
       "className": null,
       "data": "
 ",
+      "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "isAnchor": false,
@@ -90,6 +93,7 @@ This is
       },
       "children": Array [],
       "className": null,
+      "displayName": "TBlock",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "isAnchor": false,
@@ -116,6 +120,7 @@ This is
       "className": null,
       "data": "
     and this is ",
+      "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "isAnchor": false,
@@ -141,6 +146,7 @@ This is
       "children": Array [],
       "className": null,
       "data": "too",
+      "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "isAnchor": false,
@@ -167,6 +173,7 @@ This is
       "className": null,
       "data": ".
 ",
+      "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "isAnchor": false,
@@ -189,6 +196,7 @@ This is
     },
   ],
   "className": null,
+  "displayName": "TPhrasingAnchor",
   "hasWhiteSpaceCollapsingEnabled": true,
   "href": "https://domain.com",
   "id": null,
