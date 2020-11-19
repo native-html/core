@@ -59,9 +59,9 @@ const sizeSpec: Pick<
     (4 / 3) * 12, // 1pc
     (4 / 3) * 1, // 1pt
     12, // 12px
-    null, // 1em
+    16, // 1em
     null, // 1ex
-    null, // 1rem
+    16, // 1rem
     null, // 1vw
     null, // 1vh
     null // not-a-dimension!
@@ -405,6 +405,10 @@ describe('CSSProcessor', () => {
       ...retainedWebBlockSpec,
       ...sizeSpec
     };
+    const retainedNativeBlockSizeSpec = {
+      ...nativeRetainedBlockSpec,
+      ...sizeSpec
+    };
     const borderWidthValues = [
       ...sizeSpec.inlineIncomingValues,
       'thin',
@@ -462,7 +466,6 @@ describe('CSSProcessor', () => {
         mixedIncomingValues: [7 / 2, 3, 2 / 3, 'not a ratio', null],
         outValues: [7 / 2, 3, 2 / 3, null, null]
       },
-      bottom: retainedWebBlockSizeSpec,
       flexBasis: retainedWebBlockSizeSpec,
       flexDirection: {
         ...retainedWebBlockSpec,
@@ -487,14 +490,15 @@ describe('CSSProcessor', () => {
         inlineIncomingValues: propertiesValidators.justifyContent.allowedList,
         mixedIncomingValues: propertiesValidators.justifyContent.allowedList
       },
-      left: retainedWebBlockSizeSpec,
       position: {
         ...retainedWebBlockSpec,
         inlineIncomingValues: propertiesValidators.position.allowedList,
         mixedIncomingValues: propertiesValidators.position.allowedList
       },
-      right: retainedWebBlockSizeSpec,
-      top: retainedWebBlockSizeSpec,
+      left: retainedNativeBlockSizeSpec,
+      right: retainedNativeBlockSizeSpec,
+      top: retainedNativeBlockSizeSpec,
+      bottom: retainedNativeBlockSizeSpec,
       direction: {
         compat: 'native',
         display: 'block',

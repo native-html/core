@@ -9,7 +9,6 @@ export class LongSizeCSSPropertyValidator<
     value: number,
     unit: CSSLengthUnit
   ): number | string | null {
-    // TODO handle em / rem
     switch (unit) {
       case '%':
         return `${value}%`;
@@ -21,6 +20,9 @@ export class LongSizeCSSPropertyValidator<
       case 'pc':
       case 'pt':
         return value * this.config.absoluteLengthUnitsMultiplicators[unit];
+      case 'em':
+      case 'rem':
+        return this.config.rootFontSize * value;
     }
     return null;
   }

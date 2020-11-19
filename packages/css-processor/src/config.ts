@@ -75,6 +75,11 @@ export interface CSSProcessorConfig {
   readonly inlinePropertiesWhitelist: CSSPropertyNameList | null;
 
   /**
+   * Font size used to compute REM.
+   */
+  readonly rootFontSize: number;
+
+  /**
    * Determine is the provided font is supported on running platform.
    *
    * @param fontName - The name of the font to validate. Any quotes have been removed.
