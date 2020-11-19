@@ -5,6 +5,7 @@ export interface TBlockInit extends TNodeInit {}
 
 export class TBlock extends TNode {
   public domChildren?: SerializableNode[];
+  public readonly displayName: string = 'TBlock';
   constructor(init: TBlockInit) {
     super(init, 'block');
     if (init.domChildren) {

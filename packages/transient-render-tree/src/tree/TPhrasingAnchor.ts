@@ -6,6 +6,7 @@ export interface TPhrasingAnchorInit extends TPhrasingInit {
 
 export class TPhrasingAnchor extends TPhrasing {
   public href: string;
+  public readonly displayName: string = 'TPhrasingAnchor';
   constructor(init: TPhrasingAnchorInit) {
     super(init);
     // @ts-ignore

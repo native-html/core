@@ -27,6 +27,7 @@ export abstract class TNode implements TNodeInit {
   public readonly parentStyles: TStyles | null;
   public readonly hasWhiteSpaceCollapsingEnabled: boolean;
   public readonly stylesMerger!: TStylesMerger;
+  public abstract readonly displayName: string;
 
   constructor(init: TNodeInit, type: TNodeType) {
     this.type = type;

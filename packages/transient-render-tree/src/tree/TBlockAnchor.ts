@@ -6,6 +6,7 @@ export interface TBlockAnchorInit extends TBlockInit {
 
 export class TBlockAnchor extends TBlock {
   public href: string;
+  public readonly displayName = 'TBlockAnchor';
   constructor(init: TBlockAnchorInit) {
     super(init);
     // @ts-ignore

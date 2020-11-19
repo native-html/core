@@ -6,6 +6,7 @@ export interface TTextInit extends Omit<TNodeInit, 'bindChildren'> {
 
 export class TText extends TNode {
   public data: string;
+  public readonly displayName: string = 'TText';
   constructor(init: TTextInit) {
     super(init, 'text');
     this.data = init.data;

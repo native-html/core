@@ -61,6 +61,7 @@ function extractContextFromHead(head: TEmpty, lang?: string) {
 
 export class TDocument extends TBlock {
   public readonly context: Readonly<DocumentContext>;
+  public readonly displayName = 'TDocument';
   constructor({ attributes, stylesMerger, parentStyles }: TNodeInit) {
     super({
       tagName: 'html',

@@ -3,6 +3,7 @@ import { TNode, TNodeInit } from './TNode';
 export interface TPhrasingInit extends TNodeInit {}
 
 export class TPhrasing extends TNode {
+  public readonly displayName: string = 'TPhrasing';
   constructor(init: TPhrasingInit) {
     super(init, 'phrasing');
   }

@@ -18,7 +18,7 @@ function tnodePropertiesString(tnode: TNode) {
   const detailsPrint = [tagPrint, idPrint, classesPrint, dataPrint, anchorPrint]
     .filter((p) => p !== null)
     .join(',');
-  return `•${tnode.constructor.name}(${detailsPrint})`;
+  return `•${tnode.displayName}(${detailsPrint})`;
 }
 
 interface TNodePrintState {

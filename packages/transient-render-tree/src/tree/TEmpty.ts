@@ -7,6 +7,7 @@ export interface TEmptyInit extends Omit<TNodeInit, 'type'> {
 
 export class TEmpty extends TNode {
   public domNode: SerializableElement;
+  public readonly displayName = 'TEmpty';
   constructor(init: TEmptyInit) {
     super(init, 'empty');
     this.domNode = init.domNode;
