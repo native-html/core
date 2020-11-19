@@ -31,16 +31,19 @@ export class TTreeBuilder {
   private htmlParserOptions: Readonly<HTMLParserOptions>;
   private dataFlowParams: DataFlowParams;
   constructor(options?: TTreeBuilderOptions) {
+    const baseStyle = {
+      ...defaultStylesConfig.baseStyle,
+      ...options?.stylesConfig?.baseStyle
+    };
     const stylesConfig = {
       ...defaultStylesConfig,
       ...options?.stylesConfig,
-      baseStyle: {
-        ...defaultStylesConfig.baseStyle,
-        ...options?.stylesConfig?.baseStyle
-      }
+      baseStyle
     };
     const stylesMerger = new TStylesMerger(stylesConfig, {
       ...defaultCSSProcessorConfig,
+      rootFontSize:
+        typeof baseStyle.fontSize === 'number' ? baseStyle.fontSize : 14,
       ...options?.cssProcessorConfig
     });
     this.htmlParserOptions = {
