@@ -22,3 +22,4 @@ export {
 } from 'domhandler';
 export { TTreeBuilder } from './TTreeBuilder';
 export type { TTreeBuilderOptions } from './TTreeBuilder';
+export { default as tnodeToString } from './tnodeToString';
