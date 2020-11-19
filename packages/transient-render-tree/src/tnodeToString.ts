@@ -7,11 +7,11 @@ function tnodePropertiesString(tnode: TNode) {
   const classesPrint = tnode.className ? `classes=${tnode.className}` : null;
   const dataPrint =
     tnode instanceof TText
-      ? `data="${
+      ? `data[${
           tnode.data.length > 24
-            ? tnode.data.substring(0, 24) + '…'
-            : tnode.data
-        }"`
+            ? JSON.stringify(tnode.data.substring(0, 24)) + '…'
+            : JSON.stringify(tnode.data)
+        }]`
       : null;
   // @ts-ignore
   const anchorPrint = tnode.isAnchor ? `anchor[${tnode.href}]` : null;
