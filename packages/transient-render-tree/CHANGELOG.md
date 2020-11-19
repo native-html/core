@@ -1,3 +1,12 @@
+# [1.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.3.1...@native-html/transient-render-tree@1.4.0) (2020-11-19)
+
+
+### Features
+
+* **css-processor:** allow top, right, bottom and left CSS properties ([fed4e3e](https://github.com/native-html/core/commit/fed4e3e388a09f6cd9828474fc63c2f5d2e175b7))
+* **transient-render-tree:** add TNode.displayName for string print ([7368816](https://github.com/native-html/core/commit/7368816fd3edb001f9d53530c2d46ce1e0dc8cfd))
+* **transient-render-tree:** use baseStyle.fontSize for em & rem units ([300522c](https://github.com/native-html/core/commit/300522c282dbd30cc4f22eb3b35516433bc426e3))
+
 ## [1.3.1](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.3.0...@native-html/transient-render-tree@1.3.1) (2020-11-19)
 
 
