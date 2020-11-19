@@ -1,3 +1,10 @@
+# [1.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.2.0...@native-html/transient-render-tree@1.3.0) (2020-11-19)
+
+
+### Features
+
+* **transient-render-tree:** stringify data to avoid line returns (tnodeToString) ([0f5a9ec](https://github.com/native-html/core/commit/0f5a9ec3d85de331880386fc0f1572aac05fce08))
+
 # [1.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.1.4...@native-html/transient-render-tree@1.2.0) (2020-11-19)
 
 
