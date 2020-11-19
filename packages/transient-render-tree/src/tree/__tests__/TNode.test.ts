@@ -2,7 +2,9 @@ import { TNode } from '../TNode';
 import { TText } from '../TText';
 import { defaultInit } from './shared';
 
-class TTest extends TNode {}
+class TTest extends TNode {
+  public readonly displayName = 'TTest';
+}
 
 function newTNode() {
   return new TTest(defaultInit, 'block');
