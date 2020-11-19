@@ -1,3 +1,11 @@
+# [1.3.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.2.0...@native-html/css-processor@1.3.0) (2020-11-19)
+
+
+### Features
+
+* **css-processor:** allow top, right, bottom and left CSS properties ([fed4e3e](https://github.com/native-html/core/commit/fed4e3e388a09f6cd9828474fc63c2f5d2e175b7))
+* **css-processor:** support em (legacy mode) and rem units ([f363b95](https://github.com/native-html/core/commit/f363b9595585b681d4dfaca1c5c4cb6ecdede1ec))
+
 # [1.2.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.1.0...@native-html/css-processor@1.2.0) (2020-11-17)
 
 
