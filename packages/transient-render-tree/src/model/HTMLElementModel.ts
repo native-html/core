@@ -1,4 +1,7 @@
-import { CSSProcessedProps } from '@native-html/css-processor';
+import {
+  CSSProcessedProps,
+  MixedStyleDeclaration
+} from '@native-html/css-processor';
 
 export type ElementCategory =
   | 'anchor'
@@ -173,13 +176,13 @@ export interface ElementModelBase<T = TagName, C = ElementCategory> {
   /**
    * Equivalent of "user-agent" styles.
    */
-  defaultUACSSProcessedProps?: CSSProcessedProps;
+  mixedUAStyles?: MixedStyleDeclaration;
   /**
    * For example, "width" and "height" attributes for &lt;img&gt; tags.
    */
-  getUADerivedCSSProcessedPropsFromAttributes?: (
+  getUADerivedStyleFromAttributes?: (
     attributes: Record<string, string>
-  ) => CSSProcessedProps | null;
+  ) => MixedStyleDeclaration | null;
 }
 
 const phrasingCategories: ElementCategory[] = ['textual', 'edits'];
@@ -199,15 +202,15 @@ export class HTMLElementModel<T extends string> {
   public readonly isPhrasing: boolean;
   public readonly isTranslatableBlock: boolean;
   public readonly isVoid: boolean;
-  public readonly defaultCSSProcessedProps: CSSProcessedProps | null;
-  private readonly _getDerivedStylesFromAttributes: ElementModelBase['getUADerivedCSSProcessedPropsFromAttributes'];
+  public readonly mixedUAStyles: MixedStyleDeclaration | null;
+  private readonly _getDerivedStylesFromAttributes: ElementModelBase['getUADerivedStyleFromAttributes'];
   constructor({
     tagName,
     category,
     isOpaque,
     isVoid,
-    defaultUACSSProcessedProps: defaultCSSPropsRegistry,
-    getUADerivedCSSProcessedPropsFromAttributes: getDerivedStylesFromAttributes
+    mixedUAStyles: defaultCSSPropsRegistry,
+    getUADerivedStyleFromAttributes: getDerivedStylesFromAttributes
   }: ElementModelBase<T, ElementCategory>) {
     this.tagName = tagName;
     this.isOpaque = isOpaque ?? category === 'embedded';
@@ -217,13 +220,13 @@ export class HTMLElementModel<T extends string> {
     this.isPhrasing = phrasingCategories.indexOf(category) !== -1;
     this.isTranslatableBlock =
       translatableBlockCategories.indexOf(category) !== -1;
-    this.defaultCSSProcessedProps = defaultCSSPropsRegistry || null;
+    this.mixedUAStyles = defaultCSSPropsRegistry || null;
     this._getDerivedStylesFromAttributes = getDerivedStylesFromAttributes;
   }
 
   getUADerivedCSSProcessedPropsFromAttributes(
     attributes: Record<string, string>
-  ): CSSProcessedProps | null {
+  ): MixedStyleDeclaration | null {
     if (this._getDerivedStylesFromAttributes) {
       return this._getDerivedStylesFromAttributes(attributes);
     }

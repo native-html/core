@@ -241,7 +241,7 @@ describe('TStylesMerger', () => {
           });
           expect(processedProps.nativeBlockRet).toStrictEqual({
             borderLeftWidth: 2,
-            borderLeftColor: 'gray',
+            borderLeftColor: '#CCC',
             marginBottom: 16,
             marginTop: 16,
             marginLeft: 30,
