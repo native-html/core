@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.4.1...@native-html/transient-render-tree@1.5.0) (2020-11-20)
+
+
+### Bug Fixes
+
+* **transient-tree-model:** design flaw with UA styles ([340ab7f](https://github.com/native-html/core/commit/340ab7f834a7cd74c92c0ce90555683b99e3f39f))
+
+
+### Features
+
+* **transient-render-tree:** proper handling of rootFontSize ([a680c61](https://github.com/native-html/core/commit/a680c6121e89a48e043346e6d5c4e2b54330cd29))
+
 ## [1.4.1](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.4.0...@native-html/transient-render-tree@1.4.1) (2020-11-19)
 
 
