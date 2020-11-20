@@ -35,6 +35,12 @@ export class TTreeBuilder {
       ...defaultStylesConfig.baseStyle,
       ...options?.stylesConfig?.baseStyle
     };
+    const userSelectedFontSize =
+      options?.cssProcessorConfig?.rootFontSize || baseStyle.fontSize;
+    // TODO log a warning when type is string
+    const rootFontSize =
+      typeof userSelectedFontSize === 'number' ? userSelectedFontSize : 14;
+    baseStyle.fontSize = rootFontSize;
     const stylesConfig = {
       ...defaultStylesConfig,
       ...options?.stylesConfig,
@@ -42,9 +48,8 @@ export class TTreeBuilder {
     };
     const stylesMerger = new TStylesMerger(stylesConfig, {
       ...defaultCSSProcessorConfig,
-      rootFontSize:
-        typeof baseStyle.fontSize === 'number' ? baseStyle.fontSize : 14,
-      ...options?.cssProcessorConfig
+      ...options?.cssProcessorConfig,
+      rootFontSize
     });
     this.htmlParserOptions = {
       decodeEntities: true,

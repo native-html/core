@@ -22,6 +22,19 @@ const htmlDocument = `
 const defaultTTreeBuilder = new TTreeBuilder();
 
 describe('TTreeBuilder > buildTTree method', () => {
+  it('should handle special case when baseStyle.fontSize is not a number', () => {
+    const specialTTreeBuilder = new TTreeBuilder({
+      stylesConfig: {
+        baseStyle: {
+          fontSize: '1em'
+        }
+      }
+    });
+    expect(
+      specialTTreeBuilder.buildTTree('<span>A</span>').children[0].children[0]
+        .styles.nativeTextFlow.fontSize
+    ).toBe(undefined);
+  });
   it('given a HTML document, should return an instance of TDocument which has one TBlock(body) child', () => {
     const tdoc = defaultTTreeBuilder.buildTTree(htmlDocument);
     expect(tdoc).toBeInstanceOf(TDocument);
