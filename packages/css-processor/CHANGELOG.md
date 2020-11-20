@@ -1,3 +1,20 @@
+# [1.4.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.3.0...@native-html/css-processor@1.4.0) (2020-11-20)
+
+
+### Bug Fixes
+
+* **css-processor:** add string to fontSize type (CSSFlattenProcessedTypes) ([b54ab4e](https://github.com/native-html/core/commit/b54ab4e531187e7d9cd687b80d4db5db01849fdb))
+
+
+### Features
+
+* **css-processor:** support 'larger' and 'smaller' fontSize units ([f2542f5](https://github.com/native-html/core/commit/f2542f558d120f9bf1ce392b91e979f86f68adfb))
+
+
+### Performance Improvements
+
+* **css-processor:** ignore 'empty' fonts from list ([5ff35c2](https://github.com/native-html/core/commit/5ff35c2a06a46f3d02989fa8c37e591a67b0541b))
+
 # [1.3.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.2.0...@native-html/css-processor@1.3.0) (2020-11-19)
 
 
