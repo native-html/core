@@ -6,8 +6,8 @@ export class LongBorderWidthCSSPropertyValidator<
   C extends CSSPropertyModel
 > extends LongSizeCSSPropertyValidator<C> {
   normalizeRawInlineCSSValue(value: string) {
-    if (lookupRecord(this.config.hardcodedBorderWidthsPixelMap, value)) {
-      return this.config.hardcodedBorderWidthsPixelMap[value];
+    if (lookupRecord(this.config.absoluteBorderWidthsPixelMap, value)) {
+      return this.config.absoluteBorderWidthsPixelMap[value];
     }
     return super.normalizeRawInlineCSSValue(value);
   }

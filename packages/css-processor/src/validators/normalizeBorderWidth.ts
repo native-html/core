@@ -5,8 +5,8 @@ export default function normalizeBorderWidth(
   config: CSSProcessorConfig,
   value: string
 ) {
-  if (lookupRecord(config.hardcodedBorderWidthsPixelMap, value)) {
-    return `${config.hardcodedBorderWidthsPixelMap[value]}px`;
+  if (lookupRecord(config.absoluteBorderWidthsPixelMap, value)) {
+    return `${config.absoluteBorderWidthsPixelMap[value]}px`;
   }
   return value;
 }

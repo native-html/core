@@ -5,7 +5,7 @@ import { CSSPropertyModel } from './types';
 export class LongSizeCSSPropertyValidator<
   C extends CSSPropertyModel
 > extends LongCSSPropertyValidator<C, number | string> {
-  private computeSize(
+  protected computeSize(
     value: number,
     unit: CSSLengthUnit
   ): number | string | null {
@@ -21,10 +21,18 @@ export class LongSizeCSSPropertyValidator<
       case 'pt':
         return value * this.config.absoluteLengthUnitsMultiplicators[unit];
       case 'em':
+        return this.computeEmSize(value);
+      case 'ex':
+        // This is an approximation.
+        return this.computeEmSize(value * 0.63);
       case 'rem':
         return this.config.rootFontSize * value;
     }
     return null;
+  }
+
+  protected computeEmSize(value: number) {
+    return this.config.rootFontSize * value;
   }
 
   normalizeRawInlineCSSValue(value: string) {

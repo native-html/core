@@ -14,12 +14,12 @@ export const defaultCSSProcessorConfig: CSSProcessorConfig = {
     pc: pcMultiplicator,
     pt: ptMultiplicator
   },
-  hardcodedBorderWidthsPixelMap: {
+  absoluteBorderWidthsPixelMap: {
     medium: 2.5,
     thick: 5,
     thin: 1
   },
-  hardcodedFontSizesPixelMap: {
+  absoluteFontSizesPixelMap: {
     medium: 14,
     'xx-small': 8.5,
     'x-small': 10,
@@ -27,6 +27,10 @@ export const defaultCSSProcessorConfig: CSSProcessorConfig = {
     large: 17,
     'x-large': 20,
     'xx-large': 24
+  },
+  relativeFontSizesCoefficientMap: {
+    larger: 1.2,
+    smaller: 0.83
   },
   inlinePropertiesBlacklist: [],
   rootFontSize: 16,

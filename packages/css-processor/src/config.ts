@@ -49,11 +49,15 @@ export type CSSPropertyNameList = Array<
 
 export interface CSSProcessorConfig {
   readonly absoluteLengthUnitsMultiplicators: CSSAbsoluteLengthUnitsMultiplicators;
-  readonly hardcodedBorderWidthsPixelMap: Record<
+  readonly absoluteBorderWidthsPixelMap: Record<
     CSSHardcodedBorderWidth,
     number
   >;
-  readonly hardcodedFontSizesPixelMap: Record<
+  readonly relativeFontSizesCoefficientMap: Record<
+    CSSRelativeHarcodedFontSize,
+    number
+  >;
+  readonly absoluteFontSizesPixelMap: Record<
     CSSAbsoluteHardcodedFontSize,
     number
   >;

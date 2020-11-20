@@ -60,7 +60,7 @@ const sizeSpec: Pick<
     (4 / 3) * 1, // 1pt
     12, // 12px
     16, // 1em
-    null, // 1ex
+    16 * 0.63, // 1ex
     16, // 1rem
     null, // 1vw
     null, // 1vh
@@ -423,7 +423,9 @@ describe('CSSProcessor', () => {
       'small',
       'large',
       'x-large',
-      'xx-large'
+      'xx-large',
+      'smaller',
+      'larger'
     ];
     const borderWidthSpec: Specs = {
       ...nativeRetainedBlockSpec,
@@ -608,6 +610,8 @@ describe('CSSProcessor', () => {
         mixedIncomingValues: fontSizeValues,
         outValues: [
           ...sizeSpec.outValues,
+          expect.any(Number),
+          expect.any(Number),
           expect.any(Number),
           expect.any(Number),
           expect.any(Number),

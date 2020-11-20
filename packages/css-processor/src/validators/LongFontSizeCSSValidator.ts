@@ -6,8 +6,13 @@ export class LongFontSizeCSSValidator<
   C extends CSSPropertyModel
 > extends LongSizeCSSPropertyValidator<C> {
   normalizeRawInlineCSSValue(value: string) {
-    if (lookupRecord(this.config.hardcodedFontSizesPixelMap, value)) {
-      return this.config.hardcodedFontSizesPixelMap[value];
+    if (lookupRecord(this.config.absoluteFontSizesPixelMap, value)) {
+      return this.config.absoluteFontSizesPixelMap[value];
+    }
+    if (lookupRecord(this.config.relativeFontSizesCoefficientMap, value)) {
+      return this.computeEmSize(
+        this.config.relativeFontSizesCoefficientMap[value]
+      );
     }
     return super.normalizeRawInlineCSSValue(value);
   }
