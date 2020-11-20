@@ -1,7 +1,4 @@
-import {
-  CSSProcessedProps,
-  MixedStyleDeclaration
-} from '@native-html/css-processor';
+import { MixedStyleDeclaration } from '@native-html/css-processor';
 
 export type ElementCategory =
   | 'anchor'
