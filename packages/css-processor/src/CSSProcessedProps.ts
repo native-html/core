@@ -42,7 +42,12 @@ export class CSSProcessedProps
   readonly native: {
     text: {
       flow: Partial<
-        Pick<TextStyle, CSSLongNativeTranslatableTextFlowedPropKey>
+        Pick<
+          TextStyle,
+          Exclude<CSSLongNativeTranslatableTextFlowedPropKey, 'fontSize'>
+        > & {
+          fontSize?: number | string;
+        }
       >;
       retain: Partial<
         Pick<TextStyle, CSSLongNativeTranslatableTextRetainedPropKey>
