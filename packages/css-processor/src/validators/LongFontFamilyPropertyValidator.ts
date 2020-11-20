@@ -9,7 +9,8 @@ export class LongFontFamilyPropertyValidator<
     const values = value.split(/,\s*/g);
     for (const font of values) {
       const normalizedFont = normalizeFontName(font);
-      const isFontSupported = this.config.isFontSupported(normalizedFont);
+      const isFontSupported =
+        normalizedFont.length && this.config.isFontSupported(normalizedFont);
       if (isFontSupported) {
         return typeof isFontSupported === 'string'
           ? isFontSupported
