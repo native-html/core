@@ -21,6 +21,7 @@ export {
   Text as DOMText,
   Element as DOMElement
 } from 'domhandler';
-export { TTreeBuilder } from './TTreeBuilder';
-export type { TTreeBuilderOptions } from './TTreeBuilder';
+export { TRenderEngine } from './TRenderEngine';
+export { TRenderEngine as default } from './TRenderEngine';
+export type { TRenderEngineOptions } from './TRenderEngine';
 export { default as tnodeToString } from './tnodeToString';

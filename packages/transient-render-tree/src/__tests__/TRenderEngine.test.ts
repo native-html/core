@@ -2,7 +2,7 @@ import { TBlock } from '../tree/TBlock';
 import { TDocument } from '../tree/TDocument';
 import { TStyles } from '../styles/TStyles';
 import { CSSProcessedProps } from '@native-html/css-processor';
-import { TTreeBuilder, TTreeBuilderOptions } from '../TTreeBuilder';
+import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
 const href = 'https://domain.com';
 const htmlDocument = `
 <!doctype html>
@@ -19,11 +19,11 @@ const htmlDocument = `
 </body>
 `;
 
-const defaultTTreeBuilder = new TTreeBuilder();
+const defaultTTreeBuilder = new TRenderEngine();
 
-describe('TTreeBuilder > buildTTree method', () => {
+describe('TRenderEngine > buildTTree method', () => {
   it('should handle special case when baseStyle.fontSize is not a number', () => {
-    const specialTTreeBuilder = new TTreeBuilder({
+    const specialTTreeBuilder = new TRenderEngine({
       stylesConfig: {
         baseStyle: {
           fontSize: '1em'
@@ -157,12 +157,12 @@ describe('TTreeBuilder > buildTTree method', () => {
     });
   });
   describe('should have its children inherit from UA styles when enableUserAgentStyles is enabled', () => {
-    const config: TTreeBuilderOptions = {
+    const config: TRenderEngineOptions = {
       stylesConfig: {
         enableUserAgentStyles: true
       }
     };
-    const customTTreeBuilder = new TTreeBuilder(config);
+    const customTTreeBuilder = new TRenderEngine(config);
     it('should work with em tags', () => {
       const tdoc = customTTreeBuilder.buildTTree(
         '<em>This should be italic</em>'
@@ -217,7 +217,7 @@ describe('TTreeBuilder > buildTTree method', () => {
         }
       }
     };
-    const customTTreeBuilder = new TTreeBuilder(config);
+    const customTTreeBuilder = new TRenderEngine(config);
     it('when provided a full html page markup', () => {
       const tdoc = customTTreeBuilder.buildTTree(
         '<!doctype html><html><head></head><body><div>This text should inherit baseStyles</div></body></html>'

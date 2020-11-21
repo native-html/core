@@ -12,7 +12,7 @@ import { TStylesMerger } from './styles/TStylesMerger';
 import { defaultStylesConfig } from './styles/defaults';
 import { TStyles } from './styles/TStyles';
 
-export interface TTreeBuilderOptions {
+export interface TRenderEngineOptions {
   /**
    * Customization for CSS inline processing.
    */
@@ -27,10 +27,10 @@ export interface TTreeBuilderOptions {
   readonly stylesConfig?: StylesConfig;
 }
 
-export class TTreeBuilder {
+export class TRenderEngine {
   private htmlParserOptions: Readonly<HTMLParserOptions>;
   private dataFlowParams: DataFlowParams;
-  constructor(options?: TTreeBuilderOptions) {
+  constructor(options?: TRenderEngineOptions) {
     const baseStyle = {
       ...defaultStylesConfig.baseStyle,
       ...options?.stylesConfig?.baseStyle
