@@ -12,17 +12,17 @@
   "private": true,
   "scripts": {
     "build:css-processor": "yarn workspace @native-html/css-processor build",
-    "build:transient-render-tree": "yarn workspace @native-html/transient-render-tree build",
+    "build:transient-render-engine": "yarn workspace @native-html/transient-render-engine build",
     "test:css-processor": "yarn workspace @native-html/css-processor test",
     "test:css-processor:ts": "yarn workspace @native-html/css-processor test:ts",
     "test:css-processor:lint": "yarn workspace @native-html/css-processor test:lint",
     "test:css-processor:jest": "yarn workspace @native-html/css-processor test:jest",
-    "test:transient-render-tree": "yarn workspace @native-html/transient-render-tree test",
-    "test:transient-render-tree:ts": "yarn workspace @native-html/transient-render-tree test:ts",
-    "test:transient-render-tree:lint": "yarn workspace @native-html/transient-render-tree test:lint",
-    "test:transient-render-tree:jest": "yarn workspace @native-html/transient-render-tree test:jest",
+    "test:transient-render-engine": "yarn workspace @native-html/transient-render-engine test",
+    "test:transient-render-engine:ts": "yarn workspace @native-html/transient-render-engine test:ts",
+    "test:transient-render-engine:lint": "yarn workspace @native-html/transient-render-engine test:lint",
+    "test:transient-render-engine:jest": "yarn workspace @native-html/transient-render-engine test:jest",
     "release:css-processor": "yarn workspace @native-html/css-processor release-it",
-    "release:transient-render-tree": "yarn workspace @native-html/transient-render-tree release-it"
+    "release:transient-render-engine": "yarn workspace @native-html/transient-render-engine release-it"
   },
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",
