@@ -1,3 +1,15 @@
+# [1.5.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.4.0...@native-html/css-processor@1.5.0) (2020-11-21)
+
+
+### Bug Fixes
+
+* **css-processor:** change types of MixedStyleDeclaration fields ([40a4d41](https://github.com/native-html/core/commit/40a4d41028b1b5d7cd24c6f2ada7df70dc70a3c7))
+
+
+### Features
+
+* **css-processor:** handle % fontSize as per CSS standard ([17694db](https://github.com/native-html/core/commit/17694db210ac7bcad0b1f8453aa3d1ecc3350bb3))
+
 # [1.4.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.3.0...@native-html/css-processor@1.4.0) (2020-11-20)
 
 
