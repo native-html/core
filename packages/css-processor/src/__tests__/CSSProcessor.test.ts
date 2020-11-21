@@ -609,7 +609,7 @@ describe('CSSProcessor', () => {
         inlineIncomingValues: fontSizeValues,
         mixedIncomingValues: fontSizeValues,
         outValues: [
-          ...sizeSpec.outValues,
+          ...sizeSpec.outValues.map((v) => (v === '20%' ? 3.2 : v)), // Percents are handled differently for fontSize (equivalent to em)
           expect.any(Number),
           expect.any(Number),
           expect.any(Number),

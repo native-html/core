@@ -35,6 +35,16 @@ export class LongSizeCSSPropertyValidator<
     return this.config.rootFontSize * value;
   }
 
+  protected splitValueAndUnit(value: string): [number, CSSLengthUnit] | null {
+    const match = /(\d+\.?\d*)\s*(cm|mm|in|px|pt|pc|em|ex|ch|rem|vw|vh|vmin|vmax|%)/g.exec(
+      value
+    );
+    if (match === null) {
+      return null;
+    }
+    return [Number(match[1]), match[2] as CSSLengthUnit];
+  }
+
   normalizeRawInlineCSSValue(value: string) {
     if (value === '0') {
       return 0;
@@ -42,13 +52,11 @@ export class LongSizeCSSPropertyValidator<
     if (value === 'auto') {
       return value;
     }
-    const match = /(\d+\.?\d*)\s*(cm|mm|in|px|pt|pc|em|ex|ch|rem|vw|vh|vmin|vmax|%)/g.exec(
-      value
-    );
-    if (match === null) {
-      return null;
+    const split = this.splitValueAndUnit(value);
+    if (split) {
+      return this.computeSize(split[0], split[1]);
     }
-    return this.computeSize(Number(match[1]), match[2] as CSSLengthUnit);
+    return null;
   }
 
   normalizeNativeValue(value: string | number) {
