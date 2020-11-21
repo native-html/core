@@ -1,3 +1,5 @@
+# 2.0.0 (2020-11-21)
+
 # [1.5.0](https://github.com/native-html/core/compare/@native-html/transient-render-tree@1.4.1...@native-html/transient-render-tree@1.5.0) (2020-11-20)
 
 
