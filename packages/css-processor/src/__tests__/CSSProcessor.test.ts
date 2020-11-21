@@ -36,6 +36,7 @@ const lengthSamples = [
   '1pt',
   '12px',
   '1em',
+  '.67em', // floating point
   '1ex',
   '1rem',
   '1vw',
@@ -60,6 +61,7 @@ const sizeSpec: Pick<
     (4 / 3) * 1, // 1pt
     12, // 12px
     16, // 1em
+    16 * 0.67, // .67em
     16 * 0.63, // 1ex
     16, // 1rem
     null, // 1vw
