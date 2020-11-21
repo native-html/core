@@ -281,6 +281,7 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
       propertyName: 'letterSpacing',
       model: nativeTranslatableTextFlowModel
     }),
+    // TODO handle unitless heights
     lineHeight: new LongSizeCSSPropertyValidator({
       config,
       propertyName: 'lineHeight',

@@ -28,6 +28,50 @@ export type CSSFlattenProcessedTypes = CSSProcessedProps['native']['text']['flow
   CSSProcessedProps['native']['block']['retain'];
 
 /**
+ * These properties can be set to any of the supoprted CSS sizes, including em,
+ * rem units and special values such as large, larger for `fontSize`, thin,
+ * medium for `borderWidth`, before passed to {@link CSSProcessor.compileStyleDeclaration}.
+ */
+export type MixedSizeCSSPropertiesKeys =
+  | 'fontSize'
+  | 'borderWidth'
+  | 'letterSpacing'
+  | 'bottom'
+  | 'left'
+  | 'top'
+  | 'right'
+  | 'width'
+  | 'height'
+  | 'flexBasis'
+  | 'borderRadius'
+  | 'borderBottomLeftRadius'
+  | 'borderBottomRightRadius'
+  | 'borderTopLeftRadius'
+  | 'borderTopRightRadius'
+  | 'borderWidth'
+  | 'borderBottomWidth'
+  | 'borderLeftWidth'
+  | 'borderRightWidth'
+  | 'marginBottom'
+  | 'marginLeft'
+  | 'marginRight'
+  | 'marginTop'
+  | 'margin'
+  | 'marginHorizontal'
+  | 'marginVertical'
+  | 'maxWidth'
+  | 'maxHeight'
+  | 'minWidth'
+  | 'minHeight'
+  | 'padding'
+  | 'paddingBottom'
+  | 'paddingLeft'
+  | 'paddingRight'
+  | 'paddingTop'
+  | 'paddingHorizontal'
+  | 'paddingVertical';
+
+/**
  * A Style object that can contain mixins of a subset of ViewStyle, TextStyle,
  * and special style entries such as "whiteSpace", "listStyleType".
  *
@@ -39,12 +83,18 @@ export type CSSFlattenProcessedTypes = CSSProcessedProps['native']['text']['flow
  * per the CSS standard. The translated font will be selected with
  * {@link CSSProcessorConfig.isFontSupported}.
  */
-export type MixedStyleDeclaration = CSSFlattenProcessedTypes &
+export type MixedStyleDeclaration = Omit<
+  CSSFlattenProcessedTypes,
+  MixedSizeCSSPropertiesKeys
+> &
   WebTextFlowProperties &
   ExtraNativeTextStyle &
   ExtraNativeViewStyle &
   ExtraNativeShortStyle &
-  ExtraNativeUntranslatedLongStyles;
+  ExtraNativeUntranslatedLongStyles &
+  {
+    [k in MixedSizeCSSPropertiesKeys]?: number | string;
+  };
 
 export class CSSProcessor {
   public readonly registry: CSSPropertiesValidationRegistry;
