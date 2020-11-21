@@ -1,3 +1,10 @@
+## [1.5.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.5.0...@native-html/css-processor@1.5.1) (2020-11-21)
+
+
+### Bug Fixes
+
+* **css-processor:** floating point numbers such as .67 ([ef8a9a4](https://github.com/native-html/core/commit/ef8a9a447554b0b99c0fa54b6dc2da743e916b64))
+
 # [1.5.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.4.0...@native-html/css-processor@1.5.0) (2020-11-21)
 
 
