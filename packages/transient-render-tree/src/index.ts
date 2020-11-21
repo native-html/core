@@ -1,5 +1,6 @@
 export type { StylesConfig, MixedStyleRecord } from './styles/types';
 export type { DocumentContext } from './tree/TDocument';
+export { TStyles } from './styles/TStyles';
 export { TDocument } from './tree/TDocument';
 export { TBlock } from './tree/TBlock';
 export { TNode } from './tree/TNode';
