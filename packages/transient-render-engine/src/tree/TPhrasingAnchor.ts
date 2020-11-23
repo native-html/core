@@ -13,10 +13,4 @@ export class TPhrasingAnchor extends TPhrasing {
     this.isAnchor = true;
     this.href = init.href;
   }
-
-  newEmpty(): TPhrasingAnchor {
-    return new TPhrasingAnchor(
-      this.cloneInitParams(this.emptyParams({ href: this.href }))
-    );
-  }
 }

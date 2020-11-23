@@ -5,8 +5,16 @@ import { TPhrasing } from '../tree/TPhrasing';
 import { TPhrasingAnchor } from '../tree/TPhrasingAnchor';
 import { TText } from '../tree/TText';
 
-function groupText(tnode: TBlock, wrappernode: TPhrasing): TNode {
+/**
+ * Wrap text nodes around TPhrasing nodes.
+ * @param tnode The parent node of all elements to group.
+ */
+function groupText(tnode: TBlock): TNode {
   let newChildren: TNode[] = [];
+  const wrappernode = new TPhrasing({
+    parentStyles: tnode.styles,
+    stylesMerger: tnode.stylesMerger
+  });
   let wrapper = wrappernode.newEmpty();
   for (const child of tnode.children) {
     if (child instanceof TText || child instanceof TPhrasing) {
@@ -16,17 +24,7 @@ function groupText(tnode: TBlock, wrappernode: TPhrasing): TNode {
         newChildren.push(wrapper);
         wrapper = wrappernode.newEmpty();
       }
-      if (wrappernode instanceof TPhrasingAnchor) {
-        const nextChild = new TBlockAnchor({
-          ...child.cloneInitParams(),
-          href: wrappernode.href,
-          parentStyles: wrappernode.parentStyles
-        });
-        nextChild.bindChildren(child.children);
-        newChildren.push(nextChild);
-      } else {
-        newChildren.push(child);
-      }
+      newChildren.push(child);
     }
   }
   if (wrapper.children.length) {
@@ -41,26 +39,22 @@ function hoistNode(tnode: TNode): TNode {
   if (tnode instanceof TPhrasing) {
     for (const cnode of tnode.children) {
       if (cnode instanceof TBlock) {
-        const newNode = new TBlock(
-          tnode.cloneInitParams({
-            parentStyles: cnode.parentStyles,
-            styles: cnode.styles
-          })
-        );
+        const initParams = tnode.cloneInitParams({
+          parentStyles: cnode.parentStyles,
+          styles: cnode.styles
+        });
+        const newNode =
+          tnode instanceof TPhrasingAnchor
+            ? new TBlockAnchor({ ...initParams, href: tnode.href })
+            : new TBlock(initParams);
         newNode.bindChildren(tnode.children);
-        const output = groupText(newNode, tnode);
+        const output = groupText(newNode);
         return output;
       }
     }
   } else if (tnode instanceof TBlock) {
     if (tnode.children.length > 0) {
-      const output = groupText(
-        tnode,
-        new TPhrasing({
-          parentStyles: tnode.styles,
-          stylesMerger: tnode.stylesMerger
-        })
-      );
+      const output = groupText(tnode);
       return output;
     }
   }

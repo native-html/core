@@ -1,12 +1,12 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`hoist function should comply with RFC002 example (hoisting)  1`] = `
-TBlock {
+TBlockAnchor {
   "attributes": Object {
     "href": "https://domain.com",
   },
   "children": Array [
-    TPhrasingAnchor {
+    TPhrasing {
       "attributes": Object {},
       "children": Array [
         TText {
@@ -92,12 +92,17 @@ This is
         },
       ],
       "className": null,
-      "displayName": "TPhrasingAnchor",
+      "displayName": "TPhrasing",
       "hasWhiteSpaceCollapsingEnabled": true,
-      "href": "https://domain.com",
       "id": null,
-      "isAnchor": true,
-      "parentStyles": null,
+      "isAnchor": false,
+      "parentStyles": TStyles {
+        "nativeBlockFlow": Object {},
+        "nativeBlockRet": Object {},
+        "nativeTextFlow": Object {},
+        "nativeTextRet": Object {},
+        "webTextFlow": Object {},
+      },
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -108,18 +113,23 @@ This is
       "tagName": null,
       "type": "phrasing",
     },
-    TBlockAnchor {
+    TBlock {
       "attributes": Object {
         "src": "https://domain.com/logo.jpg",
       },
       "children": Array [],
       "className": null,
-      "displayName": "TBlockAnchor",
+      "displayName": "TBlock",
       "hasWhiteSpaceCollapsingEnabled": true,
-      "href": "https://domain.com",
       "id": null,
-      "isAnchor": true,
-      "parentStyles": null,
+      "isAnchor": false,
+      "parentStyles": TStyles {
+        "nativeBlockFlow": Object {},
+        "nativeBlockRet": Object {},
+        "nativeTextFlow": Object {},
+        "nativeTextRet": Object {},
+        "webTextFlow": Object {},
+      },
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -130,7 +140,7 @@ This is
       "tagName": "img",
       "type": "block",
     },
-    TPhrasingAnchor {
+    TPhrasing {
       "attributes": Object {},
       "children": Array [
         TText {
@@ -215,12 +225,17 @@ This is
         },
       ],
       "className": null,
-      "displayName": "TPhrasingAnchor",
+      "displayName": "TPhrasing",
       "hasWhiteSpaceCollapsingEnabled": true,
-      "href": "https://domain.com",
       "id": null,
-      "isAnchor": true,
-      "parentStyles": null,
+      "isAnchor": false,
+      "parentStyles": TStyles {
+        "nativeBlockFlow": Object {},
+        "nativeBlockRet": Object {},
+        "nativeTextFlow": Object {},
+        "nativeTextRet": Object {},
+        "webTextFlow": Object {},
+      },
       "styles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -233,10 +248,11 @@ This is
     },
   ],
   "className": null,
-  "displayName": "TBlock",
+  "displayName": "TBlockAnchor",
   "hasWhiteSpaceCollapsingEnabled": true,
+  "href": "https://domain.com",
   "id": null,
-  "isAnchor": false,
+  "isAnchor": true,
   "parentStyles": TStyles {
     "nativeBlockFlow": Object {},
     "nativeBlockRet": Object {},

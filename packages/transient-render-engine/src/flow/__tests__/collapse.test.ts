@@ -24,12 +24,12 @@ describe('collapse function', () => {
     const ttree = makeTTree(rfc002Source);
     expect(ttree).toMatchObject({
       type: 'block',
-      isAnchor: false,
+      isAnchor: true,
+      href,
       children: [
         {
           type: 'phrasing',
-          isAnchor: true,
-          href,
+          isAnchor: false,
           children: [
             {
               type: 'text',
@@ -44,7 +44,7 @@ describe('collapse function', () => {
         },
         {
           type: 'block',
-          isAnchor: true,
+          isAnchor: false,
           tagName: 'img',
           attributes: {
             src: imgSrc
@@ -52,8 +52,7 @@ describe('collapse function', () => {
         },
         {
           type: 'phrasing',
-          isAnchor: true,
-          href,
+          isAnchor: false,
           children: [
             {
               type: 'text',

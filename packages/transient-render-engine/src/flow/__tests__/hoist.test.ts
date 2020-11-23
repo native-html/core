@@ -11,32 +11,29 @@ describe('hoist function', () => {
     const hoistedTree = makeTTree(rfc002Source);
     expect(hoistedTree).toMatchObject({
       type: 'block',
-      isAnchor: false,
+      isAnchor: true,
       tagName: 'a',
-      attributes: { href }, // Should preserve attributes in TBlock
+      attributes: { href },
       children: [
         {
           type: 'phrasing',
-          isAnchor: true,
+          isAnchor: false,
           tagName: null,
-          href,
           attributes: {}
         },
         {
           type: 'block',
-          isAnchor: true,
+          isAnchor: false,
           tagName: 'img',
-          href,
           attributes: {
             src: imgSrc
           }
         },
         {
           type: 'phrasing',
-          isAnchor: true,
+          isAnchor: false,
           tagName: null,
-          attributes: {},
-          href
+          attributes: {}
         }
       ]
     });
@@ -61,11 +58,11 @@ describe('hoist function', () => {
     expect(tdoc).toMatchObject({
       type: 'block',
       tagName: 'a',
-      isAnchor: false,
+      isAnchor: true,
       children: [
         {
           type: 'block',
-          isAnchor: true,
+          isAnchor: false,
           tagName: 'div',
           children: [
             {
