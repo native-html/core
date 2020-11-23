@@ -128,7 +128,7 @@ function testSpecs(examples: Record<string, Specs>) {
             : outValue != null
             ? { [key]: outValue }
             : null;
-        it(`compileStyleDeclaration should register ${
+        it(`compileStyleDeclaration should ${
           expectedValue === null ? 'ignore' : 'register'
         } "${key}" ${
           validator?.isShorthand() ? 'shorhand' : 'longhand'
@@ -398,6 +398,13 @@ describe('CSSProcessor', () => {
       ...sizeSpec,
       ...nativeRetainedBlockSpec
     };
+    const nativeRetainedBlockNonPercentSizeSpecModel: Specs = {
+      ...sizeSpec,
+      ...nativeRetainedBlockSpec,
+      inlineIncomingValues: ['10px', '10%'],
+      mixedIncomingValues: [10, '10%'],
+      outValues: [10, null]
+    };
     const retainedWebBlockSpec: SpecsModel = {
       compat: 'web',
       display: 'block',
@@ -434,7 +441,12 @@ describe('CSSProcessor', () => {
       inlineIncomingValues: borderWidthValues,
       mixedIncomingValues: borderWidthValues,
       outValues: [
-        ...sizeSpec.outValues!,
+        ...sizeSpec.outValues!.map((v) => {
+          if (typeof v === 'string' && v.match(/%$/)) {
+            return null;
+          }
+          return v;
+        }),
         expect.any(Number),
         expect.any(Number),
         expect.any(Number)
@@ -518,16 +530,16 @@ describe('CSSProcessor', () => {
       },
       backgroundColor: nativeRetainedBlockColorSpecModel,
       borderBottomColor: nativeRetainedBlockColorSpecModel,
-      borderBottomLeftRadius: nativeRetainedBlockSizeSpecModel,
-      borderBottomRightRadius: nativeRetainedBlockSizeSpecModel,
+      borderBottomLeftRadius: nativeRetainedBlockNonPercentSizeSpecModel,
+      borderBottomRightRadius: nativeRetainedBlockNonPercentSizeSpecModel,
+      borderTopLeftRadius: nativeRetainedBlockNonPercentSizeSpecModel,
+      borderTopRightRadius: nativeRetainedBlockNonPercentSizeSpecModel,
       borderBottomWidth: borderWidthSpec,
       borderLeftColor: nativeRetainedBlockColorSpecModel,
       borderLeftWidth: borderWidthSpec,
       borderRightColor: nativeRetainedBlockColorSpecModel,
       borderRightWidth: borderWidthSpec,
       borderTopColor: nativeRetainedBlockColorSpecModel,
-      borderTopLeftRadius: nativeRetainedBlockSizeSpecModel,
-      borderTopRightRadius: nativeRetainedBlockSizeSpecModel,
       borderTopWidth: borderWidthSpec,
       height: nativeRetainedBlockSizeSpecModel,
       marginBottom: nativeRetainedBlockSizeSpecModel,
@@ -793,12 +805,7 @@ describe('CSSProcessor', () => {
             borderTopLeftRadius: 40,
             borderTopRightRadius: 40
           },
-          {
-            borderBottomLeftRadius: '70%',
-            borderBottomRightRadius: '50%',
-            borderTopLeftRadius: '10%',
-            borderTopRightRadius: '30%'
-          },
+          null, // Percent radius, unsupported in RN
           {
             borderTopLeftRadius: 1,
             borderTopRightRadius: 4,

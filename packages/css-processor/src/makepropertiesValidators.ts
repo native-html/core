@@ -16,6 +16,7 @@ import { LongCSSToReactNativeValidator } from './validators/LongCSSToReactNative
 import { ShortCardinalCSSpropertyValidator } from './validators/ShortCardinalCSSPropertyValidator';
 import { ShortDualNativepropertyValidator } from './validators/ShortDualNativePropertyValidator';
 import { LongForgivingCSSPropertyValidator } from './validators/LongForgivingCSSPropertyValidator';
+import { LongNonPercentSizeCSSPropertyValidator } from './validators/LongNonPercentSizeCSSPropertyValidator';
 
 const nativeTranslatableBlockFlowModel = {
   inheritable: true as true,
@@ -448,12 +449,12 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
       propertyName: 'borderBottomColor',
       model: nativeTranslatableBlockRetainModel
     }),
-    borderBottomLeftRadius: new LongSizeCSSPropertyValidator({
+    borderBottomLeftRadius: new LongNonPercentSizeCSSPropertyValidator({
       config,
       propertyName: 'borderBottomLeftRadius',
       model: nativeTranslatableBlockRetainModel
     }),
-    borderBottomRightRadius: new LongSizeCSSPropertyValidator({
+    borderBottomRightRadius: new LongNonPercentSizeCSSPropertyValidator({
       config,
       propertyName: 'borderBottomRightRadius',
       model: nativeTranslatableBlockRetainModel
@@ -488,12 +489,12 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
       propertyName: 'borderTopColor',
       model: nativeTranslatableBlockRetainModel
     }),
-    borderTopLeftRadius: new LongSizeCSSPropertyValidator({
+    borderTopLeftRadius: new LongNonPercentSizeCSSPropertyValidator({
       config,
       propertyName: 'borderTopLeftRadius',
       model: nativeTranslatableBlockRetainModel
     }),
-    borderTopRightRadius: new LongSizeCSSPropertyValidator({
+    borderTopRightRadius: new LongNonPercentSizeCSSPropertyValidator({
       config,
       propertyName: 'borderTopRightRadius',
       model: nativeTranslatableBlockRetainModel
