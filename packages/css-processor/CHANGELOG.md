@@ -1,3 +1,10 @@
+## [1.5.2](https://github.com/native-html/core/compare/@native-html/css-processor@1.5.1...@native-html/css-processor@1.5.2) (2020-11-23)
+
+
+### Bug Fixes
+
+* **css-processor:** border-*radius and border-*width should not be set in % ([6e1e24c](https://github.com/native-html/core/commit/6e1e24c6e21cef33d214892c0dc68a6bdcf6304f))
+
 ## [1.5.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.5.0...@native-html/css-processor@1.5.1) (2020-11-21)
 
 
