@@ -1,3 +1,15 @@
+# [3.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@2.0.2...@native-html/transient-render-engine@3.0.0) (2020-11-23)
+
+
+### Features
+
+* **transient-render-engine:** align specs with RFC002 v2.0.0 ([1b1ac68](https://github.com/native-html/core/commit/1b1ac68b2b057a17b0c1383987c3fe90d9027123))
+
+
+### BREAKING CHANGES
+
+* **transient-render-engine:** Hoisting doesn't pass anchor marker to children anymore.
+
 ## [2.0.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@2.0.1...@native-html/transient-render-engine@2.0.2) (2020-11-23)
 
 ## [2.0.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@2.0.0...@native-html/transient-render-engine@2.0.1) (2020-11-21)
