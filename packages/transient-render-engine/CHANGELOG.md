@@ -1,3 +1,10 @@
+# [3.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.3.0...@native-html/transient-render-engine@3.4.0) (2020-11-24)
+
+
+### Features
+
+* **transient-render-engine:** content model type inference ([2f3db1a](https://github.com/native-html/core/commit/2f3db1af1e5de7ba5fdb282e3a3140eaa02c77c5))
+
 # [3.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.2.0...@native-html/transient-render-engine@3.3.0) (2020-11-24)
 
 
