@@ -92,6 +92,13 @@ describe('translateNode function', () => {
       ]
     });
   });
+  it('should ignore unregistered tags', () => {
+    const ttree = translateTreeTest('<nonexistingtag></nonexistingtag>');
+    expect(ttree).toMatchObject({
+      type: 'empty',
+      isUnregistered: true
+    });
+  });
   describe('regarding opaque blocks', () => {
     const pictureSrc =
       '<picture><source srcset="/media/cc0-images/surfer-240-200.jpg" media="(min-width: 800px)"><img src="/media/cc0-images/painted-hand-298-332.jpg" alt="" /></picture>';
@@ -104,7 +111,7 @@ describe('translateNode function', () => {
         domChildren: expect.any(Array)
       });
     });
-    it('should translate children', () => {
+    it('should translate translatable children', () => {
       expect(ttree.children).toHaveLength(2);
     });
   });

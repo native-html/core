@@ -15,6 +15,7 @@ export const defaultStylesMerger = new TStylesMerger(
 );
 export const defaultInit = {
   parentStyles: null,
+  contentModel: null,
   stylesMerger: defaultStylesMerger
 };
 

@@ -18,13 +18,12 @@ export default class HTMLModelRegistry<E extends string> {
     }
   }
 
-  getElementModelFromTagName(tagName: E | TagName): HTMLElementModel<string> {
+  getElementModelFromTagName(
+    tagName: E | TagName
+  ): HTMLElementModel<string> | null {
     if (lookupRecord(this.modelRecord, tagName)) {
       return this.modelRecord[tagName];
     }
-    return HTMLElementModel.fromModelBase({
-      tagName,
-      category: 'custom'
-    });
+    return null;
   }
 }

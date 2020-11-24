@@ -10,6 +10,7 @@ TPhrasing {
       "attributes": Object {},
       "children": Array [],
       "className": null,
+      "contentModel": null,
       "data": "
 This is
 ",
@@ -37,6 +38,7 @@ This is
       "attributes": Object {},
       "children": Array [],
       "className": null,
+      "contentModel": 1,
       "data": "phrasing content",
       "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
@@ -62,6 +64,7 @@ This is
       "attributes": Object {},
       "children": Array [],
       "className": null,
+      "contentModel": null,
       "data": "
 ",
       "displayName": "TText",
@@ -90,6 +93,7 @@ This is
       },
       "children": Array [],
       "className": null,
+      "contentModel": 0,
       "displayName": "TBlock",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
@@ -114,6 +118,7 @@ This is
       "attributes": Object {},
       "children": Array [],
       "className": null,
+      "contentModel": null,
       "data": "
     and this is ",
       "displayName": "TText",
@@ -140,6 +145,7 @@ This is
       "attributes": Object {},
       "children": Array [],
       "className": null,
+      "contentModel": 1,
       "data": "too",
       "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
@@ -165,6 +171,7 @@ This is
       "attributes": Object {},
       "children": Array [],
       "className": null,
+      "contentModel": null,
       "data": ".
 ",
       "displayName": "TText",
@@ -189,6 +196,7 @@ This is
     },
   ],
   "className": null,
+  "contentModel": 2,
   "displayName": "TPhrasing",
   "hasWhiteSpaceCollapsingEnabled": true,
   "id": null,

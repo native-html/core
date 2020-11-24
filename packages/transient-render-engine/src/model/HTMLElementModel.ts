@@ -1,47 +1,21 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
-import { ElementCategory, TagName } from './model-types';
-
-export type CustomElementModel = ElementModelBase<string, 'custom'>;
-
-export interface ElementModelBase<T = TagName, C = ElementCategory> {
-  tagName: T;
-  category: C;
-  /**
-   * An opaque element children should not be translated. Instead, a reference
-   * to the dom node children should be used for rendering. Example: SVG, MathML...
-   */
-  isOpaque?: boolean;
-  /**
-   * Void elements such as specified in HTML4. Void elements cannot have children.
-   */
-  isVoid?: boolean;
-  /**
-   * Equivalent of "user-agent" styles.
-   */
-  mixedUAStyles?: MixedStyleDeclaration;
-  /**
-   * For example, "width" and "height" attributes for &lt;img&gt; tags.
-   */
-  getUADerivedStyleFromAttributes?: (
-    attributes: Record<string, string>
-  ) => MixedStyleDeclaration | null;
-}
+import HTMLContentModel from './HTMLContentModel';
+import { ElementCategory, NativeElementModel } from './model-types';
 
 const phrasingCategories: ElementCategory[] = ['textual', 'edits', 'anchor'];
 const translatableBlockCategories: ElementCategory[] = [
   'embedded',
   'tabular',
   'grouping',
-  'sectioning',
-  'custom'
+  'sectioning'
 ];
 
 export interface HTMLElementModelProperties<T extends string> {
   readonly tagName: T;
+  readonly contentModel: HTMLContentModel;
+  readonly isTranslatable: boolean;
   readonly isOpaque: boolean;
-  readonly isPhrasing: boolean;
   readonly isVoid: boolean;
-  readonly isTranslatableBlock: boolean;
   readonly mixedUAStyles?: MixedStyleDeclaration;
   /**
    * For example, "width" and "height" attributes for &lt;img&gt; tags.
@@ -54,49 +28,69 @@ export interface HTMLElementModelProperties<T extends string> {
 export default class HTMLElementModel<T extends string>
   implements HTMLElementModelProperties<T> {
   public readonly tagName: T;
+  public readonly contentModel: HTMLContentModel;
+  public readonly isTranslatable: boolean;
   public readonly isOpaque: boolean;
-  public readonly isPhrasing: boolean;
   public readonly isVoid: boolean;
-  public readonly isTranslatableBlock: boolean;
   public readonly mixedUAStyles?: MixedStyleDeclaration;
-  public readonly getUADerivedStyleFromAttributes: ElementModelBase['getUADerivedStyleFromAttributes'];
+  public readonly getUADerivedStyleFromAttributes: NativeElementModel['getUADerivedStyleFromAttributes'];
 
   private constructor({
     tagName,
+    contentModel,
+    isTranslatable,
     isOpaque,
-    isPhrasing,
     isVoid,
-    isTranslatableBlock,
     mixedUAStyles,
     getUADerivedStyleFromAttributes
   }: HTMLElementModelProperties<T>) {
     this.tagName = tagName;
+    this.contentModel = contentModel;
+    this.isTranslatable = isTranslatable;
     this.isOpaque = isOpaque;
-    this.isPhrasing = isPhrasing;
     this.isVoid = isVoid;
-    this.isTranslatableBlock = isTranslatableBlock;
     this.mixedUAStyles = mixedUAStyles;
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
   }
 
-  static fromModelBase<T extends string>({
+  static fromNativeModel<T extends string>({
     tagName,
     category,
     isOpaque,
     isVoid,
     mixedUAStyles,
     getUADerivedStyleFromAttributes
-  }: ElementModelBase<T, ElementCategory>) {
+  }: NativeElementModel<T, ElementCategory>) {
     const isPhrasing = phrasingCategories.indexOf(category) !== -1;
+    const contentModel =
+      category === 'anchor'
+        ? HTMLContentModel.mixed
+        : isPhrasing
+        ? HTMLContentModel.textual
+        : HTMLContentModel.block;
+    const isTranslatable =
+      contentModel !== HTMLContentModel.block ||
+      translatableBlockCategories.indexOf(category) !== -1;
     return new HTMLElementModel<T>({
       tagName,
+      contentModel,
+      isTranslatable,
       isVoid: isVoid || false,
       mixedUAStyles,
       isOpaque: isOpaque ?? category === 'embedded',
-      isPhrasing: isPhrasing,
-      isTranslatableBlock: translatableBlockCategories.indexOf(category) !== -1,
       getUADerivedStyleFromAttributes
     });
+  }
+
+  isTranslatableBlock(): boolean {
+    return this.isTranslatable && this.contentModel === HTMLContentModel.block;
+  }
+
+  isTranslatableTextual() {
+    return (
+      this.contentModel === HTMLContentModel.textual ||
+      this.contentModel === HTMLContentModel.mixed
+    );
   }
 
   extend(props: Partial<HTMLElementModelProperties<T>>): HTMLElementModel<T> {

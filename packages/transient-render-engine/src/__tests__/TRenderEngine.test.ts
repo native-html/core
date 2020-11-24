@@ -3,6 +3,7 @@ import { TDocument } from '../tree/TDocument';
 import { TStyles } from '../styles/TStyles';
 import { CSSProcessedProps } from '@native-html/css-processor';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
+import HTMLContentModel from "../model/HTMLContentModel";
 
 const href = 'https://domain.com';
 const htmlDocument = `
@@ -28,7 +29,7 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
       customizeHTMLModels(models) {
         const newModels = {
           ...models,
-          em: models.em.extend({ isPhrasing: false, isTranslatableBlock: true })
+          em: models.em.extend({ contentModel: HTMLContentModel.block })
         };
         return newModels;
       }

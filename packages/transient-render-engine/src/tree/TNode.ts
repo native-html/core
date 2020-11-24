@@ -1,6 +1,7 @@
 import { TStyles } from '../styles/TStyles';
 import { SerializableNode } from '../dom/to-serializable';
 import { TStylesMerger } from '../styles/TStylesMerger';
+import HTMLContentModel from '../model/HTMLContentModel';
 
 export interface TNodeInit {
   /**
@@ -8,16 +9,19 @@ export interface TNodeInit {
    */
   domChildren?: SerializableNode[];
   tagName?: string | null;
+  contentModel: HTMLContentModel | null;
   attributes?: Record<string, string>;
   parentStyles: TStyles | null;
   styles?: TStyles;
   stylesMerger: TStylesMerger;
 }
+
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';
 export abstract class TNode implements TNodeInit {
   public readonly type: TNodeType;
   public readonly styles: TStyles;
   public readonly attributes: Record<string, string>;
+  public readonly contentModel: HTMLContentModel | null;
   public readonly children: TNode[];
   public readonly domChildren?: SerializableNode[];
   public readonly tagName: string | null;
@@ -31,6 +35,7 @@ export abstract class TNode implements TNodeInit {
   constructor(init: TNodeInit, type: TNodeType) {
     this.type = type;
     this.attributes = init.attributes || {};
+    this.contentModel = init.contentModel;
     this.tagName = init.tagName || null;
     this.id = this.attributes.id || null;
     this.className = this.attributes.class || null;

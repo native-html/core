@@ -7,6 +7,7 @@ const stylesMerger = new TStylesMerger(
   new HTMLModelRegistry()
 );
 export const defaultInit = {
+  contentModel: null,
   parentStyles: null,
   stylesMerger
 };

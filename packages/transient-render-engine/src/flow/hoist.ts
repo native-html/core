@@ -11,6 +11,7 @@ function groupText(tnode: TBlock): TNode {
   let newChildren: TNode[] = [];
   const wrappernode = new TPhrasing({
     parentStyles: tnode.styles,
+    contentModel: null,
     stylesMerger: tnode.stylesMerger
   });
   let wrapper = wrappernode.newEmpty();

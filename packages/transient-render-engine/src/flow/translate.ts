@@ -1,4 +1,3 @@
-import { TEmpty } from '../tree/TEmpty';
 import { TNode, TNodeInit } from '../tree/TNode';
 import { Node } from 'domhandler';
 import { TText } from '../tree/TText';
@@ -15,6 +14,8 @@ import {
 import { TStyles } from '../styles/TStyles';
 import { TStylesMerger } from '../styles/TStylesMerger';
 import HTMLModelRegistry from '../model/HTMLModelRegistry';
+import { TEmpty } from '../tree/TEmpty';
+import HTMLContentModel from '../model/HTMLContentModel';
 
 export function mapNodeList(
   nodeList: SerializableNode[],
@@ -43,10 +44,9 @@ function translateElement(
   node: SerializableElement,
   parentStyles: TStyles | null,
   params: DataFlowParams
-): TNode {
+): TNode | null {
   const tagName = node.tagName.toLowerCase();
-  const model = params.modelRegistry.getElementModelFromTagName(tagName);
-  const sharedProps: TNodeInit = {
+  const sharedProps: Omit<TNodeInit, 'contentModel'> = {
     tagName,
     parentStyles,
     stylesMerger: params.stylesMerger,
@@ -58,32 +58,45 @@ function translateElement(
     tdoc.parseChildren();
     return tdoc;
   }
-  if (model.isPhrasing) {
+  const model = params.modelRegistry.getElementModelFromTagName(tagName);
+  if (!model) {
+    return new TEmpty({
+      ...sharedProps,
+      isUnregistered: true,
+      contentModel: null,
+      domNode: node
+    });
+  }
+  const contentModel = model.contentModel;
+  if (model.isTranslatableTextual()) {
     if (node.children.length === 1) {
       const child = node.children[0] as SerializableNode;
       if (isSerializableText(child)) {
         return new TText({
           ...sharedProps,
+          contentModel,
           data: child.data
         });
       }
     }
-    const phrasing = new TPhrasing(sharedProps);
+    const phrasing = new TPhrasing({ ...sharedProps, contentModel });
     bindChildren(phrasing, node.children, params);
     return phrasing;
   }
-  if (model.isTranslatableBlock) {
+  if (model.isTranslatableBlock()) {
     const block = new TBlock({
       ...sharedProps,
+      contentModel,
       parentStyles,
       domChildren: model.isOpaque && !model.isVoid ? node.children : undefined
     });
     bindChildren(block, node.children, params);
     return block;
   }
-
   return new TEmpty({
     ...sharedProps,
+    isUnregistered: false,
+    contentModel,
     domNode: node
   });
 }
@@ -97,6 +110,7 @@ export function translateNode(
     return new TText({
       data: node.data,
       stylesMerger: params.stylesMerger,
+      contentModel: null,
       parentStyles
     });
   }
@@ -125,6 +139,7 @@ export function translateDocument(
     const body = new TBlock({
       tagName: 'body',
       stylesMerger: params.stylesMerger,
+      contentModel: HTMLContentModel.block,
       parentStyles: null
     });
     body.bindChildren(rootNodes);

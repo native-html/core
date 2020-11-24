@@ -5,6 +5,7 @@ import {
   isSerializableElement,
   isSerializableText
 } from '../dom/to-serializable';
+import HTMLContentModel from '../model/HTMLContentModel';
 
 export interface DocumentContext {
   charset: string;
@@ -62,10 +63,15 @@ function extractContextFromHead(head: TEmpty, lang?: string) {
 export class TDocument extends TBlock {
   public readonly context: Readonly<DocumentContext>;
   public readonly displayName = 'TDocument';
-  constructor({ attributes, stylesMerger, parentStyles }: TNodeInit) {
+  constructor({
+    attributes,
+    stylesMerger,
+    parentStyles
+  }: Omit<TNodeInit, 'contentModel'>) {
     super({
       tagName: 'html',
       attributes,
+      contentModel: HTMLContentModel.block,
       parentStyles: parentStyles,
       stylesMerger
     });
@@ -95,6 +101,7 @@ export class TDocument extends TBlock {
       body ||
         new TBlock({
           tagName: 'body',
+          contentModel: HTMLContentModel.block,
           stylesMerger: this.stylesMerger,
           parentStyles: this.styles
         })
@@ -107,6 +114,7 @@ export class TDocument extends TBlock {
             tagName: 'head',
             stylesMerger: this.stylesMerger,
             parentStyles: null,
+            contentModel: HTMLContentModel.none,
             domNode: {
               type: 'element',
               attribs: {},

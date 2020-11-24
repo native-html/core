@@ -1,3 +1,4 @@
+import { MixedStyleDeclaration } from '@native-html/css-processor';
 import HTMLElementModel from './HTMLElementModel';
 
 export type ElementCategory =
@@ -9,7 +10,6 @@ export type ElementCategory =
   | 'sectioning'
   | 'grouping'
   | 'interactive'
-  | 'custom'
   | 'untranslatable';
 
 export type TagName =
@@ -159,3 +159,27 @@ export type TextLevelTagNames =
 export type HTMLModelRecord<T extends string = TagName> = {
   [k in T]: HTMLElementModel<k>;
 };
+
+export interface NativeElementModel<T = TagName, C = ElementCategory> {
+  tagName: T;
+  category: C;
+  /**
+   * An opaque element children should not be translated. Instead, a reference
+   * to the dom node children should be used for rendering. Example: SVG, MathML...
+   */
+  isOpaque?: boolean;
+  /**
+   * Void elements such as specified in HTML4. Void elements cannot have children.
+   */
+  isVoid?: boolean;
+  /**
+   * Equivalent of "user-agent" styles.
+   */
+  mixedUAStyles?: MixedStyleDeclaration;
+  /**
+   * For example, "width" and "height" attributes for &lt;img&gt; tags.
+   */
+  getUADerivedStyleFromAttributes?: (
+    attributes: Record<string, string>
+  ) => MixedStyleDeclaration | null;
+}
