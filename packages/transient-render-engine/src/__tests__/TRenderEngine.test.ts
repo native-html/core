@@ -3,7 +3,8 @@ import { TDocument } from '../tree/TDocument';
 import { TStyles } from '../styles/TStyles';
 import { CSSProcessedProps } from '@native-html/css-processor';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
-import HTMLContentModel from "../model/HTMLContentModel";
+import HTMLContentModel from '../model/HTMLContentModel';
+import { HTMLElementModel } from '..';
 
 const href = 'https://domain.com';
 const htmlDocument = `
@@ -40,6 +41,32 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
     expect(ttree.children[0].children[0]).toMatchObject({
       type: 'block',
       tagName: 'em'
+    });
+  });
+  it('should allow to register custom tags', () => {
+    const specialTTreeBuilder = new TRenderEngine({
+      customizeHTMLModels(models) {
+        const newModels = {
+          ...models,
+          customtag: HTMLElementModel.fromCustomModel({
+            contentModel: HTMLContentModel.block,
+            tagName: 'customtag'
+          })
+        };
+        return newModels;
+      }
+    });
+    const ttree = specialTTreeBuilder.buildTTree(
+      '<customtag>This should be a block!</customtag>'
+    );
+    expect(ttree.children[0].children[0]).toMatchObject({
+      type: 'block',
+      tagName: 'customtag',
+      children: [
+        {
+          type: 'phrasing'
+        }
+      ]
     });
   });
 });

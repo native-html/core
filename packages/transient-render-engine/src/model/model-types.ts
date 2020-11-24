@@ -1,4 +1,5 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
+import HTMLContentModel from './HTMLContentModel';
 import HTMLElementModel from './HTMLElementModel';
 
 export type ElementCategory =
@@ -160,22 +161,53 @@ export type HTMLModelRecord<T extends string = TagName> = {
   [k in T]: HTMLElementModel<k>;
 };
 
-export interface NativeElementModel<T = TagName, C = ElementCategory> {
-  tagName: T;
-  category: C;
+export interface ElementModelBase<T extends string> {
   /**
-   * An opaque element children should not be translated. Instead, a reference
-   * to the dom node children should be used for rendering. Example: SVG, MathML...
+   * The tag name associated with this model.
+   */
+  tagName: T;
+  /**
+   * An opaque element will have access to the DOM tree.
    */
   isOpaque?: boolean;
+  /**
+   * Equivalent of "user-agent" styles. The default styles for the element.
+   *
+   * @remarks These styles will get merged over by `tagsStyles`.
+   */
+  mixedUAStyles?: MixedStyleDeclaration;
+  /**
+   * Conditional "user-agent" styles.
+   *
+   * @remarks For example, &lt;a&gt; tags will have underline decoration and be
+   * colored blue only when `href` is defined.
+   */
+  getUADerivedStyleFromAttributes?: (
+    attributes: Record<string, string>
+  ) => MixedStyleDeclaration | null;
+}
+
+/**
+ * An object to specify custom tags.
+ */
+export interface CustomElementModel<T extends string>
+  extends ElementModelBase<T> {
+  tagName: Exclude<T, TagName>;
+  contentModel: HTMLContentModel;
+}
+
+/**
+ * An object to specify tags parts of the HTML4 and HTML5 standards.
+ */
+export interface NativeElementModel<
+  T extends string = TagName,
+  C = ElementCategory
+> extends ElementModelBase<T> {
+  category: C;
   /**
    * Void elements such as specified in HTML4. Void elements cannot have children.
    */
   isVoid?: boolean;
-  /**
-   * Equivalent of "user-agent" styles.
-   */
-  mixedUAStyles?: MixedStyleDeclaration;
   /**
    * For example, "width" and "height" attributes for &lt;img&gt; tags.
    */

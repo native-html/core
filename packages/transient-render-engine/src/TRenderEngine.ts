@@ -29,6 +29,8 @@ export interface TRenderEngineOptions<E extends string = never> {
   readonly stylesConfig?: StylesConfig;
   /**
    * Customize supported tags in the engine.
+   *
+   * @remarks If you need to add new tags, always use lowercase names.
    */
   readonly customizeHTMLModels?: (
     defaultModelRecord: HTMLModelRecord<TagName>

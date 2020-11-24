@@ -1,6 +1,11 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
 import HTMLContentModel from './HTMLContentModel';
-import { ElementCategory, NativeElementModel } from './model-types';
+import {
+  CustomElementModel,
+  ElementCategory,
+  NativeElementModel,
+  TagName
+} from './model-types';
 
 const phrasingCategories: ElementCategory[] = ['textual', 'edits', 'anchor'];
 const translatableBlockCategories: ElementCategory[] = [
@@ -53,7 +58,22 @@ export default class HTMLElementModel<T extends string>
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
   }
 
-  static fromNativeModel<T extends string>({
+  static fromCustomModel<T extends string>({
+    contentModel,
+    tagName,
+    isOpaque = false,
+    ...optionalFields
+  }: CustomElementModel<T>) {
+    return new HTMLElementModel<Exclude<T, TagName>>({
+      tagName,
+      contentModel,
+      isOpaque,
+      isTranslatable: true,
+      isVoid: false,
+      ...optionalFields
+    });
+  }
+  static fromNativeModel<T extends TagName>({
     tagName,
     category,
     isOpaque,

@@ -112,6 +112,7 @@ export class TDocument extends TBlock {
         head ||
           new TEmpty({
             tagName: 'head',
+            isUnregistered: false,
             stylesMerger: this.stylesMerger,
             parentStyles: null,
             contentModel: HTMLContentModel.none,
