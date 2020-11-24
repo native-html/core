@@ -1,3 +1,10 @@
+# [3.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.1.0...@native-html/transient-render-engine@3.2.0) (2020-11-24)
+
+
+### Features
+
+* **transient-render-engine:** new TNode.matchContentMode method ([cebf709](https://github.com/native-html/core/commit/cebf7094bc5ec7c322d06ffa6ede25b57d1c6246))
+
 # [3.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.0.0...@native-html/transient-render-engine@3.1.0) (2020-11-24)
 
 
