@@ -4,6 +4,10 @@ import { defaultInit } from './shared';
 
 class TTest extends TNode {
   public readonly displayName = 'TTest';
+
+  matchContentModel() {
+    return false;
+  }
 }
 
 function newTNode() {

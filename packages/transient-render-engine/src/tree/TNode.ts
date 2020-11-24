@@ -61,6 +61,8 @@ export abstract class TNode implements TNodeInit {
     delete this.attributes.id;
   }
 
+  abstract matchContentModel(contentModel: HTMLContentModel): boolean;
+
   bindChildren(children: TNode[]) {
     // @ts-ignore
     this.children = children;

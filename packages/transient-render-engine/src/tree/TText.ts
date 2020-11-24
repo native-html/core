@@ -1,3 +1,4 @@
+import HTMLContentModel from '../model/HTMLContentModel';
 import { TNode, TNodeInit } from './TNode';
 
 export interface TTextInit extends Omit<TNodeInit, 'bindChildren'> {
@@ -10,6 +11,13 @@ export class TText extends TNode {
   constructor(init: TTextInit) {
     super(init, 'text');
     this.data = init.data;
+  }
+
+  matchContentModel(contentModel: HTMLContentModel) {
+    return (
+      contentModel === HTMLContentModel.textual ||
+      contentModel === HTMLContentModel.mixed
+    );
   }
 
   isCollapsibleLeft(): boolean {

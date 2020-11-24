@@ -1,3 +1,4 @@
+import HTMLContentModel from '../model/HTMLContentModel';
 import { TNode, TNodeInit } from './TNode';
 
 export interface TPhrasingInit extends TNodeInit {}
@@ -14,6 +15,13 @@ export class TPhrasing extends TNode {
       attributes: {},
       ...other
     } as any;
+  }
+
+  matchContentModel(contentModel: HTMLContentModel) {
+    return (
+      contentModel === HTMLContentModel.textual ||
+      contentModel === HTMLContentModel.mixed
+    );
   }
 
   /**
