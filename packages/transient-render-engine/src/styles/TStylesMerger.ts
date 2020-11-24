@@ -3,7 +3,7 @@ import CSSProcessor, {
   CSSProcessorConfig,
   MixedStyleDeclaration
 } from '@native-html/css-processor';
-import { getElementModelFromTagName } from '../model/elements-model';
+import HTMLModelRegistry from '../model/HTMLModelRegistry';
 import { TStyles } from './TStyles';
 import { StylesConfig } from './types';
 
@@ -35,11 +35,14 @@ export class TStylesMerger {
   private idsStyles: Record<string, CSSProcessedProps>;
   private enableCSSInlineProcessing: boolean;
   private enableUserAgentStyles: boolean;
+  private modelRegistry: HTMLModelRegistry<string>;
   constructor(
     config: Required<StylesConfig>,
+    modelRegistry: HTMLModelRegistry<string>,
     cssProcessorConfig?: CSSProcessorConfig
   ) {
     this.processor = new CSSProcessor(cssProcessorConfig);
+    this.modelRegistry = modelRegistry;
     this.classesStyles = mapMixedStyleRecordToCSSProcessedPropsReg(
       this.processor,
       config.classesStyles
@@ -79,7 +82,7 @@ export class TStylesMerger {
         ? this.compileInlineCSS(inlineStyle)
         : null;
     const model = descriptor.tagName
-      ? getElementModelFromTagName(descriptor.tagName)
+      ? this.modelRegistry.getElementModelFromTagName(descriptor.tagName)
       : null;
     const userTagOwnProps =
       this.tagsStyles[descriptor.tagName as string] ?? null;

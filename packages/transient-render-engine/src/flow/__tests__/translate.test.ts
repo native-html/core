@@ -2,7 +2,11 @@ import { TStyles } from '../../styles/TStyles';
 import { TBlock } from '../../tree/TBlock';
 import { mapNodeList } from '../translate';
 import { rfc002Source, href, imgSrc } from './shared';
-import { defaultStylesMerger, translateTreeTest } from './utils';
+import {
+  defaultModelRegistry,
+  defaultStylesMerger,
+  translateTreeTest
+} from './utils';
 
 describe('translateNode function', () => {
   it('should comply with RFC002 example (translating)', () => {
@@ -113,6 +117,7 @@ describe('mapNodeList function', () => {
     expect(
       mapNodeList([null] as any, null, {
         stylesMerger: defaultStylesMerger,
+        modelRegistry: defaultModelRegistry,
         baseStyles: TStyles.empty()
       })
     ).toHaveLength(0);

@@ -2,7 +2,6 @@ import { TEmpty } from '../tree/TEmpty';
 import { TNode, TNodeInit } from '../tree/TNode';
 import { Node } from 'domhandler';
 import { TText } from '../tree/TText';
-import { getElementModelFromTagName } from '../model/elements-model';
 import { TPhrasingAnchor } from '../tree/TPhrasingAnchor';
 import { TPhrasing } from '../tree/TPhrasing';
 import { TBlock } from '../tree/TBlock';
@@ -16,6 +15,7 @@ import {
 } from '../dom/to-serializable';
 import { TStyles } from '../styles/TStyles';
 import { TStylesMerger } from '../styles/TStylesMerger';
+import HTMLModelRegistry from '../model/HTMLModelRegistry';
 
 export function mapNodeList(
   nodeList: SerializableNode[],
@@ -46,20 +46,20 @@ function translateElement(
   params: DataFlowParams
 ): TNode {
   const tagName = node.tagName.toLowerCase();
-  const model = getElementModelFromTagName(tagName);
+  const model = params.modelRegistry.getElementModelFromTagName(tagName);
   const sharedProps: TNodeInit = {
     tagName,
     parentStyles,
     stylesMerger: params.stylesMerger,
     attributes: node.attribs
   };
-  if (model.isDocument) {
+  if (tagName === 'html') {
     const tdoc = new TDocument({ ...sharedProps });
     bindChildren(tdoc, node.children, params);
     tdoc.parseChildren();
     return tdoc;
   }
-  if (model.isAnchor) {
+  if (tagName === 'a') {
     const anchor = new TPhrasingAnchor({
       ...sharedProps,
       href: node.attribs.href
@@ -118,6 +118,7 @@ export function translateNode(
 export interface DataFlowParams {
   baseStyles: TStyles;
   stylesMerger: TStylesMerger;
+  modelRegistry: HTMLModelRegistry<string>;
 }
 
 export function translateDocument(

@@ -3,6 +3,7 @@ import { TDocument } from '../tree/TDocument';
 import { TStyles } from '../styles/TStyles';
 import { CSSProcessedProps } from '@native-html/css-processor';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
+import tnodeToString from '../tnodeToString';
 const href = 'https://domain.com';
 const htmlDocument = `
 <!doctype html>
@@ -21,6 +22,26 @@ const htmlDocument = `
 
 const defaultTTreeBuilder = new TRenderEngine();
 
+describe('TRenderEngine > customizeHTMLModels option', () => {
+  it('should allow to change a model type to block', () => {
+    const specialTTreeBuilder = new TRenderEngine({
+      customizeHTMLModels(models) {
+        const newModels = {
+          ...models,
+          em: models.em.extend({ isPhrasing: false, isTranslatableBlock: true })
+        };
+        return newModels;
+      }
+    });
+    const ttree = specialTTreeBuilder.buildTTree(
+      '<em>This should be a block!</em>'
+    );
+    expect(ttree.children[0].children[0]).toMatchObject({
+      type: 'block',
+      tagName: 'em'
+    });
+  });
+});
 describe('TRenderEngine > buildTTree method', () => {
   it('should handle special case when baseStyle.fontSize is not a number', () => {
     const specialTTreeBuilder = new TRenderEngine({

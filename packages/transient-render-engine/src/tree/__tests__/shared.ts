@@ -1,7 +1,11 @@
+import HTMLModelRegistry from '../../model/HTMLModelRegistry';
 import { defaultStylesConfig } from '../../styles/defaults';
 import { TStylesMerger } from '../../styles/TStylesMerger';
 
-const stylesMerger = new TStylesMerger(defaultStylesConfig);
+const stylesMerger = new TStylesMerger(
+  defaultStylesConfig,
+  new HTMLModelRegistry()
+);
 export const defaultInit = {
   parentStyles: null,
   stylesMerger

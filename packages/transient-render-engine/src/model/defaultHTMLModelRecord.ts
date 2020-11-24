@@ -1,8 +1,7 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
+import HTMLElementModel from './HTMLElementModel';
 import {
   TagName,
-  HTMLElementModel,
-  ElementCategory,
   AttribTagNames,
   EditsTagNames,
   EmbeddedTagNames,
@@ -13,14 +12,9 @@ import {
   TabularTagNames,
   TextLevelTagNames,
   UnsupportedTagNames,
-  UntranslatableTagNames
-} from './HTMLElementModel';
-
-export type { ElementCategory, TagName };
-
-export type ModelRegistry<T extends TagName> = {
-  [k in T]: HTMLElementModel<k>;
-};
+  UntranslatableTagNames,
+  HTMLModelRecord
+} from './model-types';
 
 const UA_ANCHOR_COL = '#245dc1';
 const UA_GRAY = '#CCC';
@@ -103,231 +97,231 @@ function headerStyle(
   };
 }
 
-const sectioningModelMap: ModelRegistry<SectioningTagNames> = {
-  address: new HTMLElementModel({
+const sectioningModelMap: HTMLModelRecord<SectioningTagNames> = {
+  address: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'address',
     mixedUAStyles: italicStyle
   }),
-  article: new HTMLElementModel({
+  article: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'article'
   }),
-  aside: new HTMLElementModel({
+  aside: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'aside'
   }),
-  body: new HTMLElementModel({
+  body: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'body'
   }),
-  footer: new HTMLElementModel({
+  footer: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'footer'
   }),
-  h1: new HTMLElementModel({
+  h1: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'h1',
     mixedUAStyles: headerStyle('2em', '.67em')
   }),
-  h2: new HTMLElementModel({
+  h2: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'h2',
     mixedUAStyles: headerStyle('1.5em', '.83em')
   }),
-  h3: new HTMLElementModel({
+  h3: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'h3',
     mixedUAStyles: headerStyle('1.17em', '1em')
   }),
-  h4: new HTMLElementModel({
+  h4: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'h4',
     mixedUAStyles: headerStyle('1em', '1.33em')
   }),
-  h5: new HTMLElementModel({
+  h5: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'h5',
     mixedUAStyles: headerStyle('.83em', '1.67em')
   }),
-  h6: new HTMLElementModel({
+  h6: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'h6',
     mixedUAStyles: headerStyle('.67em', '2.33em')
   }),
-  header: new HTMLElementModel({
+  header: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'header'
   }),
-  hgroup: new HTMLElementModel({
+  hgroup: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'hgroup'
   }),
-  nav: new HTMLElementModel({
+  nav: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'nav'
   }),
-  section: new HTMLElementModel({
+  section: HTMLElementModel.fromModelBase({
     category: 'sectioning',
     tagName: 'section'
   })
 };
 
-const unsupportedModelMap: ModelRegistry<UnsupportedTagNames> = {
-  area: new HTMLElementModel({
+const unsupportedModelMap: HTMLModelRecord<UnsupportedTagNames> = {
+  area: HTMLElementModel.fromModelBase({
     tagName: 'area',
     category: 'untranslatable',
     isVoid: true
   }),
-  map: new HTMLElementModel({
+  map: HTMLElementModel.fromModelBase({
     tagName: 'map',
     category: 'untranslatable'
   })
 };
 
-const attribsModelMap: ModelRegistry<AttribTagNames> = {
-  accesskey: new HTMLElementModel({
+const attribsModelMap: HTMLModelRecord<AttribTagNames> = {
+  accesskey: HTMLElementModel.fromModelBase({
     tagName: 'accesskey',
     category: 'untranslatable'
   }),
-  caption: new HTMLElementModel({
+  caption: HTMLElementModel.fromModelBase({
     tagName: 'caption',
     category: 'untranslatable'
   }),
-  col: new HTMLElementModel({
+  col: HTMLElementModel.fromModelBase({
     tagName: 'col',
     category: 'untranslatable',
     isVoid: true
   }),
-  colgroup: new HTMLElementModel({
+  colgroup: HTMLElementModel.fromModelBase({
     tagName: 'colgroup',
     category: 'untranslatable'
   }),
-  datalist: new HTMLElementModel({
+  datalist: HTMLElementModel.fromModelBase({
     tagName: 'datalist',
     category: 'untranslatable'
   }),
-  source: new HTMLElementModel({
+  source: HTMLElementModel.fromModelBase({
     tagName: 'source',
     category: 'untranslatable',
     isVoid: true
   }),
-  track: new HTMLElementModel({
+  track: HTMLElementModel.fromModelBase({
     tagName: 'track',
     category: 'untranslatable',
     isVoid: true
   }),
-  optgroup: new HTMLElementModel({
+  optgroup: HTMLElementModel.fromModelBase({
     tagName: 'optgroup',
     category: 'untranslatable'
   }),
-  option: new HTMLElementModel({
+  option: HTMLElementModel.fromModelBase({
     tagName: 'option',
     category: 'untranslatable'
   }),
-  param: new HTMLElementModel({
+  param: HTMLElementModel.fromModelBase({
     tagName: 'param',
     category: 'untranslatable',
     isVoid: true
   })
 };
 
-const interactiveModelMap: ModelRegistry<InteractiveTagNames> = {
-  button: new HTMLElementModel({
+const interactiveModelMap: HTMLModelRecord<InteractiveTagNames> = {
+  button: HTMLElementModel.fromModelBase({
     tagName: 'button',
     category: 'interactive'
   }),
-  fieldset: new HTMLElementModel({
+  fieldset: HTMLElementModel.fromModelBase({
     tagName: 'fieldset',
     category: 'interactive'
   }),
-  form: new HTMLElementModel({
+  form: HTMLElementModel.fromModelBase({
     tagName: 'form',
     category: 'interactive'
   }),
-  input: new HTMLElementModel({
+  input: HTMLElementModel.fromModelBase({
     tagName: 'input',
     category: 'interactive',
     isVoid: true
   }),
-  label: new HTMLElementModel({
+  label: HTMLElementModel.fromModelBase({
     tagName: 'label',
     category: 'interactive'
   }),
-  legend: new HTMLElementModel({
+  legend: HTMLElementModel.fromModelBase({
     tagName: 'legend',
     category: 'interactive'
   }),
-  meter: new HTMLElementModel({
+  meter: HTMLElementModel.fromModelBase({
     tagName: 'meter',
     category: 'interactive'
   }),
-  progress: new HTMLElementModel({
+  progress: HTMLElementModel.fromModelBase({
     tagName: 'progress',
     category: 'interactive'
   }),
-  select: new HTMLElementModel({
+  select: HTMLElementModel.fromModelBase({
     tagName: 'select',
     category: 'interactive'
   }),
-  details: new HTMLElementModel({
+  details: HTMLElementModel.fromModelBase({
     tagName: 'details',
     category: 'interactive'
   }),
-  dialog: new HTMLElementModel({
+  dialog: HTMLElementModel.fromModelBase({
     tagName: 'dialog',
     category: 'interactive'
   }),
-  output: new HTMLElementModel({
+  output: HTMLElementModel.fromModelBase({
     tagName: 'output',
     category: 'interactive'
   }),
-  summary: new HTMLElementModel({
+  summary: HTMLElementModel.fromModelBase({
     tagName: 'summary',
     category: 'interactive'
   }),
-  textarea: new HTMLElementModel({
+  textarea: HTMLElementModel.fromModelBase({
     tagName: 'textarea',
     category: 'interactive'
   })
 };
 
-const metadataModelMap: ModelRegistry<MetadataTagNames> = {
-  base: new HTMLElementModel({
+const metadataModelMap: HTMLModelRecord<MetadataTagNames> = {
+  base: HTMLElementModel.fromModelBase({
     tagName: 'base',
     category: 'untranslatable',
     isVoid: true
   }),
-  head: new HTMLElementModel({
+  head: HTMLElementModel.fromModelBase({
     tagName: 'head',
     category: 'untranslatable',
     isOpaque: true
   }),
-  link: new HTMLElementModel({
+  link: HTMLElementModel.fromModelBase({
     tagName: 'link',
     category: 'untranslatable',
     isVoid: true
   }),
-  meta: new HTMLElementModel({
+  meta: HTMLElementModel.fromModelBase({
     tagName: 'meta',
     category: 'untranslatable',
     isVoid: true
   }),
-  title: new HTMLElementModel({
+  title: HTMLElementModel.fromModelBase({
     tagName: 'title',
     category: 'untranslatable'
   })
 };
 
-const untranslatableModelMap: ModelRegistry<UntranslatableTagNames> = {
+const untranslatableModelMap: HTMLModelRecord<UntranslatableTagNames> = {
   ...attribsModelMap,
   ...interactiveModelMap,
   ...unsupportedModelMap,
   ...metadataModelMap
 };
 
-const groupingModelMap: ModelRegistry<GroupingTagNames> = {
-  blockquote: new HTMLElementModel({
+const groupingModelMap: HTMLModelRecord<GroupingTagNames> = {
+  blockquote: HTMLElementModel.fromModelBase({
     tagName: 'blockquote',
     category: 'grouping',
     getUADerivedStyleFromAttributes: (attributes) => {
@@ -338,28 +332,28 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
     },
     mixedUAStyles: spacedBlockStyle
   }),
-  dd: new HTMLElementModel({
+  dd: HTMLElementModel.fromModelBase({
     tagName: 'dd',
     category: 'grouping',
     mixedUAStyles: {
       marginLeft: UA_MARGIN_HZ
     }
   }),
-  div: new HTMLElementModel({
+  div: HTMLElementModel.fromModelBase({
     tagName: 'div',
     category: 'grouping'
   }),
-  dl: new HTMLElementModel({
+  dl: HTMLElementModel.fromModelBase({
     tagName: 'dl',
     category: 'grouping',
     mixedUAStyles: bigMarginTopBottomStyle
   }),
-  dt: new HTMLElementModel({
+  dt: HTMLElementModel.fromModelBase({
     tagName: 'dt',
     category: 'grouping',
     mixedUAStyles: boldStyle
   }),
-  figcaption: new HTMLElementModel({
+  figcaption: HTMLElementModel.fromModelBase({
     tagName: 'figcaption',
     category: 'grouping',
     mixedUAStyles: {
@@ -367,12 +361,12 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
       textAlign: 'center'
     }
   }),
-  figure: new HTMLElementModel({
+  figure: HTMLElementModel.fromModelBase({
     tagName: 'figure',
     category: 'grouping',
     mixedUAStyles: spacedBlockStyle
   }),
-  hr: new HTMLElementModel({
+  hr: HTMLElementModel.fromModelBase({
     tagName: 'hr',
     category: 'grouping',
     mixedUAStyles: {
@@ -384,19 +378,19 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
       ...shortMarginTopBottomStyle
     }
   }),
-  li: new HTMLElementModel({
+  li: HTMLElementModel.fromModelBase({
     tagName: 'li',
     category: 'grouping'
   }),
-  main: new HTMLElementModel({
+  main: HTMLElementModel.fromModelBase({
     tagName: 'main',
     category: 'grouping'
   }),
-  menu: new HTMLElementModel({
+  menu: HTMLElementModel.fromModelBase({
     tagName: 'menu',
     category: 'grouping'
   }),
-  ol: new HTMLElementModel({
+  ol: HTMLElementModel.fromModelBase({
     tagName: 'ol',
     category: 'grouping',
     mixedUAStyles: {
@@ -404,32 +398,32 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
       listStyleType: 'decimal'
     }
   }),
-  p: new HTMLElementModel({
+  p: HTMLElementModel.fromModelBase({
     tagName: 'p',
     category: 'grouping',
     mixedUAStyles: bigMarginTopBottomStyle
   }),
-  pre: new HTMLElementModel({
+  pre: HTMLElementModel.fromModelBase({
     tagName: 'pre',
     category: 'grouping',
     mixedUAStyles: preStyles
   }),
-  xmp: new HTMLElementModel({
+  xmp: HTMLElementModel.fromModelBase({
     tagName: 'xmp',
     category: 'grouping',
     mixedUAStyles: preStyles
   }),
-  listing: new HTMLElementModel({
+  listing: HTMLElementModel.fromModelBase({
     tagName: 'listing',
     category: 'grouping',
     mixedUAStyles: preStyles
   }),
-  plaintext: new HTMLElementModel({
+  plaintext: HTMLElementModel.fromModelBase({
     tagName: 'plaintext',
     category: 'grouping',
     mixedUAStyles: preStyles
   }),
-  ul: new HTMLElementModel({
+  ul: HTMLElementModel.fromModelBase({
     tagName: 'ul',
     category: 'grouping',
     mixedUAStyles: {
@@ -437,7 +431,7 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
       listStyleType: 'disc'
     }
   }),
-  dir: new HTMLElementModel({
+  dir: HTMLElementModel.fromModelBase({
     tagName: 'dir',
     category: 'grouping',
     mixedUAStyles: {
@@ -447,32 +441,32 @@ const groupingModelMap: ModelRegistry<GroupingTagNames> = {
   })
 };
 
-const tabularModelMap: ModelRegistry<TabularTagNames> = {
-  table: new HTMLElementModel({
+const tabularModelMap: HTMLModelRecord<TabularTagNames> = {
+  table: HTMLElementModel.fromModelBase({
     tagName: 'table',
     category: 'tabular'
   }),
-  tbody: new HTMLElementModel({
+  tbody: HTMLElementModel.fromModelBase({
     tagName: 'tbody',
     category: 'tabular'
   }),
-  td: new HTMLElementModel({
+  td: HTMLElementModel.fromModelBase({
     tagName: 'td',
     category: 'tabular'
   }),
-  tfoot: new HTMLElementModel({
+  tfoot: HTMLElementModel.fromModelBase({
     tagName: 'tfoot',
     category: 'tabular'
   }),
-  th: new HTMLElementModel({
+  th: HTMLElementModel.fromModelBase({
     tagName: 'th',
     category: 'tabular'
   }),
-  thead: new HTMLElementModel({
+  thead: HTMLElementModel.fromModelBase({
     tagName: 'thead',
     category: 'tabular'
   }),
-  tr: new HTMLElementModel({
+  tr: HTMLElementModel.fromModelBase({
     tagName: 'tr',
     category: 'tabular'
   })
@@ -481,178 +475,178 @@ const tabularModelMap: ModelRegistry<TabularTagNames> = {
 // Embedded elements are considered "opaque", i.e. no children are meant to be
 // translated. A reference to domChildren will be available on the rendering
 // end.
-const embeddedModelMap: ModelRegistry<EmbeddedTagNames> = {
-  audio: new HTMLElementModel({
+const embeddedModelMap: HTMLModelRecord<EmbeddedTagNames> = {
+  audio: HTMLElementModel.fromModelBase({
     tagName: 'audio',
     category: 'embedded',
     isVoid: false // allows tracks
   }),
-  canvas: new HTMLElementModel({
+  canvas: HTMLElementModel.fromModelBase({
     tagName: 'canvas',
     category: 'embedded',
     isVoid: false // allows specific content
   }),
-  embed: new HTMLElementModel({
+  embed: HTMLElementModel.fromModelBase({
     tagName: 'embed',
     category: 'embedded',
     isVoid: true
   }),
-  iframe: new HTMLElementModel({
+  iframe: HTMLElementModel.fromModelBase({
     tagName: 'iframe',
     category: 'embedded',
     isVoid: true
   }),
-  img: new HTMLElementModel({
+  img: HTMLElementModel.fromModelBase({
     tagName: 'img',
     category: 'embedded',
     isVoid: true
   }),
-  math: new HTMLElementModel({
+  math: HTMLElementModel.fromModelBase({
     tagName: 'math',
     category: 'embedded',
     isVoid: false // allows mathml elems
   }),
-  object: new HTMLElementModel({
+  object: HTMLElementModel.fromModelBase({
     tagName: 'object',
     category: 'embedded',
     isVoid: false // allows params
   }),
-  picture: new HTMLElementModel({
+  picture: HTMLElementModel.fromModelBase({
     tagName: 'picture',
     category: 'embedded',
     isVoid: false // allows source and img
   }),
-  svg: new HTMLElementModel({
+  svg: HTMLElementModel.fromModelBase({
     tagName: 'svg',
     category: 'embedded',
     isVoid: false // allows svg elems
   }),
-  video: new HTMLElementModel({
+  video: HTMLElementModel.fromModelBase({
     tagName: 'video',
     category: 'embedded',
     isVoid: false // allows source, tracks + transparent
   })
 };
 
-const editsModelMap: ModelRegistry<EditsTagNames> = {
-  ins: new HTMLElementModel({
+const editsModelMap: HTMLModelRecord<EditsTagNames> = {
+  ins: HTMLElementModel.fromModelBase({
     tagName: 'ins',
     category: 'edits',
     mixedUAStyles: solidUnderlineStyle
   }),
-  del: new HTMLElementModel({
+  del: HTMLElementModel.fromModelBase({
     tagName: 'del',
     category: 'edits',
     mixedUAStyles: lineThroughStyle
   })
 };
 
-const textLevelModelMap: ModelRegistry<TextLevelTagNames> = {
-  em: new HTMLElementModel({
+const textLevelModelMap: HTMLModelRecord<TextLevelTagNames> = {
+  em: HTMLElementModel.fromModelBase({
     tagName: 'em',
     category: 'textual',
     mixedUAStyles: italicStyle
   }),
-  strong: new HTMLElementModel({
+  strong: HTMLElementModel.fromModelBase({
     tagName: 'strong',
     category: 'textual',
     mixedUAStyles: boldStyle
   }),
-  small: new HTMLElementModel({
+  small: HTMLElementModel.fromModelBase({
     tagName: 'small',
     category: 'textual',
     mixedUAStyles: {
       fontSize: 'smaller'
     }
   }),
-  big: new HTMLElementModel({
+  big: HTMLElementModel.fromModelBase({
     tagName: 'big',
     category: 'textual',
     mixedUAStyles: {
       fontSize: 'larger'
     }
   }),
-  s: new HTMLElementModel({
+  s: HTMLElementModel.fromModelBase({
     tagName: 's',
     category: 'textual',
     mixedUAStyles: lineThroughStyle
   }),
-  strike: new HTMLElementModel({
+  strike: HTMLElementModel.fromModelBase({
     tagName: 'strike',
     category: 'textual',
     mixedUAStyles: lineThroughStyle
   }),
-  cite: new HTMLElementModel({
+  cite: HTMLElementModel.fromModelBase({
     tagName: 'cite',
     category: 'textual',
     mixedUAStyles: italicStyle
   }),
-  q: new HTMLElementModel({
+  q: HTMLElementModel.fromModelBase({
     tagName: 'q',
     category: 'textual'
     // default style, content: "open,close-quote"
   }),
-  dfn: new HTMLElementModel({
+  dfn: HTMLElementModel.fromModelBase({
     tagName: 'dfn',
     category: 'textual',
     mixedUAStyles: italicStyle
   }),
-  abbr: new HTMLElementModel({
+  abbr: HTMLElementModel.fromModelBase({
     tagName: 'abbr',
     category: 'textual',
     mixedUAStyles: dottedUnderlineStyle
   }),
-  acronym: new HTMLElementModel({
+  acronym: HTMLElementModel.fromModelBase({
     tagName: 'acronym',
     category: 'textual',
     mixedUAStyles: dottedUnderlineStyle
   }),
-  ruby: new HTMLElementModel({
+  ruby: HTMLElementModel.fromModelBase({
     tagName: 'ruby',
     category: 'textual'
   }),
-  rt: new HTMLElementModel({
+  rt: HTMLElementModel.fromModelBase({
     tagName: 'rt',
     category: 'textual'
   }),
-  rp: new HTMLElementModel({
+  rp: HTMLElementModel.fromModelBase({
     tagName: 'rp',
     category: 'textual'
   }),
-  data: new HTMLElementModel({
+  data: HTMLElementModel.fromModelBase({
     tagName: 'data',
     category: 'textual'
   }),
-  time: new HTMLElementModel({
+  time: HTMLElementModel.fromModelBase({
     tagName: 'time',
     category: 'textual'
   }),
-  code: new HTMLElementModel({
+  code: HTMLElementModel.fromModelBase({
     tagName: 'code',
     category: 'textual',
     mixedUAStyles: monoStyle
   }),
-  tt: new HTMLElementModel({
+  tt: HTMLElementModel.fromModelBase({
     tagName: 'tt',
     category: 'textual',
     mixedUAStyles: monoStyle
   }),
-  var: new HTMLElementModel({
+  var: HTMLElementModel.fromModelBase({
     tagName: 'var',
     category: 'textual',
     mixedUAStyles: italicStyle
   }),
-  samp: new HTMLElementModel({
+  samp: HTMLElementModel.fromModelBase({
     tagName: 'samp',
     category: 'textual',
     mixedUAStyles: monoStyle
   }),
-  kbd: new HTMLElementModel({
+  kbd: HTMLElementModel.fromModelBase({
     tagName: 'kbd',
     category: 'textual',
     mixedUAStyles: monoStyle
   }),
-  sub: new HTMLElementModel({
+  sub: HTMLElementModel.fromModelBase({
     tagName: 'sub',
     category: 'textual',
     mixedUAStyles: {
@@ -660,7 +654,7 @@ const textLevelModelMap: ModelRegistry<TextLevelTagNames> = {
       fontSize: 'smaller'
     }
   }),
-  sup: new HTMLElementModel({
+  sup: HTMLElementModel.fromModelBase({
     tagName: 'sup',
     category: 'textual',
     mixedUAStyles: {
@@ -668,21 +662,21 @@ const textLevelModelMap: ModelRegistry<TextLevelTagNames> = {
       fontSize: 'smaller'
     }
   }),
-  i: new HTMLElementModel({
+  i: HTMLElementModel.fromModelBase({
     tagName: 'i',
     category: 'textual',
     mixedUAStyles: italicStyle
   }),
-  b: new HTMLElementModel({
+  b: HTMLElementModel.fromModelBase({
     tagName: 'b',
     category: 'textual'
   }),
-  u: new HTMLElementModel({
+  u: HTMLElementModel.fromModelBase({
     tagName: 'u',
     category: 'textual',
     mixedUAStyles: solidUnderlineStyle
   }),
-  mark: new HTMLElementModel({
+  mark: HTMLElementModel.fromModelBase({
     tagName: 'mark',
     category: 'textual',
     mixedUAStyles: {
@@ -690,34 +684,34 @@ const textLevelModelMap: ModelRegistry<TextLevelTagNames> = {
       color: 'black'
     }
   }),
-  bdi: new HTMLElementModel({
+  bdi: HTMLElementModel.fromModelBase({
     tagName: 'bdi',
     category: 'textual'
     // unicode-bidi: isolate;
   }),
-  bdo: new HTMLElementModel({
+  bdo: HTMLElementModel.fromModelBase({
     tagName: 'bdo',
     category: 'textual'
     //  unicode-bidi: isolate-override;
   }),
-  span: new HTMLElementModel({
+  span: HTMLElementModel.fromModelBase({
     tagName: 'span',
     category: 'textual'
   }),
-  br: new HTMLElementModel({
+  br: HTMLElementModel.fromModelBase({
     tagName: 'br',
     category: 'textual',
     isVoid: true
   }),
-  wbr: new HTMLElementModel({
+  wbr: HTMLElementModel.fromModelBase({
     tagName: 'wbr',
     category: 'textual',
     isVoid: true
   })
 };
 
-const elementsModelMap: Record<TagName, HTMLElementModel<TagName>> = {
-  a: new HTMLElementModel({
+const defaultHTMLModelRecord: HTMLModelRecord<TagName> = {
+  a: HTMLElementModel.fromModelBase({
     tagName: 'a',
     category: 'anchor',
     getUADerivedStyleFromAttributes: (attributes) => {
@@ -737,14 +731,4 @@ const elementsModelMap: Record<TagName, HTMLElementModel<TagName>> = {
   ...untranslatableModelMap
 };
 
-export function getElementModelFromTagName(
-  tagName: string
-): HTMLElementModel<string> {
-  if (Object.prototype.hasOwnProperty.call(elementsModelMap, tagName)) {
-    return elementsModelMap[tagName as TagName];
-  }
-  return new HTMLElementModel({
-    tagName,
-    category: 'custom'
-  });
-}
+export default defaultHTMLModelRecord;

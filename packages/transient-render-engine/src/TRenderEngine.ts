@@ -11,8 +11,10 @@ import { StylesConfig } from './styles/types';
 import { TStylesMerger } from './styles/TStylesMerger';
 import { defaultStylesConfig } from './styles/defaults';
 import { TStyles } from './styles/TStyles';
+import HTMLModelRegistry from './model/HTMLModelRegistry';
+import { HTMLModelRecord, TagName } from './model/model-types';
 
-export interface TRenderEngineOptions {
+export interface TRenderEngineOptions<E extends string = never> {
   /**
    * Customization for CSS inline processing.
    */
@@ -25,6 +27,12 @@ export interface TRenderEngineOptions {
    * Various configuration for styling.
    */
   readonly stylesConfig?: StylesConfig;
+  /**
+   * Customize supported tags in the engine.
+   */
+  readonly customizeHTMLModels?: (
+    defaultModelRecord: HTMLModelRecord<TagName>
+  ) => HTMLModelRecord<TagName | E>;
 }
 
 export class TRenderEngine {
@@ -35,6 +43,7 @@ export class TRenderEngine {
       ...defaultStylesConfig.baseStyle,
       ...options?.stylesConfig?.baseStyle
     };
+    const modelRegistry = new HTMLModelRegistry(options?.customizeHTMLModels);
     const userSelectedFontSize =
       options?.cssProcessorConfig?.rootFontSize || baseStyle.fontSize;
     // TODO log a warning when type is string
@@ -46,7 +55,7 @@ export class TRenderEngine {
       ...options?.stylesConfig,
       baseStyle
     };
-    const stylesMerger = new TStylesMerger(stylesConfig, {
+    const stylesMerger = new TStylesMerger(stylesConfig, modelRegistry, {
       ...defaultCSSProcessorConfig,
       ...options?.cssProcessorConfig,
       rootFontSize
@@ -56,7 +65,8 @@ export class TRenderEngine {
       ...options?.htmlParserOptions
     };
     this.dataFlowParams = {
-      stylesMerger: stylesMerger,
+      stylesMerger,
+      modelRegistry,
       baseStyles: new TStyles(
         stylesMerger.compileStyleDeclaration(stylesConfig.baseStyle)
       )

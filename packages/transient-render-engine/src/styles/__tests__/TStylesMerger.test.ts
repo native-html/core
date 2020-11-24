@@ -1,21 +1,27 @@
 import { CSSProcessedProps } from '@native-html/css-processor';
+import HTMLModelRegistry from '../../model/HTMLModelRegistry';
 import { defaultStylesConfig } from '../defaults';
 import { TStyles } from '../TStyles';
 import { TStylesMerger } from '../TStylesMerger';
 
 const emptyStyles = new TStyles(new CSSProcessedProps());
 
+const modelRegistry = new HTMLModelRegistry();
+
 describe('TStylesMerger', () => {
   describe('buildStyles method', () => {
     it('should override id styles with inline styles', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig,
-        idsStyles: {
-          main: {
-            color: 'red'
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig,
+          idsStyles: {
+            main: {
+              color: 'red'
+            }
           }
-        }
-      });
+        },
+        modelRegistry
+      );
       expect(
         stylesMerger.buildStyles('color: blue', null, {
           className: null,
@@ -26,14 +32,17 @@ describe('TStylesMerger', () => {
       ).toEqual('blue');
     });
     it('should override classes styles with inline styles', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig,
-        classesStyles: {
-          main: {
-            color: 'red'
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig,
+          classesStyles: {
+            main: {
+              color: 'red'
+            }
           }
-        }
-      });
+        },
+        modelRegistry
+      );
       expect(
         stylesMerger.buildStyles('color: blue', null, {
           id: null,
@@ -44,14 +53,17 @@ describe('TStylesMerger', () => {
       ).toEqual('blue');
     });
     it('should override tags styles with inline styles', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig,
-        tagsStyles: {
-          div: {
-            color: 'red'
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig,
+          tagsStyles: {
+            div: {
+              color: 'red'
+            }
           }
-        }
-      });
+        },
+        modelRegistry
+      );
       expect(
         stylesMerger.buildStyles('color: blue', null, {
           id: null,
@@ -62,19 +74,22 @@ describe('TStylesMerger', () => {
       ).toEqual('blue');
     });
     it('should override tags styles with classes styles', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig,
-        tagsStyles: {
-          div: {
-            color: 'red'
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig,
+          tagsStyles: {
+            div: {
+              color: 'red'
+            }
+          },
+          classesStyles: {
+            main: {
+              color: 'blue'
+            }
           }
         },
-        classesStyles: {
-          main: {
-            color: 'blue'
-          }
-        }
-      });
+        modelRegistry
+      );
       expect(
         stylesMerger.buildStyles('', null, {
           id: null,
@@ -85,9 +100,12 @@ describe('TStylesMerger', () => {
       ).toEqual('blue');
     });
     it('should ignore unregistered classes', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig
-      });
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig
+        },
+        modelRegistry
+      );
       const styles = stylesMerger.buildStyles('', null, {
         id: 'main',
         className: 'content',
@@ -97,17 +115,20 @@ describe('TStylesMerger', () => {
       expect(styles).toStrictEqual(emptyStyles);
     });
     it('should merge multiple classes', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig,
-        classesStyles: {
-          content: {
-            color: 'blue'
-          },
-          'content--highlight': {
-            backgroundColor: 'yellow'
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig,
+          classesStyles: {
+            content: {
+              color: 'blue'
+            },
+            'content--highlight': {
+              backgroundColor: 'yellow'
+            }
           }
-        }
-      });
+        },
+        modelRegistry
+      );
       const styles = stylesMerger.buildStyles('', null, {
         id: 'main',
         className: 'content content--highlight',
@@ -122,17 +143,20 @@ describe('TStylesMerger', () => {
       });
     });
     it('should override leftmost classes properties with rightmost classes properties', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig,
-        classesStyles: {
-          content: {
-            color: 'blue'
-          },
-          'content--highlight': {
-            color: 'green'
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig,
+          classesStyles: {
+            content: {
+              color: 'blue'
+            },
+            'content--highlight': {
+              color: 'green'
+            }
           }
-        }
-      });
+        },
+        modelRegistry
+      );
       expect(
         stylesMerger.buildStyles('', null, {
           id: 'main',
@@ -145,19 +169,22 @@ describe('TStylesMerger', () => {
       });
     });
     it('should override classes styles with id styles', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig,
-        idsStyles: {
-          main: {
-            color: 'red'
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig,
+          idsStyles: {
+            main: {
+              color: 'red'
+            }
+          },
+          classesStyles: {
+            content: {
+              color: 'blue'
+            }
           }
         },
-        classesStyles: {
-          content: {
-            color: 'blue'
-          }
-        }
-      });
+        modelRegistry
+      );
       expect(
         stylesMerger.buildStyles('', null, {
           id: 'main',
@@ -170,9 +197,12 @@ describe('TStylesMerger', () => {
       });
     });
     it('should retain parent flowed styles when no override exists', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig
-      });
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig
+        },
+        modelRegistry
+      );
       const parentStyles = new TStyles(
         stylesMerger.compileInlineCSS('color:red;')
       );
@@ -185,14 +215,17 @@ describe('TStylesMerger', () => {
       expect(styles.nativeTextFlow.color).toStrictEqual('red');
     });
     it('should override parent flowed styles when override exists', () => {
-      const stylesMerger = new TStylesMerger({
-        ...defaultStylesConfig,
-        tagsStyles: {
-          div: {
-            color: 'blue'
+      const stylesMerger = new TStylesMerger(
+        {
+          ...defaultStylesConfig,
+          tagsStyles: {
+            div: {
+              color: 'blue'
+            }
           }
-        }
-      });
+        },
+        modelRegistry
+      );
       expect(
         stylesMerger.buildStyles(
           '',
@@ -209,10 +242,13 @@ describe('TStylesMerger', () => {
     describe('with enableUAStyles set to true', () => {
       describe('regarding <blockquote> tags', () => {
         it('should default to UA styles with margins left and right when attribute "type" is unset', () => {
-          const stylesMerger = new TStylesMerger({
-            ...defaultStylesConfig,
-            enableUserAgentStyles: true
-          });
+          const stylesMerger = new TStylesMerger(
+            {
+              ...defaultStylesConfig,
+              enableUserAgentStyles: true
+            },
+            modelRegistry
+          );
           const processedProps = stylesMerger.buildStyles('', null, {
             className: null,
             attributes: {},
@@ -227,10 +263,13 @@ describe('TStylesMerger', () => {
           });
         });
         it('should default to UA styles with left border gray when attribute "type" is set to "cite"', () => {
-          const stylesMerger = new TStylesMerger({
-            ...defaultStylesConfig,
-            enableUserAgentStyles: true
-          });
+          const stylesMerger = new TStylesMerger(
+            {
+              ...defaultStylesConfig,
+              enableUserAgentStyles: true
+            },
+            modelRegistry
+          );
           const processedProps = stylesMerger.buildStyles('', null, {
             className: null,
             attributes: {
@@ -251,10 +290,13 @@ describe('TStylesMerger', () => {
       });
       describe('regarding tags which have no default UA tags', () => {
         it('should default to empty styles', () => {
-          const stylesMerger = new TStylesMerger({
-            ...defaultStylesConfig,
-            enableUserAgentStyles: true
-          });
+          const stylesMerger = new TStylesMerger(
+            {
+              ...defaultStylesConfig,
+              enableUserAgentStyles: true
+            },
+            modelRegistry
+          );
           const processedProps = stylesMerger.buildStyles('', null, {
             className: null,
             attributes: {},
@@ -267,10 +309,13 @@ describe('TStylesMerger', () => {
       });
       describe('regarding <a> tags', () => {
         it('should default to null UA styles when attribute "href" is unset', () => {
-          const stylesMerger = new TStylesMerger({
-            ...defaultStylesConfig,
-            enableUserAgentStyles: true
-          });
+          const stylesMerger = new TStylesMerger(
+            {
+              ...defaultStylesConfig,
+              enableUserAgentStyles: true
+            },
+            modelRegistry
+          );
           const processedProps = stylesMerger.buildStyles('', null, {
             className: null,
             attributes: {},
@@ -281,10 +326,13 @@ describe('TStylesMerger', () => {
           expect(processedProps.nativeTextRet).toStrictEqual({});
         });
         it('should default to UA styles with color #245dc1 (pale blue) and underlined text when attribute "href" is set', () => {
-          const stylesMerger = new TStylesMerger({
-            ...defaultStylesConfig,
-            enableUserAgentStyles: true
-          });
+          const stylesMerger = new TStylesMerger(
+            {
+              ...defaultStylesConfig,
+              enableUserAgentStyles: true
+            },
+            modelRegistry
+          );
           const processedProps = stylesMerger.buildStyles('', null, {
             className: null,
             attributes: {
@@ -302,16 +350,19 @@ describe('TStylesMerger', () => {
           });
         });
         it('should have UA styles when attribute "href" is set overridden by user tag styles', () => {
-          const stylesMerger = new TStylesMerger({
-            ...defaultStylesConfig,
-            enableUserAgentStyles: true,
-            tagsStyles: {
-              a: {
-                color: 'red',
-                textDecorationColor: 'red'
+          const stylesMerger = new TStylesMerger(
+            {
+              ...defaultStylesConfig,
+              enableUserAgentStyles: true,
+              tagsStyles: {
+                a: {
+                  color: 'red',
+                  textDecorationColor: 'red'
+                }
               }
-            }
-          });
+            },
+            modelRegistry
+          );
           const processedProps = stylesMerger.buildStyles('', null, {
             className: null,
             attributes: {
