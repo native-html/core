@@ -1,8 +1,6 @@
 import { TBlock } from '../tree/TBlock';
-import { TBlockAnchor } from '../tree/TBlockAnchor';
 import { TNode } from '../tree/TNode';
 import { TPhrasing } from '../tree/TPhrasing';
-import { TPhrasingAnchor } from '../tree/TPhrasingAnchor';
 import { TText } from '../tree/TText';
 
 /**
@@ -43,10 +41,7 @@ function hoistNode(tnode: TNode): TNode {
           parentStyles: cnode.parentStyles,
           styles: cnode.styles
         });
-        const newNode =
-          tnode instanceof TPhrasingAnchor
-            ? new TBlockAnchor({ ...initParams, href: tnode.href })
-            : new TBlock(initParams);
+        const newNode = new TBlock(initParams);
         newNode.bindChildren(tnode.children);
         const output = groupText(newNode);
         return output;

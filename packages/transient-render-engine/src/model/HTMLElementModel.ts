@@ -27,7 +27,7 @@ export interface ElementModelBase<T = TagName, C = ElementCategory> {
   ) => MixedStyleDeclaration | null;
 }
 
-const phrasingCategories: ElementCategory[] = ['textual', 'edits'];
+const phrasingCategories: ElementCategory[] = ['textual', 'edits', 'anchor'];
 const translatableBlockCategories: ElementCategory[] = [
   'embedded',
   'tabular',

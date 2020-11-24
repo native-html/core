@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`translateNode function should comply with RFC002 example (translating) 1`] = `
-TPhrasingAnchor {
+TPhrasing {
   "attributes": Object {
     "href": "https://domain.com",
   },
@@ -16,7 +16,6 @@ This is
       "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
-      "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -42,7 +41,6 @@ This is
       "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
-      "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -69,7 +67,6 @@ This is
       "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
-      "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -96,7 +93,6 @@ This is
       "displayName": "TBlock",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
-      "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -123,7 +119,6 @@ This is
       "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
-      "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -149,7 +144,6 @@ This is
       "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
-      "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -176,7 +170,6 @@ This is
       "displayName": "TText",
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
-      "isAnchor": false,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -196,11 +189,9 @@ This is
     },
   ],
   "className": null,
-  "displayName": "TPhrasingAnchor",
+  "displayName": "TPhrasing",
   "hasWhiteSpaceCollapsingEnabled": true,
-  "href": "https://domain.com",
   "id": null,
-  "isAnchor": true,
   "parentStyles": null,
   "styles": TStyles {
     "nativeBlockFlow": Object {},

@@ -2,7 +2,6 @@ import { TEmpty } from '../tree/TEmpty';
 import { TNode, TNodeInit } from '../tree/TNode';
 import { Node } from 'domhandler';
 import { TText } from '../tree/TText';
-import { TPhrasingAnchor } from '../tree/TPhrasingAnchor';
 import { TPhrasing } from '../tree/TPhrasing';
 import { TBlock } from '../tree/TBlock';
 import { TDocument } from '../tree/TDocument';
@@ -58,14 +57,6 @@ function translateElement(
     bindChildren(tdoc, node.children, params);
     tdoc.parseChildren();
     return tdoc;
-  }
-  if (tagName === 'a') {
-    const anchor = new TPhrasingAnchor({
-      ...sharedProps,
-      href: node.attribs.href
-    });
-    bindChildren(anchor, node.children, params);
-    return anchor;
   }
   if (model.isPhrasing) {
     if (node.children.length === 1) {

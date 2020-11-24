@@ -3,7 +3,7 @@ import { TDocument } from '../tree/TDocument';
 import { TStyles } from '../styles/TStyles';
 import { CSSProcessedProps } from '@native-html/css-processor';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
-import tnodeToString from '../tnodeToString';
+
 const href = 'https://domain.com';
 const htmlDocument = `
 <!doctype html>

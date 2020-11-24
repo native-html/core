@@ -13,8 +13,10 @@ function tnodePropertiesString(tnode: TNode) {
             : JSON.stringify(tnode.data)
         }]`
       : null;
-  // @ts-ignore
-  const anchorPrint = tnode.isAnchor ? `anchor[${tnode.href}]` : null;
+  const anchorPrint =
+    typeof tnode.attributes.href === 'string'
+      ? `anchor[${tnode.attributes.href}]`
+      : null;
   const detailsPrint = [tagPrint, idPrint, classesPrint, dataPrint, anchorPrint]
     .filter((p) => p !== null)
     .join(',');

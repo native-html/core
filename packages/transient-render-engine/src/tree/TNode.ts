@@ -23,7 +23,6 @@ export abstract class TNode implements TNodeInit {
   public readonly tagName: string | null;
   public readonly className: string | null;
   public readonly id: string | null;
-  public readonly isAnchor: boolean;
   public readonly parentStyles: TStyles | null;
   public readonly hasWhiteSpaceCollapsingEnabled: boolean;
   public readonly stylesMerger!: TStylesMerger;
@@ -32,7 +31,6 @@ export abstract class TNode implements TNodeInit {
   constructor(init: TNodeInit, type: TNodeType) {
     this.type = type;
     this.attributes = init.attributes || {};
-    this.isAnchor = false;
     this.tagName = init.tagName || null;
     this.id = this.attributes.id || null;
     this.className = this.attributes.class || null;

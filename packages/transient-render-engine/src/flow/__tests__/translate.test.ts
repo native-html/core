@@ -13,7 +13,6 @@ describe('translateNode function', () => {
     const ttree = translateTreeTest(rfc002Source);
     expect(ttree).toMatchObject({
       type: 'phrasing',
-      isAnchor: true,
       attributes: { href },
       children: [
         {
@@ -65,7 +64,6 @@ describe('translateNode function', () => {
     const ttree = translateTreeTest('<div style="font-size: 18px"></div>');
     expect(ttree).toMatchObject({
       type: 'block',
-      isAnchor: false,
       attributes: {},
       styles: {
         nativeTextFlow: { fontSize: 18 }

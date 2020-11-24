@@ -24,12 +24,10 @@ describe('collapse function', () => {
     const ttree = makeTTree(rfc002Source);
     expect(ttree).toMatchObject({
       type: 'block',
-      isAnchor: true,
-      href,
+      attributes: { href },
       children: [
         {
           type: 'phrasing',
-          isAnchor: false,
           children: [
             {
               type: 'text',
@@ -44,7 +42,6 @@ describe('collapse function', () => {
         },
         {
           type: 'block',
-          isAnchor: false,
           tagName: 'img',
           attributes: {
             src: imgSrc
@@ -52,7 +49,6 @@ describe('collapse function', () => {
         },
         {
           type: 'phrasing',
-          isAnchor: false,
           children: [
             {
               type: 'text',
@@ -77,8 +73,7 @@ describe('collapse function', () => {
     const ttree = makeTTree(nestedHyperlinksSource);
     expect(ttree).toMatchObject({
       type: 'phrasing',
-      isAnchor: true,
-      href: href,
+      attributes: { href },
       children: [
         {
           type: 'text',
@@ -95,8 +90,7 @@ describe('collapse function', () => {
         },
         {
           type: 'phrasing',
-          isAnchor: true,
-          href: secondaryHref,
+          attributes: { href: secondaryHref },
           children: [
             {
               type: 'text',
@@ -289,7 +283,6 @@ describe('collapse function', () => {
     );
     expect(ttree).toMatchObject({
       type: 'block',
-      isAnchor: false,
       attributes: {},
       tagName: 'div',
       styles: {
@@ -304,7 +297,6 @@ describe('collapse function', () => {
       children: [
         {
           type: 'phrasing',
-          isAnchor: false,
           attributes: {},
           styles: {
             nativeTextFlow: { fontSize: 18 },
@@ -331,7 +323,6 @@ describe('collapse function', () => {
     );
     expect(ttree).toMatchObject({
       type: 'block',
-      isAnchor: false,
       attributes: {},
       tagName: 'div',
       styles: {
@@ -377,7 +368,6 @@ describe('collapse function', () => {
     );
     expect(ttree).toMatchObject({
       type: 'block',
-      isAnchor: false,
       attributes: {},
       tagName: 'div',
       styles: {
@@ -410,7 +400,6 @@ describe('collapse function', () => {
     );
     expect(ttree).toMatchObject({
       type: 'block',
-      isAnchor: false,
       attributes: {},
       tagName: 'div',
       styles: {
@@ -438,7 +427,6 @@ describe('collapse function', () => {
     const ttree = makeTTree('<div>  This is great!  </div>');
     expect(ttree).toMatchObject({
       type: 'block',
-      isAnchor: false,
       attributes: {},
       tagName: 'div',
       styles: {},
@@ -464,7 +452,6 @@ describe('collapse function', () => {
     );
     expect(ttree).toMatchObject({
       type: 'block',
-      isAnchor: false,
       attributes: {},
       tagName: 'div',
       styles: {},
