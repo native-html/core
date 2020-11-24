@@ -1,3 +1,12 @@
+# [3.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.0.0...@native-html/transient-render-engine@3.1.0) (2020-11-24)
+
+
+### Features
+
+* **transient-render-engine:** add new option, customizeHTMLModels ([4fc7880](https://github.com/native-html/core/commit/4fc788031335e5696b57a373a4ae2a4d534df44c))
+* **transient-render-engine:** allow registering of custom tag models ([32ea9ad](https://github.com/native-html/core/commit/32ea9ad88185e6b703878a8a83898cce03162c66))
+* **transient-render-engine:** new HTMLContentModel enum ([7960d98](https://github.com/native-html/core/commit/7960d981894f53ea3ddb6f72c36ffce9796df7f6))
+
 # [3.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@2.0.2...@native-html/transient-render-engine@3.0.0) (2020-11-23)
 
 
