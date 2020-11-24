@@ -1,3 +1,10 @@
+# [3.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.2.0...@native-html/transient-render-engine@3.3.0) (2020-11-24)
+
+
+### Features
+
+* **transient-render-engine:** export defaultHTMLModelRecord ([71822ca](https://github.com/native-html/core/commit/71822ca93331a4e67d0ba1d3866a959c011457c9))
+
 # [3.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.1.0...@native-html/transient-render-engine@3.2.0) (2020-11-24)
 
 
