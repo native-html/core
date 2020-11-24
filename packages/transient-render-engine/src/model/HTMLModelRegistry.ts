@@ -20,7 +20,7 @@ export default class HTMLModelRegistry<E extends string> {
 
   getElementModelFromTagName(
     tagName: E | TagName
-  ): HTMLElementModel<string> | null {
+  ): HTMLElementModel<string, any> | null {
     if (lookupRecord(this.modelRecord, tagName)) {
       return this.modelRecord[tagName];
     }

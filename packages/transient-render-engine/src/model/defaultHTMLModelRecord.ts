@@ -1,7 +1,7 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
+import HTMLContentModel from './HTMLContentModel';
 import HTMLElementModel from './HTMLElementModel';
 import {
-  TagName,
   AttribTagNames,
   EditsTagNames,
   EmbeddedTagNames,
@@ -97,7 +97,10 @@ function headerStyle(
   };
 }
 
-const sectioningModelMap: HTMLModelRecord<SectioningTagNames> = {
+const sectioningModelMap: HTMLModelRecord<
+  SectioningTagNames,
+  HTMLContentModel.block
+> = {
   address: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'address',
@@ -167,7 +170,10 @@ const sectioningModelMap: HTMLModelRecord<SectioningTagNames> = {
   })
 };
 
-const unsupportedModelMap: HTMLModelRecord<UnsupportedTagNames> = {
+const unsupportedModelMap: HTMLModelRecord<
+  UnsupportedTagNames,
+  HTMLContentModel.none
+> = {
   area: HTMLElementModel.fromNativeModel({
     tagName: 'area',
     category: 'untranslatable',
@@ -179,7 +185,10 @@ const unsupportedModelMap: HTMLModelRecord<UnsupportedTagNames> = {
   })
 };
 
-const attribsModelMap: HTMLModelRecord<AttribTagNames> = {
+const attribsModelMap: HTMLModelRecord<
+  AttribTagNames,
+  HTMLContentModel.none
+> = {
   accesskey: HTMLElementModel.fromNativeModel({
     tagName: 'accesskey',
     category: 'untranslatable'
@@ -226,7 +235,10 @@ const attribsModelMap: HTMLModelRecord<AttribTagNames> = {
   })
 };
 
-const interactiveModelMap: HTMLModelRecord<InteractiveTagNames> = {
+const interactiveModelMap: HTMLModelRecord<
+  InteractiveTagNames,
+  HTMLContentModel.none
+> = {
   button: HTMLElementModel.fromNativeModel({
     tagName: 'button',
     category: 'interactive'
@@ -286,7 +298,10 @@ const interactiveModelMap: HTMLModelRecord<InteractiveTagNames> = {
   })
 };
 
-const metadataModelMap: HTMLModelRecord<MetadataTagNames> = {
+const metadataModelMap: HTMLModelRecord<
+  MetadataTagNames,
+  HTMLContentModel.none
+> = {
   base: HTMLElementModel.fromNativeModel({
     tagName: 'base',
     category: 'untranslatable',
@@ -313,14 +328,20 @@ const metadataModelMap: HTMLModelRecord<MetadataTagNames> = {
   })
 };
 
-const untranslatableModelMap: HTMLModelRecord<UntranslatableTagNames> = {
+const untranslatableModelMap: HTMLModelRecord<
+  UntranslatableTagNames,
+  HTMLContentModel.none
+> = {
   ...attribsModelMap,
   ...interactiveModelMap,
   ...unsupportedModelMap,
   ...metadataModelMap
 };
 
-const groupingModelMap: HTMLModelRecord<GroupingTagNames> = {
+const groupingModelMap: HTMLModelRecord<
+  GroupingTagNames,
+  HTMLContentModel.block
+> = {
   blockquote: HTMLElementModel.fromNativeModel({
     tagName: 'blockquote',
     category: 'grouping',
@@ -441,7 +462,10 @@ const groupingModelMap: HTMLModelRecord<GroupingTagNames> = {
   })
 };
 
-const tabularModelMap: HTMLModelRecord<TabularTagNames> = {
+const tabularModelMap: HTMLModelRecord<
+  TabularTagNames,
+  HTMLContentModel.none
+> = {
   table: HTMLElementModel.fromNativeModel({
     tagName: 'table',
     category: 'tabular'
@@ -475,7 +499,10 @@ const tabularModelMap: HTMLModelRecord<TabularTagNames> = {
 // Embedded elements are considered "opaque", i.e. no children are meant to be
 // translated. A reference to domChildren will be available on the rendering
 // end.
-const embeddedModelMap: HTMLModelRecord<EmbeddedTagNames> = {
+const embeddedModelMap: HTMLModelRecord<
+  EmbeddedTagNames,
+  HTMLContentModel.block
+> = {
   audio: HTMLElementModel.fromNativeModel({
     tagName: 'audio',
     category: 'embedded',
@@ -528,7 +555,7 @@ const embeddedModelMap: HTMLModelRecord<EmbeddedTagNames> = {
   })
 };
 
-const editsModelMap: HTMLModelRecord<EditsTagNames> = {
+const editsModelMap: HTMLModelRecord<EditsTagNames, HTMLContentModel.mixed> = {
   ins: HTMLElementModel.fromNativeModel({
     tagName: 'ins',
     category: 'edits',
@@ -541,7 +568,10 @@ const editsModelMap: HTMLModelRecord<EditsTagNames> = {
   })
 };
 
-const textLevelModelMap: HTMLModelRecord<TextLevelTagNames> = {
+const textLevelModelMap: HTMLModelRecord<
+  TextLevelTagNames,
+  HTMLContentModel.textual
+> = {
   em: HTMLElementModel.fromNativeModel({
     tagName: 'em',
     category: 'textual',
@@ -710,7 +740,7 @@ const textLevelModelMap: HTMLModelRecord<TextLevelTagNames> = {
   })
 };
 
-const defaultHTMLModelRecord: HTMLModelRecord<TagName> = {
+const defaultHTMLModelRecord = {
   a: HTMLElementModel.fromNativeModel({
     tagName: 'a',
     category: 'anchor',

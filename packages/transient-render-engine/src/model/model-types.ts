@@ -157,8 +157,11 @@ export type TextLevelTagNames =
   | 'br'
   | 'wbr';
 
-export type HTMLModelRecord<T extends string = TagName> = {
-  [k in T]: HTMLElementModel<k>;
+export type HTMLModelRecord<
+  T extends string = TagName,
+  M extends HTMLContentModel = HTMLContentModel
+> = {
+  [k in T]: HTMLElementModel<k, M>;
 };
 
 export interface ElementModelBase<T extends string> {
@@ -190,10 +193,12 @@ export interface ElementModelBase<T extends string> {
 /**
  * An object to specify custom tags.
  */
-export interface CustomElementModel<T extends string>
-  extends ElementModelBase<T> {
+export interface CustomElementModel<
+  T extends string,
+  M extends HTMLContentModel
+> extends ElementModelBase<T> {
   tagName: Exclude<T, TagName>;
-  contentModel: HTMLContentModel;
+  contentModel: M;
 }
 
 /**

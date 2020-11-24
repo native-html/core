@@ -15,9 +15,12 @@ const translatableBlockCategories: ElementCategory[] = [
   'sectioning'
 ];
 
-export interface HTMLElementModelProperties<T extends string> {
+export interface HTMLElementModelProperties<
+  T extends string,
+  M extends HTMLContentModel
+> {
   readonly tagName: T;
-  readonly contentModel: HTMLContentModel;
+  readonly contentModel: M;
   readonly isTranslatable: boolean;
   readonly isOpaque: boolean;
   readonly isVoid: boolean;
@@ -30,10 +33,12 @@ export interface HTMLElementModelProperties<T extends string> {
   ) => MixedStyleDeclaration | null;
 }
 
-export default class HTMLElementModel<T extends string>
-  implements HTMLElementModelProperties<T> {
+export default class HTMLElementModel<
+  T extends string,
+  M extends HTMLContentModel
+> implements HTMLElementModelProperties<T, M> {
   public readonly tagName: T;
-  public readonly contentModel: HTMLContentModel;
+  public readonly contentModel: M;
   public readonly isTranslatable: boolean;
   public readonly isOpaque: boolean;
   public readonly isVoid: boolean;
@@ -48,7 +53,7 @@ export default class HTMLElementModel<T extends string>
     isVoid,
     mixedUAStyles,
     getUADerivedStyleFromAttributes
-  }: HTMLElementModelProperties<T>) {
+  }: HTMLElementModelProperties<T, M>) {
     this.tagName = tagName;
     this.contentModel = contentModel;
     this.isTranslatable = isTranslatable;
@@ -58,13 +63,13 @@ export default class HTMLElementModel<T extends string>
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
   }
 
-  static fromCustomModel<T extends string>({
+  static fromCustomModel<T extends string, M extends HTMLContentModel>({
     contentModel,
     tagName,
     isOpaque = false,
     ...optionalFields
-  }: CustomElementModel<T>) {
-    return new HTMLElementModel<Exclude<T, TagName>>({
+  }: CustomElementModel<Exclude<T, TagName>, M>) {
+    return new HTMLElementModel<Exclude<T, TagName>, M>({
       tagName,
       contentModel,
       isOpaque,
@@ -73,27 +78,37 @@ export default class HTMLElementModel<T extends string>
       ...optionalFields
     });
   }
-  static fromNativeModel<T extends TagName>({
+  static fromNativeModel<T extends TagName, E extends ElementCategory>({
     tagName,
     category,
     isOpaque,
     isVoid,
     mixedUAStyles,
     getUADerivedStyleFromAttributes
-  }: NativeElementModel<T, ElementCategory>) {
+  }: NativeElementModel<T, E>) {
     const isPhrasing = phrasingCategories.indexOf(category) !== -1;
+    const isTranslatable =
+      isPhrasing || translatableBlockCategories.indexOf(category) !== -1;
     const contentModel =
-      category === 'anchor'
+      category === 'anchor' || category === 'edits'
         ? HTMLContentModel.mixed
         : isPhrasing
         ? HTMLContentModel.textual
-        : HTMLContentModel.block;
-    const isTranslatable =
-      contentModel !== HTMLContentModel.block ||
-      translatableBlockCategories.indexOf(category) !== -1;
-    return new HTMLElementModel<T>({
+        : isTranslatable
+        ? HTMLContentModel.block
+        : HTMLContentModel.none;
+    return new HTMLElementModel<
+      T,
+      E extends 'edits' | 'anchor'
+        ? HTMLContentModel.mixed
+        : E extends 'embedded' | 'sectioning' | 'grouping'
+        ? HTMLContentModel.block
+        : E extends 'textual'
+        ? HTMLContentModel.textual
+        : HTMLContentModel.none
+    >({
       tagName,
-      contentModel,
+      contentModel: contentModel as any,
       isTranslatable,
       isVoid: isVoid || false,
       mixedUAStyles,
@@ -113,7 +128,9 @@ export default class HTMLElementModel<T extends string>
     );
   }
 
-  extend(props: Partial<HTMLElementModelProperties<T>>): HTMLElementModel<T> {
+  extend<N extends HTMLContentModel = M>(
+    props: Partial<HTMLElementModelProperties<T, N>>
+  ): HTMLElementModel<T, N> {
     return new HTMLElementModel({
       ...this,
       ...props
