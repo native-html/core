@@ -2,18 +2,18 @@ enum HTMLContentModel {
   /**
    * Translatable to TBlock.
    */
-  'block',
+  block = 'block',
   /**
    * Translatable to TPhrasing and TText
    */
-  'textual',
+  textual = 'textual',
   /**
    * Translatable to TBlock, TPhrasing and TText
    */
-  'mixed',
+  mixed = 'mixed',
   /**
    * Translatable to TEmpty
    */
-  'none'
+  none = 'none'
 }
 export default HTMLContentModel;

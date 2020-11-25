@@ -78,6 +78,7 @@ export default class HTMLElementModel<
       ...optionalFields
     });
   }
+
   static fromNativeModel<T extends TagName, E extends ElementCategory>({
     tagName,
     category,
