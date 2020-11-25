@@ -410,10 +410,6 @@ describe('CSSProcessor', () => {
       display: 'block',
       propagation: 'retain'
     };
-    const retainedWebBlockSizeSpec = {
-      ...retainedWebBlockSpec,
-      ...sizeSpec
-    };
     const retainedNativeBlockSizeSpec = {
       ...nativeRetainedBlockSpec,
       ...sizeSpec
