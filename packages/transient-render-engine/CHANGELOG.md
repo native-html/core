@@ -1,3 +1,16 @@
+# [3.5.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.4.3...@native-html/transient-render-engine@3.5.0) (2020-11-25)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** duplicate body when root element is body ([9db7c24](https://github.com/native-html/core/commit/9db7c2432774e129271b65e29d96e0ff72aaee53))
+* **transient-render-engine:** only assert anonymous TText as empty ([3ee9507](https://github.com/native-html/core/commit/3ee95074e3fbdd9498c1e27e56135b2501241ac0))
+
+
+### Features
+
+* **transient-render-engine:** apply baseStyle own styles to html node ([f3b4b70](https://github.com/native-html/core/commit/f3b4b70ccdb66394148f21b6fa699e69845459ea))
+
 ## [3.4.3](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.4.2...@native-html/transient-render-engine@3.4.3) (2020-11-25)
 
 ## [3.4.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.4.1...@native-html/transient-render-engine@3.4.2) (2020-11-25)
