@@ -15,7 +15,7 @@ import { TStyles } from '../styles/TStyles';
 import { TStylesMerger } from '../styles/TStylesMerger';
 import HTMLModelRegistry from '../model/HTMLModelRegistry';
 import { TEmpty } from '../tree/TEmpty';
-import defaultHTMLModelRecord from '../model/defaultHTMLModelRecord';
+import defaultHTMLElementModels from '../model/defaultHTMLElementModels';
 
 export function mapNodeList(
   nodeList: SerializableNode[],
@@ -163,8 +163,8 @@ export function translateDocument(
       body = new TBlock({
         tagName: 'body',
         stylesMerger: params.stylesMerger,
-        contentModel: defaultHTMLModelRecord.body.contentModel,
-        elementModel: defaultHTMLModelRecord.body,
+        contentModel: defaultHTMLElementModels.body.contentModel,
+        elementModel: defaultHTMLElementModels.body,
         parentStyles: params.baseStyles
       });
       body.bindChildren(rootNodes);

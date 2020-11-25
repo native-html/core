@@ -740,7 +740,7 @@ const textLevelModelMap: HTMLModelRecord<
   })
 };
 
-const defaultHTMLModelRecord = {
+const defaultHTMLElementModels = {
   a: HTMLElementModel.fromNativeModel({
     tagName: 'a',
     category: 'anchor',
@@ -761,4 +761,6 @@ const defaultHTMLModelRecord = {
   ...untranslatableModelMap
 };
 
-export default defaultHTMLModelRecord;
+export type DefaultHTMLElementModels = typeof defaultHTMLElementModels;
+
+export default defaultHTMLElementModels;

@@ -1,20 +1,22 @@
 import lookupRecord from '../lookupRecord';
-import defaultHTMLModelRecord from './defaultHTMLModelRecord';
+import defaultHTMLElementModels, {
+  DefaultHTMLElementModels
+} from './defaultHTMLElementModels';
 import HTMLElementModel from './HTMLElementModel';
 import { HTMLModelRecord, TagName } from './model-types';
 
 export default class HTMLModelRegistry<E extends string> {
   private modelRecord: HTMLModelRecord<
     E | TagName
-  > = defaultHTMLModelRecord as HTMLModelRecord<any>;
+  > = defaultHTMLElementModels as HTMLModelRecord<any>;
 
   constructor(
     customize?: (
-      defaultModelRecord: HTMLModelRecord
+      defaultHTMLElementModels: DefaultHTMLElementModels
     ) => HTMLModelRecord<E | TagName>
   ) {
     if (typeof customize === 'function') {
-      this.modelRecord = customize(defaultHTMLModelRecord);
+      this.modelRecord = customize(defaultHTMLElementModels);
     }
   }
 

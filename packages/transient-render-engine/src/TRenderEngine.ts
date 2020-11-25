@@ -13,6 +13,7 @@ import { defaultStylesConfig } from './styles/defaults';
 import { TStyles } from './styles/TStyles';
 import HTMLModelRegistry from './model/HTMLModelRegistry';
 import { HTMLModelRecord, TagName } from './model/model-types';
+import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
 
 export interface TRenderEngineOptions<E extends string = never> {
   /**
@@ -33,7 +34,7 @@ export interface TRenderEngineOptions<E extends string = never> {
    * @remarks If you need to add new tags, always use lowercase names.
    */
   readonly customizeHTMLModels?: (
-    defaultModelRecord: HTMLModelRecord<TagName>
+    defaultHTMLElementModels: DefaultHTMLElementModels
   ) => HTMLModelRecord<TagName | E>;
 }
 

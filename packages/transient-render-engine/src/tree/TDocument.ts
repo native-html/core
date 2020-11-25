@@ -6,7 +6,7 @@ import {
   isSerializableText
 } from '../dom/to-serializable';
 import HTMLElementModel from '../model/HTMLElementModel';
-import defaultHTMLModelRecord from '../model/defaultHTMLModelRecord';
+import defaultHTMLElementModels from '../model/defaultHTMLElementModels';
 
 export interface DocumentContext {
   charset: string;
@@ -109,8 +109,8 @@ export class TDocument extends TBlock {
       body ||
         new TBlock({
           tagName: 'body',
-          contentModel: defaultHTMLModelRecord.body.contentModel,
-          elementModel: defaultHTMLModelRecord.body,
+          contentModel: defaultHTMLElementModels.body.contentModel,
+          elementModel: defaultHTMLElementModels.body,
           stylesMerger: this.stylesMerger,
           parentStyles: this.styles
         })
@@ -124,8 +124,8 @@ export class TDocument extends TBlock {
             isUnregistered: false,
             stylesMerger: this.stylesMerger,
             parentStyles: null,
-            contentModel: defaultHTMLModelRecord.head.contentModel,
-            elementModel: defaultHTMLModelRecord.head,
+            contentModel: defaultHTMLElementModels.head.contentModel,
+            elementModel: defaultHTMLElementModels.head,
             domNode: {
               type: 'element',
               attribs: {},
