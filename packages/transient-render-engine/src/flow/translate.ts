@@ -155,14 +155,17 @@ export function translateDocument(
   if (foundTdoc) {
     return foundTdoc as TDocument;
   } else {
-    const body = new TBlock({
-      tagName: 'body',
-      stylesMerger: params.stylesMerger,
-      contentModel: defaultHTMLModelRecord.body.contentModel,
-      elementModel: defaultHTMLModelRecord.body,
-      parentStyles: null
-    });
-    body.bindChildren(rootNodes);
+    let body = rootNodes.find((n) => n.tagName === 'body');
+    if (!body) {
+      body = new TBlock({
+        tagName: 'body',
+        stylesMerger: params.stylesMerger,
+        contentModel: defaultHTMLModelRecord.body.contentModel,
+        elementModel: defaultHTMLModelRecord.body,
+        parentStyles: null
+      });
+      body.bindChildren(rootNodes);
+    }
     const newTdoc = new TDocument({
       parentStyles: params.baseStyles,
       stylesMerger: params.stylesMerger

@@ -177,6 +177,25 @@ describe('TRenderEngine > buildTTree method', () => {
         .styles.nativeTextFlow.fontSize
     ).toBe(undefined);
   });
+  it('should handle the case where the root element is a body element', () => {
+    const tdoc = defaultTTreeBuilder.buildTTree('<body><div></div></body>');
+    expect(tdoc).toMatchObject({
+      type: 'document',
+      tagName: 'html',
+      children: [
+        {
+          type: 'block',
+          tagName: 'body',
+          children: [
+            {
+              type: 'block',
+              tagName: 'div'
+            }
+          ]
+        }
+      ]
+    });
+  });
   it('given a HTML document, should return an instance of TDocument which has one TBlock(body) child', () => {
     const tdoc = defaultTTreeBuilder.buildTTree(htmlDocument);
     expect(tdoc).toBeInstanceOf(TDocument);
