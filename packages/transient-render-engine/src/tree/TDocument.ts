@@ -5,7 +5,8 @@ import {
   isSerializableElement,
   isSerializableText
 } from '../dom/to-serializable';
-import HTMLContentModel from '../model/HTMLContentModel';
+import HTMLElementModel from '../model/HTMLElementModel';
+import defaultHTMLModelRecord from '../model/defaultHTMLModelRecord';
 
 export interface DocumentContext {
   charset: string;
@@ -60,6 +61,11 @@ function extractContextFromHead(head: TEmpty, lang?: string) {
   return context;
 }
 
+const htmlModel = HTMLElementModel.fromNativeModel({
+  tagName: 'html' as any,
+  category: 'grouping'
+});
+
 export class TDocument extends TBlock {
   public readonly context: Readonly<DocumentContext>;
   public readonly displayName = 'TDocument';
@@ -67,11 +73,12 @@ export class TDocument extends TBlock {
     attributes,
     stylesMerger,
     parentStyles
-  }: Omit<TNodeInit, 'contentModel'>) {
+  }: Omit<TNodeInit, 'contentModel' | 'elementModel'>) {
     super({
       tagName: 'html',
       attributes,
-      contentModel: HTMLContentModel.block,
+      contentModel: htmlModel.contentModel,
+      elementModel: htmlModel,
       parentStyles: parentStyles,
       stylesMerger
     });
@@ -101,7 +108,8 @@ export class TDocument extends TBlock {
       body ||
         new TBlock({
           tagName: 'body',
-          contentModel: HTMLContentModel.block,
+          contentModel: defaultHTMLModelRecord.body.contentModel,
+          elementModel: defaultHTMLModelRecord.body,
           stylesMerger: this.stylesMerger,
           parentStyles: this.styles
         })
@@ -115,7 +123,8 @@ export class TDocument extends TBlock {
             isUnregistered: false,
             stylesMerger: this.stylesMerger,
             parentStyles: null,
-            contentModel: HTMLContentModel.none,
+            contentModel: defaultHTMLModelRecord.head.contentModel,
+            elementModel: defaultHTMLModelRecord.head,
             domNode: {
               type: 'element',
               attribs: {},

@@ -12,6 +12,7 @@ function groupText(tnode: TBlock): TNode {
   const wrappernode = new TPhrasing({
     parentStyles: tnode.styles,
     contentModel: null,
+    elementModel: null,
     stylesMerger: tnode.stylesMerger
   });
   let wrapper = wrappernode.newEmpty();

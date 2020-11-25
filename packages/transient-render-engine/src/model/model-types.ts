@@ -174,6 +174,13 @@ export interface ElementModelBase<T extends string> {
    */
   isOpaque?: boolean;
   /**
+   * Void elements such as specified in HTML4:
+   *
+   * - Void elements cannot have children.
+   * - TText-translated void elements will be preserved even though they don't have children.
+   */
+  isVoid?: boolean;
+  /**
    * Equivalent of "user-agent" styles. The default styles for the element.
    *
    * @remarks These styles will get merged over by `tagsStyles`.
@@ -209,10 +216,6 @@ export interface NativeElementModel<
   C = ElementCategory
 > extends ElementModelBase<T> {
   category: C;
-  /**
-   * Void elements such as specified in HTML4. Void elements cannot have children.
-   */
-  isVoid?: boolean;
   /**
    * For example, "width" and "height" attributes for &lt;img&gt; tags.
    */

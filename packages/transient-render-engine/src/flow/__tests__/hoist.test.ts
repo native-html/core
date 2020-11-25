@@ -47,6 +47,13 @@ describe('hoist function', () => {
     expect(tdoc.children).toHaveLength(1);
     expect(tdiv.styles.nativeBlockRet.backgroundColor).toBe('red');
   });
+  it('should preserve void text elements', () => {
+    const ttree = makeTTree('<br/>');
+    expect(ttree).toMatchObject({
+      type: 'text',
+      tagName: 'br'
+    });
+  });
   it('should preserve text of encompassing blocks', () => {
     const tdoc = makeTTree(
       '<a href="http://google.fr"><div>This is text!</div></a>'

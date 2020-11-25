@@ -15,7 +15,7 @@ import { TStyles } from '../styles/TStyles';
 import { TStylesMerger } from '../styles/TStylesMerger';
 import HTMLModelRegistry from '../model/HTMLModelRegistry';
 import { TEmpty } from '../tree/TEmpty';
-import HTMLContentModel from '../model/HTMLContentModel';
+import defaultHTMLModelRecord from '../model/defaultHTMLModelRecord';
 
 export function mapNodeList(
   nodeList: SerializableNode[],
@@ -46,7 +46,7 @@ function translateElement(
   params: DataFlowParams
 ): TNode | null {
   const tagName = node.tagName.toLowerCase();
-  const sharedProps: Omit<TNodeInit, 'contentModel'> = {
+  const sharedProps: Omit<TNodeInit, 'contentModel' | 'elementModel'> = {
     tagName,
     parentStyles,
     stylesMerger: params.stylesMerger,
@@ -58,37 +58,54 @@ function translateElement(
     tdoc.parseChildren();
     return tdoc;
   }
-  const model = params.modelRegistry.getElementModelFromTagName(tagName);
-  if (!model) {
+  const elementModel = params.modelRegistry.getElementModelFromTagName(tagName);
+  if (!elementModel) {
     return new TEmpty({
       ...sharedProps,
       isUnregistered: true,
       contentModel: null,
+      elementModel: null,
       domNode: node
     });
   }
-  const contentModel = model.contentModel;
-  if (model.isTranslatableTextual()) {
+  const contentModel = elementModel.contentModel;
+  if (elementModel.isTranslatableTextual()) {
     if (node.children.length === 1) {
       const child = node.children[0] as SerializableNode;
       if (isSerializableText(child)) {
         return new TText({
           ...sharedProps,
           contentModel,
+          elementModel,
           data: child.data
         });
       }
+    } else if (node.children.length === 0) {
+      return new TText({
+        ...sharedProps,
+        contentModel,
+        elementModel,
+        data: ''
+      });
     }
-    const phrasing = new TPhrasing({ ...sharedProps, contentModel });
+    const phrasing = new TPhrasing({
+      ...sharedProps,
+      contentModel,
+      elementModel
+    });
     bindChildren(phrasing, node.children, params);
     return phrasing;
   }
-  if (model.isTranslatableBlock()) {
+  if (elementModel.isTranslatableBlock()) {
     const block = new TBlock({
       ...sharedProps,
       contentModel,
+      elementModel,
       parentStyles,
-      domChildren: model.isOpaque && !model.isVoid ? node.children : undefined
+      domChildren:
+        elementModel.isOpaque && !elementModel.isVoid
+          ? node.children
+          : undefined
     });
     bindChildren(block, node.children, params);
     return block;
@@ -97,6 +114,7 @@ function translateElement(
     ...sharedProps,
     isUnregistered: false,
     contentModel,
+    elementModel,
     domNode: node
   });
 }
@@ -111,6 +129,7 @@ export function translateNode(
       data: node.data,
       stylesMerger: params.stylesMerger,
       contentModel: null,
+      elementModel: null,
       parentStyles
     });
   }
@@ -139,7 +158,8 @@ export function translateDocument(
     const body = new TBlock({
       tagName: 'body',
       stylesMerger: params.stylesMerger,
-      contentModel: HTMLContentModel.block,
+      contentModel: defaultHTMLModelRecord.body.contentModel,
+      elementModel: defaultHTMLModelRecord.body,
       parentStyles: null
     });
     body.bindChildren(rootNodes);

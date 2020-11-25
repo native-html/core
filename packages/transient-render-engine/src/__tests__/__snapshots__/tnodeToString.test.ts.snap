@@ -19,6 +19,6 @@ exports[`tnodeToString should handle deeply nested tags 1`] = `
 `;
 
 exports[`tnodeToString should print ids, classes and anchors 1`] = `
-"•TPhrasing(tag=a,id=first,classes=special,anchor[https://])
+"•TText(tag=a,id=first,classes=special,data[\\"\\"],anchor[https://])
 "
 `;

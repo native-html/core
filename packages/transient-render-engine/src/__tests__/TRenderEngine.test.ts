@@ -69,31 +69,47 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
       ]
     });
   });
-  it('should allow to register custom textual tags', () => {
+  describe('should allow to register custom textual tags', () => {
     const specialTTreeBuilder = new TRenderEngine({
       customizeHTMLModels(models) {
         const newModels = {
           ...models,
           customtag: HTMLElementModel.fromCustomModel({
             contentModel: HTMLContentModel.textual,
-            tagName: 'customtag'
+            tagName: 'customtag',
+            isVoid: true
           })
         };
         return newModels;
       }
     });
-    const ttree = specialTTreeBuilder.buildTTree(
-      '<customtag>This should be a text!</customtag>'
-    );
-    expect(ttree.children[0].children[0]).toMatchObject({
-      type: 'phrasing',
-      tagName: null,
-      children: [
-        {
-          type: 'text',
-          tagName: 'customtag'
-        }
-      ]
+    it('should translate to TText', () => {
+      const ttree = specialTTreeBuilder.buildTTree(
+        '<customtag>This should be a text!</customtag>'
+      );
+      expect(ttree.children[0].children[0]).toMatchObject({
+        type: 'phrasing',
+        tagName: null,
+        children: [
+          {
+            type: 'text',
+            tagName: 'customtag'
+          }
+        ]
+      });
+    });
+    it('should preserve tag when isOpaque is set to true.', () => {
+      const ttree = specialTTreeBuilder.buildTTree('<customtag></customtag>');
+      expect(ttree.children[0].children[0]).toMatchObject({
+        type: 'phrasing',
+        tagName: null,
+        children: [
+          {
+            type: 'text',
+            tagName: 'customtag'
+          }
+        ]
+      });
     });
   });
   describe('should allow to register custom mixed tags', () => {

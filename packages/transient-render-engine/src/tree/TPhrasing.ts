@@ -37,6 +37,8 @@ export class TPhrasing extends TNode {
   }
 
   isEmpty() {
-    return this.children.every((c) => c.isEmpty());
+    return (
+      this.children.every((c) => c.isEmpty()) && !this.elementModel?.isVoid
+    );
   }
 }

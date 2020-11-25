@@ -18,6 +18,7 @@ TBlock {
 This is
 ",
           "displayName": "TText",
+          "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
           "parentStyles": TStyles {
@@ -44,6 +45,15 @@ This is
           "contentModel": "textual",
           "data": "phrasing content",
           "displayName": "TText",
+          "elementModel": HTMLElementModel {
+            "contentModel": "textual",
+            "getUADerivedStyleFromAttributes": undefined,
+            "isOpaque": false,
+            "isTranslatable": true,
+            "isVoid": false,
+            "mixedUAStyles": undefined,
+            "tagName": "span",
+          },
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
           "parentStyles": TStyles {
@@ -71,6 +81,7 @@ This is
           "data": "
 ",
           "displayName": "TText",
+          "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
           "parentStyles": TStyles {
@@ -94,6 +105,7 @@ This is
       "className": null,
       "contentModel": null,
       "displayName": "TPhrasing",
+      "elementModel": null,
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "parentStyles": TStyles {
@@ -121,6 +133,15 @@ This is
       "className": null,
       "contentModel": "block",
       "displayName": "TBlock",
+      "elementModel": HTMLElementModel {
+        "contentModel": "block",
+        "getUADerivedStyleFromAttributes": undefined,
+        "isOpaque": true,
+        "isTranslatable": true,
+        "isVoid": true,
+        "mixedUAStyles": undefined,
+        "tagName": "img",
+      },
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "parentStyles": TStyles {
@@ -151,6 +172,7 @@ This is
           "data": "
     and this is ",
           "displayName": "TText",
+          "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
           "parentStyles": TStyles {
@@ -177,6 +199,17 @@ This is
           "contentModel": "textual",
           "data": "too",
           "displayName": "TText",
+          "elementModel": HTMLElementModel {
+            "contentModel": "textual",
+            "getUADerivedStyleFromAttributes": undefined,
+            "isOpaque": false,
+            "isTranslatable": true,
+            "isVoid": false,
+            "mixedUAStyles": Object {
+              "fontWeight": "bold",
+            },
+            "tagName": "strong",
+          },
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
           "parentStyles": TStyles {
@@ -204,6 +237,7 @@ This is
           "data": ".
 ",
           "displayName": "TText",
+          "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
           "parentStyles": TStyles {
@@ -227,6 +261,7 @@ This is
       "className": null,
       "contentModel": null,
       "displayName": "TPhrasing",
+      "elementModel": null,
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
       "parentStyles": TStyles {
@@ -250,6 +285,15 @@ This is
   "className": null,
   "contentModel": "mixed",
   "displayName": "TBlock",
+  "elementModel": HTMLElementModel {
+    "contentModel": "mixed",
+    "getUADerivedStyleFromAttributes": [Function],
+    "isOpaque": false,
+    "isTranslatable": true,
+    "isVoid": false,
+    "mixedUAStyles": undefined,
+    "tagName": "a",
+  },
   "hasWhiteSpaceCollapsingEnabled": true,
   "id": null,
   "parentStyles": TStyles {

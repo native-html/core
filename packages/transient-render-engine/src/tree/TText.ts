@@ -41,7 +41,7 @@ export class TText extends TNode {
   }
 
   isEmpty() {
-    return !this.data.length;
+    return !this.data.length && !this.elementModel?.isVoid;
   }
 
   trimLeft() {
