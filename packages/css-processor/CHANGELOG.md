@@ -1,3 +1,10 @@
+# [1.6.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.5.2...@native-html/css-processor@1.6.0) (2020-11-25)
+
+
+### Features
+
+* **css-processor:** support flex CSS properties ([aafa8e6](https://github.com/native-html/core/commit/aafa8e613d9114f068f9bc781cb4d7ad130b5364))
+
 ## [1.5.2](https://github.com/native-html/core/compare/@native-html/css-processor@1.5.1...@native-html/css-processor@1.5.2) (2020-11-23)
 
 
