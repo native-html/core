@@ -1,3 +1,10 @@
+## [3.4.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.4.1...@native-html/transient-render-engine@3.4.2) (2020-11-25)
+
+
+### Bug Fixes
+
+* **transient-render-tree:** render void TText nodes ([50046bc](https://github.com/native-html/core/commit/50046bc789c236eea5d7ca1d2770f7f5bcc77b38))
+
 ## [3.4.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.4.0...@native-html/transient-render-engine@3.4.1) (2020-11-25)
 
 # [3.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.3.0...@native-html/transient-render-engine@3.4.0) (2020-11-24)
