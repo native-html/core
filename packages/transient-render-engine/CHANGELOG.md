@@ -1,3 +1,5 @@
+## [3.5.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.0...@native-html/transient-render-engine@3.5.1) (2020-11-25)
+
 # [3.5.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.4.3...@native-html/transient-render-engine@3.5.0) (2020-11-25)
 
 
