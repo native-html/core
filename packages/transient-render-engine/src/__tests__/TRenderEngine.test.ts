@@ -43,7 +43,7 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
       tagName: 'em'
     });
   });
-  it('should allow to register custom tags', () => {
+  it('should allow to register custom block tags', () => {
     const specialTTreeBuilder = new TRenderEngine({
       customizeHTMLModels(models) {
         const newModels = {
@@ -67,6 +67,83 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
           type: 'phrasing'
         }
       ]
+    });
+  });
+  it('should allow to register custom textual tags', () => {
+    const specialTTreeBuilder = new TRenderEngine({
+      customizeHTMLModels(models) {
+        const newModels = {
+          ...models,
+          customtag: HTMLElementModel.fromCustomModel({
+            contentModel: HTMLContentModel.textual,
+            tagName: 'customtag'
+          })
+        };
+        return newModels;
+      }
+    });
+    const ttree = specialTTreeBuilder.buildTTree(
+      '<customtag>This should be a text!</customtag>'
+    );
+    expect(ttree.children[0].children[0]).toMatchObject({
+      type: 'phrasing',
+      tagName: null,
+      children: [
+        {
+          type: 'text',
+          tagName: 'customtag'
+        }
+      ]
+    });
+  });
+  describe('should allow to register custom mixed tags', () => {
+    const specialTTreeBuilder = new TRenderEngine({
+      customizeHTMLModels(models) {
+        const newModels = {
+          ...models,
+          customtag: HTMLElementModel.fromCustomModel({
+            contentModel: HTMLContentModel.mixed,
+            tagName: 'customtag'
+          })
+        };
+        return newModels;
+      }
+    });
+    it('should handle mixed tags surrounding blocks like blocks', () => {
+      const ttree = specialTTreeBuilder.buildTTree(
+        '<customtag><div></div></customtag>'
+      );
+      expect(ttree.children[0].children[0]).toMatchObject({
+        type: 'block',
+        tagName: 'customtag',
+        children: [
+          {
+            type: 'block',
+            tagName: 'div'
+          }
+        ]
+      });
+    });
+    it('should translate mixed tags inside phrasing with text children to TText', () => {
+      const ttree = specialTTreeBuilder.buildTTree(
+        '<span><customtag>hi!</customtag></span>'
+      );
+      expect(ttree.children[0].children[0]).toMatchObject({
+        type: 'phrasing',
+        tagName: null,
+        children: [
+          {
+            type: 'phrasing',
+            tagName: 'span',
+            children: [
+              {
+                tagName: 'customtag',
+                type: 'text'
+              }
+            ]
+          }
+        ]
+      });
     });
   });
 });
