@@ -72,14 +72,15 @@ export class TDocument extends TBlock {
   constructor({
     attributes,
     stylesMerger,
-    parentStyles
-  }: Omit<TNodeInit, 'contentModel' | 'elementModel'>) {
+    styles
+  }: Omit<TNodeInit, 'contentModel' | 'elementModel' | 'parentStyles'>) {
     super({
       tagName: 'html',
+      styles,
       attributes,
       contentModel: htmlModel.contentModel,
       elementModel: htmlModel,
-      parentStyles: parentStyles,
+      parentStyles: null,
       stylesMerger
     });
     // @ts-ignore

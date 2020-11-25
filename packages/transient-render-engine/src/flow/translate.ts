@@ -53,7 +53,10 @@ function translateElement(
     attributes: node.attribs
   };
   if (tagName === 'html') {
-    const tdoc = new TDocument({ ...sharedProps });
+    const tdoc = new TDocument({
+      ...sharedProps,
+      styles: parentStyles || undefined
+    });
     bindChildren(tdoc, node.children, params);
     tdoc.parseChildren();
     return tdoc;
@@ -162,12 +165,12 @@ export function translateDocument(
         stylesMerger: params.stylesMerger,
         contentModel: defaultHTMLModelRecord.body.contentModel,
         elementModel: defaultHTMLModelRecord.body,
-        parentStyles: null
+        parentStyles: params.baseStyles
       });
       body.bindChildren(rootNodes);
     }
     const newTdoc = new TDocument({
-      parentStyles: params.baseStyles,
+      styles: params.baseStyles,
       stylesMerger: params.stylesMerger
     });
     newTdoc.bindChildren([body]);

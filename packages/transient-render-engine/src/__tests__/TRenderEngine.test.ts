@@ -175,7 +175,7 @@ describe('TRenderEngine > buildTTree method', () => {
     expect(
       specialTTreeBuilder.buildTTree('<span>A</span>').children[0].children[0]
         .styles.nativeTextFlow.fontSize
-    ).toBe(undefined);
+    ).toBe(14);
   });
   it('should handle the case where the root element is a body element', () => {
     const tdoc = defaultTTreeBuilder.buildTTree('<body><div></div></body>');
@@ -345,6 +345,22 @@ describe('TRenderEngine > buildTTree method', () => {
         tagName: 'ol'
       });
       expect(tol.styles.webTextFlow.listStyleType).toBe('decimal');
+    });
+  });
+  describe('should retain own baseStyles', () => {
+    const config = {
+      stylesConfig: {
+        baseStyle: {
+          marginTop: 10
+        }
+      }
+    };
+    const customTTreeBuilder = new TRenderEngine(config);
+    it('when provided a html snippet', () => {
+      const tdoc = customTTreeBuilder.buildTTree('<div></div>');
+      expect(tdoc.styles.nativeBlockRet).toMatchObject({
+        marginTop: 10
+      });
     });
   });
   describe('should have its children inherit from baseStyles', () => {
