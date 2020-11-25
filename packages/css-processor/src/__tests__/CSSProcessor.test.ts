@@ -462,47 +462,47 @@ describe('CSSProcessor', () => {
         mixedIncomingValues: propertiesValidators.display.allowedList
       },
       alignContent: {
-        ...retainedWebBlockSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: propertiesValidators.alignContent.allowedList,
         mixedIncomingValues: propertiesValidators.alignContent.allowedList
       },
       alignItems: {
-        ...retainedWebBlockSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: propertiesValidators.alignItems.allowedList,
         mixedIncomingValues: propertiesValidators.alignItems.allowedList
       },
       alignSelf: {
-        ...retainedWebBlockSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: propertiesValidators.alignSelf.allowedList,
         mixedIncomingValues: propertiesValidators.alignSelf.allowedList
       },
       aspectRatio: {
-        ...retainedWebBlockSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: ['7/2', '3', '2/3', 'not a ratio', '1/0'],
         mixedIncomingValues: [7 / 2, 3, 2 / 3, 'not a ratio', null],
         outValues: [7 / 2, 3, 2 / 3, null, null]
       },
-      flexBasis: retainedWebBlockSizeSpec,
+      flexBasis: nativeRetainedBlockSizeSpecModel,
       flexDirection: {
-        ...retainedWebBlockSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: propertiesValidators.flexDirection.allowedList,
         mixedIncomingValues: propertiesValidators.flexDirection.allowedList
       },
       flexGrow: {
         ...numberSpec,
-        ...retainedWebBlockSpec
+        ...nativeRetainedBlockSpec
       },
       flexShrink: {
         ...numberSpec,
-        ...retainedWebBlockSpec
+        ...nativeRetainedBlockSpec
       },
       flexWrap: {
-        ...retainedWebBlockSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: propertiesValidators.flexWrap.allowedList,
         mixedIncomingValues: propertiesValidators.flexWrap.allowedList
       },
       justifyContent: {
-        ...retainedWebBlockSpec,
+        ...nativeRetainedBlockSpec,
         inlineIncomingValues: propertiesValidators.justifyContent.allowedList,
         mixedIncomingValues: propertiesValidators.justifyContent.allowedList
       },
@@ -882,7 +882,7 @@ describe('CSSProcessor', () => {
         ] as ViewStyle[]
       },
       flexFlow: {
-        compat: 'web',
+        compat: 'native',
         display: 'block',
         propagation: 'retain',
         inlineIncomingValues: ['row wrap'],
@@ -959,7 +959,7 @@ describe('CSSProcessor', () => {
         ] as ViewStyle[]
       },
       flex: {
-        compat: 'web',
+        compat: 'native',
         display: 'block',
         propagation: 'retain',
         inlineIncomingValues: ['1', '1 2 3px', '1 2 3pt', '1 2', '2 2px'],

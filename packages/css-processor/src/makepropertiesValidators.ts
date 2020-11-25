@@ -316,7 +316,7 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
     alignContent: new LongEnumerationCSSPropertyValidator(
       {
         config,
-        model: nativeUntranslatableBlockRetainModel,
+        model: nativeTranslatableBlockRetainModel,
         propertyName: 'alignContent'
       },
       [
@@ -331,7 +331,7 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
     alignItems: new LongEnumerationCSSPropertyValidator(
       {
         config,
-        model: nativeUntranslatableBlockRetainModel,
+        model: nativeTranslatableBlockRetainModel,
         propertyName: 'alignItems'
       },
       ['flex-start', 'flex-end', 'center', 'stretch', 'baseline']
@@ -339,14 +339,14 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
     alignSelf: new LongEnumerationCSSPropertyValidator(
       {
         config,
-        model: nativeUntranslatableBlockRetainModel,
+        model: nativeTranslatableBlockRetainModel,
         propertyName: 'alignSelf'
       },
       ['auto', 'flex-start', 'flex-end', 'center', 'stretch', 'baseline']
     ),
     aspectRatio: new LongAspectRatioPropertyValidator({
       config,
-      model: nativeUntranslatableBlockRetainModel,
+      model: nativeTranslatableBlockRetainModel,
       propertyName: 'aspectRatio'
     }),
     bottom: new LongSizeCSSPropertyValidator({
@@ -365,12 +365,12 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
     flexBasis: new LongSizeCSSPropertyValidator({
       config,
       propertyName: 'flexBasis',
-      model: nativeUntranslatableBlockRetainModel
+      model: nativeTranslatableBlockRetainModel
     }),
     flexDirection: new LongEnumerationCSSPropertyValidator(
       {
         config,
-        model: nativeUntranslatableBlockRetainModel,
+        model: nativeTranslatableBlockRetainModel,
         propertyName: 'flexDirection'
       },
       ['row', 'column', 'row-reverse', 'column-reverse']
@@ -378,17 +378,17 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
     flexGrow: new LongFloatNumberCSSPropertyValidator({
       config,
       propertyName: 'flexGrow',
-      model: nativeUntranslatableBlockRetainModel
+      model: nativeTranslatableBlockRetainModel
     }),
     flexShrink: new LongFloatNumberCSSPropertyValidator({
       config,
       propertyName: 'flexShrink',
-      model: nativeUntranslatableBlockRetainModel
+      model: nativeTranslatableBlockRetainModel
     }),
     flexWrap: new LongEnumerationCSSPropertyValidator(
       {
         config,
-        model: nativeUntranslatableBlockRetainModel,
+        model: nativeTranslatableBlockRetainModel,
         propertyName: 'flexWrap'
       },
       ['wrap', 'nowrap', 'wrap-reverse']
@@ -396,7 +396,7 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
     justifyContent: new LongEnumerationCSSPropertyValidator(
       {
         config,
-        model: nativeUntranslatableBlockRetainModel,
+        model: nativeTranslatableBlockRetainModel,
         propertyName: 'justifyContent'
       },
       [

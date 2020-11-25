@@ -185,17 +185,7 @@ export type CSSLongNativeTranslatableBlockPropKey = Exclude<
  */
 export type CSSLongNativeUntranslatableBlockPropKey = Extract<
   CSSLongNativeBlockPropKey,
-  | 'alignContent'
-  | 'alignItems'
-  | 'alignSelf'
-  | 'aspectRatio'
-  | 'flexBasis'
-  | 'flexDirection'
-  | 'flexGrow'
-  | 'flexShrink'
-  | 'flexWrap'
-  | 'justifyContent'
-  | 'position'
+  'position'
 >;
 /**
  * Long, Native-untranslatable, Block, Flowed properties
