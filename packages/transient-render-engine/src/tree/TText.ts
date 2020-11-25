@@ -41,7 +41,8 @@ export class TText extends TNode {
   }
 
   isEmpty() {
-    return !this.data.length && !this.elementModel?.isVoid;
+    // Only anonymous text nodes can be considered "empty"
+    return !this.data.length && !this.tagName;
   }
 
   trimLeft() {
