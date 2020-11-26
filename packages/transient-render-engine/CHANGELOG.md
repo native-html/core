@@ -1,3 +1,10 @@
+## [3.5.3](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.1...@native-html/transient-render-engine@3.5.3) (2020-11-26)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** remove isVoid from HTMLElementModel ([68510ab](https://github.com/native-html/core/commit/68510aba6589a34f531d6a9e0f1409ec123a72d5))
+
 ## [3.5.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.0...@native-html/transient-render-engine@3.5.1) (2020-11-25)
 
 # [3.5.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.4.3...@native-html/transient-render-engine@3.5.0) (2020-11-25)
