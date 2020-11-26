@@ -43,6 +43,24 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
       tagName: 'em'
     });
   });
+  it('should allow to make an untranslatable element translatable', () => {
+    const specialTTreeBuilder = new TRenderEngine({
+      customizeHTMLModels(models) {
+        const newModels = {
+          ...models,
+          button: models.button.extend({
+            contentModel: HTMLContentModel.block
+          })
+        };
+        return newModels;
+      }
+    });
+    const ttree = specialTTreeBuilder.buildTTree('<button>Hello</button>');
+    expect(ttree.children[0].children[0]).toMatchObject({
+      type: 'block',
+      tagName: 'button'
+    });
+  });
   it('should allow to register custom block tags', () => {
     const specialTTreeBuilder = new TRenderEngine({
       customizeHTMLModels(models) {
@@ -76,8 +94,7 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
           ...models,
           customtag: HTMLElementModel.fromCustomModel({
             contentModel: HTMLContentModel.textual,
-            tagName: 'customtag',
-            isVoid: true
+            tagName: 'customtag'
           })
         };
         return newModels;

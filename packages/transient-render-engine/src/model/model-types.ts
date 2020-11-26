@@ -170,16 +170,9 @@ export interface ElementModelBase<T extends string> {
    */
   tagName: T;
   /**
-   * An opaque element will have access to the DOM tree.
+   * An opaque element translated TNode will have access to the DOM children.
    */
   isOpaque?: boolean;
-  /**
-   * Void elements such as specified in HTML4:
-   *
-   * - Void elements cannot have children.
-   * - TText-translated void elements will be preserved even though they don't have children.
-   */
-  isVoid?: boolean;
   /**
    * Equivalent of "user-agent" styles. The default styles for the element.
    *
@@ -215,11 +208,15 @@ export interface NativeElementModel<
   T extends string = TagName,
   C = ElementCategory
 > extends ElementModelBase<T> {
-  category: C;
   /**
-   * For example, "width" and "height" attributes for &lt;img&gt; tags.
+   * Void elements such as specified in HTML4:
+   *
+   * - Void elements cannot have children.
+   * - TText-translated void elements will be preserved even though they don't have children.
    */
-  getUADerivedStyleFromAttributes?: (
-    attributes: Record<string, string>
-  ) => MixedStyleDeclaration | null;
+  isVoid?: boolean;
+  /**
+   * The category of this element as per HTML5 standard.
+   */
+  category: C;
 }

@@ -21,12 +21,13 @@ export interface HTMLElementModelProperties<
 > {
   readonly tagName: T;
   readonly contentModel: M;
-  readonly isTranslatable: boolean;
   readonly isOpaque: boolean;
-  readonly isVoid: boolean;
   readonly mixedUAStyles?: MixedStyleDeclaration;
   /**
-   * For example, "width" and "height" attributes for &lt;img&gt; tags.
+   * Examples:
+   *
+   * - "width" and "height" attributes for &lt;img&gt; tag;
+   * - "cite" attribute for &lt;blockquote&gt; tag.
    */
   readonly getUADerivedStyleFromAttributes?: (
     attributes: Record<string, string>
@@ -39,16 +40,13 @@ export default class HTMLElementModel<
 > implements HTMLElementModelProperties<T, M> {
   public readonly tagName: T;
   public readonly contentModel: M;
-  public readonly isTranslatable: boolean;
   public readonly isOpaque: boolean;
-  public readonly isVoid: boolean;
   public readonly mixedUAStyles?: MixedStyleDeclaration;
   public readonly getUADerivedStyleFromAttributes: NativeElementModel['getUADerivedStyleFromAttributes'];
 
   private constructor({
     tagName,
     contentModel,
-    isTranslatable,
     isOpaque,
     isVoid,
     mixedUAStyles,
@@ -56,7 +54,6 @@ export default class HTMLElementModel<
   }: HTMLElementModelProperties<T, M>) {
     this.tagName = tagName;
     this.contentModel = contentModel;
-    this.isTranslatable = isTranslatable;
     this.isOpaque = isOpaque;
     this.isVoid = isVoid;
     this.mixedUAStyles = mixedUAStyles;
@@ -73,7 +70,6 @@ export default class HTMLElementModel<
       tagName,
       contentModel,
       isOpaque,
-      isTranslatable: true,
       isVoid: false,
       ...optionalFields
     });
@@ -110,7 +106,6 @@ export default class HTMLElementModel<
     >({
       tagName,
       contentModel: contentModel as any,
-      isTranslatable,
       isVoid: isVoid || false,
       mixedUAStyles,
       isOpaque: isOpaque ?? category === 'embedded',
@@ -118,8 +113,12 @@ export default class HTMLElementModel<
     });
   }
 
+  isTranslatable(): boolean {
+    return this.contentModel !== HTMLContentModel.none;
+  }
+
   isTranslatableBlock(): boolean {
-    return this.isTranslatable && this.contentModel === HTMLContentModel.block;
+    return this.contentModel === HTMLContentModel.block;
   }
 
   isTranslatableTextual() {

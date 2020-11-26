@@ -37,8 +37,7 @@ export class TPhrasing extends TNode {
   }
 
   isEmpty() {
-    return (
-      this.children.every((c) => c.isEmpty()) && !this.elementModel?.isVoid
-    );
+    // Only anonymous phrasing nodes with every children empty can be considered "empty"
+    return this.tagName === null && this.children.every((c) => c.isEmpty());
   }
 }
