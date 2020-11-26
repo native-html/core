@@ -48,14 +48,12 @@ export default class HTMLElementModel<
     tagName,
     contentModel,
     isOpaque,
-    isVoid,
     mixedUAStyles,
     getUADerivedStyleFromAttributes
   }: HTMLElementModelProperties<T, M>) {
     this.tagName = tagName;
     this.contentModel = contentModel;
     this.isOpaque = isOpaque;
-    this.isVoid = isVoid;
     this.mixedUAStyles = mixedUAStyles;
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
   }
@@ -70,7 +68,6 @@ export default class HTMLElementModel<
       tagName,
       contentModel,
       isOpaque,
-      isVoid: false,
       ...optionalFields
     });
   }
@@ -79,7 +76,6 @@ export default class HTMLElementModel<
     tagName,
     category,
     isOpaque,
-    isVoid,
     mixedUAStyles,
     getUADerivedStyleFromAttributes
   }: NativeElementModel<T, E>) {
@@ -106,7 +102,6 @@ export default class HTMLElementModel<
     >({
       tagName,
       contentModel: contentModel as any,
-      isVoid: isVoid || false,
       mixedUAStyles,
       isOpaque: isOpaque ?? category === 'embedded',
       getUADerivedStyleFromAttributes
