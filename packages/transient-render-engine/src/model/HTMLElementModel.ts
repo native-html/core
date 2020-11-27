@@ -123,10 +123,10 @@ export default class HTMLElementModel<
     );
   }
 
-  extend<N extends HTMLContentModel = M>(
+  extend<N extends HTMLContentModel>(
     props: Partial<HTMLElementModelProperties<T, N>>
   ): HTMLElementModel<T, N> {
-    return new HTMLElementModel({
+    return new HTMLElementModel<T, N>({
       ...this,
       ...props
     });
