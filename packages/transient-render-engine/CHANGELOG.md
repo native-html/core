@@ -1,3 +1,10 @@
+## [3.5.4](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.3...@native-html/transient-render-engine@3.5.4) (2020-11-27)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** type for HTMLElementModel.extend (ts) ([aa3165d](https://github.com/native-html/core/commit/aa3165d27081efc8fb39b2c3f88027011ede588f))
+
 ## [3.5.3](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.1...@native-html/transient-render-engine@3.5.3) (2020-11-26)
 
 
