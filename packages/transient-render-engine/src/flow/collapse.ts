@@ -61,7 +61,7 @@ function collapsePhrasing(node: TPhrasing): TPhrasing {
   }
   collapsedChildren.forEach((childI, i) => {
     const k = i + 1;
-    if (k < node.children.length - 1) {
+    if (k <= node.children.length - 1) {
       const childK = node.children[k];
       if (childI.isCollapsibleRight() && childK.isCollapsibleLeft()) {
         childI.trimRight();

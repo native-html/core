@@ -69,6 +69,25 @@ describe('collapse function', () => {
     });
     expect(ttree).toMatchSnapshot();
   });
+  it('should collapse adjacent tags', () => {
+    const ttree = makeTTree('<span><span>foo </span><span> bar</span></span>');
+    expect(ttree).toMatchObject({
+      type: 'phrasing',
+      tagName: 'span',
+      children: [
+        {
+          type: 'text',
+          tagName: 'span',
+          data: 'foo'
+        },
+        {
+          type: 'text',
+          tagName: 'span',
+          data: ' bar'
+        }
+      ]
+    });
+  });
   it('should handle nested anchors', () => {
     const ttree = makeTTree(nestedHyperlinksSource);
     expect(ttree).toMatchObject({
@@ -249,12 +268,12 @@ describe('collapse function', () => {
     ttree.bindChildren([new TText({ data: '', ...defaultInit })]);
     expect(collapse(ttree).children).toHaveLength(0);
   });
-  it('should remove empty TText children from TPhrasing nodes', () => {
+  it('should remove empty anonymous TText children from TPhrasing nodes', () => {
     const ttree = new TPhrasing(defaultInit);
     ttree.bindChildren([new TText({ data: '', ...defaultInit })]);
     expect(collapse(ttree).children).toHaveLength(0);
   });
-  it('should remove empty TPhrasing children from TPhrasing nodes', () => {
+  it('should remove empty anonymous TPhrasing children from TPhrasing nodes', () => {
     const ttree = new TPhrasing(defaultInit);
     const tphrasing = new TPhrasing(defaultInit);
     tphrasing.bindChildren([new TText({ data: '', ...defaultInit })]);

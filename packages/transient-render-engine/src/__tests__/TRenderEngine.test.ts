@@ -334,6 +334,33 @@ describe('TRenderEngine > buildTTree method', () => {
       ]
     });
   });
+  it('should handle html snippets with multiple root nodes', () => {
+    const snippet = '<div></div><div></div>';
+    const tdoc = defaultTTreeBuilder.buildTTree(snippet);
+    expect(tdoc).toBeInstanceOf(TDocument);
+    expect(tdoc).toMatchObject({
+      type: 'document',
+      tagName: 'html',
+      children: [
+        {
+          type: 'block',
+          tagName: 'body',
+          children: [
+            {
+              type: 'block',
+              tagName: 'div',
+              children: []
+            },
+            {
+              type: 'block',
+              tagName: 'div',
+              children: []
+            }
+          ]
+        }
+      ]
+    });
+  });
   describe('should have its children inherit from UA styles when enableUserAgentStyles is enabled', () => {
     const config: TRenderEngineOptions = {
       stylesConfig: {
