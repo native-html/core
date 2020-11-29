@@ -1,3 +1,10 @@
+## [3.5.5](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.4...@native-html/transient-render-engine@3.5.5) (2020-11-29)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** collapse the penultimate child (TPhrasing) ([543ddf8](https://github.com/native-html/core/commit/543ddf8eccebd28722e83cfb8ba3186113838269))
+
 ## [3.5.4](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.3...@native-html/transient-render-engine@3.5.4) (2020-11-27)
 
 
