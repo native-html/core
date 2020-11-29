@@ -1,3 +1,10 @@
+## [3.5.6](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.5...@native-html/transient-render-engine@3.5.6) (2020-11-29)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** collapse form-feed characters (\f) ([faff027](https://github.com/native-html/core/commit/faff0272057fec2fd7e90c1959cb045356097b37))
+
 ## [3.5.5](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.4...@native-html/transient-render-engine@3.5.5) (2020-11-29)
 
 
