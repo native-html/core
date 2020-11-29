@@ -1,9 +1,9 @@
 export function removeCollapsibleAroundSegmentBreak(data: string): string {
-  return data.replace(/[ \t]*[\r\n]+[ \t]*/g, '\n');
+  return data.replace(/[ \t]*[\r\n\f]+[ \t]*/g, '\n');
 }
 
 export function removeConsecutiveSegmentBreaks(data: string): string {
-  return data.replace(/[\r\n]+/g, '\n');
+  return data.replace(/[\r\n\f]+/g, '\n');
 }
 
 export function normalizeZeroWidthWhitespaces(data: string): string {

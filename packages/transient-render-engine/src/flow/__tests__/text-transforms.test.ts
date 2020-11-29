@@ -19,6 +19,13 @@ describe('removeCollapsibleAroundSegmentBreak function', () => {
       )
     ).toEqual('This is\nGreat\nI Believe\nIn angels');
   });
+  it('should handle form feed', () => {
+    expect(
+      removeCollapsibleAroundSegmentBreak(
+        'This is \f Great \f I Believe \f In angels'
+      )
+    ).toEqual('This is\nGreat\nI Believe\nIn angels');
+  })
   it('should work with sequences of carriage return and line feed', () => {
     expect(removeCollapsibleAroundSegmentBreak('This is \r\n Great')).toEqual(
       'This is\nGreat'
@@ -39,6 +46,11 @@ describe('removeCollapsibleAroundSegmentBreak function', () => {
 describe('removeConsecutiveSegmentBreaks function', () => {
   it('should remove consecutive segment breaks', () => {
     expect(removeConsecutiveSegmentBreaks('This is\n\n\nGreat')).toEqual(
+      'This is\nGreat'
+    );
+  });
+  it('should handle form feed', () => {
+    expect(removeConsecutiveSegmentBreaks('This is\f\f\fGreat')).toEqual(
       'This is\nGreat'
     );
   });
