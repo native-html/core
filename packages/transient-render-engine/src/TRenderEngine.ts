@@ -52,12 +52,14 @@ export class TRenderEngine {
     // TODO log a warning when type is string
     const rootFontSize =
       typeof userSelectedFontSize === 'number' ? userSelectedFontSize : 14;
-    baseStyle.fontSize = rootFontSize;
     const stylesConfig = {
       ...defaultStylesConfig,
       ...options?.stylesConfig,
       baseStyle
     };
+    if (stylesConfig.enableUserAgentStyles) {
+      stylesConfig.baseStyle.fontSize = rootFontSize;
+    }
     const stylesMerger = new TStylesMerger(stylesConfig, modelRegistry, {
       ...defaultCSSProcessorConfig,
       ...options?.cssProcessorConfig,
