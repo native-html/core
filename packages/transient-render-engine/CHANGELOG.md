@@ -1,3 +1,10 @@
+## [3.5.8](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.7...@native-html/transient-render-engine@3.5.8) (2020-11-30)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** don't assign a default fontSize ([9aba734](https://github.com/native-html/core/commit/9aba73429755f508aed9120c9528091fec2c09f9))
+
 ## [3.5.7](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.6...@native-html/transient-render-engine@3.5.7) (2020-11-30)
 
 
