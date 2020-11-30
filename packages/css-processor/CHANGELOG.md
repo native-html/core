@@ -1,3 +1,10 @@
+## [1.6.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.6.0...@native-html/css-processor@1.6.1) (2020-11-30)
+
+
+### Bug Fixes
+
+* **css-processor:** discard special methods (var, calc) ([2969a10](https://github.com/native-html/core/commit/2969a106e39f5d5f80a5c1445ac01ae68e8554af))
+
 # [1.6.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.5.2...@native-html/css-processor@1.6.0) (2020-11-25)
 
 
