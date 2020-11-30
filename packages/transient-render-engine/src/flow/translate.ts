@@ -12,10 +12,10 @@ import {
   toSerializableChildren
 } from '../dom/to-serializable';
 import { TStyles } from '../styles/TStyles';
-import { TStylesMerger } from '../styles/TStylesMerger';
-import HTMLModelRegistry from '../model/HTMLModelRegistry';
+
 import { TEmpty } from '../tree/TEmpty';
 import defaultHTMLElementModels from '../model/defaultHTMLElementModels';
+import { DataFlowParams } from './types';
 
 export function mapNodeList(
   nodeList: SerializableNode[],
@@ -55,7 +55,7 @@ function translateElement(
   if (tagName === 'html') {
     const tdoc = new TDocument({
       ...sharedProps,
-      styles: parentStyles || undefined
+      styles: parentStyles
     });
     bindChildren(tdoc, node.children, params);
     tdoc.parseChildren();
@@ -137,12 +137,6 @@ export function translateNode(
     return translateElement(node, parentStyles, params);
   }
   return null;
-}
-
-export interface DataFlowParams {
-  baseStyles: TStyles;
-  stylesMerger: TStylesMerger;
-  modelRegistry: HTMLModelRegistry<string>;
 }
 
 export function translateDocument(

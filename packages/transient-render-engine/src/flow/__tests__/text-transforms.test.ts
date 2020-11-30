@@ -1,5 +1,5 @@
 import {
-  normalizeSpaceDiscardingCharset,
+  removeLineBreaksAroundEastAsianDiscardSet,
   normalizeZeroWidthWhitespaces,
   removeCollapsibleAroundSegmentBreak,
   removeConsecutiveSegmentBreaks,
@@ -74,9 +74,9 @@ describe('normalizeZeroWidthWhitespaces function', () => {
   });
 });
 
-describe('normalizeSpaceDiscardingCharset function', () => {
+describe('removeLineBreaksAroundEastAsianDiscardSet function', () => {
   it('should remove new line characters surrounded by dpace discarding characters', () => {
-    expect(normalizeSpaceDiscardingCharset('\u2F00\n\u2FDA')).toEqual(
+    expect(removeLineBreaksAroundEastAsianDiscardSet('\u2F00\n\u2FDA')).toEqual(
       '\u2F00\u2FDA'
     );
   });

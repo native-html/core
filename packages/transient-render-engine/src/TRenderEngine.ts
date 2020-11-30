@@ -1,6 +1,6 @@
 import { collapse } from './flow/collapse';
 import { hoist } from './flow/hoist';
-import { DataFlowParams, translateDocument } from './flow/translate';
+import { translateDocument } from './flow/translate';
 import { TDocument } from './tree/TDocument';
 import { parseDOM, ParserOptions as HTMLParserOptions } from 'htmlparser2';
 import omit from 'ramda/src/omit';
@@ -15,6 +15,7 @@ import { TStyles } from './styles/TStyles';
 import HTMLModelRegistry from './model/HTMLModelRegistry';
 import { HTMLModelRecord, TagName } from './model/model-types';
 import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
+import { DataFlowParams } from './flow/types';
 
 export interface TRenderEngineOptions<E extends string = never> {
   /**
@@ -37,6 +38,13 @@ export interface TRenderEngineOptions<E extends string = never> {
   readonly customizeHTMLModels?: (
     defaultHTMLElementModels: DefaultHTMLElementModels
   ) => HTMLModelRecord<TagName | E>;
+  /**
+   * Remove line breaks around special east-asian characters such as defined here:
+   * https://www.w3.org/TR/2020/WD-css-text-3-20200429/#line-break-transform
+   *
+   * @defaultValue false
+   */
+  readonly removeLineBreaksAroundEastAsianDiscardSet?: boolean;
 }
 
 function createStylesConfig(
@@ -84,13 +92,15 @@ export class TRenderEngine {
       modelRegistry,
       baseStyles: new TStyles(
         stylesMerger.compileStyleDeclaration(stylesConfig.baseStyle)
-      )
+      ),
+      removeLineBreaksAroundEastAsianDiscardSet:
+        options?.removeLineBreaksAroundEastAsianDiscardSet || false
     };
   }
 
   buildTTree(html: string) {
     const documentTree = parseDOM(html, this.htmlParserOptions);
     const tdoc = translateDocument(documentTree, this.dataFlowParams);
-    return collapse(hoist(tdoc)) as TDocument;
+    return collapse(hoist(tdoc), this.dataFlowParams) as TDocument;
   }
 }

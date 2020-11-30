@@ -14,7 +14,7 @@ export interface TNodeInit {
   elementModel: HTMLElementModel<string, HTMLContentModel> | null;
   attributes?: Record<string, string>;
   parentStyles: TStyles | null;
-  styles?: TStyles;
+  styles?: TStyles | null;
   stylesMerger: TStylesMerger;
 }
 

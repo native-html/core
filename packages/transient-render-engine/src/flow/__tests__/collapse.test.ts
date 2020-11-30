@@ -13,10 +13,16 @@ import {
   rfc002Source,
   secondaryHref
 } from './shared';
-import { defaultInit, translateTreeTest } from './utils';
+import { defaultDataFlowParams, defaultInit, translateTreeTest } from './utils';
 
-function makeTTree(html: string): TNode {
-  return collapse(hoist(translateTreeTest(html)));
+function makeTTree(
+  html: string,
+  removeLineBreaksAroundEastAsianDiscardSet = false
+): TNode {
+  return collapse(hoist(translateTreeTest(html)), {
+    ...defaultDataFlowParams,
+    removeLineBreaksAroundEastAsianDiscardSet
+  });
 }
 
 describe('collapse function', () => {
@@ -266,25 +272,25 @@ describe('collapse function', () => {
   it('should remove empty children from TBlock nodes', () => {
     const ttree = new TBlock(defaultInit);
     ttree.bindChildren([new TText({ data: '', ...defaultInit })]);
-    expect(collapse(ttree).children).toHaveLength(0);
+    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
   it('should remove empty anonymous TText children from TPhrasing nodes', () => {
     const ttree = new TPhrasing(defaultInit);
     ttree.bindChildren([new TText({ data: '', ...defaultInit })]);
-    expect(collapse(ttree).children).toHaveLength(0);
+    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
   it('should remove empty anonymous TPhrasing children from TPhrasing nodes', () => {
     const ttree = new TPhrasing(defaultInit);
     const tphrasing = new TPhrasing(defaultInit);
     tphrasing.bindChildren([new TText({ data: '', ...defaultInit })]);
     ttree.bindChildren([tphrasing]);
-    expect(collapse(ttree).children).toHaveLength(0);
+    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
   it('should remove children from TPhrasing nodes which are not TText or TPhrasing nodes', () => {
     const ttree = new TPhrasing(defaultInit);
     const forbiddenChild = new TBlock(defaultInit);
     ttree.bindChildren([forbiddenChild]);
-    expect(collapse(ttree).children).toHaveLength(0);
+    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
   it('should remove children from TPhrasing nodes which are empty after timming', () => {
     const ttree = new TPhrasing(defaultInit);
@@ -294,7 +300,7 @@ describe('collapse function', () => {
       new TText({ data: ' Foo', ...defaultInit }),
       new TText({ data: ' Bar', ...defaultInit })
     ]);
-    expect(collapse(ttree).children).toHaveLength(2);
+    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(2);
   });
   it('should handle direct style inheritance', () => {
     const ttree = makeTTree(
@@ -514,6 +520,14 @@ describe('collapse function', () => {
           tagName: 'link'
         }
       ]
+    });
+  });
+  it('should support removeLineBreaksAroundEastAsianDiscardSet param', () => {
+    const ttree = makeTTree('<span>\u2F00\n\u2FDA</span>', true);
+    expect(ttree).toMatchObject({
+      type: 'text',
+      tagName: 'span',
+      data: '\u2F00\u2FDA'
     });
   });
 });

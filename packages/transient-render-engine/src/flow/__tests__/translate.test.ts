@@ -123,7 +123,8 @@ describe('mapNodeList function', () => {
       mapNodeList([null] as any, null, {
         stylesMerger: defaultStylesMerger,
         modelRegistry: defaultModelRegistry,
-        baseStyles: TStyles.empty()
+        baseStyles: TStyles.empty(),
+        removeLineBreaksAroundEastAsianDiscardSet: false
       })
     ).toHaveLength(0);
   });
