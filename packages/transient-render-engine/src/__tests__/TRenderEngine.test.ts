@@ -5,7 +5,6 @@ import { CSSProcessedProps } from '@native-html/css-processor';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
 import HTMLContentModel from '../model/HTMLContentModel';
 import { HTMLElementModel } from '..';
-import tnodeToString from '../tnodeToString';
 
 const href = 'https://domain.com';
 const htmlDocument = `
