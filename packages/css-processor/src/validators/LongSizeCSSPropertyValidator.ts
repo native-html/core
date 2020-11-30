@@ -36,7 +36,7 @@ export class LongSizeCSSPropertyValidator<
   }
 
   protected splitValueAndUnit(value: string): [number, CSSLengthUnit] | null {
-    const match = /(\d*\.?\d*)\s*(cm|mm|in|px|pt|pc|em|ex|ch|rem|vw|vh|vmin|vmax|%)/g.exec(
+    const match = /^(\d*\.?\d*)\s*(cm|mm|in|px|pt|pc|em|ex|ch|rem|vw|vh|vmin|vmax|%)$/g.exec(
       value
     );
     if (match === null) {

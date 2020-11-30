@@ -1,6 +1,8 @@
 import { LongEnumerationCSSPropertyValidator } from './LongEnumerationCSSPropertyValidator';
 import { CSSPropertyModel } from './types';
 
+const WHITESPACE_REGEX = /\s+/;
+
 export class LongBorderStyleCSSPropertyValidator<
   C extends CSSPropertyModel
 > extends LongEnumerationCSSPropertyValidator<C> {
@@ -16,7 +18,7 @@ export class LongBorderStyleCSSPropertyValidator<
   }
 
   pickFirst(value: string) {
-    const values = value.split(/\s+/);
+    const values = value.split(WHITESPACE_REGEX);
     return values[0] || null;
   }
 }

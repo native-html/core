@@ -41,7 +41,10 @@ const lengthSamples = [
   '1rem',
   '1vw',
   '1vh',
-  'not-a-dimension!'
+  'inherit', // should be ignored
+  'calc(100% - 80px)', // should be ignored
+  'var(--main-bg-color)', // should be ignored
+  'not-a-dimension!' // should be ignored
 ];
 
 const sizeSpec: Pick<
@@ -66,16 +69,47 @@ const sizeSpec: Pick<
     16, // 1rem
     null, // 1vw
     null, // 1vh
+    null, // inherit
+    null, // calc(...)
+    null, // var(...)
     null // not-a-dimension!
   ]
 };
 
 const colorSpec: Pick<
   Required<Specs>,
-  'mixedIncomingValues' | 'inlineIncomingValues'
+  'mixedIncomingValues' | 'inlineIncomingValues' | 'outValues'
 > = {
-  inlineIncomingValues: ['red', 'blue'],
-  mixedIncomingValues: ['red', 'blue']
+  inlineIncomingValues: [
+    'red',
+    'blue',
+    'hsl(360,100%,100%)',
+    'hsla(360,100%,100%,1.0)',
+    'rgb(0,0,0)',
+    'rgba(0,0,0,1)',
+    '#ffffff',
+    'var(--main-bg-color)'
+  ],
+  mixedIncomingValues: [
+    'red',
+    'blue',
+    'hsl(360,100%,100%)',
+    'hsla(360,100%,100%,1.0)',
+    'rgb(0,0,0)',
+    'rgba(0,0,0,1)',
+    '#ffffff',
+    null
+  ],
+  outValues: [
+    'red',
+    'blue',
+    'hsl(360,100%,100%)',
+    'hsla(360,100%,100%,1.0)',
+    'rgb(0,0,0)',
+    'rgba(0,0,0,1)',
+    '#ffffff',
+    null
+  ]
 };
 
 const numberSpec: Pick<

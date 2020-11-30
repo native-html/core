@@ -9,6 +9,8 @@ export type Directions = {
   right: string;
 };
 
+const WHITESPACE_REGEX = /\s+/;
+
 export class ShortCardinalCSSpropertyValidator<
   C extends CSSPropertyModel = any
 > extends ShortCSSPropertyValidator<C> {
@@ -33,7 +35,7 @@ export class ShortCardinalCSSpropertyValidator<
         [this.directions.left]: value
       });
     }
-    const values = value.split(/\s+/);
+    const values = value.split(WHITESPACE_REGEX);
     if (values.length === 4) {
       return new ShortMergeRequest({
         [this.directions.top]: values[0],

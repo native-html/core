@@ -3,6 +3,8 @@ import normalizeFontName from './normalizeFontName';
 import { CSSPropertyModel } from './types';
 import { ShortMergeRequest } from '../ShortMergeRequest';
 
+const WHITESPACE_REGEX = /\s+/;
+
 export class ShortFontCSSValidator<
   C extends CSSPropertyModel
 > extends ShortCSSToReactNativeValidator<C> {
@@ -27,7 +29,9 @@ export class ShortFontCSSValidator<
       }
     }
     return super.normalizeInlineCSSValue(
-      base.split(/\s+/).slice(0, -1).join(' ') + ' ' + (fontFamily || 'system')
+      base.split(WHITESPACE_REGEX).slice(0, -1).join(' ') +
+        ' ' +
+        (fontFamily || 'system')
     );
   }
 }

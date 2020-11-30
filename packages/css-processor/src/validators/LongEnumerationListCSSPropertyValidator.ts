@@ -1,6 +1,8 @@
 import { LongCSSPropertyValidator } from './LongCSSPropertyValidator';
 import { CSSPropertyValidatorParams, CSSPropertyModel } from './types';
 
+const WHITESPACE_REGEX = /\s+/;
+
 export class LongEnumerationListCSSPropertyValidator<
   C extends CSSPropertyModel
 > extends LongCSSPropertyValidator<C, string[]> {
@@ -11,7 +13,7 @@ export class LongEnumerationListCSSPropertyValidator<
   }
 
   normalizeRawInlineCSSValue(value: string): string[] | null {
-    const input = value.split(/\s+/);
+    const input = value.split(WHITESPACE_REGEX);
     const values: string[] = [];
     for (const item of input) {
       if (this.allowedList.indexOf(item) !== -1) {
