@@ -25,7 +25,7 @@ describe('removeCollapsibleAroundSegmentBreak function', () => {
         'This is \f Great \f I Believe \f In angels'
       )
     ).toEqual('This is\nGreat\nI Believe\nIn angels');
-  })
+  });
   it('should work with sequences of carriage return and line feed', () => {
     expect(removeCollapsibleAroundSegmentBreak('This is \r\n Great')).toEqual(
       'This is\nGreat'
