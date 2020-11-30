@@ -18,7 +18,7 @@ coverage:
 flags:
   css-processor:
     paths:
-      - packages/css-processor/coverage/cover.xml
+      - packages/css-processor/
   transient-render-engine:
     paths:
-      - packages/transient-render-engine/coverage/cover.xml
+      - packages/transient-render-engine/
