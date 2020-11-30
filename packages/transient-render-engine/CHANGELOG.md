@@ -1,3 +1,15 @@
+# [3.6.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.8...@native-html/transient-render-engine@3.6.0) (2020-11-30)
+
+
+### Features
+
+* **transient-render-engine:** new removeLineBreaksAroundEastAsianDiscardSet option ([3264d96](https://github.com/native-html/core/commit/3264d96fa30a2e19457782a0578a0906d5fab483))
+
+
+### Performance Improvements
+
+* **transient-render-engine:** precompiled regexes ([2cf3167](https://github.com/native-html/core/commit/2cf3167a8fe24b83f11c18b801174987a096a300))
+
 ## [3.5.8](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.7...@native-html/transient-render-engine@3.5.8) (2020-11-30)
 
 
