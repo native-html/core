@@ -108,10 +108,6 @@ export default class HTMLElementModel<
     });
   }
 
-  isTranslatable(): boolean {
-    return this.contentModel !== HTMLContentModel.none;
-  }
-
   isTranslatableBlock(): boolean {
     return this.contentModel === HTMLContentModel.block;
   }
