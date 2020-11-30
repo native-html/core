@@ -10,20 +10,20 @@ import {
   removeConsecutiveSegmentBreaks,
   removeCollapsibleAroundSegmentBreak
 } from './text-transforms';
+import compose from 'ramda/src/compose';
+
+const collapseWhiteSpaces = compose(
+  normalizeWhitespaces,
+  replaceSegmentBreaks,
+  normalizeSpaceDiscardingCharset,
+  normalizeZeroWidthWhitespaces,
+  removeConsecutiveSegmentBreaks,
+  removeCollapsibleAroundSegmentBreak
+);
 
 function collapseText(node: TText): TText {
   if (node.hasWhiteSpaceCollapsingEnabled) {
-    node.data = normalizeWhitespaces(
-      replaceSegmentBreaks(
-        normalizeSpaceDiscardingCharset(
-          normalizeZeroWidthWhitespaces(
-            removeConsecutiveSegmentBreaks(
-              removeCollapsibleAroundSegmentBreak(node.data)
-            )
-          )
-        )
-      )
-    );
+    node.data = collapseWhiteSpaces(node.data);
   }
   return node;
 }
