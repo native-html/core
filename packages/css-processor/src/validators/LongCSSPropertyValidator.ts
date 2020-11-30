@@ -9,13 +9,6 @@ export abstract class LongCSSPropertyValidator<
     super(params, false);
   }
 
-  private prevalidate(rawValue: string) {
-    if (rawValue.match(/\(.*\)/g)) {
-      return null;
-    }
-    return rawValue;
-  }
-
   /**
    * Normalize a rule value from inline CSS styles.
    *
