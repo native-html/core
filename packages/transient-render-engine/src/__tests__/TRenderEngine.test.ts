@@ -5,6 +5,7 @@ import { CSSProcessedProps } from '@native-html/css-processor';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
 import HTMLContentModel from '../model/HTMLContentModel';
 import { HTMLElementModel } from '..';
+import tnodeToString from '../tnodeToString';
 
 const href = 'https://domain.com';
 const htmlDocument = `
@@ -204,6 +205,20 @@ describe('TRenderEngine > buildTTree method', () => {
       specialTTreeBuilder.buildTTree('<span>A</span>').children[0].children[0]
         .styles.nativeTextFlow.fontSize
     ).toBeUndefined();
+  });
+  it('should parse inline CSS styles when enableUserAgentStyles is set to false', () => {
+    const specialTTreeBuilder = new TRenderEngine({
+      stylesConfig: {
+        enableUserAgentStyles: false,
+        enableCSSInlineProcessing: true
+      }
+    });
+    const tdoc = specialTTreeBuilder.buildTTree(
+      '<div style="padding-top: 1px;"/>'
+    );
+    expect(tdoc.children[0].children[0].styles.nativeBlockRet.paddingTop).toBe(
+      1
+    );
   });
   it('should handle the case where the root element is a body element', () => {
     const tdoc = defaultTTreeBuilder.buildTTree('<body><div></div></body>');
