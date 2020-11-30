@@ -17,3 +17,8 @@ export const mixedTypesShouldSupportSpecialWebProps: AssertEqual<
   Extract<keyof MixedStyleDeclaration, 'whiteSpace'>,
   'whiteSpace' | 'listStyleType'
 > = true;
+
+export const mixedTypesShouldSupportImgProps: AssertEqual<
+  Extract<keyof MixedStyleDeclaration, 'resizeMode'>,
+  'resizeMode'
+> = true;
