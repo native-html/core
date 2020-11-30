@@ -194,6 +194,17 @@ describe('TRenderEngine > buildTTree method', () => {
         .styles.nativeTextFlow.fontSize
     ).toBe(14);
   });
+  it('should not provide a root fontSize when enableUserAgentStyles is set to false', () => {
+    const specialTTreeBuilder = new TRenderEngine({
+      stylesConfig: {
+        enableUserAgentStyles: false
+      }
+    });
+    expect(
+      specialTTreeBuilder.buildTTree('<span>A</span>').children[0].children[0]
+        .styles.nativeTextFlow.fontSize
+    ).toBeUndefined();
+  });
   it('should handle the case where the root element is a body element', () => {
     const tdoc = defaultTTreeBuilder.buildTTree('<body><div></div></body>');
     expect(tdoc).toMatchObject({

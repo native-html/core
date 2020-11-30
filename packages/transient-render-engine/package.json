@@ -73,6 +73,8 @@
   },
   "dependencies": {
     "@native-html/css-processor": "workspace:*",
-    "htmlparser2": "^5.0.1"
+    "@types/ramda": "^0.27.32",
+    "htmlparser2": "^5.0.1",
+    "ramda": "^0.27.1"
   }
 }

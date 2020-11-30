@@ -3,6 +3,7 @@ import { hoist } from './flow/hoist';
 import { DataFlowParams, translateDocument } from './flow/translate';
 import { TDocument } from './tree/TDocument';
 import { parseDOM, ParserOptions as HTMLParserOptions } from 'htmlparser2';
+import omit from 'ramda/src/omit';
 import {
   CSSProcessorConfig,
   defaultCSSProcessorConfig
@@ -38,32 +39,41 @@ export interface TRenderEngineOptions<E extends string = never> {
   ) => HTMLModelRecord<TagName | E>;
 }
 
+function createStylesConfig(
+  options?: TRenderEngineOptions
+): Required<StylesConfig> {
+  const enableUserAgentStyles =
+    typeof options?.stylesConfig?.enableUserAgentStyles === 'boolean'
+      ? options.stylesConfig.enableUserAgentStyles
+      : defaultStylesConfig.enableUserAgentStyles;
+  const baseStyle = {
+    ...(enableUserAgentStyles
+      ? defaultStylesConfig.baseStyle
+      : omit(['fontSize'], defaultStylesConfig.baseStyle)),
+    ...options?.stylesConfig?.baseStyle
+  };
+  return {
+    ...defaultStylesConfig,
+    ...options?.stylesConfig,
+    baseStyle
+  };
+}
+
 export class TRenderEngine {
   private htmlParserOptions: Readonly<HTMLParserOptions>;
   private dataFlowParams: DataFlowParams;
   constructor(options?: TRenderEngineOptions) {
-    const baseStyle = {
-      ...defaultStylesConfig.baseStyle,
-      ...options?.stylesConfig?.baseStyle
-    };
+    const stylesConfig = createStylesConfig(options);
     const modelRegistry = new HTMLModelRegistry(options?.customizeHTMLModels);
     const userSelectedFontSize =
-      options?.cssProcessorConfig?.rootFontSize || baseStyle.fontSize;
+      options?.cssProcessorConfig?.rootFontSize ||
+      stylesConfig.baseStyle?.fontSize;
     // TODO log a warning when type is string
-    const rootFontSize =
-      typeof userSelectedFontSize === 'number' ? userSelectedFontSize : 14;
-    const stylesConfig = {
-      ...defaultStylesConfig,
-      ...options?.stylesConfig,
-      baseStyle
-    };
-    if (stylesConfig.enableUserAgentStyles) {
-      stylesConfig.baseStyle.fontSize = rootFontSize;
-    }
     const stylesMerger = new TStylesMerger(stylesConfig, modelRegistry, {
       ...defaultCSSProcessorConfig,
       ...options?.cssProcessorConfig,
-      rootFontSize
+      rootFontSize:
+        typeof userSelectedFontSize === 'number' ? userSelectedFontSize : 14
     });
     this.htmlParserOptions = {
       decodeEntities: true,
