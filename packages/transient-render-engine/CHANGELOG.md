@@ -1,3 +1,10 @@
+## [3.6.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.6.0...@native-html/transient-render-engine@3.6.1) (2020-12-03)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** use unicode escape sequences inside regex literal ([6fad215](https://github.com/native-html/core/commit/6fad2154a56c231225e9f9152b36660ce034c59c))
+
 # [3.6.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.5.8...@native-html/transient-render-engine@3.6.0) (2020-11-30)
 
 
