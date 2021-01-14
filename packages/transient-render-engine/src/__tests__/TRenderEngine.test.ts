@@ -406,15 +406,6 @@ describe('TRenderEngine > buildTTree method', () => {
         }
       });
     });
-    it('should work with ol tags', () => {
-      const tdoc = customTTreeBuilder.buildTTree('<ol><li>Sneaky</li></ol>');
-      const tol = tdoc.children[0].children[0];
-      expect(tol).toMatchObject({
-        type: 'block',
-        tagName: 'ol'
-      });
-      expect(tol.styles.webTextFlow.listStyleType).toBe('decimal');
-    });
   });
   describe('should retain own baseStyles', () => {
     const config = {

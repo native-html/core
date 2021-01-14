@@ -414,10 +414,7 @@ const groupingModelMap: HTMLModelRecord<
   ol: HTMLElementModel.fromNativeModel({
     tagName: 'ol',
     category: 'grouping',
-    mixedUAStyles: {
-      ...listStyles,
-      listStyleType: 'decimal'
-    }
+    mixedUAStyles: listStyles
   }),
   p: HTMLElementModel.fromNativeModel({
     tagName: 'p',
@@ -447,18 +444,12 @@ const groupingModelMap: HTMLModelRecord<
   ul: HTMLElementModel.fromNativeModel({
     tagName: 'ul',
     category: 'grouping',
-    mixedUAStyles: {
-      ...listStyles,
-      listStyleType: 'disc'
-    }
+    mixedUAStyles: listStyles
   }),
   dir: HTMLElementModel.fromNativeModel({
     tagName: 'dir',
     category: 'grouping',
-    mixedUAStyles: {
-      ...listStyles,
-      listStyleType: 'disc'
-    }
+    mixedUAStyles: listStyles
   })
 };
 
