@@ -1,3 +1,10 @@
+## [3.6.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.6.1...@native-html/transient-render-engine@3.6.2) (2021-01-14)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** remove UA listStyleType style ([7738142](https://github.com/native-html/core/commit/773814276d8f6c279e5f5768b61977a332e86dc0))
+
 ## [3.6.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.6.0...@native-html/transient-render-engine@3.6.1) (2020-12-03)
 
 
