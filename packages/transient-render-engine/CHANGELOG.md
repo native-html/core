@@ -1,3 +1,10 @@
+# [3.7.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.6.2...@native-html/transient-render-engine@3.7.0) (2021-01-18)
+
+
+### Features
+
+* new alterDOMParams option ([53b00bc](https://github.com/native-html/core/commit/53b00bcb6d82c6102ee7834edade6a5a3416132d))
+
 ## [3.6.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.6.1...@native-html/transient-render-engine@3.6.2) (2021-01-14)
 
 
