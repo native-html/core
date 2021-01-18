@@ -30,3 +30,4 @@ export type { TRenderEngineOptions } from './TRenderEngine';
 export { default as tnodeToString } from './tnodeToString';
 export { default as defaultHTMLElementModels } from './model/defaultHTMLElementModels';
 export type { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
+export type { AlterDOMParams } from './dom/alterDOMNodes';

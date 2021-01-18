@@ -16,6 +16,7 @@ import HTMLModelRegistry from './model/HTMLModelRegistry';
 import { HTMLModelRecord, TagName } from './model/model-types';
 import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
 import { DataFlowParams } from './flow/types';
+import alterDOMNodes, { AlterDOMParams } from './dom/alterDOMNodes';
 
 export interface TRenderEngineOptions<E extends string = never> {
   /**
@@ -45,6 +46,10 @@ export interface TRenderEngineOptions<E extends string = never> {
    * @defaultValue false
    */
   readonly removeLineBreaksAroundEastAsianDiscardSet?: boolean;
+  /**
+   * Alter the DOM tree prior to pre-rendering.
+   */
+  readonly alterDOMParams?: AlterDOMParams;
 }
 
 function createStylesConfig(
@@ -70,6 +75,7 @@ function createStylesConfig(
 export class TRenderEngine {
   private htmlParserOptions: Readonly<HTMLParserOptions>;
   private dataFlowParams: DataFlowParams;
+  private alterDOMParams?: AlterDOMParams;
   constructor(options?: TRenderEngineOptions) {
     const stylesConfig = createStylesConfig(options);
     const modelRegistry = new HTMLModelRegistry(options?.customizeHTMLModels);
@@ -83,6 +89,7 @@ export class TRenderEngine {
       rootFontSize:
         typeof userSelectedFontSize === 'number' ? userSelectedFontSize : 14
     });
+    this.alterDOMParams = options?.alterDOMParams;
     this.htmlParserOptions = {
       decodeEntities: true,
       ...options?.htmlParserOptions
@@ -99,7 +106,14 @@ export class TRenderEngine {
   }
 
   buildTTree(html: string) {
-    const documentTree = parseDOM(html, this.htmlParserOptions);
+    let documentTree = parseDOM(html, this.htmlParserOptions);
+    if (
+      this.alterDOMParams?.alterDOMChildren ||
+      this.alterDOMParams?.alterDOMData ||
+      this.alterDOMParams?.alterDOMElement
+    ) {
+      documentTree = alterDOMNodes(documentTree, this.alterDOMParams);
+    }
     const tdoc = translateDocument(documentTree, this.dataFlowParams);
     return collapse(hoist(tdoc), this.dataFlowParams) as TDocument;
   }

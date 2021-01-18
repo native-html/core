@@ -468,4 +468,27 @@ describe('TRenderEngine > buildTTree method', () => {
       expect(tdoc.children[0].children[0]).toMatchObject(expectedObject);
     });
   });
+  it('should support alterDOMParams', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      alterDOMParams: {
+        alterDOMData() {
+          return 'hey';
+        }
+      }
+    });
+
+    const tdoc = customTTreeBuilder.buildTTree(
+      '<em>This text should inherit baseStyles</em>'
+    );
+    expect(tdoc.children[0].children[0]).toMatchObject({
+      type: 'phrasing',
+      children: [
+        {
+          tagName: 'em',
+          type: 'text',
+          data: 'hey'
+        }
+      ]
+    });
+  });
 });
