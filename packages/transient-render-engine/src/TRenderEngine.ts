@@ -108,6 +108,7 @@ export class TRenderEngine {
   buildTTree(html: string) {
     let documentTree = parseDOM(html, this.htmlParserOptions);
     if (
+      this.alterDOMParams?.ignoreDOMNode ||
       this.alterDOMParams?.alterDOMChildren ||
       this.alterDOMParams?.alterDOMData ||
       this.alterDOMParams?.alterDOMElement
