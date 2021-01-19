@@ -1,3 +1,10 @@
+## [3.8.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.8.0...@native-html/transient-render-engine@3.8.1) (2021-01-19)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** ignoreDOMNode ignored when no other hooks ([d54e37b](https://github.com/native-html/core/commit/d54e37b6cb8f7c5a71affcdb70795b1ed79d5edb))
+
 # [3.8.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.7.0...@native-html/transient-render-engine@3.8.0) (2021-01-19)
 
 
