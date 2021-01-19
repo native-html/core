@@ -1,3 +1,15 @@
+# [3.8.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.7.0...@native-html/transient-render-engine@3.8.0) (2021-01-19)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** reset `alterDOMChildren` signature ([32f0699](https://github.com/native-html/core/commit/32f069989bcc555b6d451c786a5bf33a11682f21))
+
+
+### Features
+
+* support `ignoreDOMNode` hook in AlterDOMParams ([fa498af](https://github.com/native-html/core/commit/fa498af5d524399135c3a4dd3a5c977b1df10186))
+
 # [3.7.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.6.2...@native-html/transient-render-engine@3.7.0) (2021-01-18)
 
 
