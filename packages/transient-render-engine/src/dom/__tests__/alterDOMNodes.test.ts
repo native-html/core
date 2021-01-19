@@ -1,6 +1,6 @@
 import alterDOMNodes from '../alterDOMNodes';
 import { parseDOM } from 'htmlparser2';
-import { Element } from 'domhandler';
+import { Element, Node } from 'domhandler';
 
 describe('alterDOMNodes', () => {
   it('should support alterDOMData', () => {
@@ -31,6 +31,17 @@ describe('alterDOMNodes', () => {
     const alteredTree = alterDOMNodes(documentTree, {
       alterDOMChildren() {
         return [];
+      }
+    });
+    expect(alteredTree[0]).toMatchObject({
+      children: []
+    });
+  });
+  it('should support ignoreDOMNode', () => {
+    const documentTree = parseDOM('<div><em>ho</em></div>');
+    const alteredTree = alterDOMNodes(documentTree, {
+      ignoreDOMNode(node: Node) {
+        return node.type === 'tag' && (node as Element).tagName === 'em';
       }
     });
     expect(alteredTree[0]).toMatchObject({
