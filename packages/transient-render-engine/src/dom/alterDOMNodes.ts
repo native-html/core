@@ -9,7 +9,7 @@ import identity from 'ramda/src/identity';
 
 export interface AlterDOMParams {
   alterDOMData?: (node: DOMText) => string | false | void;
-  alterDOMChildren?: (nodes: DOMNode[]) => DOMNode[] | false | void;
+  alterDOMChildren?: (node: DOMElement) => DOMNode[] | false | void;
   alterDOMElement?: (node: DOMElement) => DOMElement | false | void;
 }
 
@@ -27,7 +27,7 @@ export default function alterDOMNodes(
     if (node.type === 'tag') {
       const elementNode =
         alterDOMElement(node as DOMElement) || (nextNode as DOMElement);
-      const alteredChildren = alterDOMChildren(elementNode.children);
+      const alteredChildren = alterDOMChildren(elementNode);
       elementNode.children = Array.isArray(alteredChildren)
         ? alteredChildren
         : elementNode.children;
