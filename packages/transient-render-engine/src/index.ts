@@ -17,7 +17,8 @@ export type {
 } from './dom/to-serializable';
 export {
   isSerializableElement,
-  isSerializableText
+  isSerializableText,
+  toSerializableNode
 } from './dom/to-serializable';
 export {
   Node as DOMNode,
