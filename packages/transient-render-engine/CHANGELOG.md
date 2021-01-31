@@ -1,3 +1,10 @@
+# [3.9.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.8.1...@native-html/transient-render-engine@3.9.0) (2021-01-31)
+
+
+### Features
+
+* **transient-render-engine:** export toSerializableNode ([73aa4d4](https://github.com/native-html/core/commit/73aa4d41cb33ff2849acc1709d25d135b22cd169))
+
 ## [3.8.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.8.0...@native-html/transient-render-engine@3.8.1) (2021-01-19)
 
 
