@@ -170,7 +170,7 @@ export interface ElementModelBase<T extends string> {
    */
   tagName: T;
   /**
-   * An opaque element translated TNode will have access to the DOM children.
+   * An opaque element translated TNode will have a `domNode` property.
    */
   isOpaque?: boolean;
   /**

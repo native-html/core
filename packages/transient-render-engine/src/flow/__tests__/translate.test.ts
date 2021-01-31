@@ -106,9 +106,9 @@ describe('translateNode function', () => {
     it('should translate to TBlock', () => {
       expect(ttree).toBeInstanceOf(TBlock);
     });
-    it('should set domChildren attribute', () => {
+    it('should set domNode attribute', () => {
       expect(ttree).toMatchObject({
-        domChildren: expect.any(Array)
+        domNode: expect.any(Object)
       });
     });
     it('should translate translatable children', () => {

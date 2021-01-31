@@ -105,7 +105,7 @@ function translateElement(
       contentModel,
       elementModel,
       parentStyles,
-      domChildren: elementModel.isOpaque ? node.children : undefined
+      domNode: elementModel.isOpaque ? node : undefined
     });
     bindChildren(block, node.children, params);
     return block;
