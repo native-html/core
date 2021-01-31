@@ -1,3 +1,10 @@
+## [3.9.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.9.0...@native-html/transient-render-engine@3.9.1) (2021-01-31)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** missing domNode initial value ([ba9328c](https://github.com/native-html/core/commit/ba9328cf2b59d3c5616beb68423d629b56e250c8))
+
 # [3.9.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.8.1...@native-html/transient-render-engine@3.9.0) (2021-01-31)
 
 
