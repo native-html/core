@@ -50,7 +50,8 @@ function translateElement(
     tagName,
     parentStyles,
     stylesMerger: params.stylesMerger,
-    attributes: node.attribs
+    attributes: node.attribs,
+    domNode: null
   };
   if (tagName === 'html') {
     const tdoc = new TDocument({
@@ -105,7 +106,7 @@ function translateElement(
       contentModel,
       elementModel,
       parentStyles,
-      domNode: elementModel.isOpaque ? node : undefined
+      domNode: elementModel.isOpaque ? node : null
     });
     bindChildren(block, node.children, params);
     return block;
@@ -130,7 +131,8 @@ export function translateNode(
       stylesMerger: params.stylesMerger,
       contentModel: null,
       elementModel: null,
-      parentStyles
+      parentStyles,
+      domNode: null
     });
   }
   if (isSerializableElement(node)) {
@@ -156,13 +158,15 @@ export function translateDocument(
         stylesMerger: params.stylesMerger,
         contentModel: defaultHTMLElementModels.body.contentModel,
         elementModel: defaultHTMLElementModels.body,
-        parentStyles: params.baseStyles
+        parentStyles: params.baseStyles,
+        domNode: null
       });
       body.bindChildren(rootNodes);
     }
     const newTdoc = new TDocument({
       styles: params.baseStyles,
-      stylesMerger: params.stylesMerger
+      stylesMerger: params.stylesMerger,
+      domNode: null
     });
     newTdoc.bindChildren([body]);
     return newTdoc;

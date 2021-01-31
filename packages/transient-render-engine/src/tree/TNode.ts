@@ -8,7 +8,7 @@ export interface TNodeInit {
   /**
    * Opaque nodes will hold a reference to a serializable DOM node.
    */
-  domNode?: SerializableElement;
+  domNode: SerializableElement | null;
   tagName?: string | null;
   contentModel: HTMLContentModel | null;
   elementModel: HTMLElementModel<string, HTMLContentModel> | null;
@@ -29,7 +29,7 @@ export abstract class TNode implements TNodeInit {
     HTMLContentModel
   > | null;
   public readonly children: TNode[];
-  public readonly domNode?: SerializableElement;
+  public readonly domNode: SerializableElement | null;
   public readonly tagName: string | null;
   public readonly className: string | null;
   public readonly id: string | null;
@@ -44,6 +44,7 @@ export abstract class TNode implements TNodeInit {
     this.contentModel = init.contentModel;
     this.tagName = init.tagName || null;
     this.elementModel = init.elementModel;
+    this.domNode = init.domNode || null;
     this.id = this.attributes.id || null;
     this.className = this.attributes.class || null;
     Object.defineProperty(this, 'stylesMerger', {

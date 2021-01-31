@@ -15,6 +15,7 @@ TPhrasing {
 This is
 ",
       "displayName": "TText",
+      "domNode": null,
       "elementModel": null,
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
@@ -42,6 +43,7 @@ This is
       "contentModel": "textual",
       "data": "phrasing content",
       "displayName": "TText",
+      "domNode": null,
       "elementModel": HTMLElementModel {
         "contentModel": "textual",
         "getUADerivedStyleFromAttributes": undefined,
@@ -76,6 +78,7 @@ This is
       "data": "
 ",
       "displayName": "TText",
+      "domNode": null,
       "elementModel": null,
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
@@ -146,6 +149,7 @@ This is
       "data": "
     and this is ",
       "displayName": "TText",
+      "domNode": null,
       "elementModel": null,
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
@@ -173,6 +177,7 @@ This is
       "contentModel": "textual",
       "data": "too",
       "displayName": "TText",
+      "domNode": null,
       "elementModel": HTMLElementModel {
         "contentModel": "textual",
         "getUADerivedStyleFromAttributes": undefined,
@@ -209,6 +214,7 @@ This is
       "data": ".
 ",
       "displayName": "TText",
+      "domNode": null,
       "elementModel": null,
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
@@ -233,6 +239,7 @@ This is
   "className": null,
   "contentModel": "mixed",
   "displayName": "TPhrasing",
+  "domNode": null,
   "elementModel": HTMLElementModel {
     "contentModel": "mixed",
     "getUADerivedStyleFromAttributes": [Function],
