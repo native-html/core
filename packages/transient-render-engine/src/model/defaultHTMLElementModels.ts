@@ -488,7 +488,7 @@ const tabularModelMap: HTMLModelRecord<
 };
 
 // Embedded elements are considered "opaque", i.e. no children are meant to be
-// translated. A reference to domChildren will be available on the rendering
+// translated. A reference to domNode will be available on the rendering
 // end.
 const embeddedModelMap: HTMLModelRecord<
   EmbeddedTagNames,
