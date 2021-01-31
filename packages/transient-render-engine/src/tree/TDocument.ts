@@ -72,7 +72,8 @@ export class TDocument extends TBlock {
   constructor({
     attributes,
     stylesMerger,
-    styles
+    styles,
+    domNode
   }: Omit<TNodeInit, 'contentModel' | 'elementModel' | 'parentStyles'>) {
     super({
       tagName: 'html',
@@ -81,7 +82,8 @@ export class TDocument extends TBlock {
       contentModel: htmlModel.contentModel,
       elementModel: htmlModel,
       parentStyles: null,
-      stylesMerger
+      stylesMerger,
+      domNode
     });
     // @ts-ignore
     this.type = 'document';
@@ -112,7 +114,8 @@ export class TDocument extends TBlock {
           contentModel: defaultHTMLElementModels.body.contentModel,
           elementModel: defaultHTMLElementModels.body,
           stylesMerger: this.stylesMerger,
-          parentStyles: this.styles
+          parentStyles: this.styles,
+          domNode: null
         })
     ]);
     //@ts-ignore

@@ -18,6 +18,7 @@ export const defaultInit = {
   parentStyles: null,
   contentModel: null,
   elementModel: null,
+  domNode: null,
   stylesMerger: defaultStylesMerger
 };
 

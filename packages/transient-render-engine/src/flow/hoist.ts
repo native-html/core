@@ -13,7 +13,8 @@ function groupText(tnode: TBlock): TNode {
     parentStyles: tnode.styles,
     contentModel: null,
     elementModel: null,
-    stylesMerger: tnode.stylesMerger
+    stylesMerger: tnode.stylesMerger,
+    domNode: null
   });
   let wrapper = wrappernode.newEmpty();
   for (const child of tnode.children) {
