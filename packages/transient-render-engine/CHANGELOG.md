@@ -1,3 +1,10 @@
+# [4.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.0.0...@native-html/transient-render-engine@4.1.0) (2021-02-01)
+
+
+### Features
+
+* **transient-render-engine:** provide default styles for tabular elements ([e26811b](https://github.com/native-html/core/commit/e26811bd95b007e1d1a7758c6c5ca8718b7a03e1))
+
 # [4.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.9.1...@native-html/transient-render-engine@4.0.0) (2021-02-01)
 
 
