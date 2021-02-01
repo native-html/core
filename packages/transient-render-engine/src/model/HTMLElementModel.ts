@@ -93,7 +93,7 @@ export default class HTMLElementModel<
       T,
       E extends 'edits' | 'anchor'
         ? HTMLContentModel.mixed
-        : E extends 'sectioning' | 'grouping'
+        : E extends 'sectioning' | 'grouping' | 'tabular'
         ? HTMLContentModel.block
         : E extends 'textual'
         ? HTMLContentModel.textual

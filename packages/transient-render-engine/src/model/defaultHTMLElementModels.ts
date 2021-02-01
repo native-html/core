@@ -455,7 +455,7 @@ const groupingModelMap: HTMLModelRecord<
 
 const tabularModelMap: HTMLModelRecord<
   TabularTagNames,
-  HTMLContentModel.none
+  HTMLContentModel.block
 > = {
   table: HTMLElementModel.fromNativeModel({
     tagName: 'table',
@@ -467,7 +467,11 @@ const tabularModelMap: HTMLModelRecord<
   }),
   td: HTMLElementModel.fromNativeModel({
     tagName: 'td',
-    category: 'tabular'
+    category: 'tabular',
+    mixedUAStyles: {
+      padding: 2,
+      flex: 1
+    }
   }),
   tfoot: HTMLElementModel.fromNativeModel({
     tagName: 'tfoot',
@@ -475,7 +479,12 @@ const tabularModelMap: HTMLModelRecord<
   }),
   th: HTMLElementModel.fromNativeModel({
     tagName: 'th',
-    category: 'tabular'
+    category: 'tabular',
+    mixedUAStyles: {
+      padding: 2,
+      flex: 1,
+      fontWeight: 'bold'
+    }
   }),
   thead: HTMLElementModel.fromNativeModel({
     tagName: 'thead',
@@ -483,7 +492,11 @@ const tabularModelMap: HTMLModelRecord<
   }),
   tr: HTMLElementModel.fromNativeModel({
     tagName: 'tr',
-    category: 'tabular'
+    category: 'tabular',
+    mixedUAStyles: {
+      flexDirection: 'row',
+      flexWrap: 'nowrap'
+    }
   })
 };
 
