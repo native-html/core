@@ -9,7 +9,6 @@ import {
 
 const phrasingCategories: ElementCategory[] = ['textual', 'edits', 'anchor'];
 const translatableBlockCategories: ElementCategory[] = [
-  'embedded',
   'tabular',
   'grouping',
   'sectioning'
@@ -94,7 +93,7 @@ export default class HTMLElementModel<
       T,
       E extends 'edits' | 'anchor'
         ? HTMLContentModel.mixed
-        : E extends 'embedded' | 'sectioning' | 'grouping'
+        : E extends 'sectioning' | 'grouping'
         ? HTMLContentModel.block
         : E extends 'textual'
         ? HTMLContentModel.textual

@@ -487,12 +487,31 @@ const tabularModelMap: HTMLModelRecord<
   })
 };
 
-// Embedded elements are considered "opaque", i.e. no children are meant to be
-// translated. A reference to domNode will be available on the rendering
-// end.
-const embeddedModelMap: HTMLModelRecord<
-  EmbeddedTagNames,
+// These emnbedded should be rendered by default.
+const renderedEmbeddedModelMap: HTMLModelRecord<
+  Extract<EmbeddedTagNames, 'picture' | 'img'>,
   HTMLContentModel.block
+> = {
+  img: HTMLElementModel.fromNativeModel({
+    tagName: 'img',
+    category: 'embedded',
+    isVoid: true
+  }).extend({
+    contentModel: HTMLContentModel.block
+  }),
+  picture: HTMLElementModel.fromNativeModel({
+    tagName: 'picture',
+    category: 'embedded',
+    isVoid: false // allows source and img
+  }).extend({
+    contentModel: HTMLContentModel.block
+  })
+};
+
+// Embedded elements content model is "none" by default.
+const emptyEmbeddedModelMap: HTMLModelRecord<
+  Exclude<EmbeddedTagNames, 'img' | 'picture'>,
+  HTMLContentModel.none
 > = {
   audio: HTMLElementModel.fromNativeModel({
     tagName: 'audio',
@@ -514,30 +533,22 @@ const embeddedModelMap: HTMLModelRecord<
     category: 'embedded',
     isVoid: true
   }),
-  img: HTMLElementModel.fromNativeModel({
-    tagName: 'img',
-    category: 'embedded',
-    isVoid: true
-  }),
   math: HTMLElementModel.fromNativeModel({
     tagName: 'math',
     category: 'embedded',
-    isVoid: false // allows mathml elems
+    isVoid: false, // allows mathml elems
+    isOpaque: true
   }),
   object: HTMLElementModel.fromNativeModel({
     tagName: 'object',
     category: 'embedded',
     isVoid: false // allows params
   }),
-  picture: HTMLElementModel.fromNativeModel({
-    tagName: 'picture',
-    category: 'embedded',
-    isVoid: false // allows source and img
-  }),
   svg: HTMLElementModel.fromNativeModel({
     tagName: 'svg',
     category: 'embedded',
-    isVoid: false // allows svg elems
+    isVoid: false, // allows svg elems
+    isOpaque: true
   }),
   video: HTMLElementModel.fromNativeModel({
     tagName: 'video',
@@ -744,7 +755,8 @@ const defaultHTMLElementModels = {
   }),
   ...textLevelModelMap,
   ...editsModelMap,
-  ...embeddedModelMap,
+  ...renderedEmbeddedModelMap,
+  ...emptyEmbeddedModelMap,
   ...tabularModelMap,
   ...groupingModelMap,
   ...sectioningModelMap,
