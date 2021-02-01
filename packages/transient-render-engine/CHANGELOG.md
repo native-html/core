@@ -1,3 +1,16 @@
+# [4.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.9.1...@native-html/transient-render-engine@4.0.0) (2021-02-01)
+
+
+### Code Refactoring
+
+* **transient-render-engine:** distinguish between rendered and other embedded ([8d003c0](https://github.com/native-html/core/commit/8d003c0f3e0bcf9f124250656ade0b0374604fb0))
+
+
+### BREAKING CHANGES
+
+* **transient-render-engine:** the content model for embedded other than `img` and
+`picture` is now "none".
+
 ## [3.9.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@3.9.0...@native-html/transient-render-engine@3.9.1) (2021-01-31)
 
 
