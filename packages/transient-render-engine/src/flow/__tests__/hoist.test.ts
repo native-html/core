@@ -83,4 +83,25 @@ describe('hoist function', () => {
     });
     expect(tdoc.children).toHaveLength(1);
   });
+  it('should not let TEmpty tags break inline context ', () => {
+    const tspan = makeTTree('<span>test<c>Yo!</c> ahah</span>');
+    expect(tspan).toMatchObject({
+      type: 'phrasing',
+      tagName: 'span',
+      children: [
+        {
+          type: 'text',
+          data: 'test'
+        },
+        {
+          type: 'empty',
+          tagName: 'c'
+        },
+        {
+          type: 'text',
+          data: ' ahah'
+        }
+      ]
+    });
+  });
 });
