@@ -1907,6 +1907,7 @@ __metadata:
     "@types/ramda": ^0.27.32
     "@types/react-native": ^0.63.25
     babel-jest: ^26.5.2
+    csstype: ^3.0.4
     eslint: ^7.10.0
     htmlparser2: ^5.0.1
     jest: ^26.5.2

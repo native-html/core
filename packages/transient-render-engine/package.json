@@ -74,6 +74,7 @@
   "dependencies": {
     "@native-html/css-processor": "workspace:*",
     "@types/ramda": "^0.27.32",
+    "csstype": "^3.0.4",
     "htmlparser2": "^5.0.1",
     "ramda": "^0.27.1"
   }
