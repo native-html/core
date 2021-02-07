@@ -1,3 +1,20 @@
+# [4.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.1.0...@native-html/transient-render-engine@4.2.0) (2021-02-07)
+
+
+### Bug Fixes
+
+* **transient-render-engine:** provide csstype dependency for css-processor ([ca6104e](https://github.com/native-html/core/commit/ca6104ef311f2ad9d69d44b7993c85f66152a7df))
+
+
+### Features
+
+* **transient-render-engine:** support picture node as basic block ([a3a384b](https://github.com/native-html/core/commit/a3a384b29934fc16e8019ed2a1c1390059215ac9))
+
+
+### Performance Improvements
+
+* **transient-render-engine:** don't translate children of opaque nodes ([f68efae](https://github.com/native-html/core/commit/f68efae6c674595bf128390cefcf65c5c7d01583))
+
 # [4.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.0.0...@native-html/transient-render-engine@4.1.0) (2021-02-01)
 
 
