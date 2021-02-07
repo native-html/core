@@ -37,7 +37,9 @@ export function bindChildren(
   children: SerializableNode[],
   params: DataFlowParams
 ) {
-  node.bindChildren(mapNodeList(children, node.styles, params));
+  if (!node.elementModel || !node.elementModel.isOpaque) {
+    node.bindChildren(mapNodeList(children, node.styles, params));
+  }
 }
 
 function translateElement(

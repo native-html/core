@@ -1,5 +1,5 @@
 import { TStyles } from '../../styles/TStyles';
-import { TBlock } from '../../tree/TBlock';
+import { TEmpty } from '../../tree/TEmpty';
 import { mapNodeList } from '../translate';
 import { rfc002Source, href, imgSrc } from './shared';
 import {
@@ -100,19 +100,18 @@ describe('translateNode function', () => {
     });
   });
   describe('regarding opaque blocks', () => {
-    const pictureSrc =
-      '<picture><source srcset="/media/cc0-images/surfer-240-200.jpg" media="(min-width: 800px)"><img src="/media/cc0-images/painted-hand-298-332.jpg" alt="" /></picture>';
-    const ttree = translateTreeTest(pictureSrc);
-    it('should translate to TBlock', () => {
-      expect(ttree).toBeInstanceOf(TBlock);
+    const svgSrc = '<svg><path /></svg>';
+    const ttree = translateTreeTest(svgSrc);
+    it('should translate to TEmpty', () => {
+      expect(ttree).toBeInstanceOf(TEmpty);
     });
     it('should set domNode attribute', () => {
       expect(ttree).toMatchObject({
         domNode: expect.any(Object)
       });
     });
-    it('should translate translatable children', () => {
-      expect(ttree.children).toHaveLength(2);
+    it('should not translate children', () => {
+      expect(ttree.children).toHaveLength(0);
     });
   });
 });
