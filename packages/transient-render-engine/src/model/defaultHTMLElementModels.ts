@@ -515,6 +515,7 @@ const renderedEmbeddedModelMap: HTMLModelRecord<
   picture: HTMLElementModel.fromNativeModel({
     tagName: 'picture',
     category: 'embedded',
+    isOpaque: false,
     isVoid: false // allows source and img
   }).extend({
     contentModel: HTMLContentModel.block
