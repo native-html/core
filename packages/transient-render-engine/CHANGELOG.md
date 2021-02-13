@@ -1,3 +1,16 @@
+# [4.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.2.0...@native-html/transient-render-engine@4.3.0) (2021-02-13)
+
+
+### Bug Fixes
+
+* import of const enum not working ([c41ca5d](https://github.com/native-html/core/commit/c41ca5d79e058d4f96a6cc5237cd12f2a8bc7600))
+
+
+### Features
+
+* **transient-render-engine:** parent field in `TNode` ([da2d3de](https://github.com/native-html/core/commit/da2d3de9c2d7b9f9da19ed2ad5d608306c364e80))
+* **transient-render-engine:** support nodeIndex ([3f7e33f](https://github.com/native-html/core/commit/3f7e33fa8153df15b63588a2f3a7029274280823))
+
 # [4.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.1.0...@native-html/transient-render-engine@4.2.0) (2021-02-07)
 
 
