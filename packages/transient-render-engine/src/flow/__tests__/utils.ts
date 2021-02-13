@@ -4,7 +4,7 @@ import HTMLModelRegistry from '../../model/HTMLModelRegistry';
 import { defaultStylesConfig } from '../../styles/defaults';
 import { TStyles } from '../../styles/TStyles';
 import { TStylesMerger } from '../../styles/TStylesMerger';
-import { TNode } from '../../tree/TNode';
+import { TNode, TNodeInit } from '../../tree/TNode';
 import { translateNode } from '../translate';
 import { DataFlowParams } from '../types';
 
@@ -14,13 +14,14 @@ export const defaultStylesMerger = new TStylesMerger(
   defaultStylesConfig,
   defaultModelRegistry
 );
-export const defaultInit = {
+export const defaultInit: TNodeInit = {
   parentStyles: null,
   contentModel: null,
   elementModel: null,
   domNode: null,
   stylesMerger: defaultStylesMerger,
-  nodeIndex: 0
+  nodeIndex: 0,
+  parent: null
 };
 
 export const defaultDataFlowParams: DataFlowParams = {
@@ -32,10 +33,11 @@ export const defaultDataFlowParams: DataFlowParams = {
 
 export function translateTreeTest(source: string): TNode {
   const documentTree = parseDOM(source);
-  return translateNode(
-    toSerializableNode(documentTree[0]),
-    null,
-    defaultDataFlowParams,
-    0
-  ) as TNode;
+  return translateNode({
+    node: toSerializableNode(documentTree[0]),
+    parentStyles: null,
+    params: defaultDataFlowParams,
+    nodeIndex: 0,
+    parent: null
+  }) as TNode;
 }

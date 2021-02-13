@@ -18,11 +18,17 @@ export interface TNodeInit {
   stylesMerger: TStylesMerger;
   /**
    * The position of this element relatively to its parents, before hoisting.
+   *
+   * @remarks
    * "Before hoisting" implies that this index corresponds to the node position
    * in the DOM, after suppressing empty elements as per whitespace collapsing
    * algorithm.
    */
   nodeIndex: number;
+  /**
+   * The parent of this node before hoisting.
+   */
+  parent: TNode | null;
 }
 
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';
@@ -41,6 +47,7 @@ export abstract class TNode implements TNodeInit {
   public readonly className: string | null;
   public readonly id: string | null;
   public readonly parentStyles: TStyles | null;
+  public readonly parent!: TNode | null;
   public readonly hasWhiteSpaceCollapsingEnabled: boolean;
   public readonly stylesMerger!: TStylesMerger;
   public readonly nodeIndex: number;
@@ -59,6 +66,10 @@ export abstract class TNode implements TNodeInit {
     Object.defineProperty(this, 'stylesMerger', {
       enumerable: false,
       value: init.stylesMerger
+    });
+    Object.defineProperty(this, 'parent', {
+      enumerable: false,
+      value: init.parent
     });
     this.styles =
       init.styles ||

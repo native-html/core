@@ -84,7 +84,8 @@ export class TDocument extends TBlock {
       parentStyles: null,
       stylesMerger,
       domNode,
-      nodeIndex: 0
+      nodeIndex: 0,
+      parent: null
     });
     // @ts-ignore
     this.type = 'document';
@@ -117,7 +118,8 @@ export class TDocument extends TBlock {
           stylesMerger: this.stylesMerger,
           parentStyles: this.styles,
           domNode: null,
-          nodeIndex: 0
+          nodeIndex: 0,
+          parent: this
         })
     ]);
     //@ts-ignore
@@ -137,7 +139,8 @@ export class TDocument extends TBlock {
               children: [],
               tagName: 'head'
             },
-            nodeIndex: 0
+            nodeIndex: 0,
+            parent: this
           }),
         this.attributes.lang
       )

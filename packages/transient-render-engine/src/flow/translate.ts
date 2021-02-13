@@ -17,15 +17,27 @@ import { TEmpty } from '../tree/TEmpty';
 import defaultHTMLElementModels from '../model/defaultHTMLElementModels';
 import { DataFlowParams } from './types';
 
-export function mapNodeList(
-  nodeList: SerializableNode[],
-  parentStyles: TStyles | null,
-  params: DataFlowParams
-): TNode[] {
+export function mapNodeList({
+  nodeList,
+  parent,
+  parentStyles,
+  params
+}: {
+  nodeList: SerializableNode[];
+  parentStyles: TStyles | null;
+  parent: TNode | null;
+  params: DataFlowParams;
+}): TNode[] {
   const nextMap: TNode[] = [];
   for (const i in nodeList) {
     const child = nodeList[i];
-    const translated = translateNode(child, parentStyles, params, Number(i));
+    const translated = translateNode({
+      node: child,
+      parentStyles,
+      params,
+      nodeIndex: Number(i),
+      parent
+    });
     if (translated) {
       nextMap.push(translated);
     }
@@ -39,16 +51,24 @@ export function bindChildren(
   params: DataFlowParams
 ) {
   if (!node.elementModel || !node.elementModel.isOpaque) {
-    node.bindChildren(mapNodeList(children, node.styles, params));
+    node.bindChildren(
+      mapNodeList({
+        nodeList: children,
+        parent: node,
+        parentStyles: node.styles,
+        params
+      })
+    );
   }
 }
 
-function translateElement(
-  node: SerializableElement,
-  parentStyles: TStyles | null,
-  params: DataFlowParams,
-  nodeIndex: number
-): TNode | null {
+function translateElement({
+  node,
+  nodeIndex,
+  params,
+  parent,
+  parentStyles
+}: TranslateParams<SerializableElement>): TNode | null {
   const tagName = node.tagName.toLowerCase();
   const sharedProps: Omit<TNodeInit, 'contentModel' | 'elementModel'> = {
     tagName,
@@ -56,7 +76,8 @@ function translateElement(
     parentStyles,
     stylesMerger: params.stylesMerger,
     attributes: node.attribs,
-    domNode: null
+    domNode: null,
+    parent
   };
   if (tagName === 'html') {
     const tdoc = new TDocument({
@@ -126,12 +147,21 @@ function translateElement(
   });
 }
 
-export function translateNode(
-  node: SerializableNode | null,
-  parentStyles: TStyles | null,
-  params: DataFlowParams,
-  nodeIndex: number
-): TNode | null {
+interface TranslateParams<T = SerializableNode> {
+  node: T;
+  parentStyles: TStyles | null;
+  params: DataFlowParams;
+  nodeIndex: number;
+  parent: TNode | null;
+}
+
+export function translateNode({
+  node,
+  parentStyles,
+  params,
+  nodeIndex,
+  parent
+}: TranslateParams<SerializableNode | null>): TNode | null {
   if (isSerializableText(node)) {
     return new TText({
       data: node.data,
@@ -140,11 +170,12 @@ export function translateNode(
       elementModel: null,
       parentStyles,
       domNode: null,
-      nodeIndex
+      nodeIndex,
+      parent
     });
   }
   if (isSerializableElement(node)) {
-    return translateElement(node, parentStyles, params, nodeIndex);
+    return translateElement({ node, parentStyles, params, nodeIndex, parent });
   }
   return null;
 }
@@ -154,12 +185,24 @@ export function translateDocument(
   params: DataFlowParams
 ): TDocument {
   const serializableDocTree = toSerializableChildren(documentTree);
-  const rootNodes = mapNodeList(serializableDocTree, params.baseStyles, params);
+  const rootNodes = mapNodeList({
+    nodeList: serializableDocTree,
+    parentStyles: params.baseStyles,
+    parent: null,
+    params
+  });
   let foundTdoc = rootNodes.find((n) => n instanceof TDocument);
   if (foundTdoc) {
     return foundTdoc as TDocument;
   } else {
     let body = rootNodes.find((n) => n.tagName === 'body');
+    const newTdoc = new TDocument({
+      styles: params.baseStyles,
+      stylesMerger: params.stylesMerger,
+      domNode: null,
+      nodeIndex: 0,
+      parent: null
+    });
     if (!body) {
       body = new TBlock({
         tagName: 'body',
@@ -168,16 +211,11 @@ export function translateDocument(
         elementModel: defaultHTMLElementModels.body,
         parentStyles: params.baseStyles,
         domNode: null,
-        nodeIndex: 0
+        nodeIndex: 0,
+        parent: newTdoc
       });
       body.bindChildren(rootNodes);
     }
-    const newTdoc = new TDocument({
-      styles: params.baseStyles,
-      stylesMerger: params.stylesMerger,
-      domNode: null,
-      nodeIndex: 0
-    });
     newTdoc.bindChildren([body]);
     return newTdoc;
   }

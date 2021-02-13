@@ -78,6 +78,13 @@ describe('translateNode function', () => {
     );
     expect(tdoc.children[0].styles.nativeBlockRet.backgroundColor).toBe('red');
   });
+  it('should pass set parent field', () => {
+    const tdoc = translateTreeTest(rfc002Source);
+    expect(tdoc.children).toHaveLength(7);
+    for (const child of tdoc.children) {
+      expect(child.parent).toBe(tdoc);
+    }
+  });
   it('should translate a phrasing element with one text child node to a TText element', () => {
     const ttree = translateTreeTest('<span><strong>Hello!</strong></span>');
     expect(ttree).toMatchObject({
@@ -119,11 +126,16 @@ describe('translateNode function', () => {
 describe('mapNodeList function', () => {
   it('should ignore untranslated nodes', () => {
     expect(
-      mapNodeList([null] as any, null, {
-        stylesMerger: defaultStylesMerger,
-        modelRegistry: defaultModelRegistry,
-        baseStyles: TStyles.empty(),
-        removeLineBreaksAroundEastAsianDiscardSet: false
+      mapNodeList({
+        nodeList: [null] as any,
+        parentStyles: null,
+        parent: null,
+        params: {
+          stylesMerger: defaultStylesMerger,
+          modelRegistry: defaultModelRegistry,
+          baseStyles: TStyles.empty(),
+          removeLineBreaksAroundEastAsianDiscardSet: false
+        }
       })
     ).toHaveLength(0);
   });
