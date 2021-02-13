@@ -3,6 +3,7 @@ import {
   Text as DOMText,
   Element as DOMElement
 } from 'domhandler';
+import { ElementType } from 'domelementtype';
 
 import map from 'ramda/src/map';
 import identity from 'ramda/src/identity';
@@ -30,7 +31,7 @@ export default function alterDOMNodes(
     reject(ignoreDOMNode),
     map(function applyParams(node: DOMNode) {
       let nextNode = node;
-      if (node.type === 'tag') {
+      if (node.type === ElementType.Tag) {
         const elementNode =
           alterDOMElement(node as DOMElement) || (nextNode as DOMElement);
         const alteredChildren = alterDOMChildren(elementNode);
@@ -39,7 +40,7 @@ export default function alterDOMNodes(
           : elementNode.children;
         elementNode.children = alterNodes(elementNode.children);
         nextNode = elementNode;
-      } else if (node.type === 'text') {
+      } else if (node.type === ElementType.Text) {
         const textNode = node as DOMText;
         const alteredData = alterDOMData(textNode);
         textNode.data =

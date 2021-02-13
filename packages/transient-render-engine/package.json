@@ -75,6 +75,7 @@
     "@native-html/css-processor": "workspace:*",
     "@types/ramda": "^0.27.32",
     "csstype": "^3.0.4",
+    "domelementtype": "^2.1.0",
     "htmlparser2": "^6.0.0",
     "ramda": "^0.27.1"
   }

@@ -3,6 +3,7 @@
   "extends": "@tsconfig/react-native",
   "compilerOptions": {
     "declaration": true,
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "isolatedModules": false
   }
 }

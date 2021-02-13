@@ -1,4 +1,4 @@
-import { ElementType } from 'htmlparser2';
+import { ElementType } from 'domelementtype';
 import { Node, Text, Element } from 'domhandler';
 
 export function isTextNode(node: Node | null | undefined): node is Text {
