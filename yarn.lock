@@ -1909,7 +1909,7 @@ __metadata:
     babel-jest: ^26.5.2
     csstype: ^3.0.4
     eslint: ^7.10.0
-    htmlparser2: ^5.0.1
+    htmlparser2: ^6.0.0
     jest: ^26.5.2
     metro-react-native-babel-preset: ^0.63.0
     prettier: ^2.1.2
@@ -4413,6 +4413,13 @@ __metadata:
   languageName: node
   linkType: hard
 
+"domelementtype@npm:^2.1.0":
+  version: 2.1.0
+  resolution: "domelementtype@npm:2.1.0"
+  checksum: c3e63b6c94bf74d6375e12370f612d1cd61c0d3bc21b46684d93c797b3924de2e84278b0b5cdf3dce21f64ee94c34a005994f373c0e420759ae1856f075f0f57
+  languageName: node
+  linkType: hard
+
 "domexception@npm:^2.0.1":
   version: 2.0.1
   resolution: "domexception@npm:2.0.1"
@@ -4422,7 +4429,7 @@ __metadata:
   languageName: node
   linkType: hard
 
-"domhandler@npm:^3.0.0, domhandler@npm:^3.3.0":
+"domhandler@npm:^3.0.0":
   version: 3.3.0
   resolution: "domhandler@npm:3.3.0"
   dependencies:
@@ -4431,14 +4438,23 @@ __metadata:
   languageName: node
   linkType: hard
 
-"domutils@npm:^2.4.2":
-  version: 2.4.2
-  resolution: "domutils@npm:2.4.2"
+"domhandler@npm:^4.0.0":
+  version: 4.0.0
+  resolution: "domhandler@npm:4.0.0"
+  dependencies:
+    domelementtype: ^2.1.0
+  checksum: 22cc8e1335728a7c49434d1d12ff1563aea758c26c8ebf50fcf9e28ceb2bd0e5a15518d69abdb5db37aa7c0c347c8f68d323d12fc744a68853fb7641cbdcec89
+  languageName: node
+  linkType: hard
+
+"domutils@npm:^2.4.4":
+  version: 2.4.4
+  resolution: "domutils@npm:2.4.4"
   dependencies:
     dom-serializer: ^1.0.1
     domelementtype: ^2.0.1
-    domhandler: ^3.3.0
-  checksum: 43d7e55714e6597982fc1088e1b5136ede8068b47d831ec9a9047e4ca49a480f3a6e289e636768d0d29077164888e44110cbd19079f780f91a1362f3b77adb73
+    domhandler: ^4.0.0
+  checksum: abee29c1aade78506fb9ccb7bd7a2720fb18a87f230a7f7f2e3438458c27dee03b8abad4f3e448ed39da86d2a573e8bc7323d8dd0f2a473f26a455c017e303ce
   languageName: node
   linkType: hard
 
@@ -5964,15 +5980,15 @@ fsevents@^1.2.7:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^5.0.1":
-  version: 5.0.1
-  resolution: "htmlparser2@npm:5.0.1"
+"htmlparser2@npm:^6.0.0":
+  version: 6.0.0
+  resolution: "htmlparser2@npm:6.0.0"
   dependencies:
     domelementtype: ^2.0.1
-    domhandler: ^3.3.0
-    domutils: ^2.4.2
+    domhandler: ^4.0.0
+    domutils: ^2.4.4
     entities: ^2.0.0
-  checksum: c3564b7d26b5e894ee9aae9132ddf23ce79c4d31881b75aef14224b5d89c2e17dc638fa77c0a576e0fcc4c73cc608890bc63b4452f79d7960d2b4af836247fc0
+  checksum: 03819682d894316d1f8d1a11c9212bdf9c8b2e7a2adc0e19262ac8105d0a4d0577caa1f40bf52ac4876961720342e9f12b86dbf2488f0a8263cf278c03129833
   languageName: node
   linkType: hard
 
