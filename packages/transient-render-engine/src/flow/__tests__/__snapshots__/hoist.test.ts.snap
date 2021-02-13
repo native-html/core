@@ -22,6 +22,7 @@ This is
           "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
+          "nodeIndex": 0,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
@@ -56,6 +57,7 @@ This is
           },
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
+          "nodeIndex": 1,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
@@ -85,6 +87,7 @@ This is
           "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
+          "nodeIndex": 2,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
@@ -110,6 +113,7 @@ This is
       "elementModel": null,
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
+      "nodeIndex": 0,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -152,6 +156,7 @@ This is
       },
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
+      "nodeIndex": 3,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -184,6 +189,7 @@ This is
           "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
+          "nodeIndex": 4,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
@@ -220,6 +226,7 @@ This is
           },
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
+          "nodeIndex": 5,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
@@ -249,6 +256,7 @@ This is
           "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
+          "nodeIndex": 6,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
@@ -274,6 +282,7 @@ This is
       "elementModel": null,
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
+      "nodeIndex": 0,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -305,6 +314,7 @@ This is
   },
   "hasWhiteSpaceCollapsingEnabled": true,
   "id": null,
+  "nodeIndex": 0,
   "parentStyles": TStyles {
     "nativeBlockFlow": Object {},
     "nativeBlockRet": Object {},

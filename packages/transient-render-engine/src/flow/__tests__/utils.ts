@@ -19,7 +19,8 @@ export const defaultInit = {
   contentModel: null,
   elementModel: null,
   domNode: null,
-  stylesMerger: defaultStylesMerger
+  stylesMerger: defaultStylesMerger,
+  nodeIndex: 0
 };
 
 export const defaultDataFlowParams: DataFlowParams = {
@@ -34,6 +35,7 @@ export function translateTreeTest(source: string): TNode {
   return translateNode(
     toSerializableNode(documentTree[0]),
     null,
-    defaultDataFlowParams
+    defaultDataFlowParams,
+    0
   ) as TNode;
 }

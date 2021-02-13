@@ -83,7 +83,8 @@ export class TDocument extends TBlock {
       elementModel: htmlModel,
       parentStyles: null,
       stylesMerger,
-      domNode
+      domNode,
+      nodeIndex: 0
     });
     // @ts-ignore
     this.type = 'document';
@@ -115,7 +116,8 @@ export class TDocument extends TBlock {
           elementModel: defaultHTMLElementModels.body,
           stylesMerger: this.stylesMerger,
           parentStyles: this.styles,
-          domNode: null
+          domNode: null,
+          nodeIndex: 0
         })
     ]);
     //@ts-ignore
@@ -134,7 +136,8 @@ export class TDocument extends TBlock {
               attribs: {},
               children: [],
               tagName: 'head'
-            }
+            },
+            nodeIndex: 0
           }),
         this.attributes.lang
       )

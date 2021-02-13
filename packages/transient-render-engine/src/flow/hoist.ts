@@ -14,7 +14,8 @@ function groupText(tnode: TBlock): TNode {
     contentModel: null,
     elementModel: null,
     stylesMerger: tnode.stylesMerger,
-    domNode: null
+    domNode: null,
+    nodeIndex: 0
   });
   let wrapper = wrappernode.newEmpty();
   for (const child of tnode.children) {
