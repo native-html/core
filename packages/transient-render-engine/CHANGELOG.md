@@ -1,3 +1,10 @@
+# [4.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.3.0...@native-html/transient-render-engine@4.4.0) (2021-02-14)
+
+
+### Features
+
+* **TRE:** supp. `dir` attribute in document context parsing ([4e16916](https://github.com/native-html/core/commit/4e16916213fc33894fa68bf129b312cd5ec136e3))
+
 # [4.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.2.0...@native-html/transient-render-engine@4.3.0) (2021-02-13)
 
 
