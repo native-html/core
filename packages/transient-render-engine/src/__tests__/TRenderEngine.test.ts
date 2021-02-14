@@ -268,6 +268,12 @@ describe('TRenderEngine > buildTTree method', () => {
       );
       expect(tdoc.context).toMatchObject({ lang: 'fr' });
     });
+    it('should register html dir attrib', () => {
+      const tdoc = defaultTTreeBuilder.buildTTree(
+        '<!doctype html><html dir="rtl"></html>'
+      );
+      expect(tdoc.context).toMatchObject({ dir: 'rtl' });
+    });
     it('should register charset', () => {
       const tdoc = defaultTTreeBuilder.buildTTree(
         '<!doctype html><html><head><meta charset="latin1"></meta></head></html>'

@@ -13,6 +13,7 @@ export interface DocumentContext {
   baseHref: string;
   baseTarget: '_blank' | '_self' | '_parent' | '_top';
   lang: string;
+  dir: 'ltr' | 'rtl';
   title: string;
   meta: { name: string; value: string }[];
   links: Record<string, string>[];
@@ -24,6 +25,7 @@ const defaultContextBase: DocumentContext = Object.freeze({
   charset: 'utf-8',
   title: '',
   lang: 'en',
+  dir: 'ltr',
   links: [],
   meta: []
 });
@@ -32,10 +34,13 @@ function getDefaultDocumentContext(): DocumentContext {
   return Object.assign({}, defaultContextBase, { links: [], meta: [] });
 }
 
-function extractContextFromHead(head: TEmpty, lang?: string) {
+function extractContextFromHead(head: TEmpty, lang?: string, dir?: string) {
   const context = getDefaultDocumentContext();
   if (lang) {
     context.lang = lang;
+  }
+  if (dir && dir === 'rtl') {
+    context.dir = 'rtl';
   }
   const domNode = head.domNode;
   const children = domNode.children;
@@ -142,7 +147,8 @@ export class TDocument extends TBlock {
             nodeIndex: 0,
             parent: this
           }),
-        this.attributes.lang
+        this.attributes.lang,
+        this.attributes.dir
       )
     );
   }
