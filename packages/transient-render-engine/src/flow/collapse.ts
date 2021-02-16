@@ -53,7 +53,7 @@ function collapseBlock(node: TBlock, params: DataFlowParams): TBlock {
       }
     }
   }
-  node.bindChildren(newChildren);
+  node.bindChildren(newChildren, true);
   return node;
 }
 
@@ -88,7 +88,7 @@ function collapsePhrasing(node: TPhrasing, params: DataFlowParams): TPhrasing {
       trimmedChildren.push(childI);
     }
   });
-  node.bindChildren(trimmedChildren);
+  node.bindChildren(trimmedChildren, true);
   return node;
 }
 

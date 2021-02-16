@@ -530,4 +530,28 @@ describe('collapse function', () => {
       data: '\u2F00\u2FDA'
     });
   });
+  describe('should set `nodeIndex` field corresponding to the actual index relative to parent', () => {
+    const src = `<table>
+    <tr>
+      <th>Month</th>
+      <th>Fortnight</th>
+      <th>Savings</th>
+    </tr>
+    <tr>
+      <td>January</td>
+      <td>first</td>
+      <td >$50</td>
+    </tr>
+    <tr>
+      <td >second</td>
+      <td>$80</td>
+      <td>$80</td>
+    </tr>
+  </table>`;
+    const ttree = makeTTree(src);
+    expect(ttree.tagName).toBe('table');
+    ttree.children.forEach((child, i) => {
+      expect(child.nodeIndex).toBe(i);
+    });
+  });
 });

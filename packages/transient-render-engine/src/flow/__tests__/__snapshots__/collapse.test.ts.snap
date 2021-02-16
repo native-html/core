@@ -124,7 +124,7 @@ TBlock {
       },
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
-      "nodeIndex": 3,
+      "nodeIndex": 1,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -156,7 +156,7 @@ TBlock {
           "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
-          "nodeIndex": 4,
+          "nodeIndex": 0,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
@@ -193,7 +193,7 @@ TBlock {
           },
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
-          "nodeIndex": 5,
+          "nodeIndex": 1,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
@@ -222,7 +222,7 @@ TBlock {
           "elementModel": null,
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
-          "nodeIndex": 6,
+          "nodeIndex": 2,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},
@@ -248,7 +248,7 @@ TBlock {
       "elementModel": null,
       "hasWhiteSpaceCollapsingEnabled": true,
       "id": null,
-      "nodeIndex": 0,
+      "nodeIndex": 2,
       "parentStyles": TStyles {
         "nativeBlockFlow": Object {},
         "nativeBlockRet": Object {},
@@ -544,7 +544,7 @@ TBlock {
               },
               "hasWhiteSpaceCollapsingEnabled": true,
               "id": null,
-              "nodeIndex": 3,
+              "nodeIndex": 1,
               "parentStyles": TStyles {
                 "nativeBlockFlow": Object {},
                 "nativeBlockRet": Object {},
@@ -1346,7 +1346,7 @@ TBlock {
           },
           "hasWhiteSpaceCollapsingEnabled": true,
           "id": null,
-          "nodeIndex": 3,
+          "nodeIndex": 1,
           "parentStyles": TStyles {
             "nativeBlockFlow": Object {},
             "nativeBlockRet": Object {},

@@ -121,6 +121,31 @@ describe('translateNode function', () => {
       expect(ttree.children).toHaveLength(0);
     });
   });
+  describe('should add a `nodeIndex` field with the index of this node relative to its parent', () => {
+    const src = `<table>
+    <tr>
+      <th>Month</th>
+      <th>Fortnight</th>
+      <th>Savings</th>
+    </tr>
+    <tr>
+      <td>January</td>
+      <td>first</td>
+      <td >$50</td>
+    </tr>
+    <tr>
+      <td >second</td>
+      <td>$80</td>
+      <td>$80</td>
+    </tr>
+  </table>`;
+    const ttree = translateTreeTest(src);
+    expect(ttree.tagName).toBe('table');
+    ttree.children.forEach((child, i) => {
+      console.log('expecting', i);
+      expect(child.nodeIndex).toBe(i);
+    });
+  });
 });
 
 describe('mapNodeList function', () => {

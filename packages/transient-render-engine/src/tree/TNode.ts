@@ -17,7 +17,8 @@ export interface TNodeInit {
   styles?: TStyles | null;
   stylesMerger: TStylesMerger;
   /**
-   * The position of this element relatively to its parents, before hoisting.
+   * The position of this element relatively to its parents, before hoisting,
+   * after collapsing.
    *
    * @remarks
    * "Before hoisting" implies that this index corresponds to the node position
@@ -91,9 +92,15 @@ export abstract class TNode implements TNodeInit {
 
   abstract matchContentModel(contentModel: HTMLContentModel): boolean;
 
-  bindChildren(children: TNode[]) {
+  bindChildren(children: TNode[], updateNodeIndexes: boolean = false) {
     // @ts-expect-error
     this.children = children;
+    if (updateNodeIndexes) {
+      children.forEach((node, i) => {
+        //@ts-expect-error
+        node.nodeIndex = i;
+      });
+    }
   }
 
   cloneInitParams<T extends TNodeInit = TNodeInit>(partial?: Partial<T>): T {
