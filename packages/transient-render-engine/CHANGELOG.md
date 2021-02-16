@@ -1,3 +1,10 @@
+## [4.4.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.4.0...@native-html/transient-render-engine@4.4.1) (2021-02-16)
+
+
+### Bug Fixes
+
+* **TRE:** re-index children `nodeIndex` after whitespace collapsing ([3130a1b](https://github.com/native-html/core/commit/3130a1bfb2ae322fc459f325a6f005e116f9c987))
+
 # [4.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.3.0...@native-html/transient-render-engine@4.4.0) (2021-02-14)
 
 
