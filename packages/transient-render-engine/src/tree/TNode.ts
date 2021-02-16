@@ -33,6 +33,12 @@ export interface TNodeInit {
 }
 
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';
+
+function updateNodeIndexes(node: TNode, i: number) {
+  //@ts-expect-error
+  node.nodeIndex = i;
+}
+
 export abstract class TNode implements TNodeInit {
   public readonly type: TNodeType;
   public readonly styles: TStyles;
@@ -92,14 +98,11 @@ export abstract class TNode implements TNodeInit {
 
   abstract matchContentModel(contentModel: HTMLContentModel): boolean;
 
-  bindChildren(children: TNode[], updateNodeIndexes: boolean = false) {
+  bindChildren(children: TNode[], shouldUpdateNodeIndexes: boolean = false) {
     // @ts-expect-error
     this.children = children;
-    if (updateNodeIndexes) {
-      children.forEach((node, i) => {
-        //@ts-expect-error
-        node.nodeIndex = i;
-      });
+    if (shouldUpdateNodeIndexes) {
+      children.forEach(updateNodeIndexes);
     }
   }
 
