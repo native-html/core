@@ -142,7 +142,6 @@ describe('translateNode function', () => {
     const ttree = translateTreeTest(src);
     expect(ttree.tagName).toBe('table');
     ttree.children.forEach((child, i) => {
-      console.log('expecting', i);
       expect(child.nodeIndex).toBe(i);
     });
   });
