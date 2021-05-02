@@ -1,14 +1,14 @@
-import { SerializableElement } from '../dom/to-serializable';
+import { DOMElement } from '../dom/dom-utils';
 import HTMLContentModel from '../model/HTMLContentModel';
 import { TNode, TNodeInit } from './TNode';
 
 export interface TEmptyInit extends Omit<TNodeInit, 'type'> {
-  domNode: SerializableElement;
+  domNode: DOMElement;
   isUnregistered: boolean;
 }
 
 export class TEmpty extends TNode {
-  public domNode: SerializableElement;
+  public domNode: DOMElement;
   public readonly displayName = 'TEmpty';
   public readonly isUnregistered: boolean;
   constructor(init: TEmptyInit) {

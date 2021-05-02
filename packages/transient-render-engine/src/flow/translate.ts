@@ -4,13 +4,7 @@ import { TText } from '../tree/TText';
 import { TPhrasing } from '../tree/TPhrasing';
 import { TBlock } from '../tree/TBlock';
 import { TDocument } from '../tree/TDocument';
-import {
-  isSerializableElement,
-  isSerializableText,
-  SerializableElement,
-  SerializableNode,
-  toSerializableChildren
-} from '../dom/to-serializable';
+import { isElement, isText, DOMElement, DOMNode } from '../dom/dom-utils';
 import { TStyles } from '../styles/TStyles';
 
 import { TEmpty } from '../tree/TEmpty';
@@ -23,14 +17,15 @@ export function mapNodeList({
   parentStyles,
   params
 }: {
-  nodeList: SerializableNode[];
+  nodeList: DOMNode[] | null;
   parentStyles: TStyles | null;
   parent: TNode | null;
   params: DataFlowParams;
 }): TNode[] {
   const nextMap: TNode[] = [];
-  for (const i in nodeList) {
-    const child = nodeList[i];
+  const ls = nodeList || [];
+  for (const i in ls) {
+    const child = ls[i];
     const translated = translateNode({
       node: child,
       parentStyles,
@@ -47,7 +42,7 @@ export function mapNodeList({
 
 export function bindChildren(
   node: TNode,
-  children: SerializableNode[],
+  children: DOMNode[],
   params: DataFlowParams
 ) {
   if (!node.elementModel || !node.elementModel.isOpaque) {
@@ -68,7 +63,7 @@ function translateElement({
   params,
   parent,
   parentStyles
-}: TranslateParams<SerializableElement>): TNode | null {
+}: TranslateParams<DOMElement>): TNode | null {
   const tagName = node.tagName.toLowerCase();
   const sharedProps: Omit<TNodeInit, 'contentModel' | 'elementModel'> = {
     tagName,
@@ -102,8 +97,8 @@ function translateElement({
   const contentModel = elementModel.contentModel;
   if (elementModel.isTranslatableTextual()) {
     if (node.children.length === 1) {
-      const child = node.children[0] as SerializableNode;
-      if (isSerializableText(child)) {
+      const child = node.children[0] as DOMNode;
+      if (isText(child)) {
         return new TText({
           ...sharedProps,
           contentModel,
@@ -147,7 +142,7 @@ function translateElement({
   });
 }
 
-interface TranslateParams<T = SerializableNode> {
+interface TranslateParams<T = DOMNode> {
   node: T;
   parentStyles: TStyles | null;
   params: DataFlowParams;
@@ -161,8 +156,8 @@ export function translateNode({
   params,
   nodeIndex,
   parent
-}: TranslateParams<SerializableNode | null>): TNode | null {
-  if (isSerializableText(node)) {
+}: TranslateParams<DOMNode | null>): TNode | null {
+  if (isText(node)) {
     return new TText({
       data: node.data,
       stylesMerger: params.stylesMerger,
@@ -174,7 +169,7 @@ export function translateNode({
       parent
     });
   }
-  if (isSerializableElement(node)) {
+  if (isElement(node)) {
     return translateElement({ node, parentStyles, params, nodeIndex, parent });
   }
   return null;
@@ -184,9 +179,8 @@ export function translateDocument(
   documentTree: Node[],
   params: DataFlowParams
 ): TDocument {
-  const serializableDocTree = toSerializableChildren(documentTree);
   const rootNodes = mapNodeList({
-    nodeList: serializableDocTree,
+    nodeList: documentTree,
     parentStyles: params.baseStyles,
     parent: null,
     params

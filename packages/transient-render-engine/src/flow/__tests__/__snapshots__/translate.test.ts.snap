@@ -110,14 +110,9 @@ This is
       "className": null,
       "contentModel": "block",
       "displayName": "TBlock",
-      "domNode": Object {
-        "attribs": Object {
-          "src": "https://domain.com/logo.jpg",
-        },
-        "children": Array [],
-        "tagName": "img",
-        "type": "element",
-      },
+      "domNode": <img
+        src="https://domain.com/logo.jpg"
+      />,
       "elementModel": HTMLElementModel {
         "contentModel": "block",
         "getUADerivedStyleFromAttributes": undefined,

@@ -3,13 +3,14 @@ import {
   Text as DOMText,
   Element as DOMElement
 } from 'domhandler';
-import { Tag, Text } from 'domelementtype';
 
 import map from 'ramda/src/map';
 import identity from 'ramda/src/identity';
 import always from 'ramda/src/always';
 import pipe from 'ramda/src/pipe';
 import reject from 'ramda/src/reject';
+import { isElement, isText } from './dom-utils';
+
 export interface AlterDOMParams {
   ignoreDOMNode?: (node: DOMNode) => boolean;
   alterDOMData?: (node: DOMText) => string | false | void;
@@ -31,7 +32,7 @@ export default function alterDOMNodes(
     reject(ignoreDOMNode),
     map(function applyParams(node: DOMNode) {
       let nextNode = node;
-      if (node.type === Tag) {
+      if (isElement(node)) {
         const elementNode =
           alterDOMElement(node as DOMElement) || (nextNode as DOMElement);
         const alteredChildren = alterDOMChildren(elementNode);
@@ -40,7 +41,7 @@ export default function alterDOMNodes(
           : elementNode.children;
         elementNode.children = alterNodes(elementNode.children);
         nextNode = elementNode;
-      } else if (node.type === Text) {
+      } else if (isText(node)) {
         const textNode = node as DOMText;
         const alteredData = alterDOMData(textNode);
         textNode.data =

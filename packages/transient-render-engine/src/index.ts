@@ -10,16 +10,7 @@ export { TNode } from './tree/TNode';
 export { TText } from './tree/TText';
 export { TPhrasing } from './tree/TPhrasing';
 export { TEmpty } from './tree/TEmpty';
-export type {
-  SerializableElement,
-  SerializableNode,
-  SerializableText
-} from './dom/to-serializable';
-export {
-  isSerializableElement,
-  isSerializableText,
-  toSerializableNode
-} from './dom/to-serializable';
+export * from './dom/dom-utils';
 export {
   Node as DOMNode,
   Text as DOMText,

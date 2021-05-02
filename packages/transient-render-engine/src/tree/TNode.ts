@@ -1,14 +1,14 @@
 import { TStyles } from '../styles/TStyles';
-import { SerializableElement } from '../dom/to-serializable';
+import { DOMElement } from '../dom/dom-utils';
 import { TStylesMerger } from '../styles/TStylesMerger';
 import HTMLContentModel from '../model/HTMLContentModel';
-import { HTMLElementModel } from '..';
+import HTMLElementModel from '../model/HTMLElementModel';
 
 export interface TNodeInit {
   /**
    * Opaque nodes will hold a reference to a serializable DOM node.
    */
-  domNode: SerializableElement | null;
+  domNode: DOMElement | null;
   tagName?: string | null;
   contentModel: HTMLContentModel | null;
   elementModel: HTMLElementModel<string, HTMLContentModel> | null;
@@ -49,7 +49,7 @@ export abstract class TNode implements TNodeInit {
     HTMLContentModel
   > | null;
   public readonly children: TNode[];
-  public readonly domNode: SerializableElement | null;
+  public readonly domNode: DOMElement | null;
   public readonly tagName: string | null;
   public readonly className: string | null;
   public readonly id: string | null;

@@ -1,5 +1,4 @@
 import { parseDOM } from 'htmlparser2';
-import { toSerializableNode } from '../../dom/to-serializable';
 import HTMLModelRegistry from '../../model/HTMLModelRegistry';
 import { defaultStylesConfig } from '../../styles/defaults';
 import { TStyles } from '../../styles/TStyles';
@@ -34,7 +33,7 @@ export const defaultDataFlowParams: DataFlowParams = {
 export function translateTreeTest(source: string): TNode {
   const documentTree = parseDOM(source);
   return translateNode({
-    node: toSerializableNode(documentTree[0]),
+    node: documentTree[0],
     parentStyles: null,
     params: defaultDataFlowParams,
     nodeIndex: 0,

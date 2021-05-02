@@ -1,10 +1,7 @@
 import { TNodeInit } from './TNode';
 import { TEmpty } from './TEmpty';
 import { TBlock } from './TBlock';
-import {
-  isSerializableElement,
-  isSerializableText
-} from '../dom/to-serializable';
+import { isElement, isText, DOMElement } from '../dom/dom-utils';
 import HTMLElementModel from '../model/HTMLElementModel';
 import defaultHTMLElementModels from '../model/defaultHTMLElementModels';
 
@@ -44,7 +41,7 @@ function extractContextFromHead(head: TEmpty, lang?: string, dir?: string) {
   }
   const domNode = head.domNode;
   const children = domNode.children;
-  children.filter(isSerializableElement).forEach((child) => {
+  children.filter(isElement).forEach((child) => {
     if (child.tagName === 'meta') {
       if (child.attribs.name) {
         context.meta.push(child.attribs as any);
@@ -54,7 +51,7 @@ function extractContextFromHead(head: TEmpty, lang?: string, dir?: string) {
     } else if (child.tagName === 'link') {
       context.links.push(child.attribs);
     } else if (child.tagName === 'title') {
-      for (const titleChild of child.children.filter(isSerializableText)) {
+      for (const titleChild of child.children.filter(isText)) {
         context.title = titleChild.data.trim();
         break;
       }
@@ -138,12 +135,7 @@ export class TDocument extends TBlock {
             parentStyles: null,
             contentModel: defaultHTMLElementModels.head.contentModel,
             elementModel: defaultHTMLElementModels.head,
-            domNode: {
-              type: 'element',
-              attribs: {},
-              children: [],
-              tagName: 'head'
-            },
+            domNode: new DOMElement('head', {}),
             nodeIndex: 0,
             parent: this
           }),
