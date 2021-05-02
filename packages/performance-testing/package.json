@@ -1,0 +1,10 @@
+{
+  "name": "performance-testing",
+  "private": true,
+  "dependencies": {
+    "@native-html/transient-render-engine": "workspace:*",
+    "benchmark": "^2.1.4",
+    "lodash": "^4.17.21",
+    "microtime": "^3.0.0"
+  }
+}
