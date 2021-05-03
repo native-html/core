@@ -21,7 +21,7 @@
     "test:transient-render-engine:ts": "yarn workspace @native-html/transient-render-engine test:ts",
     "test:transient-render-engine:lint": "yarn workspace @native-html/transient-render-engine test:lint",
     "test:transient-render-engine:jest": "yarn workspace @native-html/transient-render-engine test:jest",
-    "test:transient-render-engine:perf": "yarn workspace performance-testing run",
+    "test:transient-render-engine:perf": "yarn workspace performance-testing benchmark",
     "release:css-processor": "yarn workspace @native-html/css-processor release-it",
     "release:transient-render-engine": "yarn workspace @native-html/transient-render-engine release-it"
   },
