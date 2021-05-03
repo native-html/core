@@ -76,10 +76,7 @@ export class CSSInlineParseRun extends CSSParseRun {
   }
 
   fillProcessedProps() {
-    const rawTransformed: Record<
-      keyof ValidatorsType,
-      any
-    > = this.rules
+    const rawTransformed = this.rules
       .map((r) => this.normalizeProp(r))
       .reduce(this.reduceProps, {});
     (Object.keys(rawTransformed) as Array<keyof ValidatorsType>).forEach(
