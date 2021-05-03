@@ -1,14 +1,19 @@
-import { TNode, TNodeInit } from '../tree/TNode';
-import { Node } from 'domhandler';
+import { TNodeImpl, TNodeInit } from '../tree/tree-types';
+import { Document } from 'domhandler';
 import { TText } from '../tree/TText';
 import { TPhrasing } from '../tree/TPhrasing';
 import { TBlock } from '../tree/TBlock';
-import { TDocument } from '../tree/TDocument';
-import { isElement, isText, DOMElement, DOMNode } from '../dom/dom-utils';
+import { TDocument, TDocumentImpl } from '../tree/TDocument';
+import {
+  isElement,
+  isText,
+  DOMElement,
+  DOMNode,
+  DOMText
+} from '../dom/dom-utils';
 import { TStyles } from '../styles/TStyles';
 
 import { TEmpty } from '../tree/TEmpty';
-import defaultHTMLElementModels from '../model/defaultHTMLElementModels';
 import { DataFlowParams } from './types';
 
 export function mapNodeList({
@@ -18,11 +23,11 @@ export function mapNodeList({
   params
 }: {
   nodeList: DOMNode[] | null;
-  parentStyles: TStyles | null;
-  parent: TNode | null;
+  parentStyles?: TStyles;
+  parent: TNodeImpl | null;
   params: DataFlowParams;
-}): TNode[] {
-  const nextMap: TNode[] = [];
+}): TNodeImpl[] {
+  const nextMap: TNodeImpl[] = [];
   const ls = nodeList || [];
   for (const i in ls) {
     const child = ls[i];
@@ -41,7 +46,7 @@ export function mapNodeList({
 }
 
 export function bindChildren(
-  node: TNode,
+  node: TNodeImpl,
   children: DOMNode[],
   params: DataFlowParams
 ) {
@@ -50,7 +55,6 @@ export function bindChildren(
       mapNodeList({
         nodeList: children,
         parent: node,
-        parentStyles: node.styles,
         params
       })
     );
@@ -63,60 +67,46 @@ function translateElement({
   params,
   parent,
   parentStyles
-}: TranslateParams<DOMElement>): TNode | null {
-  const tagName = node.tagName.toLowerCase();
+}: TranslateParams<DOMElement>): TNodeImpl | null {
+  const tagName = node.tagName;
   const sharedProps: Omit<TNodeInit, 'contentModel' | 'elementModel'> = {
-    tagName,
     nodeIndex,
     parentStyles,
     stylesMerger: params.stylesMerger,
-    attributes: node.attribs,
-    domNode: null,
+    domNode: node,
     parent
   };
-  if (tagName === 'html') {
-    const tdoc = new TDocument({
-      ...sharedProps,
-      styles: parentStyles
-    });
-    bindChildren(tdoc, node.children, params);
-    tdoc.parseChildren();
-    return tdoc;
-  }
   const elementModel = params.modelRegistry.getElementModelFromTagName(tagName);
   if (!elementModel) {
     return new TEmpty({
       ...sharedProps,
       isUnregistered: true,
-      contentModel: null,
-      elementModel: null,
-      domNode: node,
-      nodeIndex: 0
+      elementModel,
+      domNode: node
     });
   }
-  const contentModel = elementModel.contentModel;
   if (elementModel.isTranslatableTextual()) {
     if (node.children.length === 1) {
       const child = node.children[0] as DOMNode;
       if (isText(child)) {
         return new TText({
           ...sharedProps,
-          contentModel,
           elementModel,
-          data: child.data
+          textNode: child,
+          domNode: node
         });
       }
     } else if (node.children.length === 0) {
       return new TText({
         ...sharedProps,
-        contentModel,
         elementModel,
-        data: ''
+        domNode: node,
+        textNode: new DOMText('')
       });
     }
     const phrasing = new TPhrasing({
       ...sharedProps,
-      contentModel,
+      domNode: node,
       elementModel
     });
     bindChildren(phrasing, node.children, params);
@@ -125,10 +115,9 @@ function translateElement({
   if (elementModel.isTranslatableBlock()) {
     const block = new TBlock({
       ...sharedProps,
-      contentModel,
       elementModel,
       parentStyles,
-      domNode: elementModel.isOpaque ? node : null
+      domNode: node
     });
     bindChildren(block, node.children, params);
     return block;
@@ -136,7 +125,6 @@ function translateElement({
   return new TEmpty({
     ...sharedProps,
     isUnregistered: false,
-    contentModel,
     elementModel,
     domNode: node
   });
@@ -144,10 +132,10 @@ function translateElement({
 
 interface TranslateParams<T = DOMNode> {
   node: T;
-  parentStyles: TStyles | null;
   params: DataFlowParams;
-  nodeIndex: number;
-  parent: TNode | null;
+  parent: TNodeImpl | null;
+  parentStyles?: TStyles;
+  nodeIndex?: number;
 }
 
 export function translateNode({
@@ -156,61 +144,40 @@ export function translateNode({
   params,
   nodeIndex,
   parent
-}: TranslateParams<DOMNode | null>): TNode | null {
+}: TranslateParams<DOMNode | null>): TNodeImpl | null {
   if (isText(node)) {
     return new TText({
-      data: node.data,
+      textNode: node,
       stylesMerger: params.stylesMerger,
-      contentModel: null,
-      elementModel: null,
       parentStyles,
       domNode: null,
+      elementModel: null,
       nodeIndex,
       parent
     });
   }
   if (isElement(node)) {
-    return translateElement({ node, parentStyles, params, nodeIndex, parent });
+    return translateElement({
+      node,
+      parentStyles,
+      params,
+      nodeIndex,
+      parent
+    });
   }
   return null;
 }
 
 export function translateDocument(
-  documentTree: Node[],
+  document: Document,
   params: DataFlowParams
-): TDocument {
-  const rootNodes = mapNodeList({
-    nodeList: documentTree,
-    parentStyles: params.baseStyles,
-    parent: null,
-    params
+): TDocumentImpl {
+  const tdoc = new TDocument({
+    stylesMerger: params.stylesMerger,
+    styles: params.baseStyles,
+    domNode: document as any
   });
-  let foundTdoc = rootNodes.find((n) => n instanceof TDocument);
-  if (foundTdoc) {
-    return foundTdoc as TDocument;
-  } else {
-    let body = rootNodes.find((n) => n.tagName === 'body');
-    const newTdoc = new TDocument({
-      styles: params.baseStyles,
-      stylesMerger: params.stylesMerger,
-      domNode: null,
-      nodeIndex: 0,
-      parent: null
-    });
-    if (!body) {
-      body = new TBlock({
-        tagName: 'body',
-        stylesMerger: params.stylesMerger,
-        contentModel: defaultHTMLElementModels.body.contentModel,
-        elementModel: defaultHTMLElementModels.body,
-        parentStyles: params.baseStyles,
-        domNode: null,
-        nodeIndex: 0,
-        parent: newTdoc
-      });
-      body.bindChildren(rootNodes);
-    }
-    newTdoc.bindChildren([body]);
-    return newTdoc;
-  }
+  bindChildren(tdoc, document.children, params);
+  tdoc.parseChildren();
+  return tdoc;
 }

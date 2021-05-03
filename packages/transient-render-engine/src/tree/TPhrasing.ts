@@ -1,43 +1,66 @@
 import HTMLContentModel from '../model/HTMLContentModel';
-import { TNode, TNodeInit } from './TNode';
+import makeTNodePrototype, {
+  TNodeCtor,
+  Mutable,
+  initialize
+} from './makeTNodePrototype';
+import { TNodeImpl, TNodeInit, TNodeShape } from './tree-types';
 
-export interface TPhrasingInit extends TNodeInit {}
-
-export class TPhrasing extends TNode {
-  public readonly displayName: string = 'TPhrasing';
-  constructor(init: TPhrasingInit) {
-    super(init, 'phrasing');
-  }
-
-  protected emptyParams<T = {}>(other?: T): Partial<TNodeInit> & T {
-    return {
-      tagName: null,
-      attributes: {},
-      ...other
-    } as any;
-  }
-
-  matchContentModel(contentModel: HTMLContentModel) {
-    return (
-      contentModel === HTMLContentModel.textual ||
-      contentModel === HTMLContentModel.mixed
-    );
-  }
-
-  /**
-   * Create a new empty instance of this node.
-   * This instance should have empty children, tagName set to null, no styles nor attributes.
-   */
-  newEmpty(): TPhrasing {
-    return new TPhrasing(this.cloneInitParams(this.emptyParams()));
-  }
-
-  isWhitespace() {
-    return this.children.every((c) => c.isWhitespace());
-  }
-
-  isEmpty() {
-    // Only anonymous phrasing nodes with every children empty can be considered "empty"
-    return this.tagName === null && this.children.every((c) => c.isEmpty());
-  }
+export interface TPhrasingImpl extends TNodeImpl {
+  newEmpty(): TPhrasingImpl;
+  emptyParams<T = {}>(): Partial<TNodeInit> & T;
 }
+
+function isChildEmpty(c: TNodeImpl) {
+  return c.isEmpty();
+}
+
+function isChildWhitespace(c: TNodeImpl) {
+  return c.isWhitespace();
+}
+
+interface TPhrasing extends TNodeShape {}
+
+const TPhrasing = (function TPhrasing(
+  this: Mutable<TNodeImpl>,
+  init: TNodeInit
+) {
+  initialize(this, init);
+} as Function) as TNodeCtor<TNodeInit, TPhrasingImpl>;
+
+TPhrasing.prototype = makeTNodePrototype('phrasing', 'TPhrasing');
+
+TPhrasing.prototype.matchContentModel = function matchContentModel(
+  contentModel
+) {
+  return (
+    contentModel === HTMLContentModel.textual ||
+    contentModel === HTMLContentModel.mixed
+  );
+};
+
+TPhrasing.prototype.newEmpty = function newEmpty(this: TPhrasingImpl) {
+  return new TPhrasing(this.cloneInitParams(this.emptyParams()));
+};
+
+TPhrasing.prototype.emptyParams = function emptyParams(
+  this: TPhrasingImpl,
+  other?: any
+) {
+  return Object.assign({}, other, { domNode: null });
+};
+
+TPhrasing.prototype.isWhitespace = function isWhitespace() {
+  return this.children.every(isChildWhitespace);
+};
+
+TPhrasing.prototype.isEmpty = function isEmpty() {
+  // Only anonymous phrasing nodes with every children empty can be considered "empty"
+  return this.tagName === null && this.children.every(isChildEmpty);
+};
+
+TPhrasing.prototype = Object.freeze(TPhrasing.prototype);
+
+export default TPhrasing;
+
+export { TPhrasing };

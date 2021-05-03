@@ -8,15 +8,12 @@ const defaultTTreeBuilder = new TRenderEngine();
 var suite = new Benchmark.Suite('TRenderEngine#buildTTree');
 
 function assertExecLessThan(target, value) {
-  assert.strictEqual(value < target, `Should execute in less than ${target}ms`);
+  assert.ok(value < target, `Should execute in less than ${target}ms`);
 }
 
 suite
   .add('Performance on a 65kb html snippet', () => {
     defaultTTreeBuilder.buildTTree(rnImageDoc);
-  })
-  .on('cycle', function (event) {
-    console.log(String(event.target));
   })
   .on('error', function (e) {
     console.error(e);

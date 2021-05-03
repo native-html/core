@@ -1,18 +1,27 @@
-import { TNode, TNodeInit } from './TNode';
 import HTMLContentModel from '../model/HTMLContentModel';
+import makeTNodePrototype, {
+  TNodeCtor,
+  Mutable,
+  initialize
+} from './makeTNodePrototype';
+import { TNodeImpl, TNodeInit, TNodeShape } from './tree-types';
 
-export interface TBlockInit extends TNodeInit {}
+interface TBlock extends TNodeShape {}
 
-export class TBlock extends TNode {
-  public readonly displayName: string = 'TBlock';
-  constructor(init: TBlockInit) {
-    super(init, 'block');
-  }
+export interface TBlockImpl extends TNodeImpl {}
 
-  matchContentModel(contentModel: HTMLContentModel) {
-    return (
-      contentModel === HTMLContentModel.block ||
-      contentModel === HTMLContentModel.mixed
-    );
-  }
-}
+const TBlock = (function TBlock(this: Mutable<TBlockImpl>, init: TNodeInit) {
+  initialize(this, init);
+} as Function) as TNodeCtor<TNodeInit, TBlockImpl>;
+
+TBlock.prototype = makeTNodePrototype('block', 'TBlock');
+TBlock.prototype.matchContentModel = function matchContentModel(contentModel) {
+  return (
+    contentModel === HTMLContentModel.block ||
+    contentModel === HTMLContentModel.mixed
+  );
+};
+
+export default TBlock;
+
+export { TBlock };

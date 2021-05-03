@@ -1,10 +1,12 @@
-import { TNode } from './tree/TNode';
+import { TNodeShape } from './tree/tree-types';
 import { TText } from './tree/TText';
 
-function tnodePropertiesString(tnode: TNode) {
+function tnodePropertiesString(tnode: TNodeShape) {
   const tagPrint = tnode.tagName ? `tag=${tnode.tagName}` : 'anonymous';
   const idPrint = tnode.id ? `id=${tnode.id}` : null;
-  const classesPrint = tnode.className ? `classes=${tnode.className}` : null;
+  const classesPrint = tnode.classes?.length
+    ? `classes=${tnode.classes.join(',')}`
+    : null;
   const dataPrint =
     tnode instanceof TText
       ? `data[${
@@ -30,7 +32,7 @@ interface TNodePrintState {
 }
 
 export default function tnodeToString(
-  tnode: TNode,
+  tnode: TNodeShape,
   {
     parentLeftPrefix = '',
     isChild = false,

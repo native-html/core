@@ -1,7 +1,12 @@
-import { Text, Element, Node } from 'domhandler';
+import { Text, Element, Node, Document } from 'domhandler';
 import { Text as TextType, Tag as TagType } from 'domelementtype';
 
-export { Text as DOMText, Element as DOMElement, Node as DOMNode };
+export {
+  Text as DOMText,
+  Element as DOMElement,
+  Node as DOMNode,
+  Document as DOMDocument
+};
 
 export function isText(node: any): node is Text {
   return node && node.type === TextType;

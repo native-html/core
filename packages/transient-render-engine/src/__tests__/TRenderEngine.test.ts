@@ -1,10 +1,11 @@
-import { TBlock } from '../tree/TBlock';
-import { TDocument } from '../tree/TDocument';
+import TBlock from '../tree/TBlock';
+import TDocument from '../tree/TDocument';
 import { TStyles } from '../styles/TStyles';
 import { CSSProcessedProps } from '@native-html/css-processor';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
 import HTMLContentModel from '../model/HTMLContentModel';
-import { HTMLElementModel } from '..';
+import HTMLElementModel from '../model/HTMLElementModel';
+import TEmpty from '../tree/TEmpty';
 
 const href = 'https://domain.com';
 const htmlDocument = `
@@ -185,7 +186,7 @@ describe('TRenderEngine > buildTTree method', () => {
     const specialTTreeBuilder = new TRenderEngine({
       stylesConfig: {
         baseStyle: {
-          fontSize: '1em'
+          fontSize: '1rem'
         }
       }
     });
@@ -241,9 +242,10 @@ describe('TRenderEngine > buildTTree method', () => {
   it('given a HTML document, should return an instance of TDocument which has one TBlock(body) child', () => {
     const tdoc = defaultTTreeBuilder.buildTTree(htmlDocument);
     expect(tdoc).toBeInstanceOf(TDocument);
-    expect(tdoc.children).toHaveLength(1);
-    expect(tdoc.children[0]).toBeInstanceOf(TBlock);
-    expect(tdoc.children[0]).toMatchObject({
+    expect(tdoc.children).toHaveLength(2);
+    expect(tdoc.children[0]).toBeInstanceOf(TEmpty);
+    expect(tdoc.children[1]).toBeInstanceOf(TBlock);
+    expect(tdoc.children[1]).toMatchObject({
       type: 'block',
       tagName: 'body',
       children: [
@@ -465,7 +467,7 @@ describe('TRenderEngine > buildTTree method', () => {
       const tdoc = customTTreeBuilder.buildTTree(
         '<!doctype html><html><head></head><body><div>This text should inherit baseStyles</div></body></html>'
       );
-      expect(tdoc.children[0].children[0]).toMatchObject(expectedObject);
+      expect(tdoc.children[1].children[0]).toMatchObject(expectedObject);
     });
     it('when provided a html snippet', () => {
       const tdoc = customTTreeBuilder.buildTTree(

@@ -1,5 +1,5 @@
 import { TBlock } from '../../tree/TBlock';
-import { TNode } from '../../tree/TNode';
+import { TNodeImpl } from '../../tree/tree-types';
 import { TPhrasing } from '../../tree/TPhrasing';
 import { TText } from '../../tree/TText';
 import { collapse } from '../collapse';
@@ -14,15 +14,20 @@ import {
   secondaryHref
 } from './shared';
 import { defaultDataFlowParams, defaultInit, translateTreeTest } from './utils';
+import { DOMText } from '../../dom/dom-utils';
 
 function makeTTree(
   html: string,
   removeLineBreaksAroundEastAsianDiscardSet = false
-): TNode {
+): TNodeImpl {
   return collapse(hoist(translateTreeTest(html)), {
     ...defaultDataFlowParams,
     removeLineBreaksAroundEastAsianDiscardSet
   });
+}
+
+function makeTextChildren() {
+  return [new TText({ textNode: new DOMText(''), ...defaultInit })];
 }
 
 describe('collapse function', () => {
@@ -271,18 +276,18 @@ describe('collapse function', () => {
   });
   it('should remove empty children from TBlock nodes', () => {
     const ttree = new TBlock(defaultInit);
-    ttree.bindChildren([new TText({ data: '', ...defaultInit })]);
+    ttree.bindChildren(makeTextChildren());
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
   it('should remove empty anonymous TText children from TPhrasing nodes', () => {
     const ttree = new TPhrasing(defaultInit);
-    ttree.bindChildren([new TText({ data: '', ...defaultInit })]);
+    ttree.bindChildren(makeTextChildren());
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
   it('should remove empty anonymous TPhrasing children from TPhrasing nodes', () => {
     const ttree = new TPhrasing(defaultInit);
     const tphrasing = new TPhrasing(defaultInit);
-    tphrasing.bindChildren([new TText({ data: '', ...defaultInit })]);
+    tphrasing.bindChildren(makeTextChildren());
     ttree.bindChildren([tphrasing]);
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
@@ -296,9 +301,9 @@ describe('collapse function', () => {
     const ttree = new TPhrasing(defaultInit);
     ttree.bindChildren([
       // This node will be empty after trimming right, and should be removed
-      new TText({ data: ' ', ...defaultInit }),
-      new TText({ data: ' Foo', ...defaultInit }),
-      new TText({ data: ' Bar', ...defaultInit })
+      new TText({ textNode: new DOMText(' '), ...defaultInit }),
+      new TText({ textNode: new DOMText(' Foo'), ...defaultInit }),
+      new TText({ textNode: new DOMText(' Bar'), ...defaultInit })
     ]);
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(2);
   });
@@ -306,40 +311,35 @@ describe('collapse function', () => {
     const ttree = makeTTree(
       '<div style="font-size: 18px;border-width: 20px;"><span style="color: red;">This is nice!</span></div>'
     );
-    expect(ttree).toMatchObject({
-      type: 'block',
-      attributes: {},
-      tagName: 'div',
-      styles: {
-        nativeTextFlow: { fontSize: 18 },
-        nativeBlockRet: {
-          borderTopWidth: 20,
-          borderRightWidth: 20,
-          borderBottomWidth: 20,
-          borderLeftWidth: 20
-        }
-      },
-      children: [
-        {
-          type: 'phrasing',
-          attributes: {},
-          styles: {
-            nativeTextFlow: { fontSize: 18 },
-            nativeBlockRet: {}
-          },
-          children: [
-            {
-              type: 'text',
-              tagName: 'span',
-              data: 'This is nice!',
-              styles: {
-                nativeTextFlow: { color: 'red' }
-              }
-            }
-          ]
-        }
-      ]
+
+    expect(ttree.styles).toMatchObject({
+      nativeTextFlow: { fontSize: 18 },
+      nativeBlockRet: {
+        borderTopWidth: 20,
+        borderRightWidth: 20,
+        borderBottomWidth: 20,
+        borderLeftWidth: 20
+      }
     });
+    expect(ttree.children).toMatchObject([
+      {
+        type: 'phrasing',
+        styles: {
+          nativeTextFlow: {},
+          nativeBlockRet: {}
+        },
+        children: [
+          {
+            type: 'text',
+            tagName: 'span',
+            data: 'This is nice!',
+            styles: {
+              nativeTextFlow: { color: 'red', fontSize: 18 }
+            }
+          }
+        ]
+      }
+    ]);
     expect(ttree).toMatchSnapshot();
   });
   it('should handle indirect style inheritance', () => {
@@ -370,14 +370,14 @@ describe('collapse function', () => {
             {
               type: 'phrasing',
               tagName: null,
-              styles: {
-                nativeTextFlow: { fontSize: 18 }
-              },
               children: [
                 {
                   type: 'text',
                   data: 'This is great!',
-                  tagName: null
+                  tagName: null,
+                  styles: {
+                    nativeTextFlow: { fontSize: 18 }
+                  }
                 }
               ]
             }
@@ -402,9 +402,6 @@ describe('collapse function', () => {
         {
           type: 'phrasing',
           tagName: null,
-          styles: {
-            webTextFlow: { whiteSpace: 'pre' }
-          },
           children: [
             {
               type: 'text',
@@ -434,14 +431,14 @@ describe('collapse function', () => {
         {
           type: 'phrasing',
           tagName: null,
-          styles: {
-            webTextFlow: { whiteSpace: 'normal' }
-          },
           children: [
             {
               type: 'text',
               tagName: null,
-              data: 'This is great!'
+              data: 'This is great!',
+              styles: {
+                webTextFlow: { whiteSpace: 'normal' }
+              }
             }
           ]
         }
@@ -477,14 +474,11 @@ describe('collapse function', () => {
     );
     expect(ttree).toMatchObject({
       type: 'block',
-      attributes: {},
       tagName: 'div',
-      styles: {},
       children: [
         {
           type: 'phrasing',
           tagName: null,
-          styles: {},
           children: [
             {
               type: 'text',
@@ -530,7 +524,7 @@ describe('collapse function', () => {
       data: '\u2F00\u2FDA'
     });
   });
-  describe('should set `nodeIndex` field corresponding to the actual index relative to parent', () => {
+  it('should set `nodeIndex` field corresponding to the actual index relative to parent', () => {
     const src = `<table>
     <tr>
       <th>Month</th>

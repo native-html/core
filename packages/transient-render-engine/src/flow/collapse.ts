@@ -1,7 +1,7 @@
-import { TBlock } from '../tree/TBlock';
-import { TNode } from '../tree/TNode';
-import { TPhrasing } from '../tree/TPhrasing';
-import { TText } from '../tree/TText';
+import { TBlock, TBlockImpl } from '../tree/TBlock';
+import { TNodeImpl } from '../tree/tree-types';
+import { TPhrasing, TPhrasingImpl } from '../tree/TPhrasing';
+import { TText, TTextImpl } from '../tree/TText';
 import {
   normalizeWhitespaces,
   replaceSegmentBreaks,
@@ -12,6 +12,7 @@ import {
 } from './text-transforms';
 import compose from 'ramda/src/compose';
 import { DataFlowParams } from './types';
+import TDocument from '../tree/TDocument';
 
 const collapseWhiteSpaces = compose(
   normalizeWhitespaces,
@@ -30,7 +31,7 @@ const collapseWhiteSpacesWithEastAsianCharset = compose(
   removeCollapsibleAroundSegmentBreak
 );
 
-function collapseText(node: TText, params: DataFlowParams): TText {
+function collapseText(node: TTextImpl, params: DataFlowParams): TTextImpl {
   if (node.hasWhiteSpaceCollapsingEnabled) {
     if (params.removeLineBreaksAroundEastAsianDiscardSet) {
       node.data = collapseWhiteSpacesWithEastAsianCharset(node.data);
@@ -41,7 +42,7 @@ function collapseText(node: TText, params: DataFlowParams): TText {
   return node;
 }
 
-function collapseBlock(node: TBlock, params: DataFlowParams): TBlock {
+function collapseBlock(node: TBlockImpl, params: DataFlowParams): TBlockImpl {
   const newChildren = [];
   for (const i in node.children) {
     const child = collapseNode(node.children[i], params);
@@ -57,9 +58,12 @@ function collapseBlock(node: TBlock, params: DataFlowParams): TBlock {
   return node;
 }
 
-function collapsePhrasing(node: TPhrasing, params: DataFlowParams): TPhrasing {
-  let collapsedChildren: TNode[] = [];
-  let trimmedChildren: TNode[] = [];
+function collapsePhrasing(
+  node: TPhrasingImpl,
+  params: DataFlowParams
+): TPhrasingImpl {
+  let collapsedChildren: TNodeImpl[] = [];
+  let trimmedChildren: TNodeImpl[] = [];
   for (const i in node.children) {
     const child = collapseNode(node.children[i], params);
     if (child instanceof TText) {
@@ -92,11 +96,11 @@ function collapsePhrasing(node: TPhrasing, params: DataFlowParams): TPhrasing {
   return node;
 }
 
-function collapseNode(node: TNode, params: DataFlowParams): TNode {
+function collapseNode(node: TNodeImpl, params: DataFlowParams): TNodeImpl {
   if (node instanceof TText) {
-    return collapseText(node, params);
+    return collapseText(node as TTextImpl, params);
   }
-  if (node instanceof TBlock) {
+  if (node instanceof TBlock || node instanceof TDocument) {
     return collapseBlock(node, params);
   }
   if (node instanceof TPhrasing) {
@@ -105,7 +109,7 @@ function collapseNode(node: TNode, params: DataFlowParams): TNode {
   return node;
 }
 
-export function collapse(tree: TNode, params: DataFlowParams): TNode {
+export function collapse(tree: TNodeImpl, params: DataFlowParams): TNodeImpl {
   const root = collapseNode(tree, params);
   root.trimLeft();
   root.trimRight();

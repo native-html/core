@@ -3,7 +3,7 @@ import HTMLModelRegistry from '../../model/HTMLModelRegistry';
 import { defaultStylesConfig } from '../../styles/defaults';
 import { TStyles } from '../../styles/TStyles';
 import { TStylesMerger } from '../../styles/TStylesMerger';
-import { TNode, TNodeInit } from '../../tree/TNode';
+import { TNodeImpl, TNodeInit } from '../../tree/tree-types';
 import { translateNode } from '../translate';
 import { DataFlowParams } from '../types';
 
@@ -14,12 +14,9 @@ export const defaultStylesMerger = new TStylesMerger(
   defaultModelRegistry
 );
 export const defaultInit: TNodeInit = {
-  parentStyles: null,
-  contentModel: null,
   elementModel: null,
   domNode: null,
   stylesMerger: defaultStylesMerger,
-  nodeIndex: 0,
   parent: null
 };
 
@@ -30,13 +27,11 @@ export const defaultDataFlowParams: DataFlowParams = {
   removeLineBreaksAroundEastAsianDiscardSet: false
 };
 
-export function translateTreeTest(source: string): TNode {
+export function translateTreeTest(source: string): TNodeImpl {
   const documentTree = parseDOM(source);
   return translateNode({
     node: documentTree[0],
-    parentStyles: null,
     params: defaultDataFlowParams,
-    nodeIndex: 0,
     parent: null
-  }) as TNode;
+  }) as TNodeImpl;
 }

@@ -1,9 +1,13 @@
-import { TNodeInit } from './TNode';
-import { TEmpty } from './TEmpty';
-import { TBlock } from './TBlock';
-import { isElement, isText, DOMElement } from '../dom/dom-utils';
+import HTMLContentModel from '../model/HTMLContentModel';
+import makeTNodePrototype, {
+  TNodeCtor,
+  Mutable,
+  initialize
+} from './makeTNodePrototype';
 import HTMLElementModel from '../model/HTMLElementModel';
-import defaultHTMLElementModels from '../model/defaultHTMLElementModels';
+import { isElement, isText } from '../dom/dom-utils';
+import { TEmptyImpl } from './TEmpty';
+import { TNodeInit, TNodeImpl, TNodeShape } from './tree-types';
 
 export interface DocumentContext {
   charset: string;
@@ -14,6 +18,17 @@ export interface DocumentContext {
   title: string;
   meta: { name: string; value: string }[];
   links: Record<string, string>[];
+}
+
+export type TDocumentInit = Omit<TNodeInit, 'elementModel'>;
+
+export interface TDocumentImpl extends TNodeImpl<TNodeInit> {
+  readonly context: Readonly<DocumentContext>;
+  /**
+   * Iterate over children and extract meta-information into context field.
+   * Replace children with a single-element array containing the body.
+   */
+  parseChildren(): void;
 }
 
 const defaultContextBase: DocumentContext = Object.freeze({
@@ -31,7 +46,7 @@ function getDefaultDocumentContext(): DocumentContext {
   return Object.assign({}, defaultContextBase, { links: [], meta: [] });
 }
 
-function extractContextFromHead(head: TEmpty, lang?: string, dir?: string) {
+function extractContextFromHead(head: TEmptyImpl, lang?: string, dir?: string) {
   const context = getDefaultDocumentContext();
   if (lang) {
     context.lang = lang;
@@ -68,80 +83,58 @@ const htmlModel = HTMLElementModel.fromNativeModel({
   category: 'grouping'
 });
 
-export class TDocument extends TBlock {
-  public readonly context: Readonly<DocumentContext>;
-  public readonly displayName = 'TDocument';
-  constructor({
-    attributes,
-    stylesMerger,
-    styles,
-    domNode
-  }: Omit<TNodeInit, 'contentModel' | 'elementModel' | 'parentStyles'>) {
-    super({
-      tagName: 'html',
-      styles,
-      attributes,
-      contentModel: htmlModel.contentModel,
-      elementModel: htmlModel,
-      parentStyles: null,
-      stylesMerger,
-      domNode,
-      nodeIndex: 0,
-      parent: null
-    });
-    // @ts-ignore
-    this.type = 'document';
-    this.context = defaultContextBase;
-  }
-
-  /**
-   * Iterate over children and extract meta-information into context field.
-   * Replace children with a single-element array containing the body.
-   */
-  parseChildren() {
-    let head: TEmpty | undefined;
-    let body: TBlock | undefined;
-    for (const child of this.children) {
-      if (head && body) {
-        break;
-      }
-      if (child.tagName === 'head') {
-        head = child as TEmpty;
-      } else if (child.tagName === 'body') {
-        body = child;
-      }
-    }
-    this.bindChildren([
-      body ||
-        new TBlock({
-          tagName: 'body',
-          contentModel: defaultHTMLElementModels.body.contentModel,
-          elementModel: defaultHTMLElementModels.body,
-          stylesMerger: this.stylesMerger,
-          parentStyles: this.styles,
-          domNode: null,
-          nodeIndex: 0,
-          parent: this
-        })
-    ]);
-    //@ts-ignore
-    this.context = Object.freeze(
-      extractContextFromHead(
-        head ||
-          new TEmpty({
-            tagName: 'head',
-            isUnregistered: false,
-            stylesMerger: this.stylesMerger,
-            parentStyles: null,
-            contentModel: defaultHTMLElementModels.head.contentModel,
-            elementModel: defaultHTMLElementModels.head,
-            domNode: new DOMElement('head', {}),
-            nodeIndex: 0,
-            parent: this
-          }),
-        this.attributes.lang,
-        this.attributes.dir
-      )
-    );
-  }
+interface TDocument extends TNodeShape {
+  readonly context: Readonly<DocumentContext>;
 }
+
+const TDocument = (function TDocument(
+  this: Mutable<TDocumentImpl>,
+  init: TDocumentInit
+) {
+  initialize(this, {
+    ...init,
+    elementModel: htmlModel
+  });
+  Object.defineProperty(this, 'tagName', {
+    value: 'html'
+  });
+} as Function) as TNodeCtor<TDocumentInit, TDocumentImpl>;
+
+TDocument.prototype = makeTNodePrototype('document', 'TDocument');
+
+TDocument.prototype.matchContentModel = function matchContentModel(
+  contentModel
+) {
+  return (
+    contentModel === HTMLContentModel.block ||
+    contentModel === HTMLContentModel.mixed
+  );
+};
+
+TDocument.prototype.parseChildren = function parseChildren(
+  this: Mutable<TDocumentImpl>
+) {
+  let head: TEmptyImpl | undefined;
+  for (const child of this.children) {
+    if (child.tagName === 'head') {
+      head = (child as unknown) as TEmptyImpl;
+      break;
+    }
+  }
+  this.context = Object.freeze(
+    head
+      ? extractContextFromHead(
+          head,
+          this.attributes!.lang,
+          this.attributes!.dir
+        )
+      : {
+          ...getDefaultDocumentContext(),
+          lang: this.attributes!.lang,
+          dir: this.attributes!.dir as any
+        }
+  );
+};
+export { TDocument };
+
+export default TDocument;

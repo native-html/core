@@ -64,13 +64,12 @@ describe('translateNode function', () => {
     const ttree = translateTreeTest('<div style="font-size: 18px"></div>');
     expect(ttree).toMatchObject({
       type: 'block',
-      attributes: {},
+      attributes: { style: 'font-size: 18px' },
       styles: {
         nativeTextFlow: { fontSize: 18 }
       },
       children: []
     });
-    expect(ttree?.attributes).toEqual({});
   });
   it('should translate styles (2)', () => {
     const tdoc = translateTreeTest(
@@ -152,7 +151,6 @@ describe('mapNodeList function', () => {
     expect(
       mapNodeList({
         nodeList: [null] as any,
-        parentStyles: null,
         parent: null,
         params: {
           stylesMerger: defaultStylesMerger,

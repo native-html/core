@@ -1884,7 +1884,7 @@ __metadata:
     react: 16.13.1
     release-config: "workspace:*"
     release-it: ^14.0.3
-    typescript: ~3.9.7
+    typescript: ~4.2.4
   peerDependencies:
     "@types/react-native": "*"
     csstype: ^3.0.4
@@ -1918,7 +1918,7 @@ __metadata:
     react: 16.13.1
     release-config: "workspace:*"
     release-it: ^14.0.3
-    typescript: ~3.9.7
+    typescript: ~4.2.4
   peerDependencies:
     "@types/react-native": "*"
     react-native: ^0.63.0
@@ -10822,23 +10822,23 @@ release-it@14.0.4:
   languageName: node
   linkType: hard
 
-"typescript@patch:typescript@~3.9.7#builtin<compat/typescript>":
-  version: 3.9.7
-  resolution: "typescript@patch:typescript@npm%3A3.9.7#builtin<compat/typescript>::version=3.9.7&hash=5bf698"
+"typescript@patch:typescript@~4.2.4#builtin<compat/typescript>":
+  version: 4.2.4
+  resolution: "typescript@patch:typescript@npm%3A4.2.4#builtin<compat/typescript>::version=4.2.4&hash=5bf698"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: f0d3d9c987860c7c458229ab6dd7e3d322405db36b70abccba610b5efd9f9451e4e67a3fc7983c0d3741033c1f1a8d7aa859a1510caa8f20fad762fc39648bfa
+  checksum: c8e7adb9f29110a3b0e51d198e7d736a572e82459f02f347ae90bd2737bf80366ee80b4de772aea0951e3ba6c4c71b7e1ed9d524f4ad0b3737bb0611aa2c931a
   languageName: node
   linkType: hard
 
-typescript@~3.9.7:
-  version: 3.9.7
-  resolution: "typescript@npm:3.9.7"
+typescript@~4.2.4:
+  version: 4.2.4
+  resolution: "typescript@npm:4.2.4"
   bin:
     tsc: bin/tsc
     tsserver: bin/tsserver
-  checksum: 10848a9c35fd8c70a8792b8bd9485317534bcd58768793d3b7d9c7486e9fd30cf345f83fa2a324e0bf6088bc8a4d8d061d58fda38b18c2ff187cf01fbbff6267
+  checksum: edaede2fa77f56b7fba80ee624a2368ab1216e75b0434d968ccb47ab0a5e2f6d94f848b3b111c1237dd71e988cd376af26370dcdad3b94355c76e759f0dd0a1e
   languageName: node
   linkType: hard
 

@@ -1,59 +1,89 @@
+import { DOMText } from '../dom/dom-utils';
 import HTMLContentModel from '../model/HTMLContentModel';
-import { TNode, TNodeInit } from './TNode';
+import makeTNodePrototype, {
+  TNodeCtor,
+  Mutable,
+  initialize
+} from './makeTNodePrototype';
+import { TNodeInit, TNodeImpl, TNodeShape } from './tree-types';
 
-export interface TTextInit extends Omit<TNodeInit, 'bindChildren'> {
+export interface TTextInit extends TNodeInit {
+  textNode: DOMText;
+}
+
+export interface TTextImpl extends TNodeImpl<TTextInit> {
   data: string;
 }
 
-export class TText extends TNode {
-  public data: string;
-  public readonly displayName: string = 'TText';
-  constructor(init: TTextInit) {
-    super(init, 'text');
-    this.data = init.data;
-  }
-
-  matchContentModel(contentModel: HTMLContentModel) {
-    return (
-      contentModel === HTMLContentModel.textual ||
-      contentModel === HTMLContentModel.mixed
-    );
-  }
-
-  isCollapsibleLeft(): boolean {
-    return (
-      this.hasWhiteSpaceCollapsingEnabled &&
-      !this.isEmpty() &&
-      this.data[0] === ' '
-    );
-  }
-
-  isCollapsibleRight(): boolean {
-    return (
-      this.hasWhiteSpaceCollapsingEnabled &&
-      !this.isEmpty() &&
-      this.data[this.data.length - 1] === ' '
-    );
-  }
-
-  isWhitespace() {
-    return this.data === ' ';
-  }
-
-  isEmpty() {
-    // Only anonymous text nodes can be considered "empty"
-    return this.tagName === null && !this.data.length;
-  }
-
-  trimLeft() {
-    if (this.isCollapsibleLeft()) {
-      this.data = this.data.slice(1);
-    }
-  }
-
-  trimRight() {
-    if (this.isCollapsibleRight()) {
-      this.data = this.data.substr(0, this.data.length - 1);
-    }
-  }
+interface TText extends TNodeShape {
+  data: string;
 }
+
+const TText = (function TText(this: Mutable<TTextImpl>, init: TTextInit) {
+  initialize(this, init);
+} as Function) as TNodeCtor<TTextInit, TTextImpl>;
+
+TText.prototype = makeTNodePrototype('text', 'TText', {
+  data: {
+    get(this: TTextImpl) {
+      return this.init.textNode.data;
+    },
+    set(this: TTextImpl, data: string) {
+      this.init.textNode.data = data;
+    }
+  }
+});
+
+TText.prototype.matchContentModel = function matchContentModel(
+  contentModel: HTMLContentModel
+) {
+  return (
+    contentModel === HTMLContentModel.textual ||
+    contentModel === HTMLContentModel.mixed
+  );
+};
+
+TText.prototype.isCollapsibleLeft = function isCollapsibleLeft(
+  this: TTextImpl
+) {
+  return (
+    this.hasWhiteSpaceCollapsingEnabled &&
+    !this.isEmpty() &&
+    this.data[0] === ' '
+  );
+};
+
+TText.prototype.isCollapsibleRight = function isCollapsibleRight(
+  this: TTextImpl
+) {
+  return (
+    this.hasWhiteSpaceCollapsingEnabled &&
+    !this.isEmpty() &&
+    this.data[this.data.length - 1] === ' '
+  );
+};
+
+TText.prototype.isWhitespace = function isWhitespace(this: TTextImpl) {
+  return this.data === ' ';
+};
+
+TText.prototype.isEmpty = function isEmpty(this: TTextImpl) {
+  // Only anonymous text nodes can be considered "empty"
+  return this.tagName === null && !this.data.length;
+};
+
+TText.prototype.trimLeft = function trimLeft(this: TTextImpl) {
+  if (this.isCollapsibleLeft()) {
+    this.data = this.data.slice(1);
+  }
+};
+
+TText.prototype.trimRight = function trimRight(this: TTextImpl) {
+  if (this.isCollapsibleRight()) {
+    this.data = this.data.substr(0, this.data.length - 1);
+  }
+};
+
+export default TText;
+
+export { TText };

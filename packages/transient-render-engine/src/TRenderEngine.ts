@@ -2,7 +2,7 @@ import { collapse } from './flow/collapse';
 import { hoist } from './flow/hoist';
 import { translateDocument } from './flow/translate';
 import { TDocument } from './tree/TDocument';
-import { parseDOM, ParserOptions as HTMLParserOptions } from 'htmlparser2';
+import { parseDocument, ParserOptions as HTMLParserOptions } from 'htmlparser2';
 import omit from 'ramda/src/omit';
 import {
   CSSProcessorConfig,
@@ -17,6 +17,7 @@ import { HTMLModelRecord, TagName } from './model/model-types';
 import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
 import { DataFlowParams } from './flow/types';
 import alterDOMNodes, { AlterDOMParams } from './dom/alterDOMNodes';
+import { DOMDocument, DOMElement, isElement } from './dom/dom-utils';
 
 export interface TRenderEngineOptions<E extends string = never> {
   /**
@@ -92,6 +93,7 @@ export class TRenderEngine {
     this.alterDOMParams = options?.alterDOMParams;
     this.htmlParserOptions = {
       decodeEntities: true,
+      lowerCaseTags: true,
       ...options?.htmlParserOptions
     };
     this.dataFlowParams = {
@@ -105,17 +107,66 @@ export class TRenderEngine {
     };
   }
 
-  buildTTree(html: string) {
-    let documentTree = parseDOM(html, this.htmlParserOptions);
+  findRoot(html: string) {
+    let document = parseDocument(html, this.htmlParserOptions);
+    for (const child of document.children) {
+      if (isElement(child) && child.tagName === 'html') {
+        document = child;
+        break;
+      }
+    }
+    return document;
+  }
+
+  normalizeDocument(html: string) {
+    let document = this.findRoot(html);
+    let body: DOMElement | undefined;
+    let head: DOMElement | undefined;
+    for (const child of document.children) {
+      if (body && head) {
+        break;
+      }
+      if (isElement(child) && child.tagName === 'body') {
+        body = child;
+      }
+      if (isElement(child) && child.tagName === 'head') {
+        head = child;
+      }
+    }
+    //@ts-ignore
+    if (!body && !head) {
+      body = new DOMElement('body', {});
+      body.childNodes = document.children;
+      document.children.forEach((c) => {
+        c.parent = body as DOMElement;
+        c.parentNode = body as DOMElement;
+      });
+      body.parent = document;
+      body.parentNode = document;
+      document.childNodes = [body];
+    }
+    return document;
+  }
+
+  applyDOMTampering(document: DOMDocument) {
     if (
       this.alterDOMParams?.ignoreDOMNode ||
       this.alterDOMParams?.alterDOMChildren ||
       this.alterDOMParams?.alterDOMData ||
       this.alterDOMParams?.alterDOMElement
     ) {
-      documentTree = alterDOMNodes(documentTree, this.alterDOMParams);
+      document.childNodes = alterDOMNodes(
+        document.childNodes,
+        this.alterDOMParams
+      );
     }
-    const tdoc = translateDocument(documentTree, this.dataFlowParams);
-    return collapse(hoist(tdoc), this.dataFlowParams) as TDocument;
+    return document;
+  }
+
+  buildTTree(html: string): TDocument {
+    const document = this.normalizeDocument(html);
+    const tamperedDoc = this.applyDOMTampering(document);
+    const tdoc = translateDocument(tamperedDoc, this.dataFlowParams);
+    return (collapse(hoist(tdoc), this.dataFlowParams) as unknown) as TDocument;
   }
 }

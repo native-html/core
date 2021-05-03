@@ -1,5 +1,5 @@
-import { TBlock } from '../tree/TBlock';
-import { TNode } from '../tree/TNode';
+import { TBlock, TBlockImpl } from '../tree/TBlock';
+import { TNodeImpl } from '../tree/tree-types';
 import { TPhrasing } from '../tree/TPhrasing';
 import { TText } from '../tree/TText';
 
@@ -7,37 +7,38 @@ import { TText } from '../tree/TText';
  * Wrap text nodes around TPhrasing nodes.
  * @param tnode The parent node of all elements to group.
  */
-function groupText(tnode: TBlock): TNode {
-  let newChildren: TNode[] = [];
+function groupText(tnode: TBlockImpl): TNodeImpl {
+  let newChildren: TNodeImpl[] = [];
   const wrappernode = new TPhrasing({
     parentStyles: tnode.styles,
-    contentModel: null,
     elementModel: null,
     stylesMerger: tnode.stylesMerger,
-    domNode: null,
-    nodeIndex: 0,
     parent: null
   });
   let wrapper = wrappernode.newEmpty();
+  let wrapperChildren: TNodeImpl[] = [];
   for (const child of tnode.children) {
     if (child instanceof TText || child instanceof TPhrasing) {
-      wrapper.children.push(child);
+      wrapperChildren.push(child);
     } else {
-      if (wrapper.children.length) {
+      if (wrapperChildren.length) {
         newChildren.push(wrapper);
+        wrapper.bindChildren(wrapperChildren);
         wrapper = wrappernode.newEmpty();
+        wrapperChildren = [];
       }
       newChildren.push(child);
     }
   }
-  if (wrapper.children.length) {
+  if (wrapperChildren.length) {
+    wrapper.bindChildren(wrapperChildren);
     newChildren.push(wrapper);
   }
   tnode.bindChildren(newChildren);
   return tnode;
 }
 
-function hoistNode(tnode: TNode): TNode {
+function hoistNode(tnode: TNodeImpl): TNodeImpl {
   tnode.bindChildren(tnode.children.map(hoistNode));
   if (tnode instanceof TPhrasing) {
     for (const cnode of tnode.children) {
@@ -61,6 +62,6 @@ function hoistNode(tnode: TNode): TNode {
   return tnode;
 }
 
-export function hoist(tree: TNode): TNode {
+export function hoist(tree: TNodeImpl): TNodeImpl {
   return hoistNode(tree);
 }

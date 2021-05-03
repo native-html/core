@@ -1,5 +1,5 @@
 import HTMLContentModel from '../../model/HTMLContentModel';
-import { TEmpty } from '../TEmpty';
+import TEmpty from '../TEmpty';
 import { defaultInit } from './shared';
 
 const init = {

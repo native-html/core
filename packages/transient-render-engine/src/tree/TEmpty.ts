@@ -1,23 +1,42 @@
-import { DOMElement } from '../dom/dom-utils';
 import HTMLContentModel from '../model/HTMLContentModel';
-import { TNode, TNodeInit } from './TNode';
+import makeTNodePrototype, {
+  TNodeCtor,
+  Mutable,
+  initialize
+} from './makeTNodePrototype';
+import { DOMElement } from '../dom/dom-utils';
+import { TNodeImpl, TNodeInit, TNodeShape } from './tree-types';
 
-export interface TEmptyInit extends Omit<TNodeInit, 'type'> {
+export interface TEmptyImpl extends TNodeImpl<TEmptyInit> {
   domNode: DOMElement;
   isUnregistered: boolean;
 }
 
-export class TEmpty extends TNode {
-  public domNode: DOMElement;
-  public readonly displayName = 'TEmpty';
-  public readonly isUnregistered: boolean;
-  constructor(init: TEmptyInit) {
-    super(init, 'empty');
-    this.domNode = init.domNode;
-    this.isUnregistered = init.isUnregistered;
-  }
-
-  matchContentModel(contentModel: HTMLContentModel) {
-    return contentModel === HTMLContentModel.none;
-  }
+export interface TEmptyInit extends TNodeInit {
+  domNode: DOMElement;
+  isUnregistered: boolean;
 }
+
+interface TEmpty extends TNodeShape {}
+
+const TEmpty = (function TEmpty(this: Mutable<TEmptyImpl>, init: TEmptyInit) {
+  initialize(this, init);
+} as Function) as TNodeCtor<TEmptyInit, TEmptyImpl>;
+
+TEmpty.prototype = makeTNodePrototype('empty', 'TEmpty', {
+  isUnregistered: {
+    get(this: TEmptyImpl) {
+      return this.init.isUnregistered;
+    }
+  }
+});
+
+TEmpty.prototype.matchContentModel = function matchContentModel(
+  contentModel: HTMLContentModel
+) {
+  return contentModel === HTMLContentModel.none;
+};
+
+export default TEmpty;
+
+export { TEmpty };
