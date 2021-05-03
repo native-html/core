@@ -15,7 +15,10 @@ function makeBenchmark(name, options, target) {
     );
   }
 
-  return (
+  let meanMs = 0;
+  let varMs = 0;
+
+  return new Promise((res) => {
     suite
       .add('Performance on a 65kb html snippet', () => {
         translateOnlyTRE.buildTTree(rnImageDoc);
@@ -30,25 +33,43 @@ function makeBenchmark(name, options, target) {
       })
       .on('complete', function (event) {
         const stats = event.target.stats;
-        const meanMs = stats.mean * 1000;
-        const varMs = stats.variance * 1000;
-        console.info('Mean is', meanMs, 'ms');
-        console.info('Variance is', varMs, 'ms');
+        meanMs = stats.mean * 1000;
+        varMs = stats.variance * 1000;
+        console.info(`[${name}]: mean is ${meanMs}ms`);
+        console.info(`[${name}]: variance is ${varMs}ms`);
         assertExecLessThan(meanMs);
+        res({ meanMs, varMs });
       })
       // run tests async
-      .run({ async: true })
-  );
+      .run({ async: true });
+  });
 }
 
 async function run() {
-  await makeBenchmark(
+  const translateTarget = 20;
+  const { meanMs: translateMeanMs } = await makeBenchmark(
     'translate only',
     {
       dangerouslyDisableHoisting: true,
       dangerouslyDisableWhitespaceCollapsing: true
     },
-    20
+    translateTarget
+  );
+  await makeBenchmark(
+    'translate + hoisting',
+    {
+      dangerouslyDisableHoisting: false,
+      dangerouslyDisableWhitespaceCollapsing: true
+    },
+    translateMeanMs * 2
+  );
+  await makeBenchmark(
+    'translate + collapsing',
+    {
+      dangerouslyDisableHoisting: true,
+      dangerouslyDisableWhitespaceCollapsing: false
+    },
+    translateMeanMs * 2
   );
 }
 
