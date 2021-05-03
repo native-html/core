@@ -54,12 +54,12 @@ export interface TRenderEngineOptions<E extends string = never> {
   /**
    * Disable hoisting. Note that your layout might break!
    */
-  readonly dangerouslyDisableHoisting: boolean;
+  readonly dangerouslyDisableHoisting?: boolean;
   /**
    * Disable whitespace collapsing. Especially useful if your html is
    * being pre-processed server-side with a minifier.
    */
-  readonly dangerouslyDisableWhitespaceCollapsing: boolean;
+  readonly dangerouslyDisableWhitespaceCollapsing?: boolean;
 }
 
 function createStylesConfig(
