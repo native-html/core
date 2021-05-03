@@ -51,6 +51,15 @@ export interface TRenderEngineOptions<E extends string = never> {
    * Alter the DOM tree prior to pre-rendering.
    */
   readonly alterDOMParams?: AlterDOMParams;
+  /**
+   * Disable hoisting. Note that your layout might break!
+   */
+  readonly dangerouslyDisableHoisting: boolean;
+  /**
+   * Disable whitespace collapsing. Especially useful if your html is
+   * being pre-processed server-side with a minifier.
+   */
+  readonly dangerouslyDisableWhitespaceCollapsing: boolean;
 }
 
 function createStylesConfig(
@@ -77,8 +86,14 @@ export class TRenderEngine {
   private htmlParserOptions: Readonly<HTMLParserOptions>;
   private dataFlowParams: DataFlowParams;
   private alterDOMParams?: AlterDOMParams;
+  private hoistingEnabled: boolean;
+  private whitespaceCollapsingEnabled: boolean;
   constructor(options?: TRenderEngineOptions) {
     const stylesConfig = createStylesConfig(options);
+    this.hoistingEnabled = !(options?.dangerouslyDisableHoisting ?? false);
+    this.whitespaceCollapsingEnabled = !(
+      options?.dangerouslyDisableWhitespaceCollapsing ?? false
+    );
     const modelRegistry = new HTMLModelRegistry(options?.customizeHTMLModels);
     const userSelectedFontSize =
       options?.cssProcessorConfig?.rootFontSize ||
@@ -167,6 +182,10 @@ export class TRenderEngine {
     const document = this.normalizeDocument(html);
     const tamperedDoc = this.applyDOMTampering(document);
     const tdoc = translateDocument(tamperedDoc, this.dataFlowParams);
-    return (collapse(hoist(tdoc), this.dataFlowParams) as unknown) as TDocument;
+    const hoistedTDoc = this.hoistingEnabled ? hoist(tdoc) : tdoc;
+    const collapsedTDoc = this.whitespaceCollapsingEnabled
+      ? collapse(hoistedTDoc, this.dataFlowParams)
+      : tdoc;
+    return (collapsedTDoc as unknown) as TDocument;
   }
 }

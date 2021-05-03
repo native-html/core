@@ -1,6 +1,9 @@
 {
   "name": "performance-testing",
   "private": true,
+  "scripts": {
+    "benchmark": "node index.js"
+  },
   "dependencies": {
     "@native-html/transient-render-engine": "workspace:*",
     "benchmark": "^2.1.4",
