@@ -87,22 +87,30 @@ const TDocument = (function TDocument(
   this: Mutable<TDocumentImpl>,
   init: TDocumentInit
 ) {
-  initialize(this, {
-    ...init,
-    elementModel: htmlModel
-  });
-  Object.defineProperty(this, 'tagName', {
-    value: 'html'
-  });
-  Object.defineProperty(this, 'type', {
-    value: 'document'
-  });
-  Object.defineProperty(this, 'displayName', {
-    value: 'TDocument'
-  });
+  initialize(this, init as any);
 } as Function) as TNodeCtor<TDocumentInit, TDocumentImpl>;
 
 TDocument.prototype = Object.create(TBlock.prototype);
+
+Object.defineProperty(TDocument.prototype, 'tagName', {
+  value: 'html',
+  writable: false
+});
+
+Object.defineProperty(TDocument.prototype, 'type', {
+  value: 'document',
+  writable: false
+});
+
+Object.defineProperty(TDocument.prototype, 'displayName', {
+  value: 'TDocument',
+  writable: false
+});
+
+Object.defineProperty(TDocument.prototype, 'elementModel', {
+  value: htmlModel,
+  writable: false
+});
 
 TDocument.prototype.parseChildren = function parseChildren(
   this: Mutable<TDocumentImpl>

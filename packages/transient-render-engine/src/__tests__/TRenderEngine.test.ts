@@ -184,16 +184,17 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
 describe('TRenderEngine > buildTTree method', () => {
   it('should handle special case when baseStyle.fontSize is not a number', () => {
     const specialTTreeBuilder = new TRenderEngine({
+      dangerouslyDisableHoisting: false,
       stylesConfig: {
         baseStyle: {
           fontSize: '1rem'
         }
       }
     });
-    expect(
-      specialTTreeBuilder.buildTTree('<span>A</span>').children[0].children[0]
-        .styles.nativeTextFlow.fontSize
-    ).toBe(14);
+    const ttree = specialTTreeBuilder.buildTTree('<span>A</span>');
+    const span = ttree.children[0].children[0].children[0];
+    expect(span.tagName).toBe('span');
+    expect(span.styles.nativeTextFlow.fontSize).toBe(14);
   });
   it('should not provide a root fontSize when enableUserAgentStyles is set to false', () => {
     const specialTTreeBuilder = new TRenderEngine({
@@ -445,10 +446,10 @@ describe('TRenderEngine > buildTTree method', () => {
       children: [
         {
           type: 'phrasing',
-          styles: baseStyles,
           children: [
             {
               type: 'text',
+              styles: baseStyles,
               data: 'This text should inherit baseStyles'
             }
           ]

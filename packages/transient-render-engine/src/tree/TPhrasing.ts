@@ -6,10 +6,7 @@ import makeTNodePrototype, {
 } from './makeTNodePrototype';
 import { TNodeImpl, TNodeInit, TNodeShape } from './tree-types';
 
-export interface TPhrasingImpl extends TNodeImpl {
-  newEmpty(): TPhrasingImpl;
-  emptyParams<T = {}>(): Partial<TNodeInit> & T;
-}
+export interface TPhrasingImpl extends TNodeImpl {}
 
 function isChildEmpty(c: TNodeImpl) {
   return c.isEmpty();
@@ -37,17 +34,6 @@ TPhrasing.prototype.matchContentModel = function matchContentModel(
     contentModel === HTMLContentModel.textual ||
     contentModel === HTMLContentModel.mixed
   );
-};
-
-TPhrasing.prototype.newEmpty = function newEmpty(this: TPhrasingImpl) {
-  return new TPhrasing(this.cloneInitParams(this.emptyParams()));
-};
-
-TPhrasing.prototype.emptyParams = function emptyParams(
-  this: TPhrasingImpl,
-  other?: any
-) {
-  return Object.assign({}, other, { domNode: null });
 };
 
 TPhrasing.prototype.isWhitespace = function isWhitespace() {

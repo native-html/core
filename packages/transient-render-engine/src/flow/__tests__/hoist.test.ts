@@ -104,4 +104,11 @@ describe('hoist function', () => {
       ]
     });
   });
+  it('should preserve parents before hoisting', () => {
+    const span = makeTTree('<span><strong>hello</strong><img /></span>');
+    const strong = span.children[0].children[0];
+    expect(strong.tagName).toBe('strong');
+    expect(strong.parent).toBeDefined();
+    expect(strong.parent?.tagName).toBe('span');
+  });
 });

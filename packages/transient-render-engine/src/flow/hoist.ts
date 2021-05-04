@@ -8,14 +8,16 @@ import { TText } from '../tree/TText';
  * @param tnode The parent node of all elements to group.
  */
 function groupText(tnode: TBlockImpl): TNodeImpl {
+  if (tnode instanceof TText) {
+    return tnode;
+  }
   let newChildren: TNodeImpl[] = [];
-  const wrappernode = new TPhrasing({
-    parentStyles: tnode.styles,
+  const wrapperInit = {
     elementModel: null,
     stylesMerger: tnode.stylesMerger,
     parent: null
-  });
-  let wrapper = wrappernode.newEmpty();
+  };
+  let wrapper = new TPhrasing(wrapperInit);
   let wrapperChildren: TNodeImpl[] = [];
   for (const child of tnode.children) {
     if (child instanceof TText || child instanceof TPhrasing) {
@@ -24,7 +26,7 @@ function groupText(tnode: TBlockImpl): TNodeImpl {
       if (wrapperChildren.length) {
         newChildren.push(wrapper);
         wrapper.bindChildren(wrapperChildren);
-        wrapper = wrappernode.newEmpty();
+        wrapper = new TPhrasing(wrapperInit);
         wrapperChildren = [];
       }
       newChildren.push(child);
@@ -39,15 +41,14 @@ function groupText(tnode: TBlockImpl): TNodeImpl {
 }
 
 function hoistNode(tnode: TNodeImpl): TNodeImpl {
+  if (tnode instanceof TText) {
+    return tnode;
+  }
   tnode.bindChildren(tnode.children.map(hoistNode));
   if (tnode instanceof TPhrasing) {
     for (const cnode of tnode.children) {
       if (cnode instanceof TBlock) {
-        const initParams = tnode.cloneInitParams({
-          parentStyles: cnode.parentStyles,
-          styles: cnode.styles
-        });
-        const newNode = new TBlock(initParams);
+        const newNode = new TBlock(tnode.cloneInitParams());
         newNode.bindChildren(tnode.children);
         const output = groupText(newNode);
         return output;
