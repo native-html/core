@@ -100,7 +100,7 @@ export class TStylesMerger {
       ? model?.mixedUAStyles ?? null
       : null;
     // Latest properties will override former properties.
-    const mergedOwnProps = mergePropsRegistries([
+    const mergedOwnProps = emptyProcessedPropsReg.merge(
       userAgentTagProps &&
         this.processor.compileStyleDeclaration(userAgentTagProps),
       derivedPropsFromAttributes &&
@@ -109,22 +109,7 @@ export class TStylesMerger {
       ...userClassesOwnPropsList,
       userIdOwnProps,
       ownInlinePropsReg
-    ]);
+    );
     return new TStyles(mergedOwnProps, parentStyles);
   }
-}
-
-/**
- * Merge from lower specificy registries (left) to higher specificity registry (right).
- * @param registries
- */
-function mergePropsRegistries(
-  registries: Array<CSSProcessedProps | null>
-): CSSProcessedProps {
-  const filteredProps = registries.filter(isNotNull);
-  return emptyProcessedPropsReg.merge(...filteredProps);
-}
-
-function isNotNull<T>(item: T): item is Exclude<T, null> {
-  return item !== null;
 }
