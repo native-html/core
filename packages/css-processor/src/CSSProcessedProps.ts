@@ -2,7 +2,7 @@ import { CSSProperties } from 'react';
 import { TextStyle, ViewStyle } from 'react-native';
 import { MixedStyleDeclaration } from './CSSProcessor';
 import { emptyProps, isNotEmpty } from './emptyProps';
-import mergeProps, { MixedProps } from './mergeProps';
+import mergeProps from './mergeProps';
 import {
   CSSPropertyCompatCategory,
   CSSDisplayRegistry,
@@ -51,8 +51,8 @@ export class CSSProcessedProps
       >;
     };
     block: {
-      flow: MixedProps<
-        Partial<Pick<ViewStyle, CSSLongNativeTranslatableBlockFlowedPropKey>>
+      flow: Partial<
+        Pick<ViewStyle, CSSLongNativeTranslatableBlockFlowedPropKey>
       >;
       retain: Partial<
         Pick<ViewStyle, CSSLongNativeTranslatableBlockRetainedPropKey>
@@ -61,22 +61,19 @@ export class CSSProcessedProps
   };
   readonly web: {
     text: {
-      flow: MixedProps<Partial<WebTextFlowProperties> & CSSProperties>;
-      retain: MixedProps<
-        Partial<Record<CSSLongWebTextRetainedPropKey, any>> & CSSProperties
-      >;
+      flow: Partial<WebTextFlowProperties> & CSSProperties;
+      retain: Partial<Record<CSSLongWebTextRetainedPropKey, any>> &
+        CSSProperties;
     };
     block: {
-      flow: MixedProps<
-        Partial<
-          Pick<ViewStyle, CSSLongNativeUntranslatableBlockFlowedPropKey>
-        > &
-          CSSProperties
-      >;
-      retain: MixedProps<
-        Partial<Pick<ViewStyle, CSSLongNativeUntranslatableBlockPropKey>> &
-          CSSProperties
-      >;
+      flow: Partial<
+        Pick<ViewStyle, CSSLongNativeUntranslatableBlockFlowedPropKey>
+      > &
+        CSSProperties;
+      retain: Partial<
+        Pick<ViewStyle, CSSLongNativeUntranslatableBlockPropKey>
+      > &
+        CSSProperties;
     };
   };
 
@@ -125,14 +122,15 @@ export class CSSProcessedProps
    * @param overriders - The processed props which will be merged into this
    * processed prop. Rightmost props will override leftmost props.
    */
-  public merge(...overriders: CSSProcessedProps[]) {
+  public merge(...overriders: Array<CSSProcessedProps | null>) {
+    const filtered = overriders.filter(isNotEmpty);
     const next = new CSSProcessedProps();
     for (const compat of compatCategories) {
       for (const display of displayCategories) {
         for (const propagation of propagationCategories) {
           next[compat][display][propagation] = mergeProps([
             this[compat][display][propagation],
-            ...overriders.map((o) => o[compat][display][propagation])
+            ...filtered.map((o) => o[compat][display][propagation])
           ]);
         }
       }

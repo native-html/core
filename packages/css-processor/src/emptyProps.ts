@@ -14,6 +14,7 @@ export const emptyProps = (function () {
   $$empty: symbol;
 };
 
-export function isNotEmpty(p: any): p is EmptyProps {
-  return p.$$empty !== emptySymbol;
+export function isNotEmpty<T>(p: T): p is Exclude<T, EmptyProps | null> {
+  //@ts-ignore
+  return !!p && p.$$empty !== emptySymbol;
 }

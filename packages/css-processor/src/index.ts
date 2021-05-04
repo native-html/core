@@ -5,6 +5,7 @@ export * from './default';
 export * from './processor-types';
 export * from './property-types';
 export * from './native-types';
+export { default as mergeProps } from './mergeProps';
 export { CSSProcessor };
 export type { MixedStyleDeclaration };
 export default CSSProcessor;
