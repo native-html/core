@@ -72,7 +72,7 @@ export class TStylesMerger {
     parentStyles: TStyles | null,
     descriptor: {
       tagName: string | null;
-      className: string | null;
+      classes: string[];
       id: string | null;
       attributes: Record<string, string>;
     }
@@ -87,9 +87,7 @@ export class TStylesMerger {
     const userTagOwnProps =
       this.tagsStyles[descriptor.tagName as string] ?? null;
     const userIdOwnProps = this.idsStyles[descriptor.id as string] ?? null;
-    const classes = descriptor.className
-      ? descriptor.className.split(/\s+/)
-      : [];
+    const classes = descriptor.classes;
     const userClassesOwnPropsList = classes.map(
       (c) => this.classesStyles[c] || null
     );

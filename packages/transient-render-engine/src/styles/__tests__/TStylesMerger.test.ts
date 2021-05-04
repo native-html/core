@@ -24,7 +24,7 @@ describe('TStylesMerger', () => {
       );
       expect(
         stylesMerger.buildStyles('color: blue', null, {
-          className: null,
+          classes: [],
           id: 'main',
           tagName: 'div',
           attributes: {}
@@ -46,7 +46,7 @@ describe('TStylesMerger', () => {
       expect(
         stylesMerger.buildStyles('color: blue', null, {
           id: null,
-          className: 'main',
+          classes: ['main'],
           tagName: 'div',
           attributes: {}
         }).nativeTextFlow.color
@@ -67,7 +67,7 @@ describe('TStylesMerger', () => {
       expect(
         stylesMerger.buildStyles('color: blue', null, {
           id: null,
-          className: null,
+          classes: [],
           tagName: 'div',
           attributes: {}
         }).nativeTextFlow.color
@@ -93,7 +93,7 @@ describe('TStylesMerger', () => {
       expect(
         stylesMerger.buildStyles('', null, {
           id: null,
-          className: 'main',
+          classes: ['main'],
           tagName: 'div',
           attributes: {}
         }).nativeTextFlow.color
@@ -108,7 +108,7 @@ describe('TStylesMerger', () => {
       );
       const styles = stylesMerger.buildStyles('', null, {
         id: 'main',
-        className: 'content',
+        classes: ['content'],
         tagName: 'div',
         attributes: {}
       });
@@ -131,7 +131,7 @@ describe('TStylesMerger', () => {
       );
       const styles = stylesMerger.buildStyles('', null, {
         id: 'main',
-        className: 'content content--highlight',
+        classes: ['content', 'content--highlight'],
         tagName: 'div',
         attributes: {}
       });
@@ -160,7 +160,7 @@ describe('TStylesMerger', () => {
       expect(
         stylesMerger.buildStyles('', null, {
           id: 'main',
-          className: 'content content--highlight',
+          classes: ['content', 'content--highlight'],
           tagName: 'div',
           attributes: {}
         }).nativeTextFlow
@@ -188,7 +188,7 @@ describe('TStylesMerger', () => {
       expect(
         stylesMerger.buildStyles('', null, {
           id: 'main',
-          className: 'content',
+          classes: ['content'],
           tagName: 'div',
           attributes: {}
         }).nativeTextFlow
@@ -207,7 +207,7 @@ describe('TStylesMerger', () => {
         stylesMerger.compileInlineCSS('color:red;')
       );
       const styles = stylesMerger.buildStyles('', parentStyles, {
-        className: null,
+        classes: [],
         id: null,
         tagName: null,
         attributes: {}
@@ -231,7 +231,7 @@ describe('TStylesMerger', () => {
           '',
           new TStyles(stylesMerger.compileInlineCSS('color:red;')),
           {
-            className: null,
+            classes: [],
             id: null,
             tagName: 'div',
             attributes: {}
@@ -250,7 +250,7 @@ describe('TStylesMerger', () => {
             modelRegistry
           );
           const processedProps = stylesMerger.buildStyles('', null, {
-            className: null,
+            classes: [],
             attributes: {},
             id: null,
             tagName: 'blockquote'
@@ -271,7 +271,7 @@ describe('TStylesMerger', () => {
             modelRegistry
           );
           const processedProps = stylesMerger.buildStyles('', null, {
-            className: null,
+            classes: [],
             attributes: {
               type: 'cite'
             },
@@ -298,7 +298,7 @@ describe('TStylesMerger', () => {
             modelRegistry
           );
           const processedProps = stylesMerger.buildStyles('', null, {
-            className: null,
+            classes: [],
             attributes: {},
             id: null,
             tagName: 'div'
@@ -317,7 +317,7 @@ describe('TStylesMerger', () => {
             modelRegistry
           );
           const processedProps = stylesMerger.buildStyles('', null, {
-            className: null,
+            classes: [],
             attributes: {},
             id: null,
             tagName: 'a'
@@ -334,7 +334,7 @@ describe('TStylesMerger', () => {
             modelRegistry
           );
           const processedProps = stylesMerger.buildStyles('', null, {
-            className: null,
+            classes: [],
             attributes: {
               href: ''
             },
@@ -364,7 +364,7 @@ describe('TStylesMerger', () => {
             modelRegistry
           );
           const processedProps = stylesMerger.buildStyles('', null, {
-            className: null,
+            classes: [],
             attributes: {
               href: ''
             },

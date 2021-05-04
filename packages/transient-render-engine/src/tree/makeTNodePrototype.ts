@@ -15,10 +15,7 @@ function updateNodeIndexes(node: Mutable<TNodeImpl>, i: number) {
 
 const emptyAttrs = {};
 
-const prototype: Omit<TNodeImpl, keyof TNodeInvariants> & {
-  // TODO remove
-  className: string;
-} = {
+const prototype: Omit<TNodeImpl, keyof TNodeInvariants> = {
   children: Object.freeze([]) as any,
   init: Object.freeze({}) as any,
   __classes: null,
@@ -55,11 +52,6 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants> & {
     return this.__classes;
   },
 
-  get className() {
-    // TODO remove
-    return this.attributes.class;
-  },
-
   get domNode() {
     return this.init.domNode || null;
   },
@@ -80,7 +72,7 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants> & {
         self.init.stylesMerger.buildStyles(
           self.attributes.style,
           self.parentStyles || null,
-          (this as unknown) as any
+          this
         );
     }
     return this.__styles;
