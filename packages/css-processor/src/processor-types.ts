@@ -1,6 +1,7 @@
+import { MixedPropsRecord } from './mergeProps';
 import { CSSLongWebTextFlowedPropKey } from './property-types';
 
-export type CSSProperties = Record<string, any>;
+export type CSSProperties = MixedPropsRecord<Record<string, any>>;
 /**
  * - *flow* CSS properties will be inherited by children TTree nodes;
  * - *retain* CSS properties will only apply to the TTree node to which it is

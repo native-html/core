@@ -1,3 +1,4 @@
+import { TStyles } from '../styles/TStyles';
 import { TNodeImpl, TNodeInit, TNodeInvariants, TNodeType } from './tree-types';
 
 export type TNodeCtor<Init = TNodeInit, Impl = TNodeImpl> = {
@@ -18,8 +19,8 @@ const emptyAttrs = {};
 const prototype: Omit<TNodeImpl, keyof TNodeInvariants> = {
   children: Object.freeze([]) as any,
   init: Object.freeze({}) as any,
-  __classes: null,
-  __styles: null,
+  classes: Object.freeze([]) as any,
+  styles: Object.freeze(TStyles.empty()) as any,
   __nodeIndex: null,
   __trimmedLeft: false,
   __trimmedRight: false,
@@ -45,13 +46,6 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants> = {
     return this.attributes.id || null;
   },
 
-  get classes() {
-    if (this.__classes === null) {
-      this.__classes = this.attributes.class?.split(/\s+/) || [];
-    }
-    return this.__classes;
-  },
-
   get domNode() {
     return this.init.domNode || null;
   },
@@ -62,20 +56,6 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants> = {
 
   get stylesMerger() {
     return this.init.stylesMerger;
-  },
-
-  get styles() {
-    if (this.__styles === null) {
-      const self = (this as unknown) as TNodeImpl;
-      this.__styles =
-        self.init.styles ||
-        self.init.stylesMerger.buildStyles(
-          self.attributes.style,
-          self.parentStyles || null,
-          this
-        );
-    }
-    return this.__styles;
   },
 
   get tagName() {
@@ -190,11 +170,15 @@ export function initialize<Impl extends TNodeImpl<any> = TNodeImpl>(
   self: Mutable<Impl>,
   init: Impl['init']
 ) {
-  // self.init = init;
-  Object.defineProperty(self, 'init', {
-    get: () => init,
-    enumerable: false
-  });
+  self.init = init;
+  self.classes = self.attributes.class?.split(/\s+/) || [];
+  self.styles =
+    self.init.styles ||
+    self.init.stylesMerger.buildStyles(
+      self.attributes.style,
+      self.parentStyles || null,
+      self
+    );
 }
 
 const PCtor = (function PCtor(

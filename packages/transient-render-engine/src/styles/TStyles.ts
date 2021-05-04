@@ -1,5 +1,9 @@
 import { CSSProperties, CSSProcessedProps } from '@native-html/css-processor';
+import nil from 'ramda/src/isNil';
+import not from 'ramda/src/not';
+import compose from 'ramda/src/compose';
 
+const notNil = compose(not, nil);
 /**
  * A merge properties from left to right.
  *
@@ -9,13 +13,16 @@ import { CSSProperties, CSSProcessedProps } from '@native-html/css-processor';
 function inheritProperties(
   ...properties: Array<CSSProperties | null | undefined>
 ): CSSProperties {
-  const realProperties = properties.filter((p) => p != null);
+  const realProperties = properties.filter(notNil) as CSSProperties[];
   if (realProperties.length === 1) {
-    return realProperties[0] as CSSProperties;
+    return realProperties[0];
+  }
+  if (Object.keys(realProperties[0]).length === 0) {
+    return realProperties[1];
   }
   return realProperties.reduce(
     (prev, curr) => ({ ...prev, ...curr }),
-    {} as CSSProperties
+    Object.prototype as CSSProperties
   ) as CSSProperties;
 }
 

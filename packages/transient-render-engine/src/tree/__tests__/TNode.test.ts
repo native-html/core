@@ -1,12 +1,12 @@
 import { DOMElement, DOMText } from '../../dom/dom-utils';
-import { Mutable } from '../makeTNodePrototype';
+import { initialize, Mutable } from '../makeTNodePrototype';
 import makeTNodePrototype from '../makeTNodePrototype';
 import TText from '../TText';
 import { defaultInit } from './shared';
 import { TNodeImpl, TNodeInit } from '../tree-types';
 
 const TTest = function (this: Mutable<TNodeImpl>, init: TNodeInit) {
-  this.init = init;
+  initialize(this, init);
 };
 
 TTest.prototype = makeTNodePrototype('block', 'TTest');

@@ -99,8 +99,6 @@ export interface TNodeImpl<T = TNodeInit>
     TNodeDerivedFields,
     TNodeInvariants,
     TNodeShape {
-  __classes: string[] | null;
-  __styles: TStyles | null;
   __nodeIndex: number | null;
   __trimmedLeft: boolean;
   __trimmedRight: boolean;
