@@ -1,4 +1,5 @@
 import { DOMElement } from '../dom/dom-utils';
+import { DataFlowParams } from '../flow/types';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
 import { TStyles } from '../styles/TStyles';
@@ -77,6 +78,15 @@ export interface TNodeMethods {
   trimLeft(this: TNodeImpl): void;
   trimRight(this: TNodeImpl): void;
   matchContentModel(contentModel: HTMLContentModel): boolean;
+  collapse(this: TNodeImpl, params: DataFlowParams): void;
+  /**
+   * Collpase this node children.
+   *
+   * @param params
+   * @returns A list of indexes to splice
+   */
+  collapseChildren(this: TNodeImpl, params: DataFlowParams): void;
+  spliceChildren(this: TNodeImpl, indexes: number[]): void;
 }
 
 export interface TNodeInvariants {
@@ -89,6 +99,11 @@ export interface TNodeImpl<T = TNodeInit>
     TNodeDerivedFields,
     TNodeInvariants,
     TNodeShape {
+  __classes: string[] | null;
+  __styles: TStyles | null;
+  __nodeIndex: number | null;
+  __trimmedLeft: boolean;
+  __trimmedRight: boolean;
   readonly children: ReadonlyArray<TNodeImpl>;
   readonly init: T;
   readonly hasWhiteSpaceCollapsingEnabled: boolean;

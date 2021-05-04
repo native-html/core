@@ -15,11 +15,23 @@ const TBlock = (function TBlock(this: Mutable<TBlockImpl>, init: TNodeInit) {
 } as Function) as TNodeCtor<TNodeInit, TBlockImpl>;
 
 TBlock.prototype = makeTNodePrototype('block', 'TBlock');
+
 TBlock.prototype.matchContentModel = function matchContentModel(contentModel) {
   return (
     contentModel === HTMLContentModel.block ||
     contentModel === HTMLContentModel.mixed
   );
+};
+
+TBlock.prototype.collapseChildren = function collapseChildren(params) {
+  let indexesToSplice: number[] = [];
+  this.children.forEach((child, i) => {
+    child.collapse(params);
+    if (child.isEmpty()) {
+      indexesToSplice.push(i);
+    }
+  });
+  this.spliceChildren(indexesToSplice);
 };
 
 export default TBlock;

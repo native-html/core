@@ -1,13 +1,9 @@
-import HTMLContentModel from '../model/HTMLContentModel';
-import makeTNodePrototype, {
-  TNodeCtor,
-  Mutable,
-  initialize
-} from './makeTNodePrototype';
+import { TNodeCtor, Mutable, initialize } from './makeTNodePrototype';
 import HTMLElementModel from '../model/HTMLElementModel';
 import { isElement, isText } from '../dom/dom-utils';
 import { TEmptyImpl } from './TEmpty';
 import { TNodeInit, TNodeImpl, TNodeShape } from './tree-types';
+import TBlock from './TBlock';
 
 export interface DocumentContext {
   charset: string;
@@ -98,18 +94,15 @@ const TDocument = (function TDocument(
   Object.defineProperty(this, 'tagName', {
     value: 'html'
   });
+  Object.defineProperty(this, 'type', {
+    value: 'document'
+  });
+  Object.defineProperty(this, 'displayName', {
+    value: 'TDocument'
+  });
 } as Function) as TNodeCtor<TDocumentInit, TDocumentImpl>;
 
-TDocument.prototype = makeTNodePrototype('document', 'TDocument');
-
-TDocument.prototype.matchContentModel = function matchContentModel(
-  contentModel
-) {
-  return (
-    contentModel === HTMLContentModel.block ||
-    contentModel === HTMLContentModel.mixed
-  );
-};
+TDocument.prototype = Object.create(TBlock.prototype);
 
 TDocument.prototype.parseChildren = function parseChildren(
   this: Mutable<TDocumentImpl>
@@ -135,6 +128,7 @@ TDocument.prototype.parseChildren = function parseChildren(
         }
   );
 };
+
 export { TDocument };
 
 export default TDocument;

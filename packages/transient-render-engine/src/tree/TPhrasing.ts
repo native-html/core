@@ -59,7 +59,29 @@ TPhrasing.prototype.isEmpty = function isEmpty() {
   return this.tagName === null && this.children.every(isChildEmpty);
 };
 
-TPhrasing.prototype = Object.freeze(TPhrasing.prototype);
+TPhrasing.prototype.collapseChildren = function collapseChildren(params) {
+  let previous: TNodeImpl | null = null;
+  let indexesToSplice: number[] = [];
+  this.children.forEach((childK, k) => {
+    const j = k - 1;
+    childK.collapse(params);
+    if (
+      j > -1 &&
+      childK.isCollapsibleLeft() &&
+      (previous as TNodeImpl).isCollapsibleRight()
+    ) {
+      (previous as TNodeImpl).trimRight();
+      if (previous!.isEmpty()) {
+        indexesToSplice.push(j);
+      }
+    }
+    previous = childK;
+  });
+  this.spliceChildren(indexesToSplice);
+  this.trimLeft();
+  this.trimRight();
+  return null;
+};
 
 export default TPhrasing;
 

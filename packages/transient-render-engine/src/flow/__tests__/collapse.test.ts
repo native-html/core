@@ -291,12 +291,6 @@ describe('collapse function', () => {
     ttree.bindChildren([tphrasing]);
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
-  it('should remove children from TPhrasing nodes which are not TText or TPhrasing nodes', () => {
-    const ttree = new TPhrasing(defaultInit);
-    const forbiddenChild = new TBlock(defaultInit);
-    ttree.bindChildren([forbiddenChild]);
-    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
-  });
   it('should remove children from TPhrasing nodes which are empty after timming', () => {
     const ttree = new TPhrasing(defaultInit);
     ttree.bindChildren([
@@ -534,10 +528,10 @@ describe('collapse function', () => {
     <tr>
       <td>January</td>
       <td>first</td>
-      <td >$50</td>
+      <td>$50</td>
     </tr>
     <tr>
-      <td >second</td>
+      <td>second</td>
       <td>$80</td>
       <td>$80</td>
     </tr>

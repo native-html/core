@@ -5,7 +5,16 @@ import makeTNodePrototype, {
   Mutable,
   initialize
 } from './makeTNodePrototype';
+import compose from 'ramda/src/compose';
 import { TNodeInit, TNodeImpl, TNodeShape } from './tree-types';
+import {
+  normalizeWhitespaces,
+  normalizeZeroWidthWhitespaces,
+  removeCollapsibleAroundSegmentBreak,
+  removeConsecutiveSegmentBreaks,
+  removeLineBreaksAroundEastAsianDiscardSet,
+  replaceSegmentBreaks
+} from '../flow/text-transforms';
 
 export interface TTextInit extends TNodeInit {
   textNode: DOMText;
@@ -18,6 +27,23 @@ export interface TTextImpl extends TNodeImpl<TTextInit> {
 interface TText extends TNodeShape {
   data: string;
 }
+
+const collapseWhiteSpaces = compose(
+  normalizeWhitespaces,
+  replaceSegmentBreaks,
+  normalizeZeroWidthWhitespaces,
+  removeConsecutiveSegmentBreaks,
+  removeCollapsibleAroundSegmentBreak
+);
+
+const collapseWhiteSpacesWithEastAsianCharset = compose(
+  normalizeWhitespaces,
+  replaceSegmentBreaks,
+  removeLineBreaksAroundEastAsianDiscardSet,
+  normalizeZeroWidthWhitespaces,
+  removeConsecutiveSegmentBreaks,
+  removeCollapsibleAroundSegmentBreak
+);
 
 const TText = (function TText(this: Mutable<TTextImpl>, init: TTextInit) {
   initialize(this, init);
@@ -82,6 +108,20 @@ TText.prototype.trimRight = function trimRight(this: TTextImpl) {
   if (this.isCollapsibleRight()) {
     this.data = this.data.substr(0, this.data.length - 1);
   }
+};
+
+TText.prototype.collapseChildren = function collapseChildren(
+  this: TTextImpl,
+  params
+) {
+  if (this.hasWhiteSpaceCollapsingEnabled) {
+    if (params.removeLineBreaksAroundEastAsianDiscardSet) {
+      this.data = collapseWhiteSpacesWithEastAsianCharset(this.data);
+    } else {
+      this.data = collapseWhiteSpaces(this.data);
+    }
+  }
+  return null;
 };
 
 export default TText;

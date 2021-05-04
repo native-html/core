@@ -1,4 +1,3 @@
-import { TStyles } from '../styles/TStyles';
 import { TNodeImpl, TNodeInit, TNodeInvariants, TNodeType } from './tree-types';
 
 export type TNodeCtor<Init = TNodeInit, Impl = TNodeImpl> = {
@@ -16,19 +15,19 @@ function updateNodeIndexes(node: Mutable<TNodeImpl>, i: number) {
 
 const emptyAttrs = {};
 
-const prototype: Omit<TNodeImpl, keyof TNodeInvariants | 'init'> & {
-  __classes: string[] | null;
-  __styles: TStyles | null;
-  __nodeIndex: number | null;
+const prototype: Omit<TNodeImpl, keyof TNodeInvariants> & {
   // TODO remove
   className: string;
 } = {
   children: Object.freeze([]) as any,
+  init: Object.freeze({}) as any,
   __classes: null,
   __styles: null,
   __nodeIndex: null,
+  __trimmedLeft: false,
+  __trimmedRight: false,
   get attributes() {
-    return ((this as unknown) as TNodeImpl).domNode?.attribs || emptyAttrs;
+    return this.domNode?.attribs || emptyAttrs;
   },
 
   get hasWhiteSpaceCollapsingEnabled() {
@@ -38,16 +37,15 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants | 'init'> & {
   },
 
   get contentModel() {
-    return ((this as unknown) as TNodeImpl).elementModel?.contentModel || null;
+    return this.elementModel?.contentModel || null;
   },
 
   get parentStyles() {
-    const self = (this as unknown) as TNodeImpl;
-    return self.init.parentStyles || self.parent?.styles || null;
+    return this.init.parentStyles || this.parent?.styles || null;
   },
 
   get id() {
-    return ((this as unknown) as TNodeImpl).attributes.id || null;
+    return this.attributes.id || null;
   },
 
   get classes() {
@@ -63,15 +61,15 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants | 'init'> & {
   },
 
   get domNode() {
-    return ((this as unknown) as TNodeImpl).init.domNode || null;
+    return this.init.domNode || null;
   },
 
   get elementModel() {
-    return ((this as unknown) as TNodeImpl).init.elementModel;
+    return this.init.elementModel;
   },
 
   get stylesMerger() {
-    return ((this as unknown) as TNodeImpl).init.stylesMerger;
+    return this.init.stylesMerger;
   },
 
   get styles() {
@@ -89,16 +87,16 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants | 'init'> & {
   },
 
   get tagName() {
-    return ((this as unknown) as TNodeImpl).init.domNode?.name || null;
+    return this.init.domNode?.name || null;
   },
 
   get parent() {
-    return ((this as unknown) as TNodeImpl).init.parent || null;
+    return this.init.parent || null;
   },
 
   get nodeIndex() {
     if (this.__nodeIndex === null) {
-      this.__nodeIndex = ((this as unknown) as TNodeImpl).init.nodeIndex || 0;
+      this.__nodeIndex = this.init.nodeIndex || 0;
     }
     return this.__nodeIndex;
   },
@@ -148,29 +146,51 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants | 'init'> & {
   },
 
   trimLeft() {
-    if (this.children.length) {
+    if (!this.__trimmedLeft && this.children.length) {
       const firstChild = this.children[0];
       firstChild.trimLeft();
       if (firstChild.isEmpty()) {
         //@ts-ignore
         this.children.splice(0, 1);
       }
+      this.__trimmedLeft = true;
     }
   },
 
   trimRight() {
-    if (this.children.length) {
+    if (!this.__trimmedRight && this.children.length) {
       const lastChild = this.children[this.children.length - 1];
       lastChild.trimRight();
       if (lastChild.isEmpty()) {
         //@ts-ignore
         this.children.splice(-1, 1);
       }
+      this.__trimmedRight = true;
     }
   },
 
   matchContentModel() {
     return false;
+  },
+
+  spliceChildren(indexesToSplice) {
+    if (indexesToSplice) {
+      let offset = 0;
+      for (const i of indexesToSplice) {
+        //@ts-ignore
+        this.children.splice(i - offset, 1);
+        offset += 1;
+      }
+    }
+  },
+
+  collapse(params) {
+    this.collapseChildren(params);
+    this.bindChildren(this.children, true);
+  },
+
+  collapseChildren() {
+    return;
   }
 };
 
