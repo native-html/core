@@ -13,3 +13,12 @@ exports[`hoist function should comply with RFC002 example (hoisting)  1`] = `
    └─•TText(anonymous,data[".\\n"])
 
 `;
+
+exports[`hoist function should hoist multiple blocks 1`] = `
+•TBlock(tag=span)
+ ├─•TBlock(tag=div)
+ ├─•TPhrasing(anonymous)
+ │ └─•TText(anonymous,data["Hello"])
+ └─•TBlock(tag=img)
+
+`;

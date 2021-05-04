@@ -1,6 +1,7 @@
 import { imgSrc, rfc002Source, href } from './shared';
 import { hoist } from '../hoist';
 import { translateTreeTest } from './utils';
+import { TNodeImpl } from '../../tree/tree-types';
 
 function makeTTree(source: string) {
   return hoist(translateTreeTest(source));
@@ -33,6 +34,10 @@ describe('hoist function', () => {
         }
       ]
     });
+    expect(hoistedTree).toMatchSnapshot();
+  });
+  it('should hoist multiple blocks', () => {
+    const hoistedTree = makeTTree('<span><div></div>Hello<img /></span');
     expect(hoistedTree).toMatchSnapshot();
   });
   it('should preserve styles of encompassing blocks', () => {
@@ -110,5 +115,16 @@ describe('hoist function', () => {
     expect(strong.tagName).toBe('strong');
     expect(strong.parent).toBeDefined();
     expect(strong.parent?.tagName).toBe('span');
+  });
+  it('should not hoist blocks', () => {
+    const div = makeTTree('<div><div><div></div></div></div></div>');
+    function testChildren(node: TNodeImpl) {
+      for (const c of node.children) {
+        expect(c.tagName).toBe('div');
+        expect(c.type).toBe('block');
+        testChildren(c);
+      }
+    }
+    testChildren(div);
   });
 });
