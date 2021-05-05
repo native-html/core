@@ -33,8 +33,6 @@ jobs:
       name: Behavior Tests
     - run: yarn build:transient-render-engine
       name: Build
-    - run: yarn test:transient-render-engine:perf
-      name: Performance testing
     - uses: codecov/codecov-action@v1
       with:
         flags: transient-render-engine
