@@ -23,7 +23,8 @@
     "test:transient-render-engine:jest": "yarn workspace @native-html/transient-render-engine test:jest",
     "test:transient-render-engine:perf": "yarn workspace performance-testing benchmark",
     "release:css-processor": "yarn workspace @native-html/css-processor release-it",
-    "release:transient-render-engine": "yarn workspace @native-html/transient-render-engine release-it"
+    "release:transient-render-engine": "yarn workspace @native-html/transient-render-engine release-it",
+    "postinstall": "husky install"
   },
   "devDependencies": {
     "@commitlint/cli": "^12.1.2",
@@ -35,7 +36,7 @@
     "eslint-config-prettier": "^8.3.0",
     "eslint-plugin-compat": "^3.9.0",
     "eslint-plugin-prettier": "^3.4.0",
-    "husky": "^4.3.8",
+    "husky": "^6.0.0",
     "prettier": "^2.2.1"
   },
   "resolutions": {
@@ -46,11 +47,6 @@
     "extends": [
       "@commitlint/config-conventional"
     ]
-  },
-  "husky": {
-    "hooks": {
-      "commit-msg": "commitlint -E HUSKY_GIT_PARAMS"
-    }
   },
   "workspaces": [
     "packages/*",
