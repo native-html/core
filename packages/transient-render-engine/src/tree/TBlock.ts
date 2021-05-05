@@ -1,18 +1,15 @@
 import HTMLContentModel from '../model/HTMLContentModel';
-import makeTNodePrototype, {
-  TNodeCtor,
-  Mutable,
-  initialize
-} from './makeTNodePrototype';
+import TNode, { TNodeCtor, Mutable } from './TNode';
 import { TNodeImpl, TNodeInit } from './tree-types';
 
 export interface TBlockImpl extends TNodeImpl {}
 
 const TBlock = (function TBlock(this: Mutable<TBlockImpl>, init: TNodeInit) {
-  initialize(this, init);
+  this.initialize(init);
 } as Function) as TNodeCtor<TNodeInit, TBlockImpl>;
 
-TBlock.prototype = makeTNodePrototype('block', 'TBlock');
+//@ts-ignore
+TBlock.prototype = new TNode('block', 'TBlock');
 
 TBlock.prototype.matchContentModel = function matchContentModel(contentModel) {
   return (

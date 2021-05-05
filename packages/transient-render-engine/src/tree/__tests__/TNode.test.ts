@@ -1,16 +1,16 @@
 import { DOMElement, DOMText } from '../../dom/dom-utils';
-import { initialize, Mutable } from '../makeTNodePrototype';
-import makeTNodePrototype from '../makeTNodePrototype';
+import TNode, { Mutable } from '../TNode';
 import TText from '../TText';
 import { defaultInit } from './shared';
 import { TNodeImpl, TNodeInit } from '../tree-types';
 import HTMLContentModel from '../../model/HTMLContentModel';
 
 const TTest = function (this: Mutable<TNodeImpl>, init: TNodeInit) {
-  initialize(this, init);
+  this.initialize(init);
 };
 
-TTest.prototype = makeTNodePrototype('block', 'TTest');
+//@ts-ignore
+TTest.prototype = new TNode('block', 'TTest');
 
 function newTNode(init = defaultInit) {
   //@ts-ignore

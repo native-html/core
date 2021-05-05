@@ -1,10 +1,6 @@
 import { DOMText } from '../dom/dom-utils';
 import HTMLContentModel from '../model/HTMLContentModel';
-import makeTNodePrototype, {
-  TNodeCtor,
-  Mutable,
-  initialize
-} from './makeTNodePrototype';
+
 import compose from 'ramda/src/compose';
 import { TNodeInit, TNodeImpl } from './tree-types';
 import {
@@ -15,6 +11,7 @@ import {
   removeLineBreaksAroundEastAsianDiscardSet,
   replaceSegmentBreaks
 } from '../flow/text-transforms';
+import TNode, { TNodeCtor, Mutable } from './TNode';
 
 export interface TTextInit extends TNodeInit {
   readonly textNode: DOMText;
@@ -42,10 +39,11 @@ const collapseWhiteSpacesWithEastAsianCharset = compose(
 );
 
 const TText = (function TText(this: Mutable<TTextImpl>, init: TTextInit) {
-  initialize(this, init);
+  this.initialize(init);
 } as Function) as TNodeCtor<TTextInit, TTextImpl>;
 
-TText.prototype = makeTNodePrototype('text', 'TText', {
+//@ts-ignore
+TText.prototype = new TNode('text', 'TText', {
   data: {
     get(this: TTextImpl) {
       return this.init.textNode.data;

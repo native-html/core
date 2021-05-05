@@ -15,7 +15,7 @@ function updateNodeIndexes(node: Mutable<TNodeImpl>, i: number) {
   node.nodeIndex = i;
 }
 
-const emptyAttrs = {};
+const emptyAttrs = Object.freeze({});
 
 const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   children: Object.freeze([]) as any,
@@ -162,48 +162,43 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
 
   toString(this: TNodeImpl) {
     return tnodeToString(this as any);
+  },
+
+  initialize<Impl extends TNodeImpl<any> = TNodeImpl>(
+    this: Mutable<Impl>,
+    init: Impl['init']
+  ) {
+    this.init = init;
+    this.classes = this.attributes.class?.split(/\s+/) || [];
+    this.styles =
+      this.init.styles ||
+      this.init.stylesMerger.buildStyles(
+        this.attributes.style,
+        this.parentStyles || null,
+        this
+      );
   }
 };
 
-export function initialize<Impl extends TNodeImpl<any> = TNodeImpl>(
-  self: Mutable<Impl>,
-  init: Impl['init']
-) {
-  self.init = init;
-  self.classes = self.attributes.class?.split(/\s+/) || [];
-  self.styles =
-    self.init.styles ||
-    self.init.stylesMerger.buildStyles(
-      self.attributes.style,
-      self.parentStyles || null,
-      self
-    );
-}
-
-const PCtor = (function PCtor(
+const TNode = (function TNode<Impl extends TNodeImpl = TNodeImpl>(
   this: Mutable<TNodeImpl>,
   type: TNodeType,
-  displayName: string
+  displayName: string,
+  extraAccessors?: {
+    [k in Exclude<keyof Impl, keyof TNodeImpl>]: {
+      get: () => any;
+      set?: (val: any) => void;
+    };
+  }
 ) {
   this.type = type;
   this.displayName = displayName;
+  extraAccessors && Object.defineProperties(this, extraAccessors);
 } as unknown) as {
   new (type: TNodeType, displayName: string): TNodeImpl;
   prototype: TNodeImpl;
 };
 
-PCtor.prototype = (prototype as unknown) as TNodeImpl;
+TNode.prototype = prototype as any;
 
-export default function makeTNodePrototype<Impl = TNodeImpl>(
-  type: TNodeType,
-  displayName: string,
-  extraAccessors?: {
-    [k in Exclude<keyof Impl, keyof TNodeImpl>]?: {
-      get: () => any;
-      set?: (val: any) => void;
-    };
-  }
-): Impl {
-  //@ts-ignore
-  return Object.create(new PCtor(type, displayName), extraAccessors);
-}
+export default TNode;

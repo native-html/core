@@ -160,6 +160,7 @@ export interface TNodeMethods {
   collapseChildren(this: TNodeImpl, params: DataFlowParams): void;
   spliceChildren(this: TNodeImpl, indexes: number[]): void;
   toString(): string;
+  initialize(init: TNodeInit): void;
 }
 
 export interface TNodeImpl<T = TNodeInit>

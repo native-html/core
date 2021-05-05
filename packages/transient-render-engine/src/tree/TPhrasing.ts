@@ -1,9 +1,8 @@
 import HTMLContentModel from '../model/HTMLContentModel';
-import makeTNodePrototype, {
+import TNode, {
   TNodeCtor,
   Mutable,
-  initialize
-} from './makeTNodePrototype';
+} from './TNode';
 import { TNodeImpl, TNodeInit } from './tree-types';
 
 export interface TPhrasingImpl extends TNodeImpl {}
@@ -16,10 +15,11 @@ const TPhrasing = (function TPhrasing(
   this: Mutable<TNodeImpl>,
   init: TNodeInit
 ) {
-  initialize(this, init);
+  this.initialize(init);
 } as Function) as TNodeCtor<TNodeInit, TPhrasingImpl>;
 
-TPhrasing.prototype = makeTNodePrototype('phrasing', 'TPhrasing');
+//@ts-ignore
+TPhrasing.prototype = new TNode('phrasing', 'TPhrasing');
 
 TPhrasing.prototype.matchContentModel = function matchContentModel(
   contentModel

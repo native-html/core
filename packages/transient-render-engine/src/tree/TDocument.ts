@@ -1,4 +1,4 @@
-import { TNodeCtor, Mutable, initialize } from './makeTNodePrototype';
+import { TNodeCtor, Mutable } from './TNode';
 import HTMLElementModel from '../model/HTMLElementModel';
 import { isDOMElement, isDOMText } from '../dom/dom-utils';
 import { TEmptyImpl } from './TEmpty';
@@ -81,7 +81,7 @@ const TDocument = (function TDocument(
   this: Mutable<TDocumentImpl>,
   init: TDocumentInit
 ) {
-  initialize(this, init as any);
+  this.initialize(init as TNodeInit);
 } as Function) as TNodeCtor<TDocumentInit, TDocumentImpl>;
 
 TDocument.prototype = Object.create(TBlock.prototype);

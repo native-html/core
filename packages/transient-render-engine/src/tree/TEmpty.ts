@@ -1,11 +1,7 @@
 import HTMLContentModel from '../model/HTMLContentModel';
-import makeTNodePrototype, {
-  TNodeCtor,
-  Mutable,
-  initialize
-} from './makeTNodePrototype';
 import { DOMElement } from '../dom/dom-utils';
 import { TNodeImpl, TNodeInit } from './tree-types';
+import TNode, { TNodeCtor, Mutable } from './TNode';
 
 export interface TEmptyImpl extends TNodeImpl<TEmptyInit> {
   readonly domNode: DOMElement;
@@ -18,10 +14,11 @@ export interface TEmptyInit extends TNodeInit {
 }
 
 const TEmpty = (function TEmpty(this: Mutable<TEmptyImpl>, init: TEmptyInit) {
-  initialize(this, init);
+  this.initialize(init);
 } as Function) as TNodeCtor<TEmptyInit, TEmptyImpl>;
 
-TEmpty.prototype = makeTNodePrototype('empty', 'TEmpty', {
+//@ts-ignore
+TEmpty.prototype = new TNode('empty', 'TEmpty', {
   isUnregistered: {
     get(this: TEmptyImpl) {
       return this.init.isUnregistered;
