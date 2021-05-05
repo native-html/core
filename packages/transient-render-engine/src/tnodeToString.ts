@@ -67,6 +67,6 @@ export default function serializeTNode(
   return `${totalPrefixLeft}${tnodePropertiesString(tnode)}${
     childrenPrint
       ? `>\n${childrenPrint}\n${totalPrefixLeft}</${tnode.displayName}>`
-      : ` />`
+      : ' />'
   }${isLast ? '' : '\n'}`;
 }
