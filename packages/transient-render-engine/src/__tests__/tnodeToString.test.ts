@@ -1,26 +1,29 @@
 import tnodeToString from '../tnodeToString';
 import { translateTreeTest } from '../flow/__tests__/utils';
+import { TNode } from '../tree/tree-types';
 
 describe('tnodeToString', () => {
   it('should handle deeply nested tags', () => {
     const result = tnodeToString(
-      translateTreeTest(
+      (translateTreeTest(
         '<div><div><span>A<em>a</em></span><span>B</span></div><span>C<strong>D</strong></span></div>'
-      )
+      ) as unknown) as TNode
     );
     expect(result).toMatchSnapshot();
   });
   it('should print ids, classes and anchors', () => {
     const result = tnodeToString(
-      translateTreeTest('<a href="https://" id="first" class="special"></a>')
+      (translateTreeTest(
+        '<a href="https://" id="first" class="special"></a>'
+      ) as unknown) as TNode
     );
     expect(result).toMatchSnapshot();
   });
   it('should cut data strings over 24 characters with ellipsis', () => {
     const result = tnodeToString(
-      translateTreeTest(
+      (translateTreeTest(
         '<span>This very long string should be truncated and end with an ellipsis.</span>'
-      )
+      ) as unknown) as TNode
     );
     expect(result).toMatchSnapshot();
   });
