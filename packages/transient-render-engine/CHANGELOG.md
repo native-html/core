@@ -1,3 +1,31 @@
+# [5.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.4.1...@native-html/transient-render-engine@5.0.0) (2021-05-05)
+
+
+### Bug Fixes
+
+* **tre:** optionalize dangerous options ([8ec75b0](https://github.com/native-html/core/commit/8ec75b03314f5a905577967d5aafa39be22f3329))
+
+
+### Code Refactoring
+
+* **tre:** hide TNode internals via interfaces ([304fd3a](https://github.com/native-html/core/commit/304fd3a838f106629b258040c19f17f0525888fc))
+
+
+### Performance Improvements
+
+* optimize whitespace collapsing ([77bf33d](https://github.com/native-html/core/commit/77bf33d98e64678a5073682f90d7f711708f20ea))
+* **tre:** multiply translate speed by 30% with prototypal inheritance ([c5a596c](https://github.com/native-html/core/commit/c5a596c6b07159b9e97b60335d4ebeec575f10ff))
+* **tre:** remove intermediary serialization step ([e559bcf](https://github.com/native-html/core/commit/e559bcfb90e3e738f20b9e495fa6c839115bc845))
+
+
+### BREAKING CHANGES
+
+* **tre:** TNode constructors are not exported anymore. Only the
+types. Therefore, you must use tnode.type for type checking instead of
+instanceof.
+* **tre:** serialize-related exports have been removed. Also, the
+type of TNode.domNode has changed to the one exported by htmlparser2
+
 ## [4.4.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.4.0...@native-html/transient-render-engine@4.4.1) (2021-02-16)
 
 
