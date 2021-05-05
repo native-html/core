@@ -8,9 +8,6 @@ import { TText } from '../tree/TText';
  * @param tnode The parent node of all elements to group.
  */
 function groupText(tnode: TBlockImpl): TNodeImpl {
-  if (tnode instanceof TText) {
-    return tnode;
-  }
   let newChildren: TNodeImpl[] = [];
   const wrapperInit = {
     elementModel: null,

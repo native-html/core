@@ -10,9 +10,6 @@ function printTableStyles(styles: TStyles) {
     ...styles.nativeBlockRet
   };
   const entries = Object.entries(allStyles);
-  if (!entries) {
-    return '';
-  }
   return entries.reduce((prev, [name, val]) => {
     return `${prev}${prev ? ',' : ''} ${name}: ${JSON.stringify(val)}`;
   }, '');

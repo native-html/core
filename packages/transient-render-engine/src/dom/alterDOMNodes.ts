@@ -9,7 +9,7 @@ import identity from 'ramda/src/identity';
 import always from 'ramda/src/always';
 import pipe from 'ramda/src/pipe';
 import reject from 'ramda/src/reject';
-import { isElement, isText } from './dom-utils';
+import { isDOMElement, isDOMText } from './dom-utils';
 
 export interface AlterDOMParams {
   ignoreDOMNode?: (node: DOMNode) => boolean;
@@ -32,7 +32,7 @@ export default function alterDOMNodes(
     reject(ignoreDOMNode),
     map(function applyParams(node: DOMNode) {
       let nextNode = node;
-      if (isElement(node)) {
+      if (isDOMElement(node)) {
         const elementNode =
           alterDOMElement(node as DOMElement) || (nextNode as DOMElement);
         const alteredChildren = alterDOMChildren(elementNode);
@@ -41,7 +41,7 @@ export default function alterDOMNodes(
           : elementNode.children;
         elementNode.children = alterNodes(elementNode.children);
         nextNode = elementNode;
-      } else if (isText(node)) {
+      } else if (isDOMText(node)) {
         const textNode = node as DOMText;
         const alteredData = alterDOMData(textNode);
         textNode.data =

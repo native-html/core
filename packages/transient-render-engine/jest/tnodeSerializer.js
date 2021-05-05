@@ -1,4 +1,4 @@
-import serializeTNode from './serializeTNode';
+import serializeTNode from '../src/tnodeToString';
 
 module.exports = {
   serialize(val) {

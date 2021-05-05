@@ -4,6 +4,7 @@ import makeTNodePrototype from '../makeTNodePrototype';
 import TText from '../TText';
 import { defaultInit } from './shared';
 import { TNodeImpl, TNodeInit } from '../tree-types';
+import HTMLContentModel from '../../model/HTMLContentModel';
 
 const TTest = function (this: Mutable<TNodeImpl>, init: TNodeInit) {
   initialize(this, init);
@@ -67,6 +68,24 @@ describe('TNode class', () => {
       const nodeChildren = [newTNode()];
       node.bindChildren(nodeChildren);
       expect(TTest.prototype.children).toHaveLength(0);
+    });
+  });
+  describe('matchContentModel', () => {
+    it('should return false by default', () => {
+      const node = newTNode();
+      expect(node.matchContentModel(HTMLContentModel.block)).toBe(false);
+    });
+  });
+  describe('get contentModel', () => {
+    it('should return null when no elementModel is available', () => {
+      const node = newTNode();
+      expect(node.contentModel).toBe(null);
+    });
+  });
+  describe('toString', () => {
+    it('should provide a JSX representation', () => {
+      const node = newTNode();
+      expect(node.toString()).toMatchSnapshot();
     });
   });
 });

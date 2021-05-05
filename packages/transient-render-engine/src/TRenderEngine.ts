@@ -17,7 +17,7 @@ import { HTMLModelRecord, TagName } from './model/model-types';
 import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
 import { DataFlowParams } from './flow/types';
 import alterDOMNodes, { AlterDOMParams } from './dom/alterDOMNodes';
-import { DOMDocument, DOMElement, isElement } from './dom/dom-utils';
+import { DOMDocument, DOMElement, isDOMElement } from './dom/dom-utils';
 
 export interface TRenderEngineOptions<E extends string = never> {
   /**
@@ -125,7 +125,7 @@ export class TRenderEngine {
   findRoot(html: string) {
     let document = parseDocument(html, this.htmlParserOptions);
     for (const child of document.children) {
-      if (isElement(child) && child.tagName === 'html') {
+      if (isDOMElement(child) && child.tagName === 'html') {
         document = child;
         break;
       }
@@ -141,10 +141,10 @@ export class TRenderEngine {
       if (body && head) {
         break;
       }
-      if (isElement(child) && child.tagName === 'body') {
+      if (isDOMElement(child) && child.tagName === 'body') {
         body = child;
       }
-      if (isElement(child) && child.tagName === 'head') {
+      if (isDOMElement(child) && child.tagName === 'head') {
         head = child;
       }
     }

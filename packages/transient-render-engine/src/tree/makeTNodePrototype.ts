@@ -110,10 +110,6 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     return false;
   },
 
-  isWhitespace() {
-    return false;
-  },
-
   isEmpty() {
     return false;
   },
@@ -147,13 +143,11 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   },
 
   spliceChildren(indexesToSplice) {
-    if (indexesToSplice) {
-      let offset = 0;
-      for (const i of indexesToSplice) {
-        //@ts-ignore
-        this.children.splice(i - offset, 1);
-        offset += 1;
-      }
+    let offset = 0;
+    for (const i of indexesToSplice) {
+      //@ts-ignore
+      this.children.splice(i - offset, 1);
+      offset += 1;
     }
   },
 

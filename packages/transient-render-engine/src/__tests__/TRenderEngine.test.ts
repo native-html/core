@@ -6,6 +6,7 @@ import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
 import TEmpty from '../tree/TEmpty';
+import { rfc002Source } from '../flow/__tests__/shared';
 
 const href = 'https://domain.com';
 const htmlDocument = `
@@ -277,6 +278,12 @@ describe('TRenderEngine > buildTTree method', () => {
       );
       expect(tdoc.context).toMatchObject({ dir: 'rtl' });
     });
+    it('should register html dir attrib when head is defined', () => {
+      const tdoc = defaultTTreeBuilder.buildTTree(
+        '<!doctype html><html dir="rtl"><head></head></html>'
+      );
+      expect(tdoc.context).toMatchObject({ dir: 'rtl' });
+    });
     it('should register charset', () => {
       const tdoc = defaultTTreeBuilder.buildTTree(
         '<!doctype html><html><head><meta charset="latin1"></meta></head></html>'
@@ -499,5 +506,17 @@ describe('TRenderEngine > buildTTree method', () => {
         }
       ]
     });
+  });
+  it('should support disabling hoisting', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      dangerouslyDisableHoisting: true
+    });
+    expect(customTTreeBuilder.buildTTree(rfc002Source)).toMatchSnapshot();
+  });
+  it('should support disabling whitespace collapsing', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      dangerouslyDisableWhitespaceCollapsing: true
+    });
+    expect(customTTreeBuilder.buildTTree(rfc002Source)).toMatchSnapshot();
   });
 });

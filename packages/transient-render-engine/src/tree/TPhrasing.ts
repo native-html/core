@@ -12,10 +12,6 @@ function isChildEmpty(c: TNodeImpl) {
   return c.isEmpty();
 }
 
-function isChildWhitespace(c: TNodeImpl) {
-  return c.isWhitespace();
-}
-
 const TPhrasing = (function TPhrasing(
   this: Mutable<TNodeImpl>,
   init: TNodeInit
@@ -32,10 +28,6 @@ TPhrasing.prototype.matchContentModel = function matchContentModel(
     contentModel === HTMLContentModel.textual ||
     contentModel === HTMLContentModel.mixed
   );
-};
-
-TPhrasing.prototype.isWhitespace = function isWhitespace() {
-  return this.children.every(isChildWhitespace);
 };
 
 TPhrasing.prototype.isEmpty = function isEmpty() {

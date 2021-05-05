@@ -146,7 +146,6 @@ export interface TNodeMethods {
   ): T;
   isCollapsibleLeft(this: TNodeImpl): boolean;
   isCollapsibleRight(this: TNodeImpl): boolean;
-  isWhitespace(this: TNodeImpl): boolean;
   isEmpty(this: TNodeImpl): boolean;
   trimLeft(this: TNodeImpl): void;
   trimRight(this: TNodeImpl): void;

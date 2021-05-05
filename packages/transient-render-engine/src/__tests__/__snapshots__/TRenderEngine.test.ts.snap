@@ -1,0 +1,39 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TRenderEngine > buildTTree method should support disabling hoisting 1`] = `
+<TDocument tagName="html" styles={{ whiteSpace: "normal" }}>
+   <TBlock tagName="body" styles={{ whiteSpace: "normal" }}>
+     <TPhrasing tagName="a" href="https://domain.com" styles={{ whiteSpace: "normal" }}>
+       <TText anonymous data="This is " styles={{ whiteSpace: "normal" }} />
+       <TText tagName="span" data="phrasing content" styles={{ whiteSpace: "normal" }} />
+       <TText anonymous data=" " styles={{ whiteSpace: "normal" }} />
+       <TBlock tagName="img" styles={{ whiteSpace: "normal" }} />
+       <TText anonymous data=" and this is " styles={{ whiteSpace: "normal" }} />
+       <TText tagName="strong" data="too" styles={{ whiteSpace: "normal" }} />
+       <TText anonymous data="." styles={{ whiteSpace: "normal" }} />
+     </TPhrasing>
+   </TBlock>
+</TDocument>
+
+`;
+
+exports[`TRenderEngine > buildTTree method should support disabling whitespace collapsing 1`] = `
+<TDocument tagName="html" styles={{ whiteSpace: "normal" }}>
+   <TBlock tagName="body" styles={{ whiteSpace: "normal" }}>
+     <TBlock tagName="a" href="https://domain.com" styles={{ whiteSpace: "normal" }}>
+       <TPhrasing anonymous>
+         <TText anonymous data="\\nThis is\\n" styles={{ whiteSpace: "normal" }} />
+         <TText tagName="span" data="phrasing content" styles={{ whiteSpace: "normal" }} />
+         <TText anonymous data="\\n" styles={{ whiteSpace: "normal" }} />
+       </TPhrasing>
+       <TBlock tagName="img" styles={{ whiteSpace: "normal" }} />
+       <TPhrasing anonymous>
+         <TText anonymous data="\\n    and this is " styles={{ whiteSpace: "normal" }} />
+         <TText tagName="strong" data="too" styles={{ whiteSpace: "normal" }} />
+         <TText anonymous data=".\\n" styles={{ whiteSpace: "normal" }} />
+       </TPhrasing>
+     </TBlock>
+   </TBlock>
+</TDocument>
+
+`;

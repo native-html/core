@@ -8,10 +8,10 @@ export {
   Document as DOMDocument
 };
 
-export function isText(node: any): node is Text {
+export function isDOMText(node: any): node is Text {
   return node && node.type === TextType;
 }
 
-export function isElement(node: any): node is Element {
+export function isDOMElement(node: any): node is Element {
   return node && node.type === TagType;
 }

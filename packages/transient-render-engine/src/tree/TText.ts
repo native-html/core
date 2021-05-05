@@ -85,10 +85,6 @@ TText.prototype.isCollapsibleRight = function isCollapsibleRight(
   );
 };
 
-TText.prototype.isWhitespace = function isWhitespace(this: TTextImpl) {
-  return this.data === ' ';
-};
-
 TText.prototype.isEmpty = function isEmpty(this: TTextImpl) {
   // Only anonymous text nodes can be considered "empty"
   return this.tagName === null && !this.data.length;

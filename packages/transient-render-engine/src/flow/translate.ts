@@ -5,8 +5,8 @@ import { TPhrasing } from '../tree/TPhrasing';
 import { TBlock } from '../tree/TBlock';
 import { TDocument, TDocumentImpl } from '../tree/TDocument';
 import {
-  isElement,
-  isText,
+  isDOMElement,
+  isDOMText,
   DOMElement,
   DOMNode,
   DOMText
@@ -22,15 +22,14 @@ export function mapNodeList({
   parentStyles,
   params
 }: {
-  nodeList: DOMNode[] | null;
+  nodeList: DOMNode[];
   parentStyles?: TStyles;
   parent: TNodeImpl | null;
   params: DataFlowParams;
 }): TNodeImpl[] {
   const nextMap: TNodeImpl[] = [];
-  const ls = nodeList || [];
-  for (const i in ls) {
-    const child = ls[i];
+  for (const i in nodeList) {
+    const child = nodeList[i];
     const translated = translateNode({
       node: child,
       parentStyles,
@@ -88,7 +87,7 @@ function translateElement({
   if (elementModel.isTranslatableTextual()) {
     if (node.children.length === 1) {
       const child = node.children[0] as DOMNode;
-      if (isText(child)) {
+      if (isDOMText(child)) {
         return new TText({
           ...sharedProps,
           elementModel,
@@ -145,7 +144,7 @@ export function translateNode({
   nodeIndex,
   parent
 }: TranslateParams<DOMNode | null>): TNodeImpl | null {
-  if (isText(node)) {
+  if (isDOMText(node)) {
     return new TText({
       textNode: node,
       stylesMerger: params.stylesMerger,
@@ -156,7 +155,7 @@ export function translateNode({
       parent
     });
   }
-  if (isElement(node)) {
+  if (isDOMElement(node)) {
     return translateElement({
       node,
       parentStyles,
