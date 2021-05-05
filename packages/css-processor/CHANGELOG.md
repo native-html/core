@@ -1,3 +1,20 @@
+# [1.7.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.6.1...@native-html/css-processor@1.7.0) (2021-05-05)
+
+
+### Bug Fixes
+
+* **css-processor:** ts error after upgrade to 4.2 ([92204fe](https://github.com/native-html/core/commit/92204fe4326d398083318195cdf94fabe73b0003))
+
+
+### Features
+
+* **css-processor:** allow null in merge methods ([e4ad071](https://github.com/native-html/core/commit/e4ad071ff854d28a81ea66b186ec412f936fa79f))
+
+
+### Performance Improvements
+
+* **tre:** multiply translate speed by 30% with prototypal inheritance ([c5a596c](https://github.com/native-html/core/commit/c5a596c6b07159b9e97b60335d4ebeec575f10ff))
+
 ## [1.6.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.6.0...@native-html/css-processor@1.6.1) (2020-11-30)
 
 
