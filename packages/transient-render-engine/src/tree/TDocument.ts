@@ -2,19 +2,13 @@ import { TNodeCtor, Mutable, initialize } from './makeTNodePrototype';
 import HTMLElementModel from '../model/HTMLElementModel';
 import { isElement, isText } from '../dom/dom-utils';
 import { TEmptyImpl } from './TEmpty';
-import { TNodeInit, TNodeImpl, TNodeShape } from './tree-types';
+import {
+  TNodeInit,
+  TNodeImpl,
+  TNodeShape,
+  DocumentContext
+} from './tree-types';
 import TBlock from './TBlock';
-
-export interface DocumentContext {
-  charset: string;
-  baseHref: string;
-  baseTarget: '_blank' | '_self' | '_parent' | '_top';
-  lang: string;
-  dir: 'ltr' | 'rtl';
-  title: string;
-  meta: { name: string; value: string }[];
-  links: Record<string, string>[];
-}
 
 export type TDocumentInit = Omit<TNodeInit, 'elementModel'>;
 

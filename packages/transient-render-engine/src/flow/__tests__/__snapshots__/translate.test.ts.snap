@@ -1,13 +1,14 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`translateNode function should comply with RFC002 example (translating) 1`] = `
-•TPhrasing(tag=a,anchor[https://domain.com])
- ├─•TText(anonymous,data["\\nThis is\\n"])
- ├─•TText(tag=span,data["phrasing content"])
- ├─•TText(anonymous,data["\\n"])
- ├─•TBlock(tag=img)
- ├─•TText(anonymous,data["\\n    and this is "])
- ├─•TText(tag=strong,data["too"])
- └─•TText(anonymous,data[".\\n"])
+<TPhrasing tagName="a" href="https://domain.com">
+   <TText anonymous data="\\nThis is\\n" />
+   <TText tagName="span" data="phrasing content" />
+   <TText anonymous data="\\n" />
+   <TBlock tagName="img" />
+   <TText anonymous data="\\n    and this is " />
+   <TText tagName="strong" data="too" />
+   <TText anonymous data=".\\n" />
+</TPhrasing>
 
 `;

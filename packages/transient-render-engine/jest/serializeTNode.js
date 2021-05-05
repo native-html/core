@@ -1,7 +1,4 @@
-import { TStyles } from './styles/TStyles';
-import { TNode } from './tree/tree-types';
-
-function printTableStyles(styles: TStyles) {
+function printTableStyles(styles = {}) {
   const allStyles = {
     ...styles.nativeTextFlow,
     ...styles.nativeBlockFlow,
@@ -14,11 +11,11 @@ function printTableStyles(styles: TStyles) {
     return '';
   }
   return entries.reduce((prev, [name, val]) => {
-    return `${prev}${prev ? ',' : ''} ${name}: ${JSON.stringify(val)}`;
+    return `${prev}${prev ? ',' : ''} ${name}: ${val}`;
   }, '');
 }
 
-function tnodePropertiesString(tnode: TNode) {
+function tnodePropertiesString(tnode) {
   const tagPrint = tnode.tagName ? `tagName="${tnode.tagName}"` : 'anonymous';
   const idPrint = tnode.id ? `id=${tnode.id}` : null;
   const classesPrint = tnode.classes?.length
@@ -45,16 +42,7 @@ function tnodePropertiesString(tnode: TNode) {
   return `<${tnode.displayName} ${detailsPrint}`;
 }
 
-interface TNodePrintState {
-  parentLeftPrefix: string;
-  isChild: boolean;
-  isLast: boolean;
-}
-
-export default function serializeTNode(
-  tnode: TNode,
-  params: Partial<TNodePrintState> = {}
-): string {
+export default function serializeTNode(tnode, params = {}) {
   const { parentLeftPrefix = '', isChild = false, isLast = false } = params;
   const prefix = isChild ? '  ' : '';
   const totalPrefixLeft = parentLeftPrefix + prefix;

@@ -1,5 +1,6 @@
 import { TStyles } from '../styles/TStyles';
-import { TNodeImpl, TNodeInit, TNodeInvariants, TNodeType } from './tree-types';
+import tnodeToString from '../tnodeToString';
+import { TNodeImpl, TNodeInit, TNodeType } from './tree-types';
 
 export type TNodeCtor<Init = TNodeInit, Impl = TNodeImpl> = {
   new (init: Init): Impl;
@@ -16,7 +17,7 @@ function updateNodeIndexes(node: Mutable<TNodeImpl>, i: number) {
 
 const emptyAttrs = {};
 
-const prototype: Omit<TNodeImpl, keyof TNodeInvariants> = {
+const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   children: Object.freeze([]) as any,
   init: Object.freeze({}) as any,
   classes: Object.freeze([]) as any,
@@ -63,7 +64,7 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants> = {
   },
 
   get parent() {
-    return this.init.parent || null;
+    return (this.init.parent as any) || null;
   },
 
   get nodeIndex() {
@@ -163,6 +164,10 @@ const prototype: Omit<TNodeImpl, keyof TNodeInvariants> = {
 
   collapseChildren() {
     return;
+  },
+
+  toString(this: TNodeImpl) {
+    return tnodeToString(this as any);
   }
 };
 

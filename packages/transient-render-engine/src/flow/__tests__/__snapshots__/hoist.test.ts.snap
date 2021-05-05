@@ -1,24 +1,29 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`hoist function should comply with RFC002 example (hoisting)  1`] = `
-•TBlock(tag=a,anchor[https://domain.com])
- ├─•TPhrasing(anonymous)
- │ ├─•TText(anonymous,data["\\nThis is\\n"])
- │ ├─•TText(tag=span,data["phrasing content"])
- │ └─•TText(anonymous,data["\\n"])
- ├─•TBlock(tag=img)
- └─•TPhrasing(anonymous)
-   ├─•TText(anonymous,data["\\n    and this is "])
-   ├─•TText(tag=strong,data["too"])
-   └─•TText(anonymous,data[".\\n"])
+<TBlock tagName="a" href="https://domain.com">
+   <TPhrasing anonymous>
+     <TText anonymous data="\\nThis is\\n" />
+     <TText tagName="span" data="phrasing content" />
+     <TText anonymous data="\\n" />
+   </TPhrasing>
+   <TBlock tagName="img" />
+   <TPhrasing anonymous>
+     <TText anonymous data="\\n    and this is " />
+     <TText tagName="strong" data="too" />
+     <TText anonymous data=".\\n" />
+   </TPhrasing>
+</TBlock>
 
 `;
 
 exports[`hoist function should hoist multiple blocks 1`] = `
-•TBlock(tag=span)
- ├─•TBlock(tag=div)
- ├─•TPhrasing(anonymous)
- │ └─•TText(anonymous,data["Hello"])
- └─•TBlock(tag=img)
+<TBlock tagName="span">
+   <TBlock tagName="div" />
+   <TPhrasing anonymous>
+     <TText anonymous data="Hello" />
+   </TPhrasing>
+   <TBlock tagName="img" />
+</TBlock>
 
 `;

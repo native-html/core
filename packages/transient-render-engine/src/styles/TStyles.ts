@@ -26,7 +26,24 @@ function inheritProperties(
   ) as CSSProperties;
 }
 
-export class TStyles {
+/**
+ * A record of styles organized in logical chunks:
+ *
+ * - wether they are supported in React Native (native) and others (web).
+ * - wether they target native Views (block) or Text (text).
+ * - wether they are inherited by this node's children (flow) or not (retain).
+ *
+ * @public
+ */
+export interface TStylesShape {
+  readonly nativeTextFlow: CSSProcessedProps['native']['text']['flow'];
+  readonly nativeBlockFlow: CSSProcessedProps['native']['block']['flow'];
+  readonly nativeTextRet: CSSProcessedProps['native']['text']['retain'];
+  readonly nativeBlockRet: CSSProcessedProps['native']['block']['retain'];
+  readonly webTextFlow: CSSProcessedProps['web']['text']['flow'];
+}
+
+export class TStyles implements TStylesShape {
   public readonly nativeTextFlow: CSSProcessedProps['native']['text']['flow'];
   public readonly nativeBlockFlow: CSSProcessedProps['native']['block']['flow'];
   public readonly nativeTextRet: CSSProcessedProps['native']['text']['retain'];

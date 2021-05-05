@@ -1,24 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`tnodeToString should cut data strings over 24 characters with ellipsis 1`] = `
-"•TText(tag=span,data[\\"This very long string sh\\"…])
+"<TText tagName=\\"span\\" data=\\"This very long string should be truncated and end with an ellipsis.\\" />
 "
 `;
 
 exports[`tnodeToString should handle deeply nested tags 1`] = `
-"•TBlock(tag=div)
- ├─•TBlock(tag=div)
- │ ├─•TPhrasing(tag=span)
- │ │ ├─•TText(anonymous,data[\\"A\\"])
- │ │ └─•TText(tag=em,data[\\"a\\"])
- │ └─•TText(tag=span,data[\\"B\\"])
- └─•TPhrasing(tag=span)
-   ├─•TText(anonymous,data[\\"C\\"])
-   └─•TText(tag=strong,data[\\"D\\"])
+"<TBlock tagName=\\"div\\">
+   <TBlock tagName=\\"div\\">
+     <TPhrasing tagName=\\"span\\">
+       <TText anonymous data=\\"A\\" />
+       <TText tagName=\\"em\\" data=\\"a\\" />
+     </TPhrasing>
+     <TText tagName=\\"span\\" data=\\"B\\" />
+   </TBlock>
+   <TPhrasing tagName=\\"span\\">
+     <TText anonymous data=\\"C\\" />
+     <TText tagName=\\"strong\\" data=\\"D\\" />
+   </TPhrasing>
+</TBlock>
 "
 `;
 
 exports[`tnodeToString should print ids, classes and anchors 1`] = `
-"•TText(tag=a,id=first,classes=special,data[\\"\\"],anchor[https://])
+"<TText tagName=\\"a\\" id=first classes={[special]} data=\\"\\" href=\\"https://\\" />
 "
 `;

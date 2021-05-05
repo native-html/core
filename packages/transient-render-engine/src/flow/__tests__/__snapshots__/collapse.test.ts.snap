@@ -1,67 +1,87 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`collapse function should collapse a tree such as specified in RFC002 example 1`] = `
-•TBlock(tag=a,anchor[https://domain.com])
- ├─•TPhrasing(anonymous)
- │ ├─•TText(anonymous,data["This is "])
- │ └─•TText(tag=span,data["phrasing content"])
- ├─•TBlock(tag=img)
- └─•TPhrasing(anonymous)
-   ├─•TText(anonymous,data["and this is "])
-   ├─•TText(tag=strong,data["too"])
-   └─•TText(anonymous,data["."])
+<TBlock tagName="a" href="https://domain.com">
+   <TPhrasing anonymous>
+     <TText anonymous data="This is " />
+     <TText tagName="span" data="phrasing content" />
+   </TPhrasing>
+   <TBlock tagName="img" />
+   <TPhrasing anonymous>
+     <TText anonymous data="and this is " />
+     <TText tagName="strong" data="too" />
+     <TText anonymous data="." />
+   </TPhrasing>
+</TBlock>
 
 `;
 
 exports[`collapse function should handle deeply nested HTML 1`] = `
-•TBlock(tag=article)
- ├─•TPhrasing(anonymous)
- │ └─•TText(anonymous,data["First implicit paragraph"…])
- └─•TBlock(tag=div)
-   ├─•TPhrasing(anonymous)
-   │ └─•TText(anonymous,data["Second implicit paragrap"…])
-   └─•TBlock(tag=p)
-     ├─•TPhrasing(anonymous)
-     │ ├─•TText(anonymous,data["A new paragraph."])
-     │ └─•TText(tag=span,data[" And a span within"])
-     └─•TBlock(tag=img)
+<TBlock tagName="article">
+   <TPhrasing anonymous>
+     <TText anonymous data="First implicit paragraph." />
+   </TPhrasing>
+   <TBlock tagName="div">
+     <TPhrasing anonymous>
+       <TText anonymous data="Second implicit paragraph" />
+     </TPhrasing>
+     <TBlock tagName="p">
+       <TPhrasing anonymous>
+         <TText anonymous data="A new paragraph." />
+         <TText tagName="span" data=" And a span within" />
+       </TPhrasing>
+       <TBlock tagName="img" />
+     </TBlock>
+   </TBlock>
+</TBlock>
 
 `;
 
 exports[`collapse function should handle direct style inheritance 1`] = `
-•TBlock(tag=div)
- └─•TPhrasing(anonymous)
-   └─•TText(tag=span,data["This is nice!"])
+<TBlock tagName="div" styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
+   <TPhrasing anonymous>
+     <TText tagName="span" data="This is nice!" styles={{ fontSize: 18, color: red }} />
+   </TPhrasing>
+</TBlock>
 
 `;
 
 exports[`collapse function should handle indirect style inheritance 1`] = `
-•TBlock(tag=div)
- └─•TBlock(tag=div)
-   └─•TPhrasing(anonymous)
-     └─•TText(anonymous,data["This is great!"])
+<TBlock tagName="div" styles={{ fontSize: 18 }}>
+   <TBlock tagName="div" styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
+     <TPhrasing anonymous>
+       <TText anonymous data="This is great!" styles={{ fontSize: 18 }} />
+     </TPhrasing>
+   </TBlock>
+</TBlock>
 
 `;
 
 exports[`collapse function should handle nested anchors 1`] = `
-•TPhrasing(tag=a,anchor[https://domain.com])
- ├─•TText(anonymous,data["This is "])
- ├─•TText(tag=span,data["phrasing content"])
- ├─•TText(anonymous,data[" "])
- └─•TPhrasing(tag=a,anchor[https://sub.domain.com])
-   ├─•TText(anonymous,data["and this is "])
-   └─•TText(tag=strong,data["too"])
+<TPhrasing tagName="a" href="https://domain.com">
+   <TText anonymous data="This is " />
+   <TText tagName="span" data="phrasing content" />
+   <TText anonymous data=" " />
+   <TPhrasing tagName="a" href="https://sub.domain.com">
+     <TText anonymous data="and this is " />
+     <TText tagName="strong" data="too" />
+   </TPhrasing>
+</TPhrasing>
 
 `;
 
 exports[`collapse function should hoist blocks recursively 1`] = `
-•TBlock(tag=span)
- ├─•TPhrasing(anonymous)
- │ └─•TText(anonymous,data["Line1"])
- └─•TBlock(tag=strong)
-   ├─•TPhrasing(anonymous)
-   │ ├─•TText(anonymous,data["Line2"])
-   │ └─•TText(tag=span,data[" Line3"])
-   └─•TBlock(tag=img)
+<TBlock tagName="span">
+   <TPhrasing anonymous>
+     <TText anonymous data="Line1" />
+   </TPhrasing>
+   <TBlock tagName="strong">
+     <TPhrasing anonymous>
+       <TText anonymous data="Line2" />
+       <TText tagName="span" data=" Line3" />
+     </TPhrasing>
+     <TBlock tagName="img" />
+   </TBlock>
+</TBlock>
 
 `;

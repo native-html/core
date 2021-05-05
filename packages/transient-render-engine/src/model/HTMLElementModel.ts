@@ -33,6 +33,10 @@ export interface HTMLElementModelProperties<
   ) => MixedStyleDeclaration | null;
 }
 
+/**
+ * An object defining engine internals for tags, such as default styles
+ * (UAStyles), content model (how this tag is treated during hoisting)... etc.
+ */
 export default class HTMLElementModel<
   T extends string,
   M extends HTMLContentModel

@@ -1,62 +1,135 @@
-import { DOMElement } from '../dom/dom-utils';
+import { DOMElement, DOMText } from '../dom/dom-utils';
 import { DataFlowParams } from '../flow/types';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
-import { TStyles } from '../styles/TStyles';
+import { TStylesShape } from '../styles/TStyles';
 import { TStylesMerger } from '../styles/TStylesMerger';
 
 export interface TNodeInit {
   readonly elementModel: HTMLElementModel<string, HTMLContentModel> | null;
   readonly stylesMerger: TStylesMerger;
-  readonly parent?: TNodeShape | null;
+  readonly parent?: TNodeImpl | null;
   readonly domNode?: DOMElement | null;
-  readonly styles?: TStyles | null;
-  readonly parentStyles?: TStyles | null;
+  readonly styles?: TStylesShape | null;
+  readonly parentStyles?: TStylesShape | null;
   readonly nodeIndex?: number;
 }
 
-export interface TNodeDerivedFields {
+/**
+ * @public
+ */
+export interface TNodeShape {
+  /**
+   * Attributes for this tag.
+   */
   readonly attributes: Record<string, string>;
-  readonly parentStyles: TStyles | null;
-  readonly stylesMerger: TStylesMerger;
-  readonly contentModel: HTMLContentModel | null;
+  /**
+   * The id for this node, extracted from the id attribute of the
+   * underlying DOMNode.
+   */
   readonly id: string | null;
+  /**
+   * A list of classes for this node, extracted from the class attribute of the
+   * underlying DOMNode.
+   */
   readonly classes: string[];
   /**
-   * Opaque nodes will hold a reference to a serializable DOM node.
+   * Non-anonymous nodes will hold a reference to a DOM node.
    */
   readonly domNode: DOMElement | null;
-  readonly elementModel: HTMLElementModel<string, HTMLContentModel> | null;
-  readonly styles: TStyles;
+  /**
+   * Styles for this node, organized in categories.
+   *
+   * See {@link TStylesShape}.
+   */
+  readonly styles: TStylesShape;
+  /**
+   * The tag name for this node.
+   *
+   * @remarks Anonymous nodes generated during hoisting won't have a tag name.
+   * Also, some TText nodes don't have a tagName.
+   */
   readonly tagName: string | null;
   /**
    * The parent of this node before hoisting.
+   *
+   * @remarks
+   * "Before hoisting" implies that this parent will not match "anonymous"
+   * parents.
    */
-  readonly parent: TNodeShape | null;
-  readonly nodeIndex: number;
-}
-
-export interface TNodeShape extends TNodeDerivedFields {
+  readonly parent: TDocument | TBlock | TPhrasing | null;
   /**
    * The position of this element relatively to its parents, before hoisting,
    * after collapsing.
    *
    * @remarks
    * "Before hoisting" implies that this index corresponds to the node position
-   * in the DOM, after suppressing empty elements as per whitespace collapsing
+   * in the DOM, after removal of empty elements as per whitespace collapsing
    * algorithm.
    */
   readonly nodeIndex: number;
-
   /**
    * Children of this node.
    */
-  readonly children: ReadonlyArray<TNodeShape>;
+  readonly children: ReadonlyArray<TNode>;
 
   /**
    * Used for debugging purposes.
    */
   readonly displayName: string;
+
+  /**
+   * The type of this tnode.
+   */
+  readonly type: TNodeType;
+
+  /**
+   * Create a JSX string representation of this node and its children.
+   */
+  toString(): string;
+}
+
+export interface DocumentContext {
+  charset: string;
+  baseHref: string;
+  baseTarget: '_blank' | '_self' | '_parent' | '_top';
+  lang: string;
+  dir: 'ltr' | 'rtl';
+  title: string;
+  meta: { name: string; value: string }[];
+  links: Record<string, string>[];
+}
+
+export type TNode = TBlock | TDocument | TEmpty | TPhrasing | TText;
+
+export interface TBlock extends TNodeShape {
+  readonly type: 'block';
+  readonly tagName: string;
+  readonly domNode: DOMElement;
+}
+
+export interface TDocument extends TNodeShape {
+  /**
+   * An object containing special information for this document, such as lang,
+   * dir, charset, baseHref...
+   */
+  readonly context: Readonly<DocumentContext>;
+  readonly type: 'document';
+}
+
+export interface TEmpty extends TNodeShape {
+  readonly type: 'empty';
+  readonly domNode: DOMElement;
+}
+
+export interface TPhrasing extends TNodeShape {
+  readonly type: 'phrasing';
+}
+
+export interface TText extends TNodeShape {
+  readonly data: string;
+  readonly type: 'text';
+  readonly textNode: DOMText;
 }
 
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';
@@ -87,22 +160,20 @@ export interface TNodeMethods {
    */
   collapseChildren(this: TNodeImpl, params: DataFlowParams): void;
   spliceChildren(this: TNodeImpl, indexes: number[]): void;
-}
-
-export interface TNodeInvariants {
-  readonly type: TNodeType;
-  readonly displayName: string;
+  toString(): string;
 }
 
 export interface TNodeImpl<T = TNodeInit>
   extends TNodeMethods,
-    TNodeDerivedFields,
-    TNodeInvariants,
-    TNodeShape {
+    Omit<TNodeShape, 'children'> {
   __nodeIndex: number | null;
   __trimmedLeft: boolean;
   __trimmedRight: boolean;
   readonly children: ReadonlyArray<TNodeImpl>;
   readonly init: T;
   readonly hasWhiteSpaceCollapsingEnabled: boolean;
+  readonly parentStyles: TStylesShape | null;
+  readonly stylesMerger: TStylesMerger;
+  readonly elementModel: HTMLElementModel<string, HTMLContentModel> | null;
+  readonly contentModel: HTMLContentModel | null;
 }

@@ -5,19 +5,17 @@ import makeTNodePrototype, {
   initialize
 } from './makeTNodePrototype';
 import { DOMElement } from '../dom/dom-utils';
-import { TNodeImpl, TNodeInit, TNodeShape } from './tree-types';
+import { TNodeImpl, TNodeInit } from './tree-types';
 
 export interface TEmptyImpl extends TNodeImpl<TEmptyInit> {
-  domNode: DOMElement;
-  isUnregistered: boolean;
+  readonly domNode: DOMElement;
+  readonly isUnregistered: boolean;
 }
 
 export interface TEmptyInit extends TNodeInit {
   domNode: DOMElement;
   isUnregistered: boolean;
 }
-
-interface TEmpty extends TNodeShape {}
 
 const TEmpty = (function TEmpty(this: Mutable<TEmptyImpl>, init: TEmptyInit) {
   initialize(this, init);

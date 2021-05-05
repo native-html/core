@@ -6,7 +6,7 @@ import makeTNodePrototype, {
   initialize
 } from './makeTNodePrototype';
 import compose from 'ramda/src/compose';
-import { TNodeInit, TNodeImpl, TNodeShape } from './tree-types';
+import { TNodeInit, TNodeImpl } from './tree-types';
 import {
   normalizeWhitespaces,
   normalizeZeroWidthWhitespaces,
@@ -17,15 +17,11 @@ import {
 } from '../flow/text-transforms';
 
 export interface TTextInit extends TNodeInit {
-  textNode: DOMText;
+  readonly textNode: DOMText;
 }
 
 export interface TTextImpl extends TNodeImpl<TTextInit> {
-  data: string;
-}
-
-interface TText extends TNodeShape {
-  data: string;
+  readonly data: string;
 }
 
 const collapseWhiteSpaces = compose(
@@ -98,20 +94,20 @@ TText.prototype.isEmpty = function isEmpty(this: TTextImpl) {
   return this.tagName === null && !this.data.length;
 };
 
-TText.prototype.trimLeft = function trimLeft(this: TTextImpl) {
+TText.prototype.trimLeft = function trimLeft(this: Mutable<TTextImpl>) {
   if (this.isCollapsibleLeft()) {
     this.data = this.data.slice(1);
   }
 };
 
-TText.prototype.trimRight = function trimRight(this: TTextImpl) {
+TText.prototype.trimRight = function trimRight(this: Mutable<TTextImpl>) {
   if (this.isCollapsibleRight()) {
     this.data = this.data.substr(0, this.data.length - 1);
   }
 };
 
 TText.prototype.collapseChildren = function collapseChildren(
-  this: TTextImpl,
+  this: Mutable<TTextImpl>,
   params
 ) {
   if (this.hasWhiteSpaceCollapsingEnabled) {

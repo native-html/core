@@ -4,9 +4,7 @@ import makeTNodePrototype, {
   Mutable,
   initialize
 } from './makeTNodePrototype';
-import { TNodeImpl, TNodeInit, TNodeShape } from './tree-types';
-
-interface TBlock extends TNodeShape {}
+import { TNodeImpl, TNodeInit } from './tree-types';
 
 export interface TBlockImpl extends TNodeImpl {}
 

@@ -4,7 +4,7 @@ import makeTNodePrototype, {
   Mutable,
   initialize
 } from './makeTNodePrototype';
-import { TNodeImpl, TNodeInit, TNodeShape } from './tree-types';
+import { TNodeImpl, TNodeInit } from './tree-types';
 
 export interface TPhrasingImpl extends TNodeImpl {}
 
@@ -15,8 +15,6 @@ function isChildEmpty(c: TNodeImpl) {
 function isChildWhitespace(c: TNodeImpl) {
   return c.isWhitespace();
 }
-
-interface TPhrasing extends TNodeShape {}
 
 const TPhrasing = (function TPhrasing(
   this: Mutable<TNodeImpl>,
