@@ -16,7 +16,6 @@ export type {
 } from './tree/tree-types';
 export * from './dom/dom-utils';
 export { TRenderEngine } from './TRenderEngine';
-export { default as tnodeToString } from './tnodeToString';
 export { TRenderEngine as default } from './TRenderEngine';
 export type { TRenderEngineOptions } from './TRenderEngine';
 export { default as defaultHTMLElementModels } from './model/defaultHTMLElementModels';
