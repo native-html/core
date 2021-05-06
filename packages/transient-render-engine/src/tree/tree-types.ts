@@ -96,8 +96,10 @@ export interface TNodeShape {
    * print `href` as an attribute of the TNode, while if you want to access
    * `href` programatically, you'll need to access it via
    * `tnode.attributes.href`.
+   *
+   * @param printStyles - Show styles in snapshot. Defaults to `false`.
    */
-  snapshot(): string;
+  snapshot(printStyles?: boolean): string;
 
   /**
    * Test if the given content model matches this TNode content model.
@@ -177,7 +179,7 @@ export interface TNodeMethods {
    */
   collapseChildren(this: TNodeImpl, params: DataFlowParams): void;
   spliceChildren(this: TNodeImpl, indexes: number[]): void;
-  snapshot(): string;
+  snapshot(printStyles?: boolean): string;
   toString(): string;
   initialize(init: TNodeInit): void;
 }

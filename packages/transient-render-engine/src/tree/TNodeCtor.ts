@@ -164,12 +164,12 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     return;
   },
 
-  snapshot() {
-    return tnodeToString(this as any);
+  snapshot(printStyles = false) {
+    return tnodeToString(this as any, { withStyles: printStyles });
   },
 
   toString() {
-    return this.snapshot();
+    return this.snapshot(false);
   },
 
   initialize<Impl extends TNodeImpl<any> = TNodeImpl>(

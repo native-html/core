@@ -1,8 +1,6 @@
-import serializeTNode from '../src/tnodeToString';
-
 module.exports = {
   serialize(val) {
-    return serializeTNode(val);
+    return val.snapshot(true);
   },
   test(val) {
     return !!val.type;

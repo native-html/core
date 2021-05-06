@@ -15,7 +15,7 @@ function printTableStyles(styles: TStyles) {
   }, '');
 }
 
-function tnodePropertiesString(tnode: TNode) {
+function tnodePropertiesString(tnode: TNode, withStyles: boolean) {
   const tagPrint = tnode.tagName ? `tagName="${tnode.tagName}"` : 'anonymous';
   const unregisteredPrint = tnode.isUnregistered ? 'unregistered' : null;
   const indexPrint = `nodeIndex={${tnode.nodeIndex}}`;
@@ -33,7 +33,7 @@ function tnodePropertiesString(tnode: TNode) {
     typeof tnode.attributes.src === 'string'
       ? `src=${JSON.stringify(tnode.attributes.src)}`
       : null;
-  const pstyles = printTableStyles(tnode.styles);
+  const pstyles = withStyles ? printTableStyles(tnode.styles) : null;
   const stylesPrint = pstyles ? `styles={{${pstyles} }}` : null;
   const detailsPrint = [
     tagPrint,
@@ -55,13 +55,19 @@ interface TNodePrintState {
   parentLeftPrefix: string;
   isChild: boolean;
   isLast: boolean;
+  withStyles: boolean;
 }
 
 export default function serializeTNode(
   tnode: TNode,
   params: Partial<TNodePrintState> = {}
 ): string {
-  const { parentLeftPrefix = '', isChild = false, isLast = false } = params;
+  const {
+    parentLeftPrefix = '',
+    isChild = false,
+    isLast = false,
+    withStyles = true
+  } = params;
   const prefix = isChild ? '  ' : '';
   const totalPrefixLeft = parentLeftPrefix + prefix;
   const childrenPrint = tnode.children
@@ -73,7 +79,7 @@ export default function serializeTNode(
       })
     )
     .join('');
-  return `${totalPrefixLeft}${tnodePropertiesString(tnode)}${
+  return `${totalPrefixLeft}${tnodePropertiesString(tnode, withStyles)}${
     childrenPrint
       ? `>\n${childrenPrint}\n${totalPrefixLeft}</${tnode.displayName}>`
       : ' />'
