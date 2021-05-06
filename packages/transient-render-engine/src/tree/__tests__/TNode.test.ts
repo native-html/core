@@ -4,6 +4,7 @@ import TTextCtor from '../TTextCtor';
 import { defaultInit } from './shared';
 import { TNodeImpl, TNodeInit } from '../tree-types';
 import HTMLContentModel from '../../model/HTMLContentModel';
+import { TStylesShape } from '../../styles/TStyles';
 
 const TTest = function (this: Mutable<TNodeImpl>, init: TNodeInit) {
   this.initialize(init);
@@ -12,9 +13,9 @@ const TTest = function (this: Mutable<TNodeImpl>, init: TNodeInit) {
 //@ts-ignore
 TTest.prototype = new TNodeCtor('block', 'TTest');
 
-function newTNode(init = defaultInit) {
+function newTNode(init?: Partial<TNodeInit>) {
   //@ts-ignore
-  return new TTest(init) as TNodeImpl;
+  return new TTest({ ...defaultInit, ...init }) as TNodeImpl;
 }
 
 describe('TNode class', () => {
@@ -84,9 +85,13 @@ describe('TNode class', () => {
   });
   describe('snapshot', () => {
     it('should provide a JSX representation', () => {
-      const node = newTNode();
-      expect(node.snapshot()).toMatchSnapshot();
-      expect(node.toString()).toBe(node.snapshot());
+      const node = newTNode({
+        styles: {
+          nativeBlockRet: { backgroundColor: 'red' }
+        } as TStylesShape
+      });
+      expect(node.snapshot(true)).toMatchSnapshot();
+      expect(node.toString()).toBe(node.snapshot(/*false*/));
     });
   });
 });

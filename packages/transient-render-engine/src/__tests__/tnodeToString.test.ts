@@ -27,4 +27,26 @@ describe('tnodeToString', () => {
     );
     expect(result).toMatchSnapshot();
   });
+  it('should print styles when withStyles is enabled', () => {
+    const result = tnodeToString(
+      (translateTreeTest(
+        '<span style="color: blue;">Blue!</span>'
+      ) as unknown) as TNode,
+      {
+        withStyles: true
+      }
+    );
+    expect(result).toMatchSnapshot();
+  });
+  it('should not print styles when withStyles is disabled', () => {
+    const result = tnodeToString(
+      (translateTreeTest(
+        '<span style="color: blue;">Blue!</span>'
+      ) as unknown) as TNode,
+      {
+        withStyles: false
+      }
+    );
+    expect(result).toMatchSnapshot();
+  });
 });
