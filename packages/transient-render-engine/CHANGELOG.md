@@ -1,3 +1,31 @@
+# [6.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@5.1.1...@native-html/transient-render-engine@6.0.0) (2021-05-06)
+
+
+### Bug Fixes
+
+* collapse whitespaces after <br> and <wbr> tags ([cb84d62](https://github.com/native-html/core/commit/cb84d62cdc9aa24b4cdb337be49cc6d7baa3df2f))
+* **tre:** preserve style inheritance in anonymous TPhrasing nodes ([734f105](https://github.com/native-html/core/commit/734f1058de38778613df2762d53a5bf88aa125c9))
+
+
+### Code Refactoring
+
+* **tre:** expose TNode.snapshot instead of TNode.toString ([f28c81b](https://github.com/native-html/core/commit/f28c81b508713d2ef98fd25080567d1ab9e42737))
+* remove tnodeToString from exports ([4c7e31b](https://github.com/native-html/core/commit/4c7e31b27dba7bcd2a9871ed7f8ef83b2d9974bc))
+
+
+### Features
+
+* **tre:** add nodeIndex in serialized snapshot ([307b145](https://github.com/native-html/core/commit/307b14558d0518304bc1cf666674d9e99dc64488))
+* **tre:** expose TNode.isUnregistered field ([b5b5efd](https://github.com/native-html/core/commit/b5b5efde9ce209a04c3ce55e4743d46358d6c7b1))
+* **tre:** print "unregistered" and "src" attribute in TNode.toString ([7ff6d74](https://github.com/native-html/core/commit/7ff6d749f7b3dee39796a243372d89f7e462e835))
+
+
+### BREAKING CHANGES
+
+* **tre:** replace TNode.toString with TNode.snapshot
+* tnodeToString is no longer exported. Use
+TNode.snapshot() instead.
+
 ## [5.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@5.1.0...@native-html/transient-render-engine@5.1.1) (2021-05-06)
 
 
