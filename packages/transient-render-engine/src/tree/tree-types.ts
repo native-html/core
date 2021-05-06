@@ -87,6 +87,13 @@ export interface TNodeShape {
    * Create a JSX string representation of this node and its children.
    */
   toString(): string;
+
+  /**
+   * Test if the given content model matches this TNode content model.
+   *
+   * @param contentModel - The content model to test against.
+   */
+  matchContentModel(contentModel: HTMLContentModel): boolean;
 }
 
 export interface DocumentContext {
