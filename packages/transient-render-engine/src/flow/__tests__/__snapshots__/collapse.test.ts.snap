@@ -39,7 +39,7 @@ exports[`collapse function should handle deeply nested HTML 1`] = `
 
 exports[`collapse function should handle direct style inheritance 1`] = `
 <TBlock tagName="div" styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
-   <TPhrasing anonymous>
+   <TPhrasing anonymous styles={{ fontSize: 18 }}>
      <TText tagName="span" data="This is nice!" styles={{ fontSize: 18, color: "red" }} />
    </TPhrasing>
 </TBlock>
@@ -49,7 +49,7 @@ exports[`collapse function should handle direct style inheritance 1`] = `
 exports[`collapse function should handle indirect style inheritance 1`] = `
 <TBlock tagName="div" styles={{ fontSize: 18 }}>
    <TBlock tagName="div" styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
-     <TPhrasing anonymous>
+     <TPhrasing anonymous styles={{ fontSize: 18 }}>
        <TText anonymous data="This is great!" styles={{ fontSize: 18 }} />
      </TPhrasing>
    </TBlock>
