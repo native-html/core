@@ -122,19 +122,7 @@ export class TRenderEngine {
     };
   }
 
-  findRoot(html: string) {
-    let document = parseDocument(html, this.htmlParserOptions);
-    for (const child of document.children) {
-      if (isDOMElement(child) && child.tagName === 'html') {
-        document = child;
-        break;
-      }
-    }
-    return document;
-  }
-
-  normalizeDocument(html: string) {
-    let document = this.findRoot(html);
+  private normalizeDocument(document: DOMDocument) {
     let body: DOMElement | undefined;
     let head: DOMElement | undefined;
     for (const child of document.children) {
@@ -163,7 +151,7 @@ export class TRenderEngine {
     return document;
   }
 
-  applyDOMTampering(document: DOMDocument) {
+  private applyDOMTampering(document: DOMDocument) {
     if (
       this.alterDOMParams?.ignoreDOMNode ||
       this.alterDOMParams?.alterDOMChildren ||
@@ -178,8 +166,18 @@ export class TRenderEngine {
     return document;
   }
 
-  buildTTree(html: string): TDocument {
-    const document = this.normalizeDocument(html);
+  parseDocument(html: string) {
+    let document = parseDocument(html, this.htmlParserOptions);
+    for (const child of document.children) {
+      if (isDOMElement(child) && child.tagName === 'html') {
+        document = child;
+        break;
+      }
+    }
+    return this.normalizeDocument(document);
+  }
+
+  buildTTreeFromDoc(document: DOMDocument): TDocument {
     const tamperedDoc = this.applyDOMTampering(document);
     const tdoc = translateDocument(tamperedDoc, this.dataFlowParams);
     const hoistedTDoc = this.hoistingEnabled ? hoist(tdoc) : tdoc;
@@ -187,5 +185,9 @@ export class TRenderEngine {
       ? collapse(hoistedTDoc, this.dataFlowParams)
       : tdoc;
     return (collapsedTDoc as unknown) as TDocument;
+  }
+
+  buildTTree(html: string): TDocument {
+    return this.buildTTreeFromDoc(this.parseDocument(html));
   }
 }
