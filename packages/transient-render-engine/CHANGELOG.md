@@ -1,3 +1,10 @@
+# [6.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.0.0...@native-html/transient-render-engine@6.1.0) (2021-05-06)
+
+
+### Features
+
+* **tre:** add printStyles param to TNode.snapshot ([b8d6f83](https://github.com/native-html/core/commit/b8d6f837eff727b0dfd5778a5894d7041f08b718))
+
 # [6.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@5.1.1...@native-html/transient-render-engine@6.0.0) (2021-05-06)
 
 
