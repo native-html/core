@@ -17,6 +17,7 @@ function printTableStyles(styles: TStyles) {
 
 function tnodePropertiesString(tnode: TNode) {
   const tagPrint = tnode.tagName ? `tagName="${tnode.tagName}"` : 'anonymous';
+  const unregisteredPrint = tnode.isUnregistered ? 'unregistered' : null;
   const idPrint = tnode.id ? `id=${tnode.id}` : null;
   const classesPrint = tnode.classes?.length
     ? `classes={[${tnode.classes.join(', ')}]}`
@@ -25,16 +26,22 @@ function tnodePropertiesString(tnode: TNode) {
     tnode.type === 'text' ? `data=${JSON.stringify(tnode.data)}` : null;
   const anchorPrint =
     typeof tnode.attributes.href === 'string'
-      ? `href="${tnode.attributes.href}"`
+      ? `href=${JSON.stringify(tnode.attributes.href)}`
+      : null;
+  const srcPrint =
+    typeof tnode.attributes.src === 'string'
+      ? `src=${JSON.stringify(tnode.attributes.src)}`
       : null;
   const pstyles = printTableStyles(tnode.styles);
   const stylesPrint = pstyles ? `styles={{${pstyles} }}` : null;
   const detailsPrint = [
     tagPrint,
+    unregisteredPrint,
     idPrint,
     classesPrint,
     dataPrint,
     anchorPrint,
+    srcPrint,
     stylesPrint
   ]
     .filter((p) => p !== null)
