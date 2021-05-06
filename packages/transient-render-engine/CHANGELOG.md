@@ -1,3 +1,10 @@
+## [5.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@5.1.0...@native-html/transient-render-engine@5.1.1) (2021-05-06)
+
+
+### Bug Fixes
+
+* **tre:** expose "matchContentModel" method from TNode ([c67b70f](https://github.com/native-html/core/commit/c67b70f7785081281231ec888b1a7865286088ff))
+
 # [5.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@5.0.0...@native-html/transient-render-engine@5.1.0) (2021-05-06)
 
 
