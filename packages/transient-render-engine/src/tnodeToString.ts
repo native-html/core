@@ -18,7 +18,7 @@ function printTableStyles(styles: TStyles) {
 function tnodePropertiesString(tnode: TNode) {
   const tagPrint = tnode.tagName ? `tagName="${tnode.tagName}"` : 'anonymous';
   const unregisteredPrint = tnode.isUnregistered ? 'unregistered' : null;
-  const indexPrint = `nodeIndex={${tnode.nodeIndex}}`
+  const indexPrint = `nodeIndex={${tnode.nodeIndex}}`;
   const idPrint = tnode.id ? `id=${tnode.id}` : null;
   const classesPrint = tnode.classes?.length
     ? `classes={[${tnode.classes.join(', ')}]}`

@@ -1,7 +1,7 @@
 import { TStyles } from '../../styles/TStyles';
 import { TEmptyCtor } from '../../tree/TEmptyCtor';
 import { mapNodeList } from '../translate';
-import { rfc002Source, href, imgSrc } from './shared';
+import { rfc002Source } from './shared';
 import {
   defaultModelRegistry,
   defaultStylesMerger,

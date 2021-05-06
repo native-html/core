@@ -1,7 +1,5 @@
 import TBlockImpl from '../tree/TBlockCtor';
 import TDocumentCtor from '../tree/TDocumentImpl';
-import { TStyles } from '../styles/TStyles';
-import { CSSProcessedProps } from '@native-html/css-processor';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
@@ -302,13 +300,6 @@ describe('TRenderEngine > buildTTree method', () => {
     });
   });
   describe('should have its children inherit from baseStyles', () => {
-    const baseStyles = new TStyles(
-      new CSSProcessedProps().withProperty('fontSize', 12, {
-        compatCategory: 'native',
-        displayCategory: 'text',
-        propagationCategory: 'flow'
-      })
-    );
     const config = {
       stylesConfig: {
         baseStyle: {

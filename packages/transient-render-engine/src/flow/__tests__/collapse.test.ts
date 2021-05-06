@@ -1,17 +1,14 @@
 import { TBlockCtor } from '../../tree/TBlockCtor';
-import { TNodeImpl, TText } from '../../tree/tree-types';
+import { TNodeImpl } from '../../tree/tree-types';
 import { TPhrasingCtor } from '../../tree/TPhrasingCtor';
 import { TTextCtor, TTextImpl } from '../../tree/TTextCtor';
 import { collapse } from '../collapse';
 import { hoist } from '../hoist';
 import {
   deeplyNestedSource,
-  href,
-  imgSrc,
   nestedHyperlinksSource,
   recursiveHoisting,
-  rfc002Source,
-  secondaryHref
+  rfc002Source
 } from './shared';
 import { defaultDataFlowParams, defaultInit, translateTreeTest } from './utils';
 import { DOMText } from '../../dom/dom-utils';
@@ -121,8 +118,8 @@ describe('collapse function', () => {
     const ttree = makeTTree(
       '<div style="white-space: pre;"><span> This is nice </span><strong style="white-space: normal"> Should collapse </strong></div>'
     );
-     // left space of <strong> child DOMTextNode should be spared, since left
-     // sibling is not collapsible (tested in Mozilla Firefox and Chromium)
+    // left space of <strong> child DOMTextNode should be spared, since left
+    // sibling is not collapsible (tested in Mozilla Firefox and Chromium)
     expect(ttree).toMatchSnapshot();
   });
   it('should withold TEmpty nodes', () => {
@@ -168,4 +165,4 @@ describe('collapse function', () => {
     const ttree = makeTTree(src);
     expect(ttree).toMatchSnapshot();
   });
-})
+});

@@ -1,4 +1,4 @@
-import { imgSrc, rfc002Source, href } from './shared';
+import { rfc002Source } from './shared';
 import { hoist } from '../hoist';
 import { translateTreeTest } from './utils';
 import { TNodeImpl } from '../../tree/tree-types';
