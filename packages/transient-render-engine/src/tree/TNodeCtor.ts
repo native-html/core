@@ -164,8 +164,12 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     return;
   },
 
-  toString(this: TNodeImpl) {
+  snapshot() {
     return tnodeToString(this as any);
+  },
+
+  toString() {
+    return this.snapshot();
   },
 
   initialize<Impl extends TNodeImpl<any> = TNodeImpl>(

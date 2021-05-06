@@ -91,8 +91,13 @@ export interface TNodeShape {
   readonly isUnregistered: boolean;
   /**
    * Create a JSX string representation of this node and its children.
+   *
+   * @remarks The snapshot is _just_ a representation. For example, it will
+   * print `href` as an attribute of the TNode, while if you want to access
+   * `href` programatically, you'll need to access it via
+   * `tnode.attributes.href`.
    */
-  toString(): string;
+  snapshot(): string;
 
   /**
    * Test if the given content model matches this TNode content model.
@@ -172,6 +177,7 @@ export interface TNodeMethods {
    */
   collapseChildren(this: TNodeImpl, params: DataFlowParams): void;
   spliceChildren(this: TNodeImpl, indexes: number[]): void;
+  snapshot(): string;
   toString(): string;
   initialize(init: TNodeInit): void;
 }

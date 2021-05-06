@@ -82,10 +82,11 @@ describe('TNode class', () => {
       expect(node.contentModel).toBe(null);
     });
   });
-  describe('toString', () => {
+  describe('snapshot', () => {
     it('should provide a JSX representation', () => {
       const node = newTNode();
-      expect(node.toString()).toMatchSnapshot();
+      expect(node.snapshot()).toMatchSnapshot();
+      expect(node.toString()).toBe(node.snapshot());
     });
   });
 });
