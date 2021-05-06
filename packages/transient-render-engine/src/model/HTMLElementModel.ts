@@ -21,6 +21,7 @@ export interface HTMLElementModelProperties<
   readonly tagName: T;
   readonly contentModel: M;
   readonly isOpaque: boolean;
+  readonly isVoid: boolean;
   readonly mixedUAStyles?: MixedStyleDeclaration;
   /**
    * Examples:
@@ -44,6 +45,7 @@ export default class HTMLElementModel<
   public readonly tagName: T;
   public readonly contentModel: M;
   public readonly isOpaque: boolean;
+  public readonly isVoid: boolean;
   public readonly mixedUAStyles?: MixedStyleDeclaration;
   public readonly getUADerivedStyleFromAttributes: NativeElementModel['getUADerivedStyleFromAttributes'];
 
@@ -52,11 +54,13 @@ export default class HTMLElementModel<
     contentModel,
     isOpaque,
     mixedUAStyles,
+    isVoid,
     getUADerivedStyleFromAttributes
   }: HTMLElementModelProperties<T, M>) {
     this.tagName = tagName;
     this.contentModel = contentModel;
     this.isOpaque = isOpaque;
+    this.isVoid = isVoid;
     this.mixedUAStyles = mixedUAStyles;
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
   }
@@ -65,12 +69,14 @@ export default class HTMLElementModel<
     contentModel,
     tagName,
     isOpaque = false,
+    isVoid = false,
     ...optionalFields
   }: CustomElementModel<Exclude<T, TagName>, M>) {
     return new HTMLElementModel<Exclude<T, TagName>, M>({
       tagName,
       contentModel,
       isOpaque,
+      isVoid,
       ...optionalFields
     });
   }
@@ -80,6 +86,7 @@ export default class HTMLElementModel<
     category,
     isOpaque,
     mixedUAStyles,
+    isVoid = false,
     getUADerivedStyleFromAttributes
   }: NativeElementModel<T, E>) {
     const isPhrasing = phrasingCategories.indexOf(category) !== -1;
@@ -104,6 +111,7 @@ export default class HTMLElementModel<
         : HTMLContentModel.none
     >({
       tagName,
+      isVoid,
       contentModel: contentModel as any,
       mixedUAStyles,
       isOpaque: isOpaque ?? category === 'embedded',

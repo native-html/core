@@ -199,6 +199,7 @@ export interface CustomElementModel<
 > extends ElementModelBase<T> {
   tagName: Exclude<T, TagName>;
   contentModel: M;
+  isVoid?: boolean;
 }
 
 /**

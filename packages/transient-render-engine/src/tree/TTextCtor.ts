@@ -45,7 +45,7 @@ const collapseWhiteSpacesWithEastAsianCharset = compose(
 
 const TTextCtor = (function TText(this: Mutable<TTextImpl>, init: TTextInit) {
   this.initialize(init);
-  this.isSubstitutive = this.tagName === "br" || this.tagName === "wbr"
+  this.isSubstitutive = this.elementModel ? this.elementModel.isVoid : false;
 } as Function) as GenericTNodeCtor<TTextInit, TTextImpl>;
 
 //@ts-ignore
