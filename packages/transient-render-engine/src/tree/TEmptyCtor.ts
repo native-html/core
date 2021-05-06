@@ -1,7 +1,7 @@
 import HTMLContentModel from '../model/HTMLContentModel';
 import { DOMElement } from '../dom/dom-utils';
 import { TNodeImpl, TNodeInit } from './tree-types';
-import TNode, { TNodeCtor, Mutable } from './TNode';
+import TNodeCtor, { GenericTNodeCtor, Mutable } from './TNodeCtor';
 
 export interface TEmptyImpl extends TNodeImpl<TEmptyInit> {
   readonly domNode: DOMElement;
@@ -13,12 +13,15 @@ export interface TEmptyInit extends TNodeInit {
   isUnregistered: boolean;
 }
 
-const TEmpty = (function TEmpty(this: Mutable<TEmptyImpl>, init: TEmptyInit) {
+const TEmptyCtor = (function TEmpty(
+  this: Mutable<TEmptyImpl>,
+  init: TEmptyInit
+) {
   this.initialize(init);
-} as Function) as TNodeCtor<TEmptyInit, TEmptyImpl>;
+} as Function) as GenericTNodeCtor<TEmptyInit, TEmptyImpl>;
 
 //@ts-ignore
-TEmpty.prototype = new TNode('empty', 'TEmpty', {
+TEmptyCtor.prototype = new TNodeCtor('empty', 'TEmpty', {
   isUnregistered: {
     get(this: TEmptyImpl) {
       return this.init.isUnregistered;
@@ -26,12 +29,12 @@ TEmpty.prototype = new TNode('empty', 'TEmpty', {
   }
 });
 
-TEmpty.prototype.matchContentModel = function matchContentModel(
+TEmptyCtor.prototype.matchContentModel = function matchContentModel(
   contentModel: HTMLContentModel
 ) {
   return contentModel === HTMLContentModel.none;
 };
 
-export default TEmpty;
+export default TEmptyCtor;
 
-export { TEmpty };
+export { TEmptyCtor };

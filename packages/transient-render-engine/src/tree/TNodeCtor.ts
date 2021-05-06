@@ -2,7 +2,7 @@ import { TStyles } from '../styles/TStyles';
 import tnodeToString from '../tnodeToString';
 import { TNodeImpl, TNodeInit, TNodeType } from './tree-types';
 
-export type TNodeCtor<Init = TNodeInit, Impl = TNodeImpl> = {
+export type GenericTNodeCtor<Init = TNodeInit, Impl = TNodeImpl> = {
   new (init: Init): Impl;
   prototype: Impl;
 };
@@ -180,7 +180,7 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   }
 };
 
-const TNode = (function TNode<Impl extends TNodeImpl = TNodeImpl>(
+const TNodeCtor = function TNode<Impl extends TNodeImpl = TNodeImpl>(
   this: Mutable<TNodeImpl>,
   type: TNodeType,
   displayName: string,
@@ -194,11 +194,8 @@ const TNode = (function TNode<Impl extends TNodeImpl = TNodeImpl>(
   this.type = type;
   this.displayName = displayName;
   extraAccessors && Object.defineProperties(this, extraAccessors);
-} as unknown) as {
-  new (type: TNodeType, displayName: string): TNodeImpl;
-  prototype: TNodeImpl;
 };
 
-TNode.prototype = prototype as any;
+TNodeCtor.prototype = prototype as any;
 
-export default TNode;
+export default TNodeCtor;

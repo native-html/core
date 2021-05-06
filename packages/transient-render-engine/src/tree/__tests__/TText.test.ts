@@ -1,6 +1,6 @@
 import { DOMText } from '../../dom/dom-utils';
 import HTMLContentModel from '../../model/HTMLContentModel';
-import TText from '../TText';
+import TTextCtor from '../TText';
 import { defaultInit } from './shared';
 
 const textNode = new DOMText(' This is Great!');
@@ -8,7 +8,7 @@ const textNode = new DOMText(' This is Great!');
 describe('TText class', () => {
   describe('trimLeft method', () => {
     it('should remove the first character', () => {
-      const text = new TText({
+      const text = new TTextCtor({
         textNode: new DOMText(' This is Great'),
         ...defaultInit
       });
@@ -18,7 +18,7 @@ describe('TText class', () => {
   });
   describe('trimRight method', () => {
     it('should remove the last character', () => {
-      const text = new TText({
+      const text = new TTextCtor({
         textNode: new DOMText('This is Great '),
         ...defaultInit
       });
@@ -28,21 +28,21 @@ describe('TText class', () => {
   });
   describe('matchContentModel method', () => {
     it('should not match block content model', () => {
-      const text = new TText({
+      const text = new TTextCtor({
         textNode,
         ...defaultInit
       });
       expect(text.matchContentModel(HTMLContentModel.block)).toBe(false);
     });
     it('should match mixed content model', () => {
-      const text = new TText({
+      const text = new TTextCtor({
         textNode,
         ...defaultInit
       });
       expect(text.matchContentModel(HTMLContentModel.mixed)).toBe(true);
     });
     it('should match textual content model', () => {
-      const text = new TText({
+      const text = new TTextCtor({
         textNode,
         ...defaultInit
       });

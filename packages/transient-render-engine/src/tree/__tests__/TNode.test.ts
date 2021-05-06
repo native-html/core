@@ -1,6 +1,6 @@
 import { DOMElement, DOMText } from '../../dom/dom-utils';
-import TNode, { Mutable } from '../TNode';
-import TText from '../TText';
+import TNodeCtor, { Mutable } from '../TNodeCtor';
+import TTextCtor from '../TText';
 import { defaultInit } from './shared';
 import { TNodeImpl, TNodeInit } from '../tree-types';
 import HTMLContentModel from '../../model/HTMLContentModel';
@@ -10,7 +10,7 @@ const TTest = function (this: Mutable<TNodeImpl>, init: TNodeInit) {
 };
 
 //@ts-ignore
-TTest.prototype = new TNode('block', 'TTest');
+TTest.prototype = new TNodeCtor('block', 'TTest');
 
 function newTNode(init = defaultInit) {
   //@ts-ignore
@@ -31,7 +31,7 @@ describe('TNode class', () => {
     });
     it('should return true when node has one collapsible-right children', () => {
       const node = newTNode();
-      const collapsibleChild = new TText({
+      const collapsibleChild = new TTextCtor({
         textNode: new DOMText('  '),
         ...defaultInit
       });
@@ -44,7 +44,7 @@ describe('TNode class', () => {
       const node = newTNode();
       const nodeChildren = [newTNode()];
       node.bindChildren(nodeChildren);
-      const nextNode = new TText({
+      const nextNode = new TTextCtor({
         ...node.cloneInitParams(),
         parentStyles: undefined,
         styles: undefined,

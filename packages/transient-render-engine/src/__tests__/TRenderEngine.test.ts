@@ -1,11 +1,11 @@
-import TBlock from '../tree/TBlock';
-import TDocument from '../tree/TDocument';
+import TBlockImpl from '../tree/TBlockCtor';
+import TDocumentCtor from '../tree/TDocumentImpl';
 import { TStyles } from '../styles/TStyles';
 import { CSSProcessedProps } from '@native-html/css-processor';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
-import TEmpty from '../tree/TEmpty';
+import TEmptyCtor from '../tree/TEmptyCtor';
 import { rfc002Source } from '../flow/__tests__/shared';
 
 const href = 'https://domain.com';
@@ -243,10 +243,10 @@ describe('TRenderEngine > buildTTree method', () => {
   });
   it('given a HTML document, should return an instance of TDocument which has one TBlock(body) child', () => {
     const tdoc = defaultTTreeBuilder.buildTTree(htmlDocument);
-    expect(tdoc).toBeInstanceOf(TDocument);
+    expect(tdoc).toBeInstanceOf(TDocumentCtor);
     expect(tdoc.children).toHaveLength(2);
-    expect(tdoc.children[0]).toBeInstanceOf(TEmpty);
-    expect(tdoc.children[1]).toBeInstanceOf(TBlock);
+    expect(tdoc.children[0]).toBeInstanceOf(TEmptyCtor);
+    expect(tdoc.children[1]).toBeInstanceOf(TBlockImpl);
     expect(tdoc.children[1]).toMatchObject({
       type: 'block',
       tagName: 'body',
@@ -356,7 +356,7 @@ describe('TRenderEngine > buildTTree method', () => {
   it('should handle html snippets', () => {
     const snippet = '<div></div>';
     const tdoc = defaultTTreeBuilder.buildTTree(snippet);
-    expect(tdoc).toBeInstanceOf(TDocument);
+    expect(tdoc).toBeInstanceOf(TDocumentCtor);
     expect(tdoc).toMatchObject({
       type: 'document',
       tagName: 'html',
@@ -378,7 +378,7 @@ describe('TRenderEngine > buildTTree method', () => {
   it('should handle html snippets with multiple root nodes', () => {
     const snippet = '<div></div><div></div>';
     const tdoc = defaultTTreeBuilder.buildTTree(snippet);
-    expect(tdoc).toBeInstanceOf(TDocument);
+    expect(tdoc).toBeInstanceOf(TDocumentCtor);
     expect(tdoc).toMatchObject({
       type: 'document',
       tagName: 'html',

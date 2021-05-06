@@ -1,9 +1,9 @@
 import { TNodeImpl, TNodeInit } from '../tree/tree-types';
 import { Document } from 'domhandler';
-import { TText } from '../tree/TText';
+import { TTextCtor } from '../tree/TText';
 import { TPhrasing } from '../tree/TPhrasing';
-import { TBlock } from '../tree/TBlock';
-import { TDocument, TDocumentImpl } from '../tree/TDocument';
+import { TBlockCtor } from '../tree/TBlockCtor';
+import { TDocumentCtor, TDocumentImpl } from '../tree/TDocumentImpl';
 import {
   isDOMElement,
   isDOMText,
@@ -13,7 +13,7 @@ import {
 } from '../dom/dom-utils';
 import { TStyles } from '../styles/TStyles';
 
-import { TEmpty } from '../tree/TEmpty';
+import { TEmptyCtor } from '../tree/TEmptyCtor';
 import { DataFlowParams } from './types';
 
 export function mapNodeList({
@@ -77,7 +77,7 @@ function translateElement({
   };
   const elementModel = params.modelRegistry.getElementModelFromTagName(tagName);
   if (!elementModel) {
-    return new TEmpty({
+    return new TEmptyCtor({
       ...sharedProps,
       isUnregistered: true,
       elementModel,
@@ -88,7 +88,7 @@ function translateElement({
     if (node.children.length === 1) {
       const child = node.children[0] as DOMNode;
       if (isDOMText(child)) {
-        return new TText({
+        return new TTextCtor({
           ...sharedProps,
           elementModel,
           textNode: child,
@@ -96,7 +96,7 @@ function translateElement({
         });
       }
     } else if (node.children.length === 0) {
-      return new TText({
+      return new TTextCtor({
         ...sharedProps,
         elementModel,
         domNode: node,
@@ -112,7 +112,7 @@ function translateElement({
     return phrasing;
   }
   if (elementModel.isTranslatableBlock()) {
-    const block = new TBlock({
+    const block = new TBlockCtor({
       ...sharedProps,
       elementModel,
       parentStyles,
@@ -121,7 +121,7 @@ function translateElement({
     bindChildren(block, node.children, params);
     return block;
   }
-  return new TEmpty({
+  return new TEmptyCtor({
     ...sharedProps,
     isUnregistered: false,
     elementModel,
@@ -145,7 +145,7 @@ export function translateNode({
   parent
 }: TranslateParams<DOMNode | null>): TNodeImpl | null {
   if (isDOMText(node)) {
-    return new TText({
+    return new TTextCtor({
       textNode: node,
       stylesMerger: params.stylesMerger,
       parentStyles,
@@ -171,7 +171,7 @@ export function translateDocument(
   document: Document,
   params: DataFlowParams
 ): TDocumentImpl {
-  const tdoc = new TDocument({
+  const tdoc = new TDocumentCtor({
     stylesMerger: params.stylesMerger,
     styles: params.baseStyles,
     domNode: document as any

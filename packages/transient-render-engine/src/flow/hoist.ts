@@ -1,7 +1,7 @@
-import { TBlock, TBlockImpl } from '../tree/TBlock';
+import TBlockCtor, { TBlockImpl } from '../tree/TBlockCtor';
 import { TNodeImpl } from '../tree/tree-types';
 import { TPhrasing } from '../tree/TPhrasing';
-import { TText } from '../tree/TText';
+import { TTextCtor } from '../tree/TText';
 
 /**
  * Wrap text nodes around TPhrasing nodes.
@@ -17,7 +17,7 @@ function groupText(tnode: TBlockImpl): TNodeImpl {
   let wrapper = new TPhrasing(wrapperInit);
   let wrapperChildren: TNodeImpl[] = [];
   for (const child of tnode.children) {
-    if (child instanceof TText || child instanceof TPhrasing) {
+    if (child instanceof TTextCtor || child instanceof TPhrasing) {
       wrapperChildren.push(child);
     } else {
       if (wrapperChildren.length) {
@@ -38,20 +38,20 @@ function groupText(tnode: TBlockImpl): TNodeImpl {
 }
 
 function hoistNode(tnode: TNodeImpl): TNodeImpl {
-  if (tnode instanceof TText) {
+  if (tnode instanceof TTextCtor) {
     return tnode;
   }
   tnode.bindChildren(tnode.children.map(hoistNode));
   if (tnode instanceof TPhrasing) {
     for (const cnode of tnode.children) {
-      if (cnode instanceof TBlock) {
-        const newNode = new TBlock(tnode.cloneInitParams());
+      if (cnode instanceof TBlockCtor) {
+        const newNode = new TBlockCtor(tnode.cloneInitParams());
         newNode.bindChildren(tnode.children);
         const output = groupText(newNode);
         return output;
       }
     }
-  } else if (tnode instanceof TBlock) {
+  } else if (tnode instanceof TBlockCtor) {
     if (tnode.children.length > 0) {
       const output = groupText(tnode);
       return output;

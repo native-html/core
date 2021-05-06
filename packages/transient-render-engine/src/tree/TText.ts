@@ -11,7 +11,7 @@ import {
   removeLineBreaksAroundEastAsianDiscardSet,
   replaceSegmentBreaks
 } from '../flow/text-transforms';
-import TNode, { TNodeCtor, Mutable } from './TNode';
+import TNodeCtor, { GenericTNodeCtor, Mutable } from './TNodeCtor';
 
 export interface TTextInit extends TNodeInit {
   readonly textNode: DOMText;
@@ -38,12 +38,12 @@ const collapseWhiteSpacesWithEastAsianCharset = compose(
   removeCollapsibleAroundSegmentBreak
 );
 
-const TText = (function TText(this: Mutable<TTextImpl>, init: TTextInit) {
+const TTextCtor = (function TText(this: Mutable<TTextImpl>, init: TTextInit) {
   this.initialize(init);
-} as Function) as TNodeCtor<TTextInit, TTextImpl>;
+} as Function) as GenericTNodeCtor<TTextInit, TTextImpl>;
 
 //@ts-ignore
-TText.prototype = new TNode('text', 'TText', {
+TTextCtor.prototype = new TNodeCtor('text', 'TText', {
   data: {
     get(this: TTextImpl) {
       return this.init.textNode.data;
@@ -54,7 +54,7 @@ TText.prototype = new TNode('text', 'TText', {
   }
 });
 
-TText.prototype.matchContentModel = function matchContentModel(
+TTextCtor.prototype.matchContentModel = function matchContentModel(
   contentModel: HTMLContentModel
 ) {
   return (
@@ -63,7 +63,7 @@ TText.prototype.matchContentModel = function matchContentModel(
   );
 };
 
-TText.prototype.isCollapsibleLeft = function isCollapsibleLeft(
+TTextCtor.prototype.isCollapsibleLeft = function isCollapsibleLeft(
   this: TTextImpl
 ) {
   return (
@@ -73,7 +73,7 @@ TText.prototype.isCollapsibleLeft = function isCollapsibleLeft(
   );
 };
 
-TText.prototype.isCollapsibleRight = function isCollapsibleRight(
+TTextCtor.prototype.isCollapsibleRight = function isCollapsibleRight(
   this: TTextImpl
 ) {
   return (
@@ -83,24 +83,24 @@ TText.prototype.isCollapsibleRight = function isCollapsibleRight(
   );
 };
 
-TText.prototype.isEmpty = function isEmpty(this: TTextImpl) {
+TTextCtor.prototype.isEmpty = function isEmpty(this: TTextImpl) {
   // Only anonymous text nodes can be considered "empty"
   return this.tagName === null && !this.data.length;
 };
 
-TText.prototype.trimLeft = function trimLeft(this: Mutable<TTextImpl>) {
+TTextCtor.prototype.trimLeft = function trimLeft(this: Mutable<TTextImpl>) {
   if (this.isCollapsibleLeft()) {
     this.data = this.data.slice(1);
   }
 };
 
-TText.prototype.trimRight = function trimRight(this: Mutable<TTextImpl>) {
+TTextCtor.prototype.trimRight = function trimRight(this: Mutable<TTextImpl>) {
   if (this.isCollapsibleRight()) {
     this.data = this.data.substr(0, this.data.length - 1);
   }
 };
 
-TText.prototype.collapseChildren = function collapseChildren(
+TTextCtor.prototype.collapseChildren = function collapseChildren(
   this: Mutable<TTextImpl>,
   params
 ) {
@@ -114,6 +114,6 @@ TText.prototype.collapseChildren = function collapseChildren(
   return null;
 };
 
-export default TText;
+export default TTextCtor;
 
-export { TText };
+export { TTextCtor };

@@ -1,14 +1,9 @@
-import { TNodeCtor, Mutable } from './TNode';
+import { GenericTNodeCtor, Mutable } from './TNodeCtor';
 import HTMLElementModel from '../model/HTMLElementModel';
 import { isDOMElement, isDOMText } from '../dom/dom-utils';
-import { TEmptyImpl } from './TEmpty';
-import {
-  TNodeInit,
-  TNodeImpl,
-  TNodeShape,
-  DocumentContext
-} from './tree-types';
-import TBlock from './TBlock';
+import { TEmptyImpl } from './TEmptyCtor';
+import { TNodeInit, TNodeImpl, DocumentContext } from './tree-types';
+import TBlockImpl from './TBlockCtor';
 
 export type TDocumentInit = Omit<TNodeInit, 'elementModel'>;
 
@@ -73,40 +68,36 @@ const htmlModel = HTMLElementModel.fromNativeModel({
   category: 'grouping'
 });
 
-interface TDocument extends TNodeShape {
-  readonly context: Readonly<DocumentContext>;
-}
-
-const TDocument = (function TDocument(
+const TDocumentCtor = (function TDocument(
   this: Mutable<TDocumentImpl>,
   init: TDocumentInit
 ) {
   this.initialize(init as TNodeInit);
-} as Function) as TNodeCtor<TDocumentInit, TDocumentImpl>;
+} as Function) as GenericTNodeCtor<TDocumentInit, TDocumentImpl>;
 
-TDocument.prototype = Object.create(TBlock.prototype);
+TDocumentCtor.prototype = Object.create(TBlockImpl.prototype);
 
-Object.defineProperty(TDocument.prototype, 'tagName', {
+Object.defineProperty(TDocumentCtor.prototype, 'tagName', {
   value: 'html',
   writable: false
 });
 
-Object.defineProperty(TDocument.prototype, 'type', {
+Object.defineProperty(TDocumentCtor.prototype, 'type', {
   value: 'document',
   writable: false
 });
 
-Object.defineProperty(TDocument.prototype, 'displayName', {
+Object.defineProperty(TDocumentCtor.prototype, 'displayName', {
   value: 'TDocument',
   writable: false
 });
 
-Object.defineProperty(TDocument.prototype, 'elementModel', {
+Object.defineProperty(TDocumentCtor.prototype, 'elementModel', {
   value: htmlModel,
   writable: false
 });
 
-TDocument.prototype.parseChildren = function parseChildren(
+TDocumentCtor.prototype.parseChildren = function parseChildren(
   this: Mutable<TDocumentImpl>
 ) {
   let head: TEmptyImpl | undefined;
@@ -131,6 +122,6 @@ TDocument.prototype.parseChildren = function parseChildren(
   );
 };
 
-export { TDocument };
+export { TDocumentCtor };
 
-export default TDocument;
+export default TDocumentCtor;

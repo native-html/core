@@ -1,5 +1,5 @@
 import { TStyles } from '../../styles/TStyles';
-import { TEmpty } from '../../tree/TEmpty';
+import { TEmptyCtor } from '../../tree/TEmptyCtor';
 import { mapNodeList } from '../translate';
 import { rfc002Source, href, imgSrc } from './shared';
 import {
@@ -109,7 +109,7 @@ describe('translateNode function', () => {
     const svgSrc = '<svg><path /></svg>';
     const ttree = translateTreeTest(svgSrc);
     it('should translate to TEmpty', () => {
-      expect(ttree).toBeInstanceOf(TEmpty);
+      expect(ttree).toBeInstanceOf(TEmptyCtor);
     });
     it('should set domNode attribute', () => {
       expect(ttree).toMatchObject({

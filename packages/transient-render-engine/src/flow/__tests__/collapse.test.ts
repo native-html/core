@@ -1,7 +1,7 @@
-import { TBlock } from '../../tree/TBlock';
+import { TBlockCtor } from '../../tree/TBlockCtor';
 import { TNodeImpl } from '../../tree/tree-types';
 import { TPhrasing } from '../../tree/TPhrasing';
-import { TText } from '../../tree/TText';
+import { TTextCtor } from '../../tree/TText';
 import { collapse } from '../collapse';
 import { hoist } from '../hoist';
 import {
@@ -27,7 +27,7 @@ function makeTTree(
 }
 
 function makeTextChildren() {
-  return [new TText({ textNode: new DOMText(''), ...defaultInit })];
+  return [new TTextCtor({ textNode: new DOMText(''), ...defaultInit })];
 }
 
 describe('collapse function', () => {
@@ -275,7 +275,7 @@ describe('collapse function', () => {
     });
   });
   it('should remove empty children from TBlock nodes', () => {
-    const ttree = new TBlock(defaultInit);
+    const ttree = new TBlockCtor(defaultInit);
     ttree.bindChildren(makeTextChildren());
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
@@ -295,9 +295,9 @@ describe('collapse function', () => {
     const ttree = new TPhrasing(defaultInit);
     ttree.bindChildren([
       // This node will be empty after trimming right, and should be removed
-      new TText({ textNode: new DOMText(' '), ...defaultInit }),
-      new TText({ textNode: new DOMText(' Foo'), ...defaultInit }),
-      new TText({ textNode: new DOMText(' Bar'), ...defaultInit })
+      new TTextCtor({ textNode: new DOMText(' '), ...defaultInit }),
+      new TTextCtor({ textNode: new DOMText(' Foo'), ...defaultInit }),
+      new TTextCtor({ textNode: new DOMText(' Bar'), ...defaultInit })
     ]);
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(2);
   });

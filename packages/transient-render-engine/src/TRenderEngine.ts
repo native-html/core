@@ -1,7 +1,6 @@
 import { collapse } from './flow/collapse';
 import { hoist } from './flow/hoist';
 import { translateDocument } from './flow/translate';
-import { TDocument } from './tree/TDocument';
 import { parseDocument, ParserOptions as HTMLParserOptions } from 'htmlparser2';
 import omit from 'ramda/src/omit';
 import {
@@ -18,6 +17,7 @@ import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
 import { DataFlowParams } from './flow/types';
 import alterDOMNodes, { AlterDOMParams } from './dom/alterDOMNodes';
 import { DOMDocument, DOMElement, isDOMElement } from './dom/dom-utils';
+import { TDocument } from './tree/tree-types';
 
 export interface TRenderEngineOptions<E extends string = never> {
   /**
