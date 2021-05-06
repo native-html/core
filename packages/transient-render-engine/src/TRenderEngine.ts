@@ -177,7 +177,7 @@ export class TRenderEngine {
     return this.normalizeDocument(document);
   }
 
-  buildTTreeFromDoc(document: DOMDocument): TDocument {
+  buildTTreeFromDoc(document: DOMDocument | DOMElement): TDocument {
     const tamperedDoc = this.applyDOMTampering(document);
     const tdoc = translateDocument(tamperedDoc, this.dataFlowParams);
     const hoistedTDoc = this.hoistingEnabled ? hoist(tdoc) : tdoc;
