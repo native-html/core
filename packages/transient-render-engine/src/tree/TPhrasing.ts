@@ -1,8 +1,5 @@
 import HTMLContentModel from '../model/HTMLContentModel';
-import TNode, {
-  TNodeCtor,
-  Mutable,
-} from './TNode';
+import TNode, { TNodeCtor, Mutable } from './TNode';
 import { TNodeImpl, TNodeInit } from './tree-types';
 
 export interface TPhrasingImpl extends TNodeImpl {}
