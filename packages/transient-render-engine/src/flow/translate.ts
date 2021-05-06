@@ -1,7 +1,7 @@
 import { TNodeImpl, TNodeInit } from '../tree/tree-types';
 import { Document } from 'domhandler';
-import { TTextCtor } from '../tree/TText';
-import { TPhrasing } from '../tree/TPhrasing';
+import { TTextCtor } from '../tree/TTextCtor';
+import { TPhrasingCtor } from '../tree/TPhrasingCtor';
 import { TBlockCtor } from '../tree/TBlockCtor';
 import { TDocumentCtor, TDocumentImpl } from '../tree/TDocumentImpl';
 import {
@@ -103,7 +103,7 @@ function translateElement({
         textNode: new DOMText('')
       });
     }
-    const phrasing = new TPhrasing({
+    const phrasing = new TPhrasingCtor({
       ...sharedProps,
       domNode: node,
       elementModel

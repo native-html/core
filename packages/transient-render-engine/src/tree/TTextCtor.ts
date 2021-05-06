@@ -19,6 +19,11 @@ export interface TTextInit extends TNodeInit {
 
 export interface TTextImpl extends TNodeImpl<TTextInit> {
   readonly data: string;
+  /**
+   * True when tagName is defined and should be substituted with text when
+   * rendering. E.g. <br> tags.
+   */
+  readonly isSubstitutive: boolean;
 }
 
 const collapseWhiteSpaces = compose(
@@ -40,6 +45,7 @@ const collapseWhiteSpacesWithEastAsianCharset = compose(
 
 const TTextCtor = (function TText(this: Mutable<TTextImpl>, init: TTextInit) {
   this.initialize(init);
+  this.isSubstitutive = this.tagName === "br" || this.tagName === "wbr"
 } as Function) as GenericTNodeCtor<TTextInit, TTextImpl>;
 
 //@ts-ignore
@@ -79,7 +85,7 @@ TTextCtor.prototype.isCollapsibleRight = function isCollapsibleRight(
   return (
     this.hasWhiteSpaceCollapsingEnabled &&
     !this.isEmpty() &&
-    this.data[this.data.length - 1] === ' '
+    (this.isSubstitutive || this.data[this.data.length - 1] === ' ')
   );
 };
 

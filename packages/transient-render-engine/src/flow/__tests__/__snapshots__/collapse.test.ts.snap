@@ -16,6 +16,17 @@ exports[`collapse function should collapse a tree such as specified in RFC002 ex
 
 `;
 
+exports[`collapse function should handle <br> tags 1`] = `
+<TBlock tagName="p">
+   <TPhrasing anonymous>
+     <TText anonymous data="should" />
+     <TText tagName="br" data="" />
+     <TText anonymous data="collapse" />
+   </TPhrasing>
+</TBlock>
+
+`;
+
 exports[`collapse function should handle deeply nested HTML 1`] = `
 <TBlock tagName="article">
    <TPhrasing anonymous>
@@ -27,8 +38,8 @@ exports[`collapse function should handle deeply nested HTML 1`] = `
      </TPhrasing>
      <TBlock tagName="p">
        <TPhrasing anonymous>
-         <TText anonymous data="A new paragraph." />
-         <TText tagName="span" data=" And a span within" />
+         <TText anonymous data="A new paragraph. " />
+         <TText tagName="span" data="And a span within" />
        </TPhrasing>
        <TBlock tagName="img" />
      </TBlock>
@@ -77,8 +88,8 @@ exports[`collapse function should hoist blocks recursively 1`] = `
    </TPhrasing>
    <TBlock tagName="strong">
      <TPhrasing anonymous>
-       <TText anonymous data="Line2" />
-       <TText tagName="span" data=" Line3" />
+       <TText anonymous data="Line2 " />
+       <TText tagName="span" data="Line3" />
      </TPhrasing>
      <TBlock tagName="img" />
    </TBlock>

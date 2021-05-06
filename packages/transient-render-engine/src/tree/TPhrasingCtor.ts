@@ -8,7 +8,7 @@ function isChildEmpty(c: TNodeImpl) {
   return c.isEmpty();
 }
 
-const TPhrasing = (function TPhrasing(
+const TPhrasingCtor = (function TPhrasing(
   this: Mutable<TNodeImpl>,
   init: TNodeInit
 ) {
@@ -16,9 +16,9 @@ const TPhrasing = (function TPhrasing(
 } as Function) as GenericTNodeCtor<TNodeInit, TPhrasingImpl>;
 
 //@ts-ignore
-TPhrasing.prototype = new TNodeCtor('phrasing', 'TPhrasing');
+TPhrasingCtor.prototype = new TNodeCtor('phrasing', 'TPhrasing');
 
-TPhrasing.prototype.matchContentModel = function matchContentModel(
+TPhrasingCtor.prototype.matchContentModel = function matchContentModel(
   contentModel
 ) {
   return (
@@ -27,14 +27,13 @@ TPhrasing.prototype.matchContentModel = function matchContentModel(
   );
 };
 
-TPhrasing.prototype.isEmpty = function isEmpty() {
+TPhrasingCtor.prototype.isEmpty = function isEmpty() {
   // Only anonymous phrasing nodes with every children empty can be considered "empty"
   return this.tagName === null && this.children.every(isChildEmpty);
 };
 
-TPhrasing.prototype.collapseChildren = function collapseChildren(params) {
+TPhrasingCtor.prototype.collapseChildren = function collapseChildren(params) {
   let previous: TNodeImpl | null = null;
-  let indexesToSplice: number[] = [];
   this.children.forEach((childK, k) => {
     const j = k - 1;
     childK.collapse(params);
@@ -43,19 +42,17 @@ TPhrasing.prototype.collapseChildren = function collapseChildren(params) {
       childK.isCollapsibleLeft() &&
       (previous as TNodeImpl).isCollapsibleRight()
     ) {
-      (previous as TNodeImpl).trimRight();
-      if (previous!.isEmpty()) {
-        indexesToSplice.push(j);
-      }
+      // We must trim left from current to support trimming
+      // after <br> and <wbr> tags.
+      childK.trimLeft();
     }
     previous = childK;
   });
-  this.spliceChildren(indexesToSplice);
   this.trimLeft();
   this.trimRight();
   return null;
 };
 
-export default TPhrasing;
+export default TPhrasingCtor;
 
-export { TPhrasing };
+export { TPhrasingCtor };

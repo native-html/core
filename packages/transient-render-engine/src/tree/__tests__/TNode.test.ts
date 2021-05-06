@@ -1,6 +1,6 @@
 import { DOMElement, DOMText } from '../../dom/dom-utils';
 import TNodeCtor, { Mutable } from '../TNodeCtor';
-import TTextCtor from '../TText';
+import TTextCtor from '../TTextCtor';
 import { defaultInit } from './shared';
 import { TNodeImpl, TNodeInit } from '../tree-types';
 import HTMLContentModel from '../../model/HTMLContentModel';

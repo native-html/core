@@ -1,6 +1,6 @@
 import { DOMText } from '../../dom/dom-utils';
 import HTMLContentModel from '../../model/HTMLContentModel';
-import TTextCtor from '../TText';
+import TTextCtor from '../TTextCtor';
 import { defaultInit } from './shared';
 
 const textNode = new DOMText(' This is Great!');

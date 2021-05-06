@@ -1,7 +1,7 @@
 import { TBlockCtor } from '../../tree/TBlockCtor';
 import { TNodeImpl } from '../../tree/tree-types';
-import { TPhrasing } from '../../tree/TPhrasing';
-import { TTextCtor } from '../../tree/TText';
+import { TPhrasingCtor } from '../../tree/TPhrasingCtor';
+import { TTextCtor } from '../../tree/TTextCtor';
 import { collapse } from '../collapse';
 import { hoist } from '../hoist';
 import {
@@ -89,12 +89,12 @@ describe('collapse function', () => {
         {
           type: 'text',
           tagName: 'span',
-          data: 'foo'
+          data: 'foo '
         },
         {
           type: 'text',
           tagName: 'span',
-          data: ' bar'
+          data: 'bar'
         }
       ]
     });
@@ -139,110 +139,10 @@ describe('collapse function', () => {
   });
   it('should handle deeply nested HTML', () => {
     const ttree = makeTTree(deeplyNestedSource);
-    expect(ttree).toMatchObject({
-      type: 'block',
-      tagName: 'article',
-      children: [
-        {
-          type: 'phrasing',
-          tagName: null,
-          children: [
-            {
-              type: 'text',
-              data: 'First implicit paragraph.'
-            }
-          ]
-        },
-        {
-          type: 'block',
-          tagName: 'div',
-          children: [
-            {
-              type: 'phrasing',
-              tagName: null,
-              children: [
-                {
-                  type: 'text',
-                  data: 'Second implicit paragraph'
-                }
-              ]
-            },
-            {
-              type: 'block',
-              tagName: 'p',
-              children: [
-                {
-                  type: 'phrasing',
-                  children: [
-                    {
-                      type: 'text',
-                      data: 'A new paragraph.'
-                    },
-                    {
-                      type: 'text',
-                      tagName: 'span',
-                      data: ' And a span within'
-                    }
-                  ]
-                },
-                {
-                  type: 'block',
-                  tagName: 'img'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    });
     expect(ttree).toMatchSnapshot();
   });
   it('should hoist blocks recursively', () => {
     const ttree = makeTTree(recursiveHoisting);
-    expect(ttree).toMatchObject({
-      type: 'block',
-      tagName: 'span',
-      children: [
-        {
-          type: 'phrasing',
-          tagName: null,
-          children: [
-            {
-              type: 'text',
-              data: 'Line1',
-              tagName: null
-            }
-          ]
-        },
-        {
-          type: 'block',
-          tagName: 'strong',
-          children: [
-            {
-              type: 'phrasing',
-              tagName: null,
-              children: [
-                {
-                  type: 'text',
-                  data: 'Line2',
-                  tagName: null
-                },
-                {
-                  type: 'text',
-                  data: ' Line3',
-                  tagName: 'span'
-                }
-              ]
-            },
-            {
-              type: 'block',
-              tagName: 'img',
-              attributes: { src: imgSrc }
-            }
-          ]
-        }
-      ]
-    });
     expect(ttree).toMatchSnapshot();
   });
   it('should handle body tag', () => {
@@ -280,19 +180,19 @@ describe('collapse function', () => {
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
   it('should remove empty anonymous TText children from TPhrasing nodes', () => {
-    const ttree = new TPhrasing(defaultInit);
+    const ttree = new TPhrasingCtor(defaultInit);
     ttree.bindChildren(makeTextChildren());
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
   it('should remove empty anonymous TPhrasing children from TPhrasing nodes', () => {
-    const ttree = new TPhrasing(defaultInit);
-    const tphrasing = new TPhrasing(defaultInit);
+    const ttree = new TPhrasingCtor(defaultInit);
+    const tphrasing = new TPhrasingCtor(defaultInit);
     tphrasing.bindChildren(makeTextChildren());
     ttree.bindChildren([tphrasing]);
     expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
   });
   it('should remove children from TPhrasing nodes which are empty after timming', () => {
-    const ttree = new TPhrasing(defaultInit);
+    const ttree = new TPhrasingCtor(defaultInit);
     ttree.bindChildren([
       // This node will be empty after trimming right, and should be removed
       new TTextCtor({ textNode: new DOMText(' '), ...defaultInit }),
@@ -541,5 +441,13 @@ describe('collapse function', () => {
     ttree.children.forEach((child, i) => {
       expect(child.nodeIndex).toBe(i);
     });
+  });
+  it('should handle <br> tags', () => {
+    const src = `<p>
+    should<br>
+    collapse
+    </p>`;
+    const ttree = makeTTree(src);
+    expect(ttree).toMatchSnapshot();
   });
 });
