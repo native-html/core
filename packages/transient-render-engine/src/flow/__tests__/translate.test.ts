@@ -11,73 +11,19 @@ import {
 describe('translateNode function', () => {
   it('should comply with RFC002 example (translating)', () => {
     const ttree = translateTreeTest(rfc002Source);
-    expect(ttree).toMatchObject({
-      type: 'phrasing',
-      attributes: { href },
-      children: [
-        {
-          type: 'text',
-          attributes: {},
-          tagName: null,
-          data: '\nThis is\n'
-        },
-        {
-          type: 'text',
-          attributes: {},
-          tagName: 'span',
-          data: 'phrasing content'
-        },
-        {
-          type: 'text',
-          attributes: {},
-          tagName: null,
-          data: '\n'
-        },
-        {
-          type: 'block',
-          attributes: { src: imgSrc },
-          tagName: 'img'
-        },
-        {
-          type: 'text',
-          attributes: {},
-          tagName: null,
-          data: '\n    and this is '
-        },
-        {
-          type: 'text',
-          attributes: {},
-          tagName: 'strong',
-          data: 'too'
-        },
-        {
-          type: 'text',
-          attributes: {},
-          tagName: null,
-          data: '.\n'
-        }
-      ]
-    });
     expect(ttree).toMatchSnapshot();
   });
   it('should translate styles (1)', () => {
     const ttree = translateTreeTest('<div style="font-size: 18px"></div>');
-    expect(ttree).toMatchObject({
-      type: 'block',
-      attributes: { style: 'font-size: 18px' },
-      styles: {
-        nativeTextFlow: { fontSize: 18 }
-      },
-      children: []
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should translate styles (2)', () => {
     const tdoc = translateTreeTest(
       '<a href="http://google.fr"><div style="background-color: red;"></div></a>'
     );
-    expect(tdoc.children[0].styles.nativeBlockRet.backgroundColor).toBe('red');
+    expect(tdoc).toMatchSnapshot();
   });
-  it('should pass set parent field', () => {
+  it('should set parent', () => {
     const tdoc = translateTreeTest(rfc002Source);
     expect(tdoc.children).toHaveLength(7);
     for (const child of tdoc.children) {
@@ -86,24 +32,11 @@ describe('translateNode function', () => {
   });
   it('should translate a phrasing element with one text child node to a TText element', () => {
     const ttree = translateTreeTest('<span><strong>Hello!</strong></span>');
-    expect(ttree).toMatchObject({
-      type: 'phrasing',
-      tagName: 'span',
-      children: [
-        {
-          type: 'text',
-          tagName: 'strong',
-          data: 'Hello!'
-        }
-      ]
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should ignore unregistered tags', () => {
     const ttree = translateTreeTest('<nonexistingtag></nonexistingtag>');
-    expect(ttree).toMatchObject({
-      type: 'empty',
-      isUnregistered: true
-    });
+    expect(ttree).toMatchSnapshot();
   });
   describe('regarding opaque blocks', () => {
     const svgSrc = '<svg><path /></svg>';
@@ -112,9 +45,7 @@ describe('translateNode function', () => {
       expect(ttree).toBeInstanceOf(TEmptyCtor);
     });
     it('should set domNode attribute', () => {
-      expect(ttree).toMatchObject({
-        domNode: expect.any(Object)
-      });
+      expect(ttree.domNode).toBeDefined();
     });
     it('should not translate children', () => {
       expect(ttree.children).toHaveLength(0);

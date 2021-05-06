@@ -1,7 +1,7 @@
 import { TBlockCtor } from '../../tree/TBlockCtor';
-import { TNodeImpl } from '../../tree/tree-types';
+import { TNodeImpl, TText } from '../../tree/tree-types';
 import { TPhrasingCtor } from '../../tree/TPhrasingCtor';
-import { TTextCtor } from '../../tree/TTextCtor';
+import { TTextCtor, TTextImpl } from '../../tree/TTextCtor';
 import { collapse } from '../collapse';
 import { hoist } from '../hoist';
 import {
@@ -33,108 +33,14 @@ function makeTextChildren() {
 describe('collapse function', () => {
   it('should collapse a tree such as specified in RFC002 example', () => {
     const ttree = makeTTree(rfc002Source);
-    expect(ttree).toMatchObject({
-      type: 'block',
-      attributes: { href },
-      children: [
-        {
-          type: 'phrasing',
-          children: [
-            {
-              type: 'text',
-              data: 'This is '
-            },
-            {
-              type: 'text',
-              data: 'phrasing content',
-              tagName: 'span'
-            }
-          ]
-        },
-        {
-          type: 'block',
-          tagName: 'img',
-          attributes: {
-            src: imgSrc
-          }
-        },
-        {
-          type: 'phrasing',
-          children: [
-            {
-              type: 'text',
-              data: 'and this is '
-            },
-            {
-              type: 'text',
-              tagName: 'strong',
-              data: 'too'
-            },
-            {
-              type: 'text',
-              data: '.'
-            }
-          ]
-        }
-      ]
-    });
     expect(ttree).toMatchSnapshot();
   });
   it('should collapse adjacent tags', () => {
     const ttree = makeTTree('<span><span>foo </span><span> bar</span></span>');
-    expect(ttree).toMatchObject({
-      type: 'phrasing',
-      tagName: 'span',
-      children: [
-        {
-          type: 'text',
-          tagName: 'span',
-          data: 'foo '
-        },
-        {
-          type: 'text',
-          tagName: 'span',
-          data: 'bar'
-        }
-      ]
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should handle nested anchors', () => {
     const ttree = makeTTree(nestedHyperlinksSource);
-    expect(ttree).toMatchObject({
-      type: 'phrasing',
-      attributes: { href },
-      children: [
-        {
-          type: 'text',
-          data: 'This is '
-        },
-        {
-          type: 'text',
-          tagName: 'span',
-          data: 'phrasing content'
-        },
-        {
-          type: 'text',
-          data: ' '
-        },
-        {
-          type: 'phrasing',
-          attributes: { href: secondaryHref },
-          children: [
-            {
-              type: 'text',
-              data: 'and this is '
-            },
-            {
-              type: 'text',
-              tagName: 'strong',
-              data: 'too'
-            }
-          ]
-        }
-      ]
-    });
     expect(ttree).toMatchSnapshot();
   });
   it('should handle deeply nested HTML', () => {
@@ -150,29 +56,7 @@ describe('collapse function', () => {
     <span>Hello world!</span>
 </div></body>`;
     const ttree = makeTTree(html);
-    expect(ttree).toMatchObject({
-      type: 'block',
-      tagName: 'body',
-      children: [
-        {
-          type: 'block',
-          tagName: 'div',
-          children: [
-            {
-              type: 'phrasing',
-              tagName: null,
-              children: [
-                {
-                  type: 'text',
-                  tagName: 'span',
-                  data: 'Hello world!'
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should remove empty children from TBlock nodes', () => {
     const ttree = new TBlockCtor(defaultInit);
@@ -189,7 +73,9 @@ describe('collapse function', () => {
     const tphrasing = new TPhrasingCtor(defaultInit);
     tphrasing.bindChildren(makeTextChildren());
     ttree.bindChildren([tphrasing]);
-    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
+    const collapsed = collapse(ttree, defaultDataFlowParams);
+    expect(collapsed.children).toHaveLength(0);
+    expect(collapsed).toMatchSnapshot();
   });
   it('should remove children from TPhrasing nodes which are empty after timming', () => {
     const ttree = new TPhrasingCtor(defaultInit);
@@ -199,224 +85,56 @@ describe('collapse function', () => {
       new TTextCtor({ textNode: new DOMText(' Foo'), ...defaultInit }),
       new TTextCtor({ textNode: new DOMText(' Bar'), ...defaultInit })
     ]);
-    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(2);
+    const collapsed = collapse(ttree, defaultDataFlowParams);
+    expect(collapsed.children).toHaveLength(2);
+    expect(collapsed).toMatchSnapshot();
   });
   it('should handle direct style inheritance', () => {
     const ttree = makeTTree(
       '<div style="font-size: 18px;border-width: 20px;"><span style="color: red;">This is nice!</span></div>'
     );
-
-    expect(ttree.styles).toMatchObject({
-      nativeTextFlow: { fontSize: 18 },
-      nativeBlockRet: {
-        borderTopWidth: 20,
-        borderRightWidth: 20,
-        borderBottomWidth: 20,
-        borderLeftWidth: 20
-      }
-    });
-    expect(ttree.children).toMatchObject([
-      {
-        type: 'phrasing',
-        styles: {
-          nativeTextFlow: {},
-          nativeBlockRet: {}
-        },
-        children: [
-          {
-            type: 'text',
-            tagName: 'span',
-            data: 'This is nice!',
-            styles: {
-              nativeTextFlow: { color: 'red', fontSize: 18 }
-            }
-          }
-        ]
-      }
-    ]);
     expect(ttree).toMatchSnapshot();
   });
   it('should handle indirect style inheritance', () => {
     const ttree = makeTTree(
       '<div style="font-size: 18px;"><div style="border-width: 20px;">This is great!</div></div>'
     );
-    expect(ttree).toMatchObject({
-      type: 'block',
-      attributes: {},
-      tagName: 'div',
-      styles: {
-        nativeTextFlow: { fontSize: 18 }
-      },
-      children: [
-        {
-          type: 'block',
-          tagName: 'div',
-          styles: {
-            nativeTextFlow: { fontSize: 18 },
-            nativeBlockRet: {
-              borderTopWidth: 20,
-              borderRightWidth: 20,
-              borderBottomWidth: 20,
-              borderLeftWidth: 20
-            }
-          },
-          children: [
-            {
-              type: 'phrasing',
-              tagName: null,
-              children: [
-                {
-                  type: 'text',
-                  data: 'This is great!',
-                  tagName: null,
-                  styles: {
-                    nativeTextFlow: { fontSize: 18 }
-                  }
-                }
-              ]
-            }
-          ]
-        }
-      ]
-    });
     expect(ttree).toMatchSnapshot();
   });
   it('should not collapse when white-space CSS property is set to "pre"', () => {
     const ttree = makeTTree(
       '<div style="white-space: pre;">  This is great!  </div>'
     );
-    expect(ttree).toMatchObject({
-      type: 'block',
-      attributes: {},
-      tagName: 'div',
-      styles: {
-        webTextFlow: { whiteSpace: 'pre' }
-      },
-      children: [
-        {
-          type: 'phrasing',
-          tagName: null,
-          children: [
-            {
-              type: 'text',
-              tagName: null,
-              data: '  This is great!  ',
-              styles: {
-                webTextFlow: { whiteSpace: 'pre' }
-              }
-            }
-          ]
-        }
-      ]
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should collapse when white-space CSS property is set to "normal"', () => {
     const ttree = makeTTree(
       '<div style="white-space: normal;">  This is great!  </div>'
     );
-    expect(ttree).toMatchObject({
-      type: 'block',
-      attributes: {},
-      tagName: 'div',
-      styles: {
-        webTextFlow: { whiteSpace: 'normal' }
-      },
-      children: [
-        {
-          type: 'phrasing',
-          tagName: null,
-          children: [
-            {
-              type: 'text',
-              tagName: null,
-              data: 'This is great!',
-              styles: {
-                webTextFlow: { whiteSpace: 'normal' }
-              }
-            }
-          ]
-        }
-      ]
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should collapse when white-space CSS property is not set', () => {
     const ttree = makeTTree('<div>  This is great!  </div>');
-    expect(ttree).toMatchObject({
-      type: 'block',
-      attributes: {},
-      tagName: 'div',
-      styles: {},
-      children: [
-        {
-          type: 'phrasing',
-          tagName: null,
-          styles: {},
-          children: [
-            {
-              type: 'text',
-              tagName: null,
-              data: 'This is great!'
-            }
-          ]
-        }
-      ]
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should collapse a node with white-space set to "normal" while its parent has white-space set to "pre"', () => {
     const ttree = makeTTree(
       '<div style="white-space: pre;"><span> This is nice </span><strong style="white-space: normal"> Should collapse </strong></div>'
     );
-    expect(ttree).toMatchObject({
-      type: 'block',
-      tagName: 'div',
-      children: [
-        {
-          type: 'phrasing',
-          tagName: null,
-          children: [
-            {
-              type: 'text',
-              tagName: 'span',
-              data: ' This is nice '
-            },
-            {
-              type: 'text',
-              tagName: 'strong',
-              // left space should be spared, since left sibling is not
-              // collapsible (tested in Mozilla Firefox and Chromium)
-              data: ' Should collapse'
-            }
-          ]
-        }
-      ]
-    });
+     // left space of <strong> child DOMTextNode should be spared, since left
+     // sibling is not collapsible (tested in Mozilla Firefox and Chromium)
+    expect(ttree).toMatchSnapshot();
   });
   it('should withold TEmpty nodes', () => {
     const ttree = makeTTree(
       '<div><span>Hi!</span><link rel="author" href="mailto:don@company.com" /></div>'
     );
-    expect(ttree).toMatchObject({
-      type: 'block',
-      tagName: 'div',
-      children: [
-        {
-          type: 'phrasing',
-          tagName: null
-        },
-        {
-          type: 'empty',
-          tagName: 'link'
-        }
-      ]
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should support removeLineBreaksAroundEastAsianDiscardSet param', () => {
-    const ttree = makeTTree('<span>\u2F00\n\u2FDA</span>', true);
-    expect(ttree).toMatchObject({
-      type: 'text',
-      tagName: 'span',
-      data: '\u2F00\u2FDA'
-    });
+    const span = makeTTree('<span>\u2F00\n\u2FDA</span>', true) as TTextImpl;
+    expect(span).toMatchSnapshot();
+    expect(span.data).toBe('\u2F00\u2FDA');
   });
   it('should set `nodeIndex` field corresponding to the actual index relative to parent', () => {
     const src = `<table>
@@ -450,4 +168,4 @@ describe('collapse function', () => {
     const ttree = makeTTree(src);
     expect(ttree).toMatchSnapshot();
   });
-});
+})

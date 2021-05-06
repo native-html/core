@@ -40,10 +40,7 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
     const ttree = specialTTreeBuilder.buildTTree(
       '<em>This should be a block!</em>'
     );
-    expect(ttree.children[0].children[0]).toMatchObject({
-      type: 'block',
-      tagName: 'em'
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should allow to make an untranslatable element translatable', () => {
     const specialTTreeBuilder = new TRenderEngine({
@@ -58,10 +55,7 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
       }
     });
     const ttree = specialTTreeBuilder.buildTTree('<button>Hello</button>');
-    expect(ttree.children[0].children[0]).toMatchObject({
-      type: 'block',
-      tagName: 'button'
-    });
+    expect(ttree).toMatchSnapshot();
   });
   it('should allow to register custom block tags', () => {
     const specialTTreeBuilder = new TRenderEngine({
@@ -79,15 +73,7 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
     const ttree = specialTTreeBuilder.buildTTree(
       '<customtag>This should be a block!</customtag>'
     );
-    expect(ttree.children[0].children[0]).toMatchObject({
-      type: 'block',
-      tagName: 'customtag',
-      children: [
-        {
-          type: 'phrasing'
-        }
-      ]
-    });
+    expect(ttree).toMatchSnapshot();
   });
   describe('should allow to register custom textual tags', () => {
     const specialTTreeBuilder = new TRenderEngine({
@@ -106,29 +92,11 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
       const ttree = specialTTreeBuilder.buildTTree(
         '<customtag>This should be a text!</customtag>'
       );
-      expect(ttree.children[0].children[0]).toMatchObject({
-        type: 'phrasing',
-        tagName: null,
-        children: [
-          {
-            type: 'text',
-            tagName: 'customtag'
-          }
-        ]
-      });
+      expect(ttree).toMatchSnapshot();
     });
     it('should preserve tag when isOpaque is set to true.', () => {
       const ttree = specialTTreeBuilder.buildTTree('<customtag></customtag>');
-      expect(ttree.children[0].children[0]).toMatchObject({
-        type: 'phrasing',
-        tagName: null,
-        children: [
-          {
-            type: 'text',
-            tagName: 'customtag'
-          }
-        ]
-      });
+      expect(ttree).toMatchSnapshot();
     });
   });
   describe('should allow to register custom mixed tags', () => {
@@ -148,37 +116,13 @@ describe('TRenderEngine > customizeHTMLModels option', () => {
       const ttree = specialTTreeBuilder.buildTTree(
         '<customtag><div></div></customtag>'
       );
-      expect(ttree.children[0].children[0]).toMatchObject({
-        type: 'block',
-        tagName: 'customtag',
-        children: [
-          {
-            type: 'block',
-            tagName: 'div'
-          }
-        ]
-      });
+      expect(ttree).toMatchSnapshot();
     });
     it('should translate mixed tags inside phrasing with text children to TText', () => {
       const ttree = specialTTreeBuilder.buildTTree(
         '<span><customtag>hi!</customtag></span>'
       );
-      expect(ttree.children[0].children[0]).toMatchObject({
-        type: 'phrasing',
-        tagName: null,
-        children: [
-          {
-            type: 'phrasing',
-            tagName: 'span',
-            children: [
-              {
-                tagName: 'customtag',
-                type: 'text'
-              }
-            ]
-          }
-        ]
-      });
+      expect(ttree).toMatchSnapshot();
     });
   });
 });
@@ -193,9 +137,7 @@ describe('TRenderEngine > buildTTree method', () => {
       }
     });
     const ttree = specialTTreeBuilder.buildTTree('<span>A</span>');
-    const span = ttree.children[0].children[0].children[0];
-    expect(span.tagName).toBe('span');
-    expect(span.styles.nativeTextFlow.fontSize).toBe(14);
+    expect(ttree).toMatchSnapshot();
   });
   it('should not provide a root fontSize when enableUserAgentStyles is set to false', () => {
     const specialTTreeBuilder = new TRenderEngine({
@@ -203,12 +145,10 @@ describe('TRenderEngine > buildTTree method', () => {
         enableUserAgentStyles: false
       }
     });
-    expect(
-      specialTTreeBuilder.buildTTree('<span>A</span>').children[0].children[0]
-        .styles.nativeTextFlow.fontSize
-    ).toBeUndefined();
+    const ttree = specialTTreeBuilder.buildTTree('<span>A</span>');
+    expect(ttree).toMatchSnapshot();
   });
-  it('should parse inline CSS styles when enableUserAgentStyles is set to false', () => {
+  it('should still parse inline CSS styles when enableUserAgentStyles is set to false', () => {
     const specialTTreeBuilder = new TRenderEngine({
       stylesConfig: {
         enableUserAgentStyles: false,
@@ -218,28 +158,11 @@ describe('TRenderEngine > buildTTree method', () => {
     const tdoc = specialTTreeBuilder.buildTTree(
       '<div style="padding-top: 1px;"/>'
     );
-    expect(tdoc.children[0].children[0].styles.nativeBlockRet.paddingTop).toBe(
-      1
-    );
+    expect(tdoc).toMatchSnapshot();
   });
   it('should handle the case where the root element is a body element', () => {
     const tdoc = defaultTTreeBuilder.buildTTree('<body><div></div></body>');
-    expect(tdoc).toMatchObject({
-      type: 'document',
-      tagName: 'html',
-      children: [
-        {
-          type: 'block',
-          tagName: 'body',
-          children: [
-            {
-              type: 'block',
-              tagName: 'div'
-            }
-          ]
-        }
-      ]
-    });
+    expect(tdoc).toMatchSnapshot();
   });
   it('given a HTML document, should return an instance of TDocument which has one TBlock(body) child', () => {
     const tdoc = defaultTTreeBuilder.buildTTree(htmlDocument);
@@ -247,23 +170,7 @@ describe('TRenderEngine > buildTTree method', () => {
     expect(tdoc.children).toHaveLength(2);
     expect(tdoc.children[0]).toBeInstanceOf(TEmptyCtor);
     expect(tdoc.children[1]).toBeInstanceOf(TBlockImpl);
-    expect(tdoc.children[1]).toMatchObject({
-      type: 'block',
-      tagName: 'body',
-      children: [
-        {
-          type: 'phrasing',
-          tagName: null,
-          children: [
-            {
-              type: 'text',
-              tagName: 'span',
-              data: 'Hello world!'
-            }
-          ]
-        }
-      ]
-    });
+    expect(tdoc).toMatchSnapshot();
   });
   describe('regarding context parsing', () => {
     it('should register html lang attrib', () => {
@@ -357,50 +264,13 @@ describe('TRenderEngine > buildTTree method', () => {
     const snippet = '<div></div>';
     const tdoc = defaultTTreeBuilder.buildTTree(snippet);
     expect(tdoc).toBeInstanceOf(TDocumentCtor);
-    expect(tdoc).toMatchObject({
-      type: 'document',
-      tagName: 'html',
-      children: [
-        {
-          type: 'block',
-          tagName: 'body',
-          children: [
-            {
-              type: 'block',
-              tagName: 'div',
-              children: []
-            }
-          ]
-        }
-      ]
-    });
+    expect(tdoc).toMatchSnapshot();
   });
   it('should handle html snippets with multiple root nodes', () => {
     const snippet = '<div></div><div></div>';
     const tdoc = defaultTTreeBuilder.buildTTree(snippet);
     expect(tdoc).toBeInstanceOf(TDocumentCtor);
-    expect(tdoc).toMatchObject({
-      type: 'document',
-      tagName: 'html',
-      children: [
-        {
-          type: 'block',
-          tagName: 'body',
-          children: [
-            {
-              type: 'block',
-              tagName: 'div',
-              children: []
-            },
-            {
-              type: 'block',
-              tagName: 'div',
-              children: []
-            }
-          ]
-        }
-      ]
-    });
+    expect(tdoc).toMatchSnapshot();
   });
   describe('should have its children inherit from UA styles when enableUserAgentStyles is enabled', () => {
     const config: TRenderEngineOptions = {
@@ -413,14 +283,7 @@ describe('TRenderEngine > buildTTree method', () => {
       const tdoc = customTTreeBuilder.buildTTree(
         '<em>This should be italic</em>'
       );
-      expect(tdoc.children[0].children[0].children[0]).toMatchObject({
-        type: 'text',
-        styles: {
-          nativeTextFlow: {
-            fontStyle: 'italic'
-          }
-        }
-      });
+      expect(tdoc).toMatchSnapshot();
     });
   });
   describe('should retain own baseStyles', () => {
@@ -434,9 +297,8 @@ describe('TRenderEngine > buildTTree method', () => {
     const customTTreeBuilder = new TRenderEngine(config);
     it('when provided a html snippet', () => {
       const tdoc = customTTreeBuilder.buildTTree('<div></div>');
-      expect(tdoc.styles.nativeBlockRet).toMatchObject({
-        marginTop: 10
-      });
+      expect(tdoc).toMatchSnapshot();
+      expect(tdoc.styles.nativeBlockRet.marginTop).toBe(10);
     });
   });
   describe('should have its children inherit from baseStyles', () => {
@@ -447,22 +309,6 @@ describe('TRenderEngine > buildTTree method', () => {
         propagationCategory: 'flow'
       })
     );
-    const expectedObject = {
-      type: 'block',
-      tagName: 'div',
-      children: [
-        {
-          type: 'phrasing',
-          children: [
-            {
-              type: 'text',
-              styles: baseStyles,
-              data: 'This text should inherit baseStyles'
-            }
-          ]
-        }
-      ]
-    };
     const config = {
       stylesConfig: {
         baseStyle: {
@@ -475,13 +321,13 @@ describe('TRenderEngine > buildTTree method', () => {
       const tdoc = customTTreeBuilder.buildTTree(
         '<!doctype html><html><head></head><body><div>This text should inherit baseStyles</div></body></html>'
       );
-      expect(tdoc.children[1].children[0]).toMatchObject(expectedObject);
+      expect(tdoc).toMatchSnapshot();
     });
     it('when provided a html snippet', () => {
       const tdoc = customTTreeBuilder.buildTTree(
         '<div>This text should inherit baseStyles</div>'
       );
-      expect(tdoc.children[0].children[0]).toMatchObject(expectedObject);
+      expect(tdoc).toMatchSnapshot();
     });
   });
   it('should support alterDOMParams', () => {
@@ -496,16 +342,7 @@ describe('TRenderEngine > buildTTree method', () => {
     const tdoc = customTTreeBuilder.buildTTree(
       '<em>This text should inherit baseStyles</em>'
     );
-    expect(tdoc.children[0].children[0]).toMatchObject({
-      type: 'phrasing',
-      children: [
-        {
-          tagName: 'em',
-          type: 'text',
-          data: 'hey'
-        }
-      ]
-    });
+    expect(tdoc).toMatchSnapshot();
   });
   it('should support disabling hoisting', () => {
     const customTTreeBuilder = new TRenderEngine({

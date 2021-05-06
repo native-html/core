@@ -5,10 +5,34 @@ exports[`translateNode function should comply with RFC002 example (translating) 
    <TText anonymous data="\\nThis is\\n" />
    <TText tagName="span" data="phrasing content" />
    <TText anonymous data="\\n" />
-   <TBlock tagName="img" />
+   <TBlock tagName="img" src="https://domain.com/logo.jpg" />
    <TText anonymous data="\\n    and this is " />
    <TText tagName="strong" data="too" />
    <TText anonymous data=".\\n" />
+</TPhrasing>
+
+`;
+
+exports[`translateNode function should ignore unregistered tags 1`] = `
+<TEmpty tagName="nonexistingtag" unregistered />
+
+`;
+
+exports[`translateNode function should translate a phrasing element with one text child node to a TText element 1`] = `
+<TPhrasing tagName="span">
+   <TText tagName="strong" data="Hello!" />
+</TPhrasing>
+
+`;
+
+exports[`translateNode function should translate styles (1) 1`] = `
+<TBlock tagName="div" styles={{ fontSize: 18 }} />
+
+`;
+
+exports[`translateNode function should translate styles (2) 1`] = `
+<TPhrasing tagName="a" href="http://google.fr">
+   <TBlock tagName="div" styles={{ backgroundColor: "red" }} />
 </TPhrasing>
 
 `;

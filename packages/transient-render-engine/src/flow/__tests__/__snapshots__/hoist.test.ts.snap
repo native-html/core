@@ -7,7 +7,7 @@ exports[`hoist function should comply with RFC002 example (hoisting)  1`] = `
      <TText tagName="span" data="phrasing content" />
      <TText anonymous data="\\n" />
    </TPhrasing>
-   <TBlock tagName="img" />
+   <TBlock tagName="img" src="https://domain.com/logo.jpg" />
    <TPhrasing anonymous>
      <TText anonymous data="\\n    and this is " />
      <TText tagName="strong" data="too" />
@@ -25,5 +25,47 @@ exports[`hoist function should hoist multiple blocks 1`] = `
    </TPhrasing>
    <TBlock tagName="img" />
 </TBlock>
+
+`;
+
+exports[`hoist function should not let TEmpty tags break inline context  1`] = `
+<TPhrasing tagName="span">
+   <TText anonymous data="test" />
+   <TEmpty tagName="c" unregistered />
+   <TText anonymous data=" ahah" />
+</TPhrasing>
+
+`;
+
+exports[`hoist function should preserve parents before hoisting 1`] = `
+<TBlock tagName="span">
+   <TPhrasing anonymous>
+     <TText tagName="strong" data="hello" />
+   </TPhrasing>
+   <TBlock tagName="img" />
+</TBlock>
+
+`;
+
+exports[`hoist function should preserve styles of encompassing blocks 1`] = `
+<TBlock tagName="a" href="http://google.fr">
+   <TBlock tagName="div" styles={{ backgroundColor: "red" }} />
+</TBlock>
+
+`;
+
+exports[`hoist function should preserve text of encompassing blocks 1`] = `
+<TBlock tagName="a" href="http://google.fr">
+   <TBlock tagName="div">
+     <TPhrasing anonymous>
+       <TText anonymous data="This is text!" />
+     </TPhrasing>
+   </TBlock>
+</TBlock>
+
+`;
+
+exports[`hoist function should preserve void text elements 1`] = `
+<TText tagName="br" data="" />
 
 `;

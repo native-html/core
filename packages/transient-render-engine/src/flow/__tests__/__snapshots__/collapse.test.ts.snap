@@ -1,16 +1,52 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
+exports[`collapse function should collapse a node with white-space set to "normal" while its parent has white-space set to "pre" 1`] = `
+<TBlock tagName="div" styles={{ whiteSpace: "pre" }}>
+   <TPhrasing anonymous styles={{ whiteSpace: "pre" }}>
+     <TText tagName="span" data=" This is nice " styles={{ whiteSpace: "pre" }} />
+     <TText tagName="strong" data=" Should collapse" styles={{ whiteSpace: "normal" }} />
+   </TPhrasing>
+</TBlock>
+
+`;
+
 exports[`collapse function should collapse a tree such as specified in RFC002 example 1`] = `
 <TBlock tagName="a" href="https://domain.com">
    <TPhrasing anonymous>
      <TText anonymous data="This is " />
      <TText tagName="span" data="phrasing content" />
    </TPhrasing>
-   <TBlock tagName="img" />
+   <TBlock tagName="img" src="https://domain.com/logo.jpg" />
    <TPhrasing anonymous>
      <TText anonymous data="and this is " />
      <TText tagName="strong" data="too" />
      <TText anonymous data="." />
+   </TPhrasing>
+</TBlock>
+
+`;
+
+exports[`collapse function should collapse adjacent tags 1`] = `
+<TPhrasing tagName="span">
+   <TText tagName="span" data="foo " />
+   <TText tagName="span" data="bar" />
+</TPhrasing>
+
+`;
+
+exports[`collapse function should collapse when white-space CSS property is not set 1`] = `
+<TBlock tagName="div">
+   <TPhrasing anonymous>
+     <TText anonymous data="This is great!" />
+   </TPhrasing>
+</TBlock>
+
+`;
+
+exports[`collapse function should collapse when white-space CSS property is set to "normal" 1`] = `
+<TBlock tagName="div" styles={{ whiteSpace: "normal" }}>
+   <TPhrasing anonymous styles={{ whiteSpace: "normal" }}>
+     <TText anonymous data="This is great!" styles={{ whiteSpace: "normal" }} />
    </TPhrasing>
 </TBlock>
 
@@ -23,6 +59,17 @@ exports[`collapse function should handle <br> tags 1`] = `
      <TText tagName="br" data="" />
      <TText anonymous data="collapse" />
    </TPhrasing>
+</TBlock>
+
+`;
+
+exports[`collapse function should handle body tag 1`] = `
+<TBlock tagName="body">
+   <TBlock tagName="div">
+     <TPhrasing anonymous>
+       <TText tagName="span" data="Hello world!" />
+     </TPhrasing>
+   </TBlock>
 </TBlock>
 
 `;
@@ -41,7 +88,7 @@ exports[`collapse function should handle deeply nested HTML 1`] = `
          <TText anonymous data="A new paragraph. " />
          <TText tagName="span" data="And a span within" />
        </TPhrasing>
-       <TBlock tagName="img" />
+       <TBlock tagName="img" src="https://domain.com/logo.jpg" />
      </TBlock>
    </TBlock>
 </TBlock>
@@ -91,8 +138,45 @@ exports[`collapse function should hoist blocks recursively 1`] = `
        <TText anonymous data="Line2 " />
        <TText tagName="span" data="Line3" />
      </TPhrasing>
-     <TBlock tagName="img" />
+     <TBlock tagName="img" src="https://domain.com/logo.jpg" />
    </TBlock>
+</TBlock>
+
+`;
+
+exports[`collapse function should not collapse when white-space CSS property is set to "pre" 1`] = `
+<TBlock tagName="div" styles={{ whiteSpace: "pre" }}>
+   <TPhrasing anonymous styles={{ whiteSpace: "pre" }}>
+     <TText anonymous data="  This is great!  " styles={{ whiteSpace: "pre" }} />
+   </TPhrasing>
+</TBlock>
+
+`;
+
+exports[`collapse function should remove children from TPhrasing nodes which are empty after timming 1`] = `
+<TPhrasing anonymous>
+   <TText anonymous data="Foo" />
+   <TText anonymous data=" Bar" />
+</TPhrasing>
+
+`;
+
+exports[`collapse function should remove empty anonymous TPhrasing children from TPhrasing nodes 1`] = `
+<TPhrasing anonymous />
+
+`;
+
+exports[`collapse function should support removeLineBreaksAroundEastAsianDiscardSet param 1`] = `
+<TText tagName="span" data="⼀⿚" />
+
+`;
+
+exports[`collapse function should withold TEmpty nodes 1`] = `
+<TBlock tagName="div">
+   <TPhrasing anonymous>
+     <TText tagName="span" data="Hi!" />
+   </TPhrasing>
+   <TEmpty tagName="link" href="mailto:don@company.com" />
 </TBlock>
 
 `;
