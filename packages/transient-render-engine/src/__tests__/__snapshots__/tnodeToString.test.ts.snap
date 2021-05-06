@@ -1,28 +1,28 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`tnodeToString should cut data strings over 24 characters with ellipsis 1`] = `
-"<TText tagName=\\"span\\" data=\\"This very long string should be truncated and end with an ellipsis.\\" />
+"<TText tagName=\\"span\\" nodeIndex={0} data=\\"This very long string should be truncated and end with an ellipsis.\\" />
 "
 `;
 
 exports[`tnodeToString should handle deeply nested tags 1`] = `
-"<TBlock tagName=\\"div\\">
-   <TBlock tagName=\\"div\\">
-     <TPhrasing tagName=\\"span\\">
-       <TText anonymous data=\\"A\\" />
-       <TText tagName=\\"em\\" data=\\"a\\" />
+"<TBlock tagName=\\"div\\" nodeIndex={0}>
+   <TBlock tagName=\\"div\\" nodeIndex={0}>
+     <TPhrasing tagName=\\"span\\" nodeIndex={0}>
+       <TText anonymous nodeIndex={0} data=\\"A\\" />
+       <TText tagName=\\"em\\" nodeIndex={1} data=\\"a\\" />
      </TPhrasing>
-     <TText tagName=\\"span\\" data=\\"B\\" />
+     <TText tagName=\\"span\\" nodeIndex={1} data=\\"B\\" />
    </TBlock>
-   <TPhrasing tagName=\\"span\\">
-     <TText anonymous data=\\"C\\" />
-     <TText tagName=\\"strong\\" data=\\"D\\" />
+   <TPhrasing tagName=\\"span\\" nodeIndex={1}>
+     <TText anonymous nodeIndex={0} data=\\"C\\" />
+     <TText tagName=\\"strong\\" nodeIndex={1} data=\\"D\\" />
    </TPhrasing>
 </TBlock>
 "
 `;
 
 exports[`tnodeToString should print ids, classes and anchors 1`] = `
-"<TText tagName=\\"a\\" id=first classes={[special]} data=\\"\\" href=\\"https://\\" />
+"<TText tagName=\\"a\\" nodeIndex={0} id=first classes={[special]} data=\\"\\" href=\\"https://\\" />
 "
 `;

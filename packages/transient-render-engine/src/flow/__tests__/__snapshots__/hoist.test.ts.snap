@@ -1,64 +1,64 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`hoist function should comply with RFC002 example (hoisting)  1`] = `
-<TBlock tagName="a" href="https://domain.com">
-   <TPhrasing anonymous>
-     <TText anonymous data="\\nThis is\\n" />
-     <TText tagName="span" data="phrasing content" />
-     <TText anonymous data="\\n" />
+<TBlock tagName="a" nodeIndex={0} href="https://domain.com">
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText anonymous nodeIndex={0} data="\\nThis is\\n" />
+     <TText tagName="span" nodeIndex={1} data="phrasing content" />
+     <TText anonymous nodeIndex={2} data="\\n" />
    </TPhrasing>
-   <TBlock tagName="img" src="https://domain.com/logo.jpg" />
-   <TPhrasing anonymous>
-     <TText anonymous data="\\n    and this is " />
-     <TText tagName="strong" data="too" />
-     <TText anonymous data=".\\n" />
+   <TBlock tagName="img" nodeIndex={3} src="https://domain.com/logo.jpg" />
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText anonymous nodeIndex={4} data="\\n    and this is " />
+     <TText tagName="strong" nodeIndex={5} data="too" />
+     <TText anonymous nodeIndex={6} data=".\\n" />
    </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`hoist function should hoist multiple blocks 1`] = `
-<TBlock tagName="span">
-   <TBlock tagName="div" />
-   <TPhrasing anonymous>
-     <TText anonymous data="Hello" />
+<TBlock tagName="span" nodeIndex={0}>
+   <TBlock tagName="div" nodeIndex={0} />
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText anonymous nodeIndex={1} data="Hello" />
    </TPhrasing>
-   <TBlock tagName="img" />
+   <TBlock tagName="img" nodeIndex={2} />
 </TBlock>
 
 `;
 
 exports[`hoist function should not let TEmpty tags break inline context  1`] = `
-<TPhrasing tagName="span">
-   <TText anonymous data="test" />
-   <TEmpty tagName="c" unregistered />
-   <TText anonymous data=" ahah" />
+<TPhrasing tagName="span" nodeIndex={0}>
+   <TText anonymous nodeIndex={0} data="test" />
+   <TEmpty tagName="c" unregistered nodeIndex={1} />
+   <TText anonymous nodeIndex={2} data=" ahah" />
 </TPhrasing>
 
 `;
 
 exports[`hoist function should preserve parents before hoisting 1`] = `
-<TBlock tagName="span">
-   <TPhrasing anonymous>
-     <TText tagName="strong" data="hello" />
+<TBlock tagName="span" nodeIndex={0}>
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText tagName="strong" nodeIndex={0} data="hello" />
    </TPhrasing>
-   <TBlock tagName="img" />
+   <TBlock tagName="img" nodeIndex={1} />
 </TBlock>
 
 `;
 
 exports[`hoist function should preserve styles of encompassing blocks 1`] = `
-<TBlock tagName="a" href="http://google.fr">
-   <TBlock tagName="div" styles={{ backgroundColor: "red" }} />
+<TBlock tagName="a" nodeIndex={0} href="http://google.fr">
+   <TBlock tagName="div" nodeIndex={0} styles={{ backgroundColor: "red" }} />
 </TBlock>
 
 `;
 
 exports[`hoist function should preserve text of encompassing blocks 1`] = `
-<TBlock tagName="a" href="http://google.fr">
-   <TBlock tagName="div">
-     <TPhrasing anonymous>
-       <TText anonymous data="This is text!" />
+<TBlock tagName="a" nodeIndex={0} href="http://google.fr">
+   <TBlock tagName="div" nodeIndex={0}>
+     <TPhrasing anonymous nodeIndex={0}>
+       <TText anonymous nodeIndex={0} data="This is text!" />
      </TPhrasing>
    </TBlock>
 </TBlock>
@@ -66,6 +66,6 @@ exports[`hoist function should preserve text of encompassing blocks 1`] = `
 `;
 
 exports[`hoist function should preserve void text elements 1`] = `
-<TText tagName="br" data="" />
+<TText tagName="br" nodeIndex={0} data="" />
 
 `;

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TNode class toString should provide a JSX representation 1`] = `
-"<TTest anonymous />
+"<TTest anonymous nodeIndex={0} />
 "
 `;

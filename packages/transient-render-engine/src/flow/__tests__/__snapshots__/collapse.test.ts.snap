@@ -1,73 +1,73 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`collapse function should collapse a node with white-space set to "normal" while its parent has white-space set to "pre" 1`] = `
-<TBlock tagName="div" styles={{ whiteSpace: "pre" }}>
-   <TPhrasing anonymous styles={{ whiteSpace: "pre" }}>
-     <TText tagName="span" data=" This is nice " styles={{ whiteSpace: "pre" }} />
-     <TText tagName="strong" data=" Should collapse" styles={{ whiteSpace: "normal" }} />
+<TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "pre" }}>
+   <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "pre" }}>
+     <TText tagName="span" nodeIndex={0} data=" This is nice " styles={{ whiteSpace: "pre" }} />
+     <TText tagName="strong" nodeIndex={1} data=" Should collapse" styles={{ whiteSpace: "normal" }} />
    </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`collapse function should collapse a tree such as specified in RFC002 example 1`] = `
-<TBlock tagName="a" href="https://domain.com">
-   <TPhrasing anonymous>
-     <TText anonymous data="This is " />
-     <TText tagName="span" data="phrasing content" />
+<TBlock tagName="a" nodeIndex={0} href="https://domain.com">
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText anonymous nodeIndex={0} data="This is " />
+     <TText tagName="span" nodeIndex={1} data="phrasing content" />
    </TPhrasing>
-   <TBlock tagName="img" src="https://domain.com/logo.jpg" />
-   <TPhrasing anonymous>
-     <TText anonymous data="and this is " />
-     <TText tagName="strong" data="too" />
-     <TText anonymous data="." />
+   <TBlock tagName="img" nodeIndex={1} src="https://domain.com/logo.jpg" />
+   <TPhrasing anonymous nodeIndex={2}>
+     <TText anonymous nodeIndex={0} data="and this is " />
+     <TText tagName="strong" nodeIndex={1} data="too" />
+     <TText anonymous nodeIndex={2} data="." />
    </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`collapse function should collapse adjacent tags 1`] = `
-<TPhrasing tagName="span">
-   <TText tagName="span" data="foo " />
-   <TText tagName="span" data="bar" />
+<TPhrasing tagName="span" nodeIndex={0}>
+   <TText tagName="span" nodeIndex={0} data="foo " />
+   <TText tagName="span" nodeIndex={1} data="bar" />
 </TPhrasing>
 
 `;
 
 exports[`collapse function should collapse when white-space CSS property is not set 1`] = `
-<TBlock tagName="div">
-   <TPhrasing anonymous>
-     <TText anonymous data="This is great!" />
+<TBlock tagName="div" nodeIndex={0}>
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText anonymous nodeIndex={0} data="This is great!" />
    </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`collapse function should collapse when white-space CSS property is set to "normal" 1`] = `
-<TBlock tagName="div" styles={{ whiteSpace: "normal" }}>
-   <TPhrasing anonymous styles={{ whiteSpace: "normal" }}>
-     <TText anonymous data="This is great!" styles={{ whiteSpace: "normal" }} />
+<TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+   <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+     <TText anonymous nodeIndex={0} data="This is great!" styles={{ whiteSpace: "normal" }} />
    </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`collapse function should handle <br> tags 1`] = `
-<TBlock tagName="p">
-   <TPhrasing anonymous>
-     <TText anonymous data="should" />
-     <TText tagName="br" data="" />
-     <TText anonymous data="collapse" />
+<TBlock tagName="p" nodeIndex={0}>
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText anonymous nodeIndex={0} data="should" />
+     <TText tagName="br" nodeIndex={1} data="" />
+     <TText anonymous nodeIndex={2} data="collapse" />
    </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`collapse function should handle body tag 1`] = `
-<TBlock tagName="body">
-   <TBlock tagName="div">
-     <TPhrasing anonymous>
-       <TText tagName="span" data="Hello world!" />
+<TBlock tagName="body" nodeIndex={0}>
+   <TBlock tagName="div" nodeIndex={0}>
+     <TPhrasing anonymous nodeIndex={0}>
+       <TText tagName="span" nodeIndex={0} data="Hello world!" />
      </TPhrasing>
    </TBlock>
 </TBlock>
@@ -75,20 +75,20 @@ exports[`collapse function should handle body tag 1`] = `
 `;
 
 exports[`collapse function should handle deeply nested HTML 1`] = `
-<TBlock tagName="article">
-   <TPhrasing anonymous>
-     <TText anonymous data="First implicit paragraph." />
+<TBlock tagName="article" nodeIndex={0}>
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText anonymous nodeIndex={0} data="First implicit paragraph." />
    </TPhrasing>
-   <TBlock tagName="div">
-     <TPhrasing anonymous>
-       <TText anonymous data="Second implicit paragraph" />
+   <TBlock tagName="div" nodeIndex={1}>
+     <TPhrasing anonymous nodeIndex={0}>
+       <TText anonymous nodeIndex={0} data="Second implicit paragraph" />
      </TPhrasing>
-     <TBlock tagName="p">
-       <TPhrasing anonymous>
-         <TText anonymous data="A new paragraph. " />
-         <TText tagName="span" data="And a span within" />
+     <TBlock tagName="p" nodeIndex={1}>
+       <TPhrasing anonymous nodeIndex={0}>
+         <TText anonymous nodeIndex={0} data="A new paragraph. " />
+         <TText tagName="span" nodeIndex={1} data="And a span within" />
        </TPhrasing>
-       <TBlock tagName="img" src="https://domain.com/logo.jpg" />
+       <TBlock tagName="img" nodeIndex={1} src="https://domain.com/logo.jpg" />
      </TBlock>
    </TBlock>
 </TBlock>
@@ -96,19 +96,19 @@ exports[`collapse function should handle deeply nested HTML 1`] = `
 `;
 
 exports[`collapse function should handle direct style inheritance 1`] = `
-<TBlock tagName="div" styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
-   <TPhrasing anonymous styles={{ fontSize: 18 }}>
-     <TText tagName="span" data="This is nice!" styles={{ fontSize: 18, color: "red" }} />
+<TBlock tagName="div" nodeIndex={0} styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
+   <TPhrasing anonymous nodeIndex={0} styles={{ fontSize: 18 }}>
+     <TText tagName="span" nodeIndex={0} data="This is nice!" styles={{ fontSize: 18, color: "red" }} />
    </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`collapse function should handle indirect style inheritance 1`] = `
-<TBlock tagName="div" styles={{ fontSize: 18 }}>
-   <TBlock tagName="div" styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
-     <TPhrasing anonymous styles={{ fontSize: 18 }}>
-       <TText anonymous data="This is great!" styles={{ fontSize: 18 }} />
+<TBlock tagName="div" nodeIndex={0} styles={{ fontSize: 18 }}>
+   <TBlock tagName="div" nodeIndex={0} styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
+     <TPhrasing anonymous nodeIndex={0} styles={{ fontSize: 18 }}>
+       <TText anonymous nodeIndex={0} data="This is great!" styles={{ fontSize: 18 }} />
      </TPhrasing>
    </TBlock>
 </TBlock>
@@ -116,67 +116,67 @@ exports[`collapse function should handle indirect style inheritance 1`] = `
 `;
 
 exports[`collapse function should handle nested anchors 1`] = `
-<TPhrasing tagName="a" href="https://domain.com">
-   <TText anonymous data="This is " />
-   <TText tagName="span" data="phrasing content" />
-   <TText anonymous data=" " />
-   <TPhrasing tagName="a" href="https://sub.domain.com">
-     <TText anonymous data="and this is " />
-     <TText tagName="strong" data="too" />
+<TPhrasing tagName="a" nodeIndex={0} href="https://domain.com">
+   <TText anonymous nodeIndex={0} data="This is " />
+   <TText tagName="span" nodeIndex={1} data="phrasing content" />
+   <TText anonymous nodeIndex={2} data=" " />
+   <TPhrasing tagName="a" nodeIndex={3} href="https://sub.domain.com">
+     <TText anonymous nodeIndex={0} data="and this is " />
+     <TText tagName="strong" nodeIndex={1} data="too" />
    </TPhrasing>
 </TPhrasing>
 
 `;
 
 exports[`collapse function should hoist blocks recursively 1`] = `
-<TBlock tagName="span">
-   <TPhrasing anonymous>
-     <TText anonymous data="Line1" />
+<TBlock tagName="span" nodeIndex={0}>
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText anonymous nodeIndex={0} data="Line1" />
    </TPhrasing>
-   <TBlock tagName="strong">
-     <TPhrasing anonymous>
-       <TText anonymous data="Line2 " />
-       <TText tagName="span" data="Line3" />
+   <TBlock tagName="strong" nodeIndex={1}>
+     <TPhrasing anonymous nodeIndex={0}>
+       <TText anonymous nodeIndex={0} data="Line2 " />
+       <TText tagName="span" nodeIndex={1} data="Line3" />
      </TPhrasing>
-     <TBlock tagName="img" src="https://domain.com/logo.jpg" />
+     <TBlock tagName="img" nodeIndex={1} src="https://domain.com/logo.jpg" />
    </TBlock>
 </TBlock>
 
 `;
 
 exports[`collapse function should not collapse when white-space CSS property is set to "pre" 1`] = `
-<TBlock tagName="div" styles={{ whiteSpace: "pre" }}>
-   <TPhrasing anonymous styles={{ whiteSpace: "pre" }}>
-     <TText anonymous data="  This is great!  " styles={{ whiteSpace: "pre" }} />
+<TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "pre" }}>
+   <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "pre" }}>
+     <TText anonymous nodeIndex={0} data="  This is great!  " styles={{ whiteSpace: "pre" }} />
    </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`collapse function should remove children from TPhrasing nodes which are empty after timming 1`] = `
-<TPhrasing anonymous>
-   <TText anonymous data="Foo" />
-   <TText anonymous data=" Bar" />
+<TPhrasing anonymous nodeIndex={0}>
+   <TText anonymous nodeIndex={0} data="Foo" />
+   <TText anonymous nodeIndex={1} data=" Bar" />
 </TPhrasing>
 
 `;
 
 exports[`collapse function should remove empty anonymous TPhrasing children from TPhrasing nodes 1`] = `
-<TPhrasing anonymous />
+<TPhrasing anonymous nodeIndex={0} />
 
 `;
 
 exports[`collapse function should support removeLineBreaksAroundEastAsianDiscardSet param 1`] = `
-<TText tagName="span" data="⼀⿚" />
+<TText tagName="span" nodeIndex={0} data="⼀⿚" />
 
 `;
 
 exports[`collapse function should withold TEmpty nodes 1`] = `
-<TBlock tagName="div">
-   <TPhrasing anonymous>
-     <TText tagName="span" data="Hi!" />
+<TBlock tagName="div" nodeIndex={0}>
+   <TPhrasing anonymous nodeIndex={0}>
+     <TText tagName="span" nodeIndex={0} data="Hi!" />
    </TPhrasing>
-   <TEmpty tagName="link" href="mailto:don@company.com" />
+   <TEmpty tagName="link" nodeIndex={1} href="mailto:don@company.com" />
 </TBlock>
 
 `;
