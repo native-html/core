@@ -1,3 +1,15 @@
+# [5.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@5.0.0...@native-html/transient-render-engine@5.1.0) (2021-05-06)
+
+
+### Bug Fixes
+
+* **tre:** typings confusion between exported TNode types and impl ([9878327](https://github.com/native-html/core/commit/9878327aef03759261a79bfdc2a80697d81e933e))
+
+
+### Features
+
+* **tre:** expose parseDocument and buildTTreeFromDoc methods ([d2f4bb9](https://github.com/native-html/core/commit/d2f4bb9a8eed187cf385e8c6b59baedfc156dfff))
+
 # [5.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@4.4.1...@native-html/transient-render-engine@5.0.0) (2021-05-05)
 
 
