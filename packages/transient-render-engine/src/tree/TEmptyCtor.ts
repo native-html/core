@@ -5,12 +5,10 @@ import TNodeCtor, { GenericTNodeCtor, Mutable } from './TNodeCtor';
 
 export interface TEmptyImpl extends TNodeImpl<TEmptyInit> {
   readonly domNode: DOMElement;
-  readonly isUnregistered: boolean;
 }
 
 export interface TEmptyInit extends TNodeInit {
   domNode: DOMElement;
-  isUnregistered: boolean;
 }
 
 const TEmptyCtor = (function TEmpty(
@@ -21,13 +19,7 @@ const TEmptyCtor = (function TEmpty(
 } as Function) as GenericTNodeCtor<TEmptyInit, TEmptyImpl>;
 
 //@ts-ignore
-TEmptyCtor.prototype = new TNodeCtor('empty', 'TEmpty', {
-  isUnregistered: {
-    get(this: TEmptyImpl) {
-      return this.init.isUnregistered;
-    }
-  }
-});
+TEmptyCtor.prototype = new TNodeCtor('empty', 'TEmpty');
 
 TEmptyCtor.prototype.matchContentModel = function matchContentModel(
   contentModel: HTMLContentModel

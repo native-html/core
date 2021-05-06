@@ -13,6 +13,7 @@ export interface TNodeInit {
   readonly styles?: TStylesShape | null;
   readonly parentStyles?: TStylesShape | null;
   readonly nodeIndex?: number;
+  readonly isUnregistered?: boolean;
 }
 
 /**
@@ -83,6 +84,11 @@ export interface TNodeShape {
    */
   readonly type: TNodeType;
 
+  /**
+   * `true` when this tag is not a valid HTML tag **and** there is no custom
+   * renderer for this tag.
+   */
+  readonly isUnregistered: boolean;
   /**
    * Create a JSX string representation of this node and its children.
    */

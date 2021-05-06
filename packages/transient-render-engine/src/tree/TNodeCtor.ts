@@ -74,6 +74,10 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     return this.__nodeIndex;
   },
 
+  get isUnregistered() {
+    return this.init.isUnregistered || false;
+  },
+
   set nodeIndex(nodeIndex: number) {
     this.__nodeIndex = nodeIndex;
   },

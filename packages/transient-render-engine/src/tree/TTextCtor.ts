@@ -23,7 +23,7 @@ export interface TTextImpl extends TNodeImpl<TTextInit> {
    * True when tagName is defined and should be substituted with text when
    * rendering. E.g. <br> tags.
    */
-  readonly isSubstitutive: boolean;
+  readonly isVoid: boolean;
 }
 
 const collapseWhiteSpaces = compose(
@@ -45,7 +45,7 @@ const collapseWhiteSpacesWithEastAsianCharset = compose(
 
 const TTextCtor = (function TText(this: Mutable<TTextImpl>, init: TTextInit) {
   this.initialize(init);
-  this.isSubstitutive = this.elementModel ? this.elementModel.isVoid : false;
+  this.isVoid = this.elementModel ? this.elementModel.isVoid : false;
 } as Function) as GenericTNodeCtor<TTextInit, TTextImpl>;
 
 //@ts-ignore
@@ -85,7 +85,7 @@ TTextCtor.prototype.isCollapsibleRight = function isCollapsibleRight(
   return (
     this.hasWhiteSpaceCollapsingEnabled &&
     !this.isEmpty() &&
-    (this.isSubstitutive || this.data[this.data.length - 1] === ' ')
+    (this.isVoid || this.data[this.data.length - 1] === ' ')
   );
 };
 
