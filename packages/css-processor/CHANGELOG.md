@@ -1,3 +1,10 @@
+# [1.8.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.7.0...@native-html/css-processor@1.8.0) (2021-05-07)
+
+
+### Features
+
+* support metro bundler `react-native` package.json field ([ef33150](https://github.com/native-html/core/commit/ef331507c594390cca3490719956eac2ab9547f9))
+
 # [1.7.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.6.1...@native-html/css-processor@1.7.0) (2021-05-05)
 
 
