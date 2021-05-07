@@ -23,7 +23,7 @@ exports[`tnodeToString should handle deeply nested tags 1`] = `
 `;
 
 exports[`tnodeToString should not print styles when withStyles is disabled 1`] = `
-"<TText tagName=\\"span\\" nodeIndex={0} data=\\"Blue!\\" />
+"<TText tagName=\\"span\\" data=\\"Blue!\\" />
 "
 `;
 
@@ -33,6 +33,6 @@ exports[`tnodeToString should print ids, classes and anchors 1`] = `
 `;
 
 exports[`tnodeToString should print styles when withStyles is enabled 1`] = `
-"<TText tagName=\\"span\\" nodeIndex={0} data=\\"Blue!\\" styles={{ color: \\"blue\\" }} />
+"<TText tagName=\\"span\\" data=\\"Blue!\\" styles={{ color: \\"blue\\" }} />
 "
 `;
