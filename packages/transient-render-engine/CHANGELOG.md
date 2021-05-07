@@ -1,3 +1,11 @@
+# [6.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.1.1...@native-html/transient-render-engine@6.2.0) (2021-05-07)
+
+
+### Features
+
+* support metro bundler `react-native` package.json field ([ef33150](https://github.com/native-html/core/commit/ef331507c594390cca3490719956eac2ab9547f9))
+* **tre:** allow customize snapshot with optional styles and nodeIndex prints ([78437cc](https://github.com/native-html/core/commit/78437cce4630d026f67688f5a27c5d16e8a9c4c4))
+
 ## [6.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.1.0...@native-html/transient-render-engine@6.1.1) (2021-05-07)
 
 
