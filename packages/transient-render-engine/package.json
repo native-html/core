@@ -4,6 +4,7 @@
   "description": "An engine which produces an intermediary structure from HTML to create a React Native render tree.",
   "main": "lib/commonjs/index.js",
   "types": "lib/typescript/index.d.ts",
+  "react-native": "src/",
   "files": [
     "lib",
     "src"
