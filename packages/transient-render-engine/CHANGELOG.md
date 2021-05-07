@@ -1,3 +1,10 @@
+## [6.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.1.0...@native-html/transient-render-engine@6.1.1) (2021-05-07)
+
+
+### Bug Fixes
+
+* **tre:** add missing withStyles param in recursive calls serializeTnode ([da60350](https://github.com/native-html/core/commit/da60350b021caec7b96b528eae62614e0ee5d26e))
+
 # [6.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.0.0...@native-html/transient-render-engine@6.1.0) (2021-05-06)
 
 
