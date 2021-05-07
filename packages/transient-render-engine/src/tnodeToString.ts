@@ -75,7 +75,8 @@ export default function serializeTNode(
       serializeTNode(c, {
         parentLeftPrefix: parentLeftPrefix + ' '.padStart(prefix.length, ' '),
         isChild: true,
-        isLast: i === tnode.children.length - 1
+        isLast: i === tnode.children.length - 1,
+        withStyles
       })
     )
     .join('');
