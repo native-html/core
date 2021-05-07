@@ -1,3 +1,10 @@
+## [6.2.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.2.0...@native-html/transient-render-engine@6.2.1) (2021-05-07)
+
+
+### Bug Fixes
+
+* **tre:** actually apply withNodeIndex parameter ([c7030fd](https://github.com/native-html/core/commit/c7030fd3d4e282fba90715613a7bec56d6808ce4))
+
 # [6.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.1.1...@native-html/transient-render-engine@6.2.0) (2021-05-07)
 
 
