@@ -1,3 +1,10 @@
+# [6.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.2.1...@native-html/transient-render-engine@6.3.0) (2021-05-07)
+
+
+### Features
+
+* **tre:** new tamperDOM optional argument to parseDocument ([7f49fee](https://github.com/native-html/core/commit/7f49fee60ee9ed6da6303dafb204d5e771892cf4))
+
 ## [6.2.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.2.0...@native-html/transient-render-engine@6.2.1) (2021-05-07)
 
 
