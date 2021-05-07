@@ -1,5 +1,5 @@
 import { TStyles } from '../styles/TStyles';
-import tnodeToString from '../tnodeToString';
+import tnodeToString from './tnodeToString';
 import { TNodeImpl, TNodeInit, TNodeType } from './tree-types';
 
 export type GenericTNodeCtor<Init = TNodeInit, Impl = TNodeImpl> = {
@@ -164,12 +164,13 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     return;
   },
 
-  snapshot(printStyles = false) {
-    return tnodeToString(this as any, { withStyles: printStyles });
+  snapshot(options = {}) {
+    const { withStyles = false, withNodeIndex = false } = options;
+    return tnodeToString(this as any, { withStyles, withNodeIndex });
   },
 
   toString() {
-    return this.snapshot(false);
+    return this.snapshot();
   },
 
   initialize<Impl extends TNodeImpl<any> = TNodeImpl>(

@@ -1,5 +1,5 @@
-import { TStyles } from './styles/TStyles';
-import { TNode } from './tree/tree-types';
+import { TStyles } from '../styles/TStyles';
+import { TNode, TNodePrintOptions } from './tree-types';
 
 function printTableStyles(styles: TStyles) {
   const allStyles = {
@@ -55,18 +55,18 @@ interface TNodePrintState {
   parentLeftPrefix: string;
   isChild: boolean;
   isLast: boolean;
-  withStyles: boolean;
 }
 
 export default function serializeTNode(
   tnode: TNode,
-  params: Partial<TNodePrintState> = {}
+  params: Partial<TNodePrintState & TNodePrintOptions> = {}
 ): string {
   const {
     parentLeftPrefix = '',
     isChild = false,
     isLast = false,
-    withStyles = true
+    withStyles = true,
+    withNodeIndex = true,
   } = params;
   const prefix = isChild ? '  ' : '';
   const totalPrefixLeft = parentLeftPrefix + prefix;
@@ -76,7 +76,8 @@ export default function serializeTNode(
         parentLeftPrefix: parentLeftPrefix + ' '.padStart(prefix.length, ' '),
         isChild: true,
         isLast: i === tnode.children.length - 1,
-        withStyles
+        withStyles,
+        withNodeIndex
       })
     )
     .join('');

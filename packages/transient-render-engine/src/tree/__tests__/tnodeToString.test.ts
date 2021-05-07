@@ -1,6 +1,6 @@
 import tnodeToString from '../tnodeToString';
-import { translateTreeTest } from '../flow/__tests__/utils';
-import { TNode } from '../tree/tree-types';
+import { translateTreeTest } from '../../flow/__tests__/utils';
+import { TNode } from '../tree-types';
 
 describe('tnodeToString', () => {
   it('should handle deeply nested tags', () => {

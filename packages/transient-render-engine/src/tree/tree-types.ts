@@ -19,6 +19,14 @@ export interface TNodeInit {
 /**
  * @public
  */
+export interface TNodePrintOptions {
+  withStyles: boolean;
+  withNodeIndex: boolean;
+}
+
+/**
+ * @public
+ */
 export interface TNodeShape {
   /**
    * Attributes for this tag.
@@ -97,9 +105,9 @@ export interface TNodeShape {
    * `href` programatically, you'll need to access it via
    * `tnode.attributes.href`.
    *
-   * @param printStyles - Show styles in snapshot. Defaults to `false`.
+   * @param options - Customize what should be displayed.
    */
-  snapshot(printStyles?: boolean): string;
+  snapshot(options?: Partial<TNodePrintOptions>): string;
 
   /**
    * Test if the given content model matches this TNode content model.
@@ -179,7 +187,7 @@ export interface TNodeMethods {
    */
   collapseChildren(this: TNodeImpl, params: DataFlowParams): void;
   spliceChildren(this: TNodeImpl, indexes: number[]): void;
-  snapshot(printStyles?: boolean): string;
+  snapshot(options?: Partial<TNodePrintOptions>): string;
   toString(): string;
   initialize(init: TNodeInit): void;
 }

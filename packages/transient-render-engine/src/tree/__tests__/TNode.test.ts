@@ -90,7 +90,9 @@ describe('TNode class', () => {
           nativeBlockRet: { backgroundColor: 'red' }
         } as TStylesShape
       });
-      expect(node.snapshot(true)).toMatchSnapshot();
+      expect(
+        node.snapshot({ withNodeIndex: true, withStyles: true })
+      ).toMatchSnapshot();
       expect(node.toString()).toBe(node.snapshot(/*false*/));
     });
   });
