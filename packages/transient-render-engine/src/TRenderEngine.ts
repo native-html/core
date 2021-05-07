@@ -1,3 +1,4 @@
+import identity from 'ramda/src/identity';
 import { collapse } from './flow/collapse';
 import { hoist } from './flow/hoist';
 import { translateDocument } from './flow/translate';
@@ -16,7 +17,12 @@ import { HTMLModelRecord, TagName } from './model/model-types';
 import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
 import { DataFlowParams } from './flow/types';
 import alterDOMNodes, { AlterDOMParams } from './dom/alterDOMNodes';
-import { DOMDocument, DOMElement, isDOMElement } from './dom/dom-utils';
+import {
+  DOMDocument,
+  DOMElement,
+  DOMNode,
+  isDOMElement
+} from './dom/dom-utils';
 import { TDocument } from './tree/tree-types';
 
 export interface TRenderEngineOptions<E extends string = never> {
@@ -166,8 +172,13 @@ export class TRenderEngine {
     return document;
   }
 
-  parseDocument(html: string) {
-    let document = parseDocument(html, this.htmlParserOptions);
+  parseDocument(
+    html: string,
+    tamperDOM: (doc: DOMDocument) => DOMNode = identity
+  ) {
+    let document = tamperDOM(
+      parseDocument(html, this.htmlParserOptions)
+    ) as DOMDocument;
     for (const child of document.children) {
       if (isDOMElement(child) && child.tagName === 'html') {
         document = child;
