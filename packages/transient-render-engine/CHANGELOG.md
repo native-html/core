@@ -1,3 +1,15 @@
+# [7.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@7.0.0...@native-html/transient-render-engine@7.1.0) (2021-05-08)
+
+
+### Bug Fixes
+
+* **tre:** 3 spaces indentation on TNode.snapshot print instead of 2 ([c14c3bc](https://github.com/native-html/core/commit/c14c3bc69037899b2b22988c0da0adb629642c85))
+
+
+### Features
+
+* **tre:** support `selectDomRoot` param ([fd58a45](https://github.com/native-html/core/commit/fd58a453c200f4f007bf3be89dcd3e38460cc877))
+
 # [7.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.3.0...@native-html/transient-render-engine@7.0.0) (2021-05-08)
 
 
