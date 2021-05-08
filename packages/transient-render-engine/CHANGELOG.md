@@ -1,3 +1,21 @@
+# [7.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.3.0...@native-html/transient-render-engine@7.0.0) (2021-05-08)
+
+
+### Code Refactoring
+
+* **tre:** drop alterDOMParams ([ed6a751](https://github.com/native-html/core/commit/ed6a7515e515cd18a1f11ec95db2d68e228b62b9))
+
+
+### Features
+
+* **tre:** new `ignoreDomTags`, `ignoreDomNode` and `domVisitors` opts ([91e0bbe](https://github.com/native-html/core/commit/91e0bbe994c6f8fc867b924052c4460336cd9683))
+
+
+### BREAKING CHANGES
+
+* **tre:** `alterDOMParams` has been drop. Instead, use either
+`ignoreDomNode`, `ignoredDomTags` or `domVisitors`.
+
 # [6.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@6.2.1...@native-html/transient-render-engine@6.3.0) (2021-05-07)
 
 
