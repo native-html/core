@@ -17,7 +17,6 @@ import HTMLModelRegistry from './model/HTMLModelRegistry';
 import { HTMLModelRecord, TagName } from './model/model-types';
 import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
 import { DataFlowParams } from './flow/types';
-import alterDOMNodes, { AlterDOMParams } from './dom/alterDOMNodes';
 import {
   DOMDocument,
   DOMElement,
@@ -81,10 +80,6 @@ export interface TRenderEngineOptions<E extends string = never> {
   readonly ignoreDomNode?: (node: DOMNode) => boolean;
 
   /**
-   * Alter the DOM tree prior to pre-rendering.
-   */
-  readonly alterDOMParams?: AlterDOMParams;
-  /**
    * Disable hoisting. Note that your layout might break!
    */
   readonly dangerouslyDisableHoisting?: boolean;
@@ -123,7 +118,6 @@ function createStylesConfig(
 export class TRenderEngine {
   private htmlParserOptions: Readonly<HTMLParserOptions & DomHandlerOptions>;
   private dataFlowParams: DataFlowParams;
-  private alterDOMParams?: AlterDOMParams;
   private hoistingEnabled: boolean;
   private whitespaceCollapsingEnabled: boolean;
   constructor(options?: TRenderEngineOptions) {
@@ -143,7 +137,6 @@ export class TRenderEngine {
       rootFontSize:
         typeof userSelectedFontSize === 'number' ? userSelectedFontSize : 14
     });
-    this.alterDOMParams = options?.alterDOMParams;
     this.htmlParserOptions = {
       decodeEntities: true,
       lowerCaseTags: true,
@@ -192,21 +185,6 @@ export class TRenderEngine {
     return document;
   }
 
-  private applyDOMTampering(document: DOMDocument) {
-    if (
-      this.alterDOMParams?.ignoreDOMNode ||
-      this.alterDOMParams?.alterDOMChildren ||
-      this.alterDOMParams?.alterDOMData ||
-      this.alterDOMParams?.alterDOMElement
-    ) {
-      document.childNodes = alterDOMNodes(
-        document.childNodes,
-        this.alterDOMParams
-      );
-    }
-    return document;
-  }
-
   parseDocument(html: string) {
     let document = parseDocument(html, this.htmlParserOptions);
     for (const child of document.children) {
@@ -219,8 +197,7 @@ export class TRenderEngine {
   }
 
   buildTTreeFromDoc(document: DOMDocument | DOMElement): TDocument {
-    const tamperedDoc = this.applyDOMTampering(document);
-    const tdoc = translateDocument(tamperedDoc, this.dataFlowParams);
+    const tdoc = translateDocument(document, this.dataFlowParams);
     const hoistedTDoc = this.hoistingEnabled ? hoist(tdoc) : tdoc;
     const collapsedTDoc = this.whitespaceCollapsingEnabled
       ? collapse(hoistedTDoc, this.dataFlowParams)

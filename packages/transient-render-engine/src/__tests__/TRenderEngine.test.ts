@@ -321,18 +321,31 @@ describe('TRenderEngine > buildTTree method', () => {
       expect(tdoc).toMatchSnapshot();
     });
   });
-  it('should support alterDOMParams', () => {
+  it('should support domVisitors', () => {
     const customTTreeBuilder = new TRenderEngine({
-      alterDOMParams: {
-        alterDOMData() {
-          return 'hey';
+      domVisitors: {
+        onText(text) {
+          text.data = 'hey';
         }
       }
     });
-
     const tdoc = customTTreeBuilder.buildTTree(
       '<em>This text should inherit baseStyles</em>'
     );
+    expect(tdoc).toMatchSnapshot();
+  });
+  it('should support ignoredDomTags', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      ignoredDomTags: ['em']
+    });
+    const tdoc = customTTreeBuilder.buildTTree('<em></em>');
+    expect(tdoc).toMatchSnapshot();
+  });
+  it('should support ignoreDomNode', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      ignoreDomNode: (node) => node.type === 'text'
+    });
+    const tdoc = customTTreeBuilder.buildTTree('<em>Text!</em>');
     expect(tdoc).toMatchSnapshot();
   });
   it('should support disabling hoisting', () => {

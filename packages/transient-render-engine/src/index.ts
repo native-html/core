@@ -21,4 +21,3 @@ export { TRenderEngine as default } from './TRenderEngine';
 export type { TRenderEngineOptions } from './TRenderEngine';
 export { default as defaultHTMLElementModels } from './model/defaultHTMLElementModels';
 export type { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
-export type { AlterDOMParams } from './dom/alterDOMNodes';

@@ -86,7 +86,6 @@ describe('DOMParser', () => {
       });
       expect(onText).toHaveBeenCalledTimes(1);
     });
-
     it('should support visitors.onDocument', () => {
       const onDocument = jest.fn();
       parseDocument('<div></div>', {

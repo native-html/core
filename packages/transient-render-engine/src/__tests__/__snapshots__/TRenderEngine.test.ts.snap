@@ -118,17 +118,6 @@ exports[`TRenderEngine > buildTTree method should still parse inline CSS styles 
 
 `;
 
-exports[`TRenderEngine > buildTTree method should support alterDOMParams 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-   <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-     <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-       <TText tagName="em" nodeIndex={0} data="hey" styles={{ whiteSpace: "normal" }} />
-     </TPhrasing>
-   </TBlock>
-</TDocument>
-
-`;
-
 exports[`TRenderEngine > buildTTree method should support disabling hoisting 1`] = `
 <TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
    <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
@@ -163,6 +152,35 @@ exports[`TRenderEngine > buildTTree method should support disabling whitespace c
        </TPhrasing>
      </TBlock>
    </TBlock>
+</TDocument>
+
+`;
+
+exports[`TRenderEngine > buildTTree method should support domVisitors 1`] = `
+<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+   <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+     <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+       <TText tagName="em" nodeIndex={0} data="hey" styles={{ whiteSpace: "normal" }} />
+     </TPhrasing>
+   </TBlock>
+</TDocument>
+
+`;
+
+exports[`TRenderEngine > buildTTree method should support ignoreDomNode 1`] = `
+<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+   <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+     <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+       <TText tagName="em" nodeIndex={0} data="" styles={{ whiteSpace: "normal" }} />
+     </TPhrasing>
+   </TBlock>
+</TDocument>
+
+`;
+
+exports[`TRenderEngine > buildTTree method should support ignoredDomTags 1`] = `
+<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+   <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }} />
 </TDocument>
 
 `;
