@@ -88,9 +88,7 @@ export interface TRenderEngineOptions<E extends string = never> {
    * construction. Before normalization implies that a body will be added in
    * the tree **after** selecting root.
    */
-  readonly selectDomRoot?: (
-    node: DOMNodeWithChildren
-  ) => any;
+  readonly selectDomRoot?: (node: DOMNodeWithChildren) => any;
 
   /**
    * Disable hoisting. Note that your layout might break!

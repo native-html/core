@@ -7,17 +7,17 @@ exports[`tnodeToString should cut data strings over 24 characters with ellipsis 
 
 exports[`tnodeToString should handle deeply nested tags 1`] = `
 "<TBlock tagName=\\"div\\" nodeIndex={0}>
-   <TBlock tagName=\\"div\\" nodeIndex={0}>
-     <TPhrasing tagName=\\"span\\" nodeIndex={0}>
-       <TText anonymous nodeIndex={0} data=\\"A\\" />
-       <TText tagName=\\"em\\" nodeIndex={1} data=\\"a\\" />
-     </TPhrasing>
-     <TText tagName=\\"span\\" nodeIndex={1} data=\\"B\\" />
-   </TBlock>
-   <TPhrasing tagName=\\"span\\" nodeIndex={1}>
-     <TText anonymous nodeIndex={0} data=\\"C\\" />
-     <TText tagName=\\"strong\\" nodeIndex={1} data=\\"D\\" />
-   </TPhrasing>
+  <TBlock tagName=\\"div\\" nodeIndex={0}>
+    <TPhrasing tagName=\\"span\\" nodeIndex={0}>
+      <TText anonymous nodeIndex={0} data=\\"A\\" />
+      <TText tagName=\\"em\\" nodeIndex={1} data=\\"a\\" />
+    </TPhrasing>
+    <TText tagName=\\"span\\" nodeIndex={1} data=\\"B\\" />
+  </TBlock>
+  <TPhrasing tagName=\\"span\\" nodeIndex={1}>
+    <TText anonymous nodeIndex={0} data=\\"C\\" />
+    <TText tagName=\\"strong\\" nodeIndex={1} data=\\"D\\" />
+  </TPhrasing>
 </TBlock>
 "
 `;

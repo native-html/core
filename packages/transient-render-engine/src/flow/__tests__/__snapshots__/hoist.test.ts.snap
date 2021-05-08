@@ -2,65 +2,65 @@
 
 exports[`hoist function should comply with RFC002 example (hoisting)  1`] = `
 <TBlock tagName="a" nodeIndex={0} href="https://domain.com">
-   <TPhrasing anonymous nodeIndex={0}>
-     <TText anonymous nodeIndex={0} data="\\nThis is\\n" />
-     <TText tagName="span" nodeIndex={1} data="phrasing content" />
-     <TText anonymous nodeIndex={2} data="\\n" />
-   </TPhrasing>
-   <TBlock tagName="img" nodeIndex={3} src="https://domain.com/logo.jpg" />
-   <TPhrasing anonymous nodeIndex={0}>
-     <TText anonymous nodeIndex={4} data="\\n    and this is " />
-     <TText tagName="strong" nodeIndex={5} data="too" />
-     <TText anonymous nodeIndex={6} data=".\\n" />
-   </TPhrasing>
+  <TPhrasing anonymous nodeIndex={0}>
+    <TText anonymous nodeIndex={0} data="\\nThis is\\n" />
+    <TText tagName="span" nodeIndex={1} data="phrasing content" />
+    <TText anonymous nodeIndex={2} data="\\n" />
+  </TPhrasing>
+  <TBlock tagName="img" nodeIndex={3} src="https://domain.com/logo.jpg" />
+  <TPhrasing anonymous nodeIndex={0}>
+    <TText anonymous nodeIndex={4} data="\\n    and this is " />
+    <TText tagName="strong" nodeIndex={5} data="too" />
+    <TText anonymous nodeIndex={6} data=".\\n" />
+  </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`hoist function should hoist multiple blocks 1`] = `
 <TBlock tagName="span" nodeIndex={0}>
-   <TBlock tagName="div" nodeIndex={0} />
-   <TPhrasing anonymous nodeIndex={0}>
-     <TText anonymous nodeIndex={1} data="Hello" />
-   </TPhrasing>
-   <TBlock tagName="img" nodeIndex={2} />
+  <TBlock tagName="div" nodeIndex={0} />
+  <TPhrasing anonymous nodeIndex={0}>
+    <TText anonymous nodeIndex={1} data="Hello" />
+  </TPhrasing>
+  <TBlock tagName="img" nodeIndex={2} />
 </TBlock>
 
 `;
 
 exports[`hoist function should not let TEmpty tags break inline context  1`] = `
 <TPhrasing tagName="span" nodeIndex={0}>
-   <TText anonymous nodeIndex={0} data="test" />
-   <TEmpty tagName="c" unregistered nodeIndex={1} />
-   <TText anonymous nodeIndex={2} data=" ahah" />
+  <TText anonymous nodeIndex={0} data="test" />
+  <TEmpty tagName="c" unregistered nodeIndex={1} />
+  <TText anonymous nodeIndex={2} data=" ahah" />
 </TPhrasing>
 
 `;
 
 exports[`hoist function should preserve parents before hoisting 1`] = `
 <TBlock tagName="span" nodeIndex={0}>
-   <TPhrasing anonymous nodeIndex={0}>
-     <TText tagName="strong" nodeIndex={0} data="hello" />
-   </TPhrasing>
-   <TBlock tagName="img" nodeIndex={1} />
+  <TPhrasing anonymous nodeIndex={0}>
+    <TText tagName="strong" nodeIndex={0} data="hello" />
+  </TPhrasing>
+  <TBlock tagName="img" nodeIndex={1} />
 </TBlock>
 
 `;
 
 exports[`hoist function should preserve styles of encompassing blocks 1`] = `
 <TBlock tagName="a" nodeIndex={0} href="http://google.fr">
-   <TBlock tagName="div" nodeIndex={0} styles={{ backgroundColor: "red" }} />
+  <TBlock tagName="div" nodeIndex={0} styles={{ backgroundColor: "red" }} />
 </TBlock>
 
 `;
 
 exports[`hoist function should preserve text of encompassing blocks 1`] = `
 <TBlock tagName="a" nodeIndex={0} href="http://google.fr">
-   <TBlock tagName="div" nodeIndex={0}>
-     <TPhrasing anonymous nodeIndex={0}>
-       <TText anonymous nodeIndex={0} data="This is text!" />
-     </TPhrasing>
-   </TBlock>
+  <TBlock tagName="div" nodeIndex={0}>
+    <TPhrasing anonymous nodeIndex={0}>
+      <TText anonymous nodeIndex={0} data="This is text!" />
+    </TPhrasing>
+  </TBlock>
 </TBlock>
 
 `;

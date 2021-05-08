@@ -4,7 +4,6 @@ import TDocumentCtor from '../tree/TDocumentImpl';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
-import { DOMNode } from '../dom/dom-utils';
 import TEmptyCtor from '../tree/TEmptyCtor';
 import { rfc002Source } from '../flow/__tests__/shared';
 
@@ -400,7 +399,7 @@ describe('TRenderEngine > buildTTree method', () => {
   });
   it('should support selectDomRoot returning a falsy value', () => {
     const customTTreeBuilder = new TRenderEngine({
-      selectDomRoot(node) {
+      selectDomRoot() {
         return false;
       }
     });

@@ -1,5 +1,5 @@
 import { TStyles } from '../styles/TStyles';
-import tnodeToString from './tnodeToString';
+import tnodeToString from './tnodeSnapshot';
 import { TNodeImpl, TNodeInit, TNodeType } from './tree-types';
 
 export type GenericTNodeCtor<Init = TNodeInit, Impl = TNodeImpl> = {

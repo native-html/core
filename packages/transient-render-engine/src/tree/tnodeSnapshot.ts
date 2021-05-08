@@ -60,7 +60,7 @@ interface TNodePrintState {
   isLast: boolean;
 }
 
-export default function serializeTNode(
+export default function tnodeSnapshot(
   tnode: TNode,
   params: Partial<TNodePrintState> & TNodePrintOptions
 ): string {
@@ -75,8 +75,8 @@ export default function serializeTNode(
   const totalPrefixLeft = parentLeftPrefix + prefix;
   const childrenPrint = tnode.children
     .map((c, i) =>
-      serializeTNode(c, {
-        parentLeftPrefix: parentLeftPrefix + ' '.padStart(prefix.length, ' '),
+      tnodeSnapshot(c, {
+        parentLeftPrefix: parentLeftPrefix + ''.padStart(prefix.length, ' '),
         isChild: true,
         isLast: i === tnode.children.length - 1,
         withStyles,
