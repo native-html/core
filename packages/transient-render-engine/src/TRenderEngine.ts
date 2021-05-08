@@ -1,4 +1,3 @@
-import identity from 'ramda/src/identity';
 import { collapse } from './flow/collapse';
 import { hoist } from './flow/hoist';
 import { translateDocument } from './flow/translate';

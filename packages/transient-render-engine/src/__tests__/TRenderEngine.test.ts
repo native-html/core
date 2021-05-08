@@ -365,7 +365,7 @@ describe('TRenderEngine > buildTTree method', () => {
       ignoredDomTags: ['div']
     });
     const tdoc = customTTreeBuilder.buildTTree(
-      `<article><div></div>Text</div></article>`
+      '<article><div></div>Text</div></article>'
     );
     expect(tdoc).toMatchSnapshot();
   });

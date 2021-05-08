@@ -1,6 +1,6 @@
 import { Document } from 'domhandler';
 import { Parser, ParserOptions } from 'htmlparser2';
-import DomHandler, { DomHandlerOptions, DomVisitorCallbacks } from './DomHandler';
+import DomHandler, { DomHandlerOptions } from './DomHandler';
 /**
  * Parses the data, returns the resulting document.
  *
