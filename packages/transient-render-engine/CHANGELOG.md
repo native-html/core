@@ -8,7 +8,7 @@
 
 ### Features
 
-* **tre:** new `ignoreDomTags`, `ignoreDomNode` and `domVisitors` opts ([91e0bbe](https://github.com/native-html/core/commit/91e0bbe994c6f8fc867b924052c4460336cd9683))
+* **tre:** new `ignoredDomTags`, `ignoreDomNode` and `domVisitors` opts. These options will add very little overhead as they don't require a tree traversal; they are used during parsing instead!
 
 
 ### BREAKING CHANGES
