@@ -2,12 +2,13 @@ import identity from 'ramda/src/identity';
 import { collapse } from './flow/collapse';
 import { hoist } from './flow/hoist';
 import { translateDocument } from './flow/translate';
-import { parseDocument, ParserOptions as HTMLParserOptions } from 'htmlparser2';
+import { ParserOptions as HTMLParserOptions } from 'htmlparser2';
 import omit from 'ramda/src/omit';
 import {
   CSSProcessorConfig,
   defaultCSSProcessorConfig
 } from '@native-html/css-processor';
+import parseDocument from './dom/parseDocument';
 import { StylesConfig } from './styles/types';
 import { TStylesMerger } from './styles/TStylesMerger';
 import { defaultStylesConfig } from './styles/defaults';
@@ -24,6 +25,7 @@ import {
   isDOMElement
 } from './dom/dom-utils';
 import { TDocument } from './tree/tree-types';
+import { DomHandlerOptions, DomVisitorCallbacks } from './dom/DomHandler';
 
 export interface TRenderEngineOptions<E extends string = never> {
   /**
@@ -53,6 +55,31 @@ export interface TRenderEngineOptions<E extends string = never> {
    * @defaultValue false
    */
   readonly removeLineBreaksAroundEastAsianDiscardSet?: boolean;
+  /**
+   * A list of tags which should not be included in the DOM.
+   */
+  readonly ignoredDomTags?: string[];
+
+  /**
+   * An object which callbacks will be invoked when a DOM element or text node
+   * has been parsed and its children attached.
+   *
+   * @remark Each callback is applied during parsing, thus with very little
+   * overhead. However, it means that one node next siblings won't be
+   * available. If you need some siblings logic, apply this logic to the
+   * children of this node.
+   */
+  readonly domVisitors?: DomVisitorCallbacks;
+
+  /**
+   * Ignore specific DOM nodes.
+   *
+   * @remarks The function is applied during parsing, thus with very little
+   * overhead. However, it means that one node next siblings won't be
+   * available.
+   */
+  readonly ignoreDomNode?: (node: DOMNode) => boolean;
+
   /**
    * Alter the DOM tree prior to pre-rendering.
    */
@@ -88,8 +115,13 @@ function createStylesConfig(
   };
 }
 
+/**
+ * The Transient Render Engine.
+ *
+ * @public
+ */
 export class TRenderEngine {
-  private htmlParserOptions: Readonly<HTMLParserOptions>;
+  private htmlParserOptions: Readonly<HTMLParserOptions & DomHandlerOptions>;
   private dataFlowParams: DataFlowParams;
   private alterDOMParams?: AlterDOMParams;
   private hoistingEnabled: boolean;
@@ -115,6 +147,9 @@ export class TRenderEngine {
     this.htmlParserOptions = {
       decodeEntities: true,
       lowerCaseTags: true,
+      ignoredTags: options?.ignoredDomTags,
+      ignoreNode: options?.ignoreDomNode,
+      visitors: options?.domVisitors,
       ...options?.htmlParserOptions
     };
     this.dataFlowParams = {
@@ -172,13 +207,8 @@ export class TRenderEngine {
     return document;
   }
 
-  parseDocument(
-    html: string,
-    tamperDOM: (doc: DOMDocument) => DOMNode = identity
-  ) {
-    let document = tamperDOM(
-      parseDocument(html, this.htmlParserOptions)
-    ) as DOMDocument;
+  parseDocument(html: string) {
+    let document = parseDocument(html, this.htmlParserOptions);
     for (const child of document.children) {
       if (isDOMElement(child) && child.tagName === 'html') {
         document = child;

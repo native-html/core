@@ -15,6 +15,7 @@ export type {
   TPhrasing
 } from './tree/tree-types';
 export * from './dom/dom-utils';
+export type { DomVisitorCallbacks } from './dom/DomHandler';
 export { TRenderEngine } from './TRenderEngine';
 export { TRenderEngine as default } from './TRenderEngine';
 export type { TRenderEngineOptions } from './TRenderEngine';

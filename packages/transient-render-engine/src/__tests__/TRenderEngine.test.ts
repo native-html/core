@@ -347,4 +347,13 @@ describe('TRenderEngine > buildTTree method', () => {
     });
     expect(customTTreeBuilder.buildTTree(rfc002Source)).toMatchSnapshot();
   });
+  it('should support ignoredTags', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      ignoredDomTags: ['div']
+    });
+    const tdoc = customTTreeBuilder.buildTTree(
+      `<article><div></div>Text</div></article>`
+    );
+    expect(tdoc).toMatchSnapshot();
+  });
 });
