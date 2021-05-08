@@ -1,8 +1,10 @@
+import { findOne } from 'domutils';
 import TBlockImpl from '../tree/TBlockCtor';
 import TDocumentCtor from '../tree/TDocumentImpl';
 import { TRenderEngine, TRenderEngineOptions } from '../TRenderEngine';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
+import { DOMNode } from '../dom/dom-utils';
 import TEmptyCtor from '../tree/TEmptyCtor';
 import { rfc002Source } from '../flow/__tests__/shared';
 
@@ -366,6 +368,44 @@ describe('TRenderEngine > buildTTree method', () => {
     });
     const tdoc = customTTreeBuilder.buildTTree(
       '<article><div></div>Text</div></article>'
+    );
+    expect(tdoc).toMatchSnapshot();
+  });
+  it('should support selectDomRoot returning a child', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      selectDomRoot(node) {
+        const article = findOne(
+          (elem) => elem.tagName === 'article',
+          node.children as any,
+          true
+        );
+        return article || node;
+      }
+    });
+    const tdoc = customTTreeBuilder.buildTTree(
+      '<div><article>Text</article></div>'
+    );
+    expect(tdoc).toMatchSnapshot();
+  });
+  it('should support selectDomRoot returning the passed node', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      selectDomRoot(node) {
+        return node;
+      }
+    });
+    const tdoc = customTTreeBuilder.buildTTree(
+      '<div><article>Text</article></div>'
+    );
+    expect(tdoc).toMatchSnapshot();
+  });
+  it('should support selectDomRoot returning a falsy value', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      selectDomRoot(node) {
+        return false;
+      }
+    });
+    const tdoc = customTTreeBuilder.buildTTree(
+      '<div><article>Text</article></div>'
     );
     expect(tdoc).toMatchSnapshot();
   });

@@ -20,6 +20,7 @@ import {
   DOMDocument,
   DOMElement,
   DOMNode,
+  DOMNodeWithChildren,
   isDOMElement
 } from './dom/dom-utils';
 import { TDocument } from './tree/tree-types';
@@ -79,6 +80,19 @@ export interface TRenderEngineOptions<E extends string = never> {
   readonly ignoreDomNode?: (node: DOMNode) => boolean;
 
   /**
+   * Select the DOM root before TTree generation. For example, you could
+   * iterate over children until you reach an article element and return this
+   * element.
+   *
+   * @remarks Applied after DOM parsing, before normalization and TTree
+   * construction. Before normalization implies that a body will be added in
+   * the tree **after** selecting root.
+   */
+  readonly selectDomRoot?: (
+    node: DOMNodeWithChildren
+  ) => any;
+
+  /**
    * Disable hoisting. Note that your layout might break!
    */
   readonly dangerouslyDisableHoisting?: boolean;
@@ -119,6 +133,7 @@ export class TRenderEngine {
   private dataFlowParams: DataFlowParams;
   private hoistingEnabled: boolean;
   private whitespaceCollapsingEnabled: boolean;
+  private selectDomRoot: TRenderEngineOptions['selectDomRoot'];
   constructor(options?: TRenderEngineOptions) {
     const stylesConfig = createStylesConfig(options);
     this.hoistingEnabled = !(options?.dangerouslyDisableHoisting ?? false);
@@ -153,6 +168,7 @@ export class TRenderEngine {
       removeLineBreaksAroundEastAsianDiscardSet:
         options?.removeLineBreaksAroundEastAsianDiscardSet || false
     };
+    this.selectDomRoot = options?.selectDomRoot;
   }
 
   private normalizeDocument(document: DOMDocument) {
@@ -186,6 +202,13 @@ export class TRenderEngine {
 
   parseDocument(html: string) {
     let document = parseDocument(html, this.htmlParserOptions);
+    if (this.selectDomRoot) {
+      const selected = this.selectDomRoot(document) as DOMDocument;
+      if (selected && selected !== document) {
+        document.childNodes = [selected];
+        selected.parent = document;
+      }
+    }
     for (const child of document.children) {
       if (isDOMElement(child) && child.tagName === 'html') {
         document = child;

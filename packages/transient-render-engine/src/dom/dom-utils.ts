@@ -1,10 +1,11 @@
-import { Text, Element, Node, Document } from 'domhandler';
+import { Text, Element, Node, Document, NodeWithChildren } from 'domhandler';
 import { Text as TextType, Tag as TagType } from 'domelementtype';
 
 export {
   Text as DOMText,
   Element as DOMElement,
   Node as DOMNode,
+  NodeWithChildren as DOMNodeWithChildren,
   Document as DOMDocument
 };
 

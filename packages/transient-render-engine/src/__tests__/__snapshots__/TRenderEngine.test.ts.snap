@@ -198,6 +198,49 @@ exports[`TRenderEngine > buildTTree method should support ignoredTags 1`] = `
 
 `;
 
+exports[`TRenderEngine > buildTTree method should support selectDomRoot returning a child 1`] = `
+<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+   <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+     <TBlock tagName="article" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+       <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+         <TText anonymous nodeIndex={0} data="Text" styles={{ whiteSpace: "normal" }} />
+       </TPhrasing>
+     </TBlock>
+   </TBlock>
+</TDocument>
+
+`;
+
+exports[`TRenderEngine > buildTTree method should support selectDomRoot returning a falsy value 1`] = `
+<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+   <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+     <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+       <TBlock tagName="article" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+         <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+           <TText anonymous nodeIndex={0} data="Text" styles={{ whiteSpace: "normal" }} />
+         </TPhrasing>
+       </TBlock>
+     </TBlock>
+   </TBlock>
+</TDocument>
+
+`;
+
+exports[`TRenderEngine > buildTTree method should support selectDomRoot returning the passed node 1`] = `
+<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+   <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+     <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+       <TBlock tagName="article" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+         <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
+           <TText anonymous nodeIndex={0} data="Text" styles={{ whiteSpace: "normal" }} />
+         </TPhrasing>
+       </TBlock>
+     </TBlock>
+   </TBlock>
+</TDocument>
+
+`;
+
 exports[`TRenderEngine > customizeHTMLModels option should allow to change a model type to block 1`] = `
 <TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
    <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
