@@ -1,3 +1,10 @@
+# [7.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@7.2.0...@native-html/transient-render-engine@7.3.0) (2021-05-10)
+
+
+### Features
+
+* export HTMLElementsModels in TRenderEngine ([fe0f261](https://github.com/native-html/core/commit/fe0f261324ce28a0ba810f1c07e88779ada6b621))
+
 # [7.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@7.1.0...@native-html/transient-render-engine@7.2.0) (2021-05-10)
 
 
