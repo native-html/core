@@ -1,3 +1,10 @@
+# [7.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@7.1.0...@native-html/transient-render-engine@7.2.0) (2021-05-10)
+
+
+### Features
+
+* implement markers and `setMarkersForTNode` param ([7cf5e61](https://github.com/native-html/core/commit/7cf5e61e0b44bc33f67a5d4b5f4cd65d975b9c4f))
+
 # [7.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@7.0.0...@native-html/transient-render-engine@7.1.0) (2021-05-08)
 
 
