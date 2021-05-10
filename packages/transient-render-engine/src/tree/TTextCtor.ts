@@ -107,11 +107,10 @@ TTextCtor.prototype.trimRight = function trimRight(this: Mutable<TTextImpl>) {
 };
 
 TTextCtor.prototype.collapseChildren = function collapseChildren(
-  this: Mutable<TTextImpl>,
-  params
+  this: Mutable<TTextImpl>
 ) {
   if (this.hasWhiteSpaceCollapsingEnabled) {
-    if (params.removeLineBreaksAroundEastAsianDiscardSet) {
+    if (this.init.context.removeLineBreaksAroundEastAsianDiscardSet) {
       this.data = collapseWhiteSpacesWithEastAsianCharset(this.data);
     } else {
       this.data = collapseWhiteSpaces(this.data);

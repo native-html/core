@@ -1,6 +1,13 @@
 import { TStyles } from '../styles/TStyles';
+import markersProtype from './markersProtype';
 import tnodeToString from './tnodeSnapshot';
-import { TNodeImpl, TNodeInit, TNodeType } from './tree-types';
+import {
+  Markers,
+  TNodeDescriptor,
+  TNodeImpl,
+  TNodeInit,
+  TNodeType
+} from './tree-types';
 
 export type GenericTNodeCtor<Init = TNodeInit, Impl = TNodeImpl> = {
   new (init: Init): Impl;
@@ -16,6 +23,20 @@ function updateNodeIndexes(node: Mutable<TNodeImpl>, i: number) {
 }
 
 const emptyAttrs = Object.freeze({});
+const emptyClasses = Object.freeze([]);
+
+function setMarkersFromAttributes(
+  targetMarkers: Markers,
+  _parentMarkers: Readonly<Markers>,
+  { attributes }: TNodeDescriptor
+): void {
+  if ('dir' in attributes) {
+    targetMarkers.direction = attributes.dir as 'rtl';
+  }
+  if ('lang' in attributes) {
+    targetMarkers.lang = attributes.lang;
+  }
+}
 
 const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   children: Object.freeze([]) as any,
@@ -25,6 +46,7 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   __nodeIndex: null,
   __trimmedLeft: false,
   __trimmedRight: false,
+  markers: markersProtype,
   get attributes() {
     return this.domNode?.attribs || emptyAttrs;
   },
@@ -53,10 +75,6 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
 
   get elementModel() {
     return this.init.elementModel;
-  },
-
-  get stylesMerger() {
-    return this.init.stylesMerger;
   },
 
   get tagName() {
@@ -155,8 +173,8 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     }
   },
 
-  collapse(params) {
-    this.collapseChildren(params);
+  collapse() {
+    this.collapseChildren();
     this.bindChildren(this.children, true);
   },
 
@@ -173,15 +191,33 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     return this.snapshot();
   },
 
-  initialize<Impl extends TNodeImpl<any> = TNodeImpl>(
+  setMarkers(targetMarkers, parentMarkers) {
+    if (this.elementModel?.setMarkersForTNode) {
+      this.elementModel.setMarkersForTNode(targetMarkers, parentMarkers, this);
+    }
+    setMarkersFromAttributes(targetMarkers, parentMarkers, this);
+    this.init.context.setMarkersForTNode?.(targetMarkers, parentMarkers, this);
+  },
+
+  initialize<Impl extends TNodeImpl<TNodeInit> = TNodeImpl>(
     this: Mutable<Impl>,
     init: Impl['init']
   ) {
     this.init = init;
-    this.classes = this.attributes.class?.split(/\s+/) || [];
+    this.classes = this.attributes.class?.split(/\s+/) || emptyClasses;
+    const parentMarkers = init.parent
+      ? init.parent.markers
+      : markersProtype.extend();
+    this.markers = parentMarkers.extend();
+    this.setMarkers(this.markers, parentMarkers, this);
+    // Avoid very long prototype chains by assigning parent to current
+    // when current has no own properties
+    if (Object.keys(this.markers).length === 0) {
+      this.markers = parentMarkers;
+    }
     this.styles =
-      this.init.styles ||
-      this.init.stylesMerger.buildStyles(
+      init.styles ||
+      init.context.stylesMerger.buildStyles(
         this.attributes.style,
         this.parentStyles || null,
         this

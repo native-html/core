@@ -16,7 +16,10 @@ export const defaultStylesMerger = new TStylesMerger(
 export const defaultInit: TNodeInit = {
   elementModel: null,
   domNode: null,
-  stylesMerger: defaultStylesMerger,
+  context: {
+    stylesMerger: defaultStylesMerger,
+    removeLineBreaksAroundEastAsianDiscardSet: false
+  },
   parent: null
 };
 
@@ -27,11 +30,14 @@ export const defaultDataFlowParams: DataFlowParams = {
   removeLineBreaksAroundEastAsianDiscardSet: false
 };
 
-export function translateTreeTest(source: string): TNodeImpl {
+export function translateTreeTest(
+  source: string,
+  params?: Partial<DataFlowParams>
+): TNodeImpl {
   const documentTree = parseDOM(source);
   return translateNode({
     node: documentTree[0],
-    params: defaultDataFlowParams,
+    params: { ...defaultDataFlowParams, ...params },
     parent: null
   }) as TNodeImpl;
 }

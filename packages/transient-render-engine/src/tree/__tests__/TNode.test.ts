@@ -77,7 +77,7 @@ describe('TNode class', () => {
       expect(node.matchContentModel(HTMLContentModel.block)).toBe(false);
     });
   });
-  describe('get contentModel', () => {
+  describe('contentModel', () => {
     it('should return null when no elementModel is available', () => {
       const node = newTNode();
       expect(node.contentModel).toBe(null);

@@ -23,10 +23,10 @@ TBlockCtor.prototype.matchContentModel = function matchContentModel(
   );
 };
 
-TBlockCtor.prototype.collapseChildren = function collapseChildren(params) {
+TBlockCtor.prototype.collapseChildren = function collapseChildren() {
   let indexesToSplice: number[] = [];
   this.children.forEach((child, i) => {
-    child.collapse(params);
+    child.collapse();
     if (child.isEmpty()) {
       indexesToSplice.push(i);
     }

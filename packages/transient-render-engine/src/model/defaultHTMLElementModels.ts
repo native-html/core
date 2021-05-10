@@ -414,7 +414,10 @@ const groupingModelMap: HTMLModelRecord<
   ol: HTMLElementModel.fromNativeModel({
     tagName: 'ol',
     category: 'grouping',
-    mixedUAStyles: listStyles
+    mixedUAStyles: listStyles,
+    setMarkersForTNode(targetMarkers, parentMarkers) {
+      targetMarkers.olNestLevel = parentMarkers.olNestLevel + 1;
+    }
   }),
   p: HTMLElementModel.fromNativeModel({
     tagName: 'p',
@@ -444,7 +447,10 @@ const groupingModelMap: HTMLModelRecord<
   ul: HTMLElementModel.fromNativeModel({
     tagName: 'ul',
     category: 'grouping',
-    mixedUAStyles: listStyles
+    mixedUAStyles: listStyles,
+    setMarkersForTNode(targetMarkers, parentMarkers) {
+      targetMarkers.ulNestLevel = parentMarkers.ulNestLevel + 1;
+    }
   }),
   dir: HTMLElementModel.fromNativeModel({
     tagName: 'dir',
@@ -575,12 +581,18 @@ const editsModelMap: HTMLModelRecord<EditsTagNames, HTMLContentModel.mixed> = {
   ins: HTMLElementModel.fromNativeModel({
     tagName: 'ins',
     category: 'edits',
-    mixedUAStyles: solidUnderlineStyle
+    mixedUAStyles: solidUnderlineStyle,
+    setMarkersForTNode(targetMarkers) {
+      targetMarkers.edits = 'ins';
+    }
   }),
   del: HTMLElementModel.fromNativeModel({
     tagName: 'del',
     category: 'edits',
-    mixedUAStyles: lineThroughStyle
+    mixedUAStyles: lineThroughStyle,
+    setMarkersForTNode(targetMarkers) {
+      targetMarkers.edits = 'del';
+    }
   })
 };
 
@@ -765,6 +777,9 @@ const defaultHTMLElementModels = {
         return anchorStyle;
       }
       return null;
+    },
+    setMarkersForTNode(targetMarkers) {
+      targetMarkers.anchor = true;
     }
   }),
   ...textLevelModelMap,

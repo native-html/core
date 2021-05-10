@@ -1,5 +1,4 @@
 import { DOMElement, DOMText } from '../dom/dom-utils';
-import { DataFlowParams } from '../flow/types';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
 import { TStylesShape } from '../styles/TStyles';
@@ -7,13 +6,107 @@ import { TStylesMerger } from '../styles/TStylesMerger';
 
 export interface TNodeInit {
   readonly elementModel: HTMLElementModel<string, HTMLContentModel> | null;
-  readonly stylesMerger: TStylesMerger;
+  readonly context: {
+    readonly stylesMerger: TStylesMerger;
+    readonly setMarkersForTNode?: SetMarkersForTNode;
+    readonly removeLineBreaksAroundEastAsianDiscardSet: boolean;
+  };
   readonly parent?: TNodeImpl | null;
   readonly domNode?: DOMElement | null;
   readonly styles?: TStylesShape | null;
   readonly parentStyles?: TStylesShape | null;
   readonly nodeIndex?: number;
   readonly isUnregistered?: boolean;
+}
+
+/**
+ * A minimal TNode shape accessible at instantiation.
+ *
+ * @public
+ */
+export interface TNodeDescriptor {
+  tagName: string | null;
+  classes: string[];
+  id: string | null;
+  attributes: Record<string, string>;
+  markers: Markers;
+}
+
+/**
+ * A function to set markers for a specific TNode.
+ *
+ * @public
+ */
+export interface SetMarkersForTNode {
+  (
+    targetMarkers: Markers,
+    parentMarkers: Readonly<Markers>,
+    tnode: TNodeDescriptor
+  ): void;
+}
+
+/**
+ * Markers form an abstraction in which one node provides semantic information
+ * to itself and all its descendants. For example, `ins` elements, which stand
+ * for "insertion" of content in the context of an edit will provide the {
+ * edits: 'ins' } marker to all its descendants.
+ *
+ * Custom renderers can use markers to change their layout and convey their
+ * semantic meaning. Markers can be derived from attributes, such as `lang` and
+ * `dir` attributes, or tag names, such as `a`, `ins`, `del`...
+ */
+export interface Markers {
+  /**
+   * If this node is an `a` or has one as ancestor, this field will be set to
+   * `true`.
+   *
+   * @defaultValue false
+   */
+  anchor: boolean;
+  /**
+   * If this node is a `del` or `ins` or has either as ancestor, this field
+   * will be set accordingly. Otherwise, it will be set to 'none'.
+   *
+   * https://html.spec.whatwg.org/#edits
+   *
+   * @defaultValue 'none'
+   */
+  edits: 'ins' | 'del' | 'none';
+  /**
+   * The direction for this content. Follows `dir` attribute.
+   *
+   * https://html.spec.whatwg.org/#the-dir-attribute
+   *
+   * @defaultValue 'ltr'
+   */
+  direction: 'ltr' | 'rtl';
+  /**
+   * The language for this content. Follows `lang` attribute.
+   *
+   * https://html.spec.whatwg.org/#the-lang-and-xml:lang-attributes
+   */
+  lang: string;
+  /**
+   * * -1: this node is not an `ol` and has no `ol` parents
+   * * 0: this node is an `ol` or has one `ol` parent
+   * * 1: ...
+   */
+  olNestLevel: number;
+  /**
+   * * -1: this node is not an `ul` and has no `ul` parents
+   * * 0: this node is an `ul` or has one `ul` parent
+   * * 1: ...
+   */
+  ulNestLevel: number;
+  /**
+   * Create a new marker instance which extends this markers.
+   */
+  extend(this: Markers): Markers;
+  /**
+   * Return a string represenation of this marker, including inherited
+   * properties from parent markers.
+   */
+  toString(): string;
 }
 
 /**
@@ -97,6 +190,20 @@ export interface TNodeShape {
    * renderer for this tag.
    */
   readonly isUnregistered: boolean;
+
+  /**
+   * Markers form an abstraction in which one node provides semantic information
+   * to itself and all its descendants. For example, `ins` elements, which stand
+   * for "insertion" of content in the context of an edit will provide the {
+   * edits: 'ins' } marker to all its descendants.
+   *
+   * @remarks This attribute must be considered immutable. Never try to
+   * change it by hand, or you might update the markers of an anscestor! For
+   * performance reasons, markers instances might be shared from parent to
+   * children when they are equal.
+   */
+  readonly markers: Readonly<Markers>;
+
   /**
    * Create a JSX string representation of this node and its children.
    *
@@ -117,6 +224,11 @@ export interface TNodeShape {
   matchContentModel(contentModel: HTMLContentModel): boolean;
 }
 
+/**
+ * Metainformation extracted from `<head>` tag.
+ *
+ * @public
+ */
 export interface DocumentContext {
   charset: string;
   baseHref: string;
@@ -178,18 +290,19 @@ export interface TNodeMethods {
   trimLeft(this: TNodeImpl): void;
   trimRight(this: TNodeImpl): void;
   matchContentModel(contentModel: HTMLContentModel): boolean;
-  collapse(this: TNodeImpl, params: DataFlowParams): void;
+  collapse(this: TNodeImpl): void;
   /**
    * Collpase this node children.
    *
    * @param params
    * @returns A list of indexes to splice
    */
-  collapseChildren(this: TNodeImpl, params: DataFlowParams): void;
+  collapseChildren(this: TNodeImpl): void;
   spliceChildren(this: TNodeImpl, indexes: number[]): void;
   snapshot(options?: Partial<TNodePrintOptions>): string;
   toString(): string;
   initialize(init: TNodeInit): void;
+  setMarkers: SetMarkersForTNode;
 }
 
 export interface TNodeImpl<T = TNodeInit>
@@ -202,7 +315,6 @@ export interface TNodeImpl<T = TNodeInit>
   readonly init: T;
   readonly hasWhiteSpaceCollapsingEnabled: boolean;
   readonly parentStyles: TStylesShape | null;
-  readonly stylesMerger: TStylesMerger;
   readonly elementModel: HTMLElementModel<string, HTMLContentModel> | null;
   readonly contentModel: HTMLContentModel | null;
 }

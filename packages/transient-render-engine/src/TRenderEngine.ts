@@ -23,7 +23,7 @@ import {
   DOMNodeWithChildren,
   isDOMElement
 } from './dom/dom-utils';
-import { TDocument } from './tree/tree-types';
+import { SetMarkersForTNode, TDocument } from './tree/tree-types';
 import { DomHandlerOptions, DomVisitorCallbacks } from './dom/DomHandler';
 
 export interface TRenderEngineOptions<E extends string = never> {
@@ -89,6 +89,15 @@ export interface TRenderEngineOptions<E extends string = never> {
    * the tree **after** selecting root.
    */
   readonly selectDomRoot?: (node: DOMNodeWithChildren) => any;
+
+  /**
+   * Customize markers logic by extracting markers from TNode properties such
+   * as classes, ids, attributes, tagName ...
+   *
+   * @remarks If you are using JavaScript, you can use module augmentation and
+   * declaration merging to add properties to the {@link Markers} shape.
+   */
+  readonly setMarkersForTNode?: SetMarkersForTNode;
 
   /**
    * Disable hoisting. Note that your layout might break!
@@ -160,6 +169,7 @@ export class TRenderEngine {
     this.dataFlowParams = {
       stylesMerger,
       modelRegistry,
+      setMarkersForTNode: options?.setMarkersForTNode,
       baseStyles: new TStyles(
         stylesMerger.compileStyleDeclaration(stylesConfig.baseStyle)
       ),
@@ -220,7 +230,7 @@ export class TRenderEngine {
     const tdoc = translateDocument(document, this.dataFlowParams);
     const hoistedTDoc = this.hoistingEnabled ? hoist(tdoc) : tdoc;
     const collapsedTDoc = this.whitespaceCollapsingEnabled
-      ? collapse(hoistedTDoc, this.dataFlowParams)
+      ? collapse(hoistedTDoc)
       : tdoc;
     return (collapsedTDoc as unknown) as TDocument;
   }

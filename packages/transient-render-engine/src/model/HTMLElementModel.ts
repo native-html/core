@@ -1,8 +1,10 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
+import { Markers, SetMarkersForTNode } from '../tree/tree-types';
 import HTMLContentModel from './HTMLContentModel';
 import {
   CustomElementModel,
   ElementCategory,
+  ElementModelBase,
   NativeElementModel,
   TagName
 } from './model-types';
@@ -17,21 +19,9 @@ const translatableBlockCategories: ElementCategory[] = [
 export interface HTMLElementModelProperties<
   T extends string,
   M extends HTMLContentModel
-> {
-  readonly tagName: T;
+> extends ElementModelBase<T> {
   readonly contentModel: M;
-  readonly isOpaque: boolean;
   readonly isVoid: boolean;
-  readonly mixedUAStyles?: MixedStyleDeclaration;
-  /**
-   * Examples:
-   *
-   * - "width" and "height" attributes for &lt;img&gt; tag;
-   * - "cite" attribute for &lt;blockquote&gt; tag.
-   */
-  readonly getUADerivedStyleFromAttributes?: (
-    attributes: Record<string, string>
-  ) => MixedStyleDeclaration | null;
 }
 
 /**
@@ -48,6 +38,7 @@ export default class HTMLElementModel<
   public readonly isVoid: boolean;
   public readonly mixedUAStyles?: MixedStyleDeclaration;
   public readonly getUADerivedStyleFromAttributes: NativeElementModel['getUADerivedStyleFromAttributes'];
+  public readonly setMarkersForTNode?: SetMarkersForTNode;
 
   private constructor({
     tagName,
@@ -55,14 +46,16 @@ export default class HTMLElementModel<
     isOpaque,
     mixedUAStyles,
     isVoid,
-    getUADerivedStyleFromAttributes
+    getUADerivedStyleFromAttributes,
+    setMarkersForTNode
   }: HTMLElementModelProperties<T, M>) {
     this.tagName = tagName;
     this.contentModel = contentModel;
-    this.isOpaque = isOpaque;
+    this.isOpaque = isOpaque || false;
     this.isVoid = isVoid;
     this.mixedUAStyles = mixedUAStyles;
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
+    this.setMarkersForTNode = setMarkersForTNode;
   }
 
   static fromCustomModel<T extends string, M extends HTMLContentModel>({
@@ -87,7 +80,8 @@ export default class HTMLElementModel<
     isOpaque,
     mixedUAStyles,
     isVoid = false,
-    getUADerivedStyleFromAttributes
+    getUADerivedStyleFromAttributes,
+    setMarkersForTNode: getMarkersForTNode
   }: NativeElementModel<T, E>) {
     const isPhrasing = phrasingCategories.indexOf(category) !== -1;
     const isTranslatable =
@@ -115,7 +109,8 @@ export default class HTMLElementModel<
       contentModel: contentModel as any,
       mixedUAStyles,
       isOpaque: isOpaque ?? category === 'embedded',
-      getUADerivedStyleFromAttributes
+      getUADerivedStyleFromAttributes,
+      setMarkersForTNode: getMarkersForTNode
     });
   }
 
@@ -140,10 +135,11 @@ export default class HTMLElementModel<
   }
 
   getUADerivedCSSProcessedPropsFromAttributes(
-    attributes: Record<string, string>
+    attributes: Record<string, string>,
+    markers: Markers
   ): MixedStyleDeclaration | null {
     if (this.getUADerivedStyleFromAttributes) {
-      return this.getUADerivedStyleFromAttributes(attributes);
+      return this.getUADerivedStyleFromAttributes(attributes, markers);
     }
     return null;
   }

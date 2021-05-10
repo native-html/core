@@ -32,11 +32,11 @@ TPhrasingCtor.prototype.isEmpty = function isEmpty() {
   return this.tagName === null && this.children.every(isChildEmpty);
 };
 
-TPhrasingCtor.prototype.collapseChildren = function collapseChildren(params) {
+TPhrasingCtor.prototype.collapseChildren = function collapseChildren() {
   let previous: TNodeImpl | null = null;
   this.children.forEach((childK, k) => {
     const j = k - 1;
-    childK.collapse(params);
+    childK.collapse();
     if (
       j > -1 &&
       childK.isCollapsibleLeft() &&

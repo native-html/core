@@ -5,14 +5,17 @@ export { default as HTMLContentModel } from './model/HTMLContentModel';
 export type { TStylesShape } from './styles/TStyles';
 export type {
   DocumentContext,
-  TNodeType,
-  TNodeShape,
-  TNode,
-  TText,
-  TEmpty,
+  Markers,
+  SetMarkersForTNode,
   TBlock,
   TDocument,
-  TPhrasing
+  TEmpty,
+  TNode,
+  TNodeDescriptor,
+  TNodeShape,
+  TNodeType,
+  TPhrasing,
+  TText
 } from './tree/tree-types';
 export * from './dom/dom-utils';
 export type { DomVisitorCallbacks } from './dom/DomHandler';

@@ -4,6 +4,7 @@ import CSSProcessor, {
   MixedStyleDeclaration
 } from '@native-html/css-processor';
 import HTMLModelRegistry from '../model/HTMLModelRegistry';
+import { Markers } from '../tree/tree-types';
 import { TStyles } from './TStyles';
 import { StylesConfig } from './types';
 
@@ -75,6 +76,7 @@ export class TStylesMerger {
       classes: string[];
       id: string | null;
       attributes: Record<string, string>;
+      markers: Markers;
     }
   ): TStyles {
     const ownInlinePropsReg =
@@ -93,7 +95,8 @@ export class TStylesMerger {
     );
     const derivedPropsFromAttributes = this.enableUserAgentStyles
       ? model?.getUADerivedCSSProcessedPropsFromAttributes(
-          descriptor.attributes
+          descriptor.attributes,
+          descriptor.markers
         ) || null
       : null;
     const userAgentTagProps = this.enableUserAgentStyles

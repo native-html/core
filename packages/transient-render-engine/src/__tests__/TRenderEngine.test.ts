@@ -408,4 +408,17 @@ describe('TRenderEngine > buildTTree method', () => {
     );
     expect(tdoc).toMatchSnapshot();
   });
+  it('should support setMarkersForTNode', () => {
+    const customTTreeBuilder = new TRenderEngine({
+      setMarkersForTNode(targetMarkers) {
+        //@ts-expect-error
+        targetMarkers.toto = 'hello';
+      }
+    });
+    const tdoc = customTTreeBuilder.buildTTree(
+      '<div><article></article></div>'
+    );
+    //@ts-expect-error
+    expect(tdoc.markers.toto).toBe('hello');
+  });
 });

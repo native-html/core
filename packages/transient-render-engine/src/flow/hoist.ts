@@ -11,7 +11,7 @@ function groupText(tnode: TBlockImpl): TNodeImpl {
   let newChildren: TNodeImpl[] = [];
   const wrapperInit = {
     elementModel: null,
-    stylesMerger: tnode.stylesMerger,
+    context: tnode.init.context,
     // We need to merge styles here to make sure
     // some React Native styles working only for the uppermost Text element
     // such as "textAlign" are preserved.

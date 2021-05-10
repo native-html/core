@@ -75,6 +75,57 @@ describe('translateNode function', () => {
       expect(child.nodeIndex).toBe(i);
     });
   });
+  describe('regarding markers', () => {
+    it('should set an anchor marker with <a> elements', () => {
+      const ttree = translateTreeTest('<a href="hello">Yo!</a>');
+      expect(ttree.markers.anchor).toBe(true);
+      ttree.children.forEach((c) => {
+        expect(c.markers.anchor).toBe(true);
+      });
+    });
+    it('should set an ulNestLevel marker with <ul> elements', () => {
+      const ttree = translateTreeTest('<ul><li></li></ul>');
+      expect(ttree.markers.ulNestLevel).toBe(0);
+      ttree.children.forEach((c) => {
+        expect(c.markers.ulNestLevel).toBe(0);
+      });
+    });
+    it('should set an olNestLevel marker with <ol> elements', () => {
+      const ttree = translateTreeTest('<ol><li></li></ol>');
+      expect(ttree.markers.olNestLevel).toBe(0);
+      ttree.children.forEach((c) => {
+        expect(c.markers.olNestLevel).toBe(0);
+      });
+    });
+    it('should set an edit marker with <ins> elements', () => {
+      const ttree = translateTreeTest('<ins>Text</ins>');
+      expect(ttree.markers.edits).toBe('ins');
+      ttree.children.forEach((c) => {
+        expect(c.markers.edits).toBe('ins');
+      });
+    });
+    it('should set an edit marker with <del> elements', () => {
+      const ttree = translateTreeTest('<del>Text</del>');
+      expect(ttree.markers.edits).toBe('del');
+      ttree.children.forEach((c) => {
+        expect(c.markers.edits).toBe('del');
+      });
+    });
+    it('should set a lang marker with lang attributes', () => {
+      const ttree = translateTreeTest('<div lang="fr">Text</div>');
+      expect(ttree.markers.lang).toBe('fr');
+      ttree.children.forEach((c) => {
+        expect(c.markers.lang).toBe('fr');
+      });
+    });
+    it('should set a direction marker with dir attributes', () => {
+      const ttree = translateTreeTest('<div dir="rtl">Text</div>');
+      expect(ttree.markers.direction).toBe('rtl');
+      ttree.children.forEach((c) => {
+        expect(c.markers.direction).toBe('rtl');
+      });
+    });
+  });
 });
 
 describe('mapNodeList function', () => {

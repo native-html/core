@@ -1,4 +1,5 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
+import { Markers, SetMarkersForTNode } from '../tree/tree-types';
 import HTMLContentModel from './HTMLContentModel';
 import HTMLElementModel from './HTMLElementModel';
 
@@ -168,17 +169,23 @@ export interface ElementModelBase<T extends string> {
   /**
    * The tag name associated with this model.
    */
-  tagName: T;
+  readonly tagName: T;
   /**
    * An opaque element translated TNode will have a `domNode` property.
    */
-  isOpaque?: boolean;
+  readonly isOpaque?: boolean;
   /**
    * Equivalent of "user-agent" styles. The default styles for the element.
    *
    * @remarks These styles will get merged over by `tagsStyles`.
    */
-  mixedUAStyles?: MixedStyleDeclaration;
+  readonly mixedUAStyles?: MixedStyleDeclaration;
+
+  /**
+   * Derive markers for one TNode.
+   */
+  setMarkersForTNode?: SetMarkersForTNode;
+
   /**
    * Conditional "user-agent" styles.
    *
@@ -186,7 +193,8 @@ export interface ElementModelBase<T extends string> {
    * colored blue only when `href` is defined.
    */
   getUADerivedStyleFromAttributes?: (
-    attributes: Record<string, string>
+    attributes: Record<string, string>,
+    markers: Markers
   ) => MixedStyleDeclaration | null;
 }
 

@@ -10,17 +10,18 @@ import {
   recursiveHoisting,
   rfc002Source
 } from './shared';
-import { defaultDataFlowParams, defaultInit, translateTreeTest } from './utils';
+import { defaultInit, translateTreeTest } from './utils';
 import { DOMText } from '../../dom/dom-utils';
 
 function makeTTree(
   html: string,
   removeLineBreaksAroundEastAsianDiscardSet = false
 ): TNodeImpl {
-  return collapse(hoist(translateTreeTest(html)), {
-    ...defaultDataFlowParams,
-    removeLineBreaksAroundEastAsianDiscardSet
-  });
+  return collapse(
+    hoist(
+      translateTreeTest(html, { removeLineBreaksAroundEastAsianDiscardSet })
+    )
+  );
 }
 
 function makeTextChildren() {
@@ -58,19 +59,19 @@ describe('collapse function', () => {
   it('should remove empty children from TBlock nodes', () => {
     const ttree = new TBlockCtor(defaultInit);
     ttree.bindChildren(makeTextChildren());
-    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
+    expect(collapse(ttree).children).toHaveLength(0);
   });
   it('should remove empty anonymous TText children from TPhrasing nodes', () => {
     const ttree = new TPhrasingCtor(defaultInit);
     ttree.bindChildren(makeTextChildren());
-    expect(collapse(ttree, defaultDataFlowParams).children).toHaveLength(0);
+    expect(collapse(ttree).children).toHaveLength(0);
   });
   it('should remove empty anonymous TPhrasing children from TPhrasing nodes', () => {
     const ttree = new TPhrasingCtor(defaultInit);
     const tphrasing = new TPhrasingCtor(defaultInit);
     tphrasing.bindChildren(makeTextChildren());
     ttree.bindChildren([tphrasing]);
-    const collapsed = collapse(ttree, defaultDataFlowParams);
+    const collapsed = collapse(ttree);
     expect(collapsed.children).toHaveLength(0);
     expect(collapsed).toMatchSnapshot();
   });
@@ -82,7 +83,7 @@ describe('collapse function', () => {
       new TTextCtor({ textNode: new DOMText(' Foo'), ...defaultInit }),
       new TTextCtor({ textNode: new DOMText(' Bar'), ...defaultInit })
     ]);
-    const collapsed = collapse(ttree, defaultDataFlowParams);
+    const collapsed = collapse(ttree);
     expect(collapsed.children).toHaveLength(2);
     expect(collapsed).toMatchSnapshot();
   });

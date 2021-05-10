@@ -9,5 +9,5 @@ const stylesMerger = new TStylesMerger(
 );
 export const defaultInit: TNodeInit = {
   elementModel: null,
-  stylesMerger
+  context: { stylesMerger, removeLineBreaksAroundEastAsianDiscardSet: false }
 };

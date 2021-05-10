@@ -71,7 +71,7 @@ function translateElement({
   const sharedProps: Omit<TNodeInit, 'contentModel' | 'elementModel'> = {
     nodeIndex,
     parentStyles,
-    stylesMerger: params.stylesMerger,
+    context: params,
     domNode: node,
     parent
   };
@@ -147,7 +147,7 @@ export function translateNode({
   if (isDOMText(node)) {
     return new TTextCtor({
       textNode: node,
-      stylesMerger: params.stylesMerger,
+      context: params,
       parentStyles,
       domNode: null,
       elementModel: null,
@@ -172,7 +172,7 @@ export function translateDocument(
   params: DataFlowParams
 ): TDocumentImpl {
   const tdoc = new TDocumentCtor({
-    stylesMerger: params.stylesMerger,
+    context: params,
     styles: params.baseStyles,
     domNode: document as any
   });

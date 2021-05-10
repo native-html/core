@@ -1,5 +1,6 @@
 import { CSSProcessedProps } from '@native-html/css-processor';
 import HTMLModelRegistry from '../../model/HTMLModelRegistry';
+import markersProtype from '../../tree/markersProtype';
 import { defaultStylesConfig } from '../defaults';
 import { TStyles } from '../TStyles';
 import { TStylesMerger } from '../TStylesMerger';
@@ -27,7 +28,8 @@ describe('TStylesMerger', () => {
           classes: [],
           id: 'main',
           tagName: 'div',
-          attributes: {}
+          attributes: {},
+          markers: Object.create(markersProtype)
         }).nativeTextFlow.color
       ).toEqual('blue');
     });
@@ -48,7 +50,8 @@ describe('TStylesMerger', () => {
           id: null,
           classes: ['main'],
           tagName: 'div',
-          attributes: {}
+          attributes: {},
+          markers: Object.create(markersProtype)
         }).nativeTextFlow.color
       ).toEqual('blue');
     });
@@ -69,7 +72,8 @@ describe('TStylesMerger', () => {
           id: null,
           classes: [],
           tagName: 'div',
-          attributes: {}
+          attributes: {},
+          markers: Object.create(markersProtype)
         }).nativeTextFlow.color
       ).toEqual('blue');
     });
@@ -95,7 +99,8 @@ describe('TStylesMerger', () => {
           id: null,
           classes: ['main'],
           tagName: 'div',
-          attributes: {}
+          attributes: {},
+          markers: Object.create(markersProtype)
         }).nativeTextFlow.color
       ).toEqual('blue');
     });
@@ -110,7 +115,8 @@ describe('TStylesMerger', () => {
         id: 'main',
         classes: ['content'],
         tagName: 'div',
-        attributes: {}
+        attributes: {},
+        markers: Object.create(markersProtype)
       });
       expect(styles).toStrictEqual(emptyStyles);
     });
@@ -133,7 +139,8 @@ describe('TStylesMerger', () => {
         id: 'main',
         classes: ['content', 'content--highlight'],
         tagName: 'div',
-        attributes: {}
+        attributes: {},
+        markers: Object.create(markersProtype)
       });
       expect(styles.nativeTextFlow).toMatchObject({
         color: 'blue'
@@ -162,7 +169,8 @@ describe('TStylesMerger', () => {
           id: 'main',
           classes: ['content', 'content--highlight'],
           tagName: 'div',
-          attributes: {}
+          attributes: {},
+          markers: Object.create(markersProtype)
         }).nativeTextFlow
       ).toStrictEqual({
         color: 'green'
@@ -190,7 +198,8 @@ describe('TStylesMerger', () => {
           id: 'main',
           classes: ['content'],
           tagName: 'div',
-          attributes: {}
+          attributes: {},
+          markers: Object.create(markersProtype)
         }).nativeTextFlow
       ).toStrictEqual({
         color: 'red'
@@ -210,7 +219,8 @@ describe('TStylesMerger', () => {
         classes: [],
         id: null,
         tagName: null,
-        attributes: {}
+        attributes: {},
+        markers: Object.create(markersProtype)
       });
       expect(styles.nativeTextFlow.color).toStrictEqual('red');
     });
@@ -234,7 +244,8 @@ describe('TStylesMerger', () => {
             classes: [],
             id: null,
             tagName: 'div',
-            attributes: {}
+            attributes: {},
+            markers: Object.create(markersProtype)
           }
         ).nativeTextFlow.color
       ).toStrictEqual('blue');
@@ -253,7 +264,8 @@ describe('TStylesMerger', () => {
             classes: [],
             attributes: {},
             id: null,
-            tagName: 'blockquote'
+            tagName: 'blockquote',
+            markers: Object.create(markersProtype)
           });
           expect(processedProps.nativeBlockRet).toStrictEqual({
             marginBottom: 16,
@@ -276,7 +288,8 @@ describe('TStylesMerger', () => {
               type: 'cite'
             },
             id: null,
-            tagName: 'blockquote'
+            tagName: 'blockquote',
+            markers: Object.create(markersProtype)
           });
           expect(processedProps.nativeBlockRet).toStrictEqual({
             borderLeftWidth: 2,
@@ -301,7 +314,8 @@ describe('TStylesMerger', () => {
             classes: [],
             attributes: {},
             id: null,
-            tagName: 'div'
+            tagName: 'div',
+            markers: Object.create(markersProtype)
           });
           expect(processedProps.nativeBlockFlow).toStrictEqual({});
           expect(processedProps.nativeBlockRet).toStrictEqual({});
@@ -320,7 +334,8 @@ describe('TStylesMerger', () => {
             classes: [],
             attributes: {},
             id: null,
-            tagName: 'a'
+            tagName: 'a',
+            markers: Object.create(markersProtype)
           });
           expect(processedProps.nativeTextFlow).toStrictEqual({});
           expect(processedProps.nativeTextRet).toStrictEqual({});
@@ -339,7 +354,8 @@ describe('TStylesMerger', () => {
               href: ''
             },
             id: null,
-            tagName: 'a'
+            tagName: 'a',
+            markers: Object.create(markersProtype)
           });
           expect(processedProps.nativeTextFlow).toStrictEqual({
             color: '#245dc1'
@@ -369,7 +385,8 @@ describe('TStylesMerger', () => {
               href: ''
             },
             id: null,
-            tagName: 'a'
+            tagName: 'a',
+            markers: Object.create(markersProtype)
           });
           expect(processedProps.nativeTextFlow).toStrictEqual({
             color: 'red'
