@@ -158,6 +158,9 @@ export type TextLevelTagNames =
   | 'br'
   | 'wbr';
 
+/**
+ * @public
+ */
 export type HTMLModelRecord<
   T extends string = TagName,
   M extends HTMLContentModel = HTMLContentModel

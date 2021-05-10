@@ -238,4 +238,8 @@ export class TRenderEngine {
   buildTTree(html: string): TDocument {
     return this.buildTTreeFromDoc(this.parseDocument(html));
   }
+
+  getHTMLElementsModels() {
+    return this.dataFlowParams.modelRegistry.modelRecords;
+  }
 }

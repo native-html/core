@@ -421,4 +421,8 @@ describe('TRenderEngine > buildTTree method', () => {
     //@ts-expect-error
     expect(tdoc.markers.toto).toBe('hello');
   });
+  it('should implement getHTMLElementsModels', () => {
+    const ttreeBuilder = new TRenderEngine();
+    expect(ttreeBuilder.getHTMLElementsModels()).toBeDefined();
+  });
 });

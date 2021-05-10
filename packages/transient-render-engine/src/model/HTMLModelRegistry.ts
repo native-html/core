@@ -6,7 +6,7 @@ import HTMLElementModel from './HTMLElementModel';
 import { HTMLModelRecord, TagName } from './model-types';
 
 export default class HTMLModelRegistry<E extends string> {
-  private modelRecord: HTMLModelRecord<
+  public readonly modelRecords: HTMLModelRecord<
     E | TagName
   > = defaultHTMLElementModels as HTMLModelRecord<any>;
 
@@ -16,15 +16,15 @@ export default class HTMLModelRegistry<E extends string> {
     ) => HTMLModelRecord<E | TagName>
   ) {
     if (typeof customize === 'function') {
-      this.modelRecord = customize(defaultHTMLElementModels);
+      this.modelRecords = customize(defaultHTMLElementModels);
     }
   }
 
   getElementModelFromTagName(
     tagName: E | TagName
   ): HTMLElementModel<string, any> | null {
-    if (lookupRecord(this.modelRecord, tagName)) {
-      return this.modelRecord[tagName];
+    if (lookupRecord(this.modelRecords, tagName)) {
+      return this.modelRecords[tagName];
     }
     return null;
   }
