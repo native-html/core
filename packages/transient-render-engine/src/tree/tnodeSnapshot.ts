@@ -1,15 +1,7 @@
-import { TStyles } from '../styles/TStyles';
 import { TNode, TNodePrintOptions } from './tree-types';
 
-function printTableStyles(styles: TStyles) {
-  const allStyles = {
-    ...styles.nativeTextFlow,
-    ...styles.nativeBlockFlow,
-    ...styles.webTextFlow,
-    ...styles.nativeTextRet,
-    ...styles.nativeBlockRet
-  };
-  const entries = Object.entries(allStyles);
+function printTableStyles(styles: Record<string, any>) {
+  const entries = Object.entries(styles);
   return entries.reduce((prev, [name, val]) => {
     return `${prev}${prev ? ',' : ''} ${name}: ${JSON.stringify(val)}`;
   }, '');
@@ -36,8 +28,10 @@ function tnodePropertiesString(
     typeof tnode.attributes.src === 'string'
       ? `src=${JSON.stringify(tnode.attributes.src)}`
       : null;
-  const pstyles = withStyles ? printTableStyles(tnode.styles) : null;
-  const stylesPrint = pstyles ? `styles={{${pstyles} }}` : null;
+  const pstyles = withStyles ? printTableStyles(tnode.getNativeStyles()) : null;
+  const nativeStylesPrint = pstyles ? `nativeStyles={{${pstyles} }}` : null;
+  const oStyles = withStyles ? printTableStyles(tnode.getWebStyles()) : null;
+  const webStylesPrint = oStyles ? `webStyles={{${oStyles}}}` : null;
   const detailsPrint = [
     tagPrint,
     unregisteredPrint,
@@ -47,7 +41,8 @@ function tnodePropertiesString(
     dataPrint,
     anchorPrint,
     srcPrint,
-    stylesPrint
+    nativeStylesPrint,
+    webStylesPrint
   ]
     .filter((p) => p !== null)
     .join(' ');

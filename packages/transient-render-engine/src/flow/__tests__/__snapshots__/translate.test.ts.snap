@@ -26,13 +26,13 @@ exports[`translateNode function should translate a phrasing element with one tex
 `;
 
 exports[`translateNode function should translate styles (1) 1`] = `
-<TBlock tagName="div" nodeIndex={0} styles={{ fontSize: 18 }} />
+<TBlock tagName="div" nodeIndex={0} />
 
 `;
 
 exports[`translateNode function should translate styles (2) 1`] = `
 <TPhrasing tagName="a" nodeIndex={0} href="http://google.fr">
-  <TBlock tagName="div" nodeIndex={0} styles={{ backgroundColor: "red" }} />
+  <TBlock tagName="div" nodeIndex={0} nativeStyles={{ backgroundColor: "red" }} />
 </TPhrasing>
 
 `;

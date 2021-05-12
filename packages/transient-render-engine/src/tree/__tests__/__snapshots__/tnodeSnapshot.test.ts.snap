@@ -33,6 +33,6 @@ exports[`tnodeToString should print ids, classes and anchors 1`] = `
 `;
 
 exports[`tnodeToString should print styles when withStyles is enabled 1`] = `
-"<TText tagName=\\"span\\" data=\\"Blue!\\" styles={{ color: \\"blue\\" }} />
+"<TText tagName=\\"span\\" data=\\"Blue!\\" nativeStyles={{ color: \\"blue\\" }} />
 "
 `;

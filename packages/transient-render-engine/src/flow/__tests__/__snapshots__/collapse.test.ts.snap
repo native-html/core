@@ -1,10 +1,10 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`collapse function should collapse a node with white-space set to "normal" while its parent has white-space set to "pre" 1`] = `
-<TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "pre" }}>
-  <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "pre" }}>
-    <TText tagName="span" nodeIndex={0} data=" This is nice " styles={{ whiteSpace: "pre" }} />
-    <TText tagName="strong" nodeIndex={1} data=" Should collapse" styles={{ whiteSpace: "normal" }} />
+<TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "pre"}}>
+  <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "pre"}}>
+    <TText tagName="span" nodeIndex={0} data=" This is nice " webStyles={{ whiteSpace: "pre"}} />
+    <TText tagName="strong" nodeIndex={1} data=" Should collapse" webStyles={{ whiteSpace: "normal"}} />
   </TPhrasing>
 </TBlock>
 
@@ -44,9 +44,9 @@ exports[`collapse function should collapse when white-space CSS property is not 
 `;
 
 exports[`collapse function should collapse when white-space CSS property is set to "normal" 1`] = `
-<TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TText anonymous nodeIndex={0} data="This is great!" styles={{ whiteSpace: "normal" }} />
+<TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TText anonymous nodeIndex={0} data="This is great!" webStyles={{ whiteSpace: "normal"}} />
   </TPhrasing>
 </TBlock>
 
@@ -96,19 +96,19 @@ exports[`collapse function should handle deeply nested HTML 1`] = `
 `;
 
 exports[`collapse function should handle direct style inheritance 1`] = `
-<TBlock tagName="div" nodeIndex={0} styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
-  <TPhrasing anonymous nodeIndex={0} styles={{ fontSize: 18 }}>
-    <TText tagName="span" nodeIndex={0} data="This is nice!" styles={{ fontSize: 18, color: "red" }} />
+<TBlock tagName="div" nodeIndex={0} nativeStyles={{ borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
+  <TPhrasing anonymous nodeIndex={0} nativeStyles={{ fontSize: 18 }}>
+    <TText tagName="span" nodeIndex={0} data="This is nice!" nativeStyles={{ fontSize: 18, color: "red" }} />
   </TPhrasing>
 </TBlock>
 
 `;
 
 exports[`collapse function should handle indirect style inheritance 1`] = `
-<TBlock tagName="div" nodeIndex={0} styles={{ fontSize: 18 }}>
-  <TBlock tagName="div" nodeIndex={0} styles={{ fontSize: 18, borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ fontSize: 18 }}>
-      <TText anonymous nodeIndex={0} data="This is great!" styles={{ fontSize: 18 }} />
+<TBlock tagName="div" nodeIndex={0}>
+  <TBlock tagName="div" nodeIndex={0} nativeStyles={{ borderTopWidth: 20, borderRightWidth: 20, borderBottomWidth: 20, borderLeftWidth: 20 }}>
+    <TPhrasing anonymous nodeIndex={0} nativeStyles={{ fontSize: 18 }}>
+      <TText anonymous nodeIndex={0} data="This is great!" nativeStyles={{ fontSize: 18 }} />
     </TPhrasing>
   </TBlock>
 </TBlock>
@@ -145,9 +145,9 @@ exports[`collapse function should hoist blocks recursively 1`] = `
 `;
 
 exports[`collapse function should not collapse when white-space CSS property is set to "pre" 1`] = `
-<TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "pre" }}>
-  <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "pre" }}>
-    <TText anonymous nodeIndex={0} data="  This is great!  " styles={{ whiteSpace: "pre" }} />
+<TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "pre"}}>
+  <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "pre"}}>
+    <TText anonymous nodeIndex={0} data="  This is great!  " webStyles={{ whiteSpace: "pre"}} />
   </TPhrasing>
 </TBlock>
 

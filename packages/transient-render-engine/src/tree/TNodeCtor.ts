@@ -178,6 +178,19 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     this.bindChildren(this.children, true);
   },
 
+  getNativeStyles() {
+    return {
+      ...this.styles.nativeBlockFlow,
+      ...this.styles.nativeBlockRet,
+      ...this.styles.nativeTextFlow,
+      ...this.styles.nativeTextRet
+    };
+  },
+
+  getWebStyles() {
+    return this.styles.webTextFlow;
+  },
+
   collapseChildren() {
     return;
   },

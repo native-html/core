@@ -49,7 +49,7 @@ exports[`hoist function should preserve parents before hoisting 1`] = `
 
 exports[`hoist function should preserve styles of encompassing blocks 1`] = `
 <TBlock tagName="a" nodeIndex={0} href="http://google.fr">
-  <TBlock tagName="div" nodeIndex={0} styles={{ backgroundColor: "red" }} />
+  <TBlock tagName="div" nodeIndex={0} nativeStyles={{ backgroundColor: "red" }} />
 </TBlock>
 
 `;

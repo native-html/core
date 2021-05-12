@@ -297,7 +297,7 @@ describe('TRenderEngine > buildTTree method', () => {
     it('when provided a html snippet', () => {
       const tdoc = customTTreeBuilder.buildTTree('<div></div>');
       expect(tdoc).toMatchSnapshot();
-      expect(tdoc.styles.nativeBlockRet.marginTop).toBe(10);
+      expect(tdoc.getNativeStyles().marginTop).toBe(10);
     });
   });
   describe('should have its children inherit from baseStyles', () => {

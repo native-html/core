@@ -1,11 +1,11 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`TRenderEngine > buildTTree method given a HTML document, should return an instance of TDocument which has one TBlock(body) child 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TEmpty tagName="head" nodeIndex={0} styles={{ whiteSpace: "normal" }} />
-  <TBlock tagName="body" nodeIndex={1} styles={{ whiteSpace: "normal" }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TText tagName="span" nodeIndex={0} data="Hello world!" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TEmpty tagName="head" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
+  <TBlock tagName="body" nodeIndex={1} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TText tagName="span" nodeIndex={0} data="Hello world!" webStyles={{ whiteSpace: "normal"}} />
     </TPhrasing>
   </TBlock>
 </TDocument>
@@ -13,29 +13,29 @@ exports[`TRenderEngine > buildTTree method given a HTML document, should return 
 `;
 
 exports[`TRenderEngine > buildTTree method should handle html snippets 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
 
 `;
 
 exports[`TRenderEngine > buildTTree method should handle html snippets with multiple root nodes 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }} />
-    <TBlock tagName="div" nodeIndex={1} styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
+    <TBlock tagName="div" nodeIndex={1} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
 
 `;
 
 exports[`TRenderEngine > buildTTree method should handle special case when baseStyle.fontSize is not a number 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ fontSize: 14, whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ fontSize: 14, whiteSpace: "normal" }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ fontSize: 14, whiteSpace: "normal" }}>
-      <TText tagName="span" nodeIndex={0} data="A" styles={{ fontSize: 14, whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing anonymous nodeIndex={0} nativeStyles={{ fontSize: 14 }} webStyles={{ whiteSpace: "normal"}}>
+      <TText tagName="span" nodeIndex={0} data="A" nativeStyles={{ fontSize: 14 }} webStyles={{ whiteSpace: "normal"}} />
     </TPhrasing>
   </TBlock>
 </TDocument>
@@ -43,19 +43,19 @@ exports[`TRenderEngine > buildTTree method should handle special case when baseS
 `;
 
 exports[`TRenderEngine > buildTTree method should handle the case where the root element is a body element 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
 
 `;
 
 exports[`TRenderEngine > buildTTree method should have its children inherit from UA styles when enableUserAgentStyles is enabled should work with em tags 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ fontSize: 14, whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ fontSize: 14, whiteSpace: "normal" }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ fontSize: 14, whiteSpace: "normal" }}>
-      <TText tagName="em" nodeIndex={0} data="This should be italic" styles={{ fontSize: 14, fontStyle: "italic", whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing anonymous nodeIndex={0} nativeStyles={{ fontSize: 14 }} webStyles={{ whiteSpace: "normal"}}>
+      <TText tagName="em" nodeIndex={0} data="This should be italic" nativeStyles={{ fontSize: 14, fontStyle: "italic" }} webStyles={{ whiteSpace: "normal"}} />
     </TPhrasing>
   </TBlock>
 </TDocument>
@@ -63,12 +63,12 @@ exports[`TRenderEngine > buildTTree method should have its children inherit from
 `;
 
 exports[`TRenderEngine > buildTTree method should have its children inherit from baseStyles when provided a full html page markup 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ fontSize: 12, whiteSpace: "normal" }}>
-  <TEmpty tagName="head" nodeIndex={0} styles={{ fontSize: 12, whiteSpace: "normal" }} />
-  <TBlock tagName="body" nodeIndex={1} styles={{ fontSize: 12, whiteSpace: "normal" }}>
-    <TBlock tagName="div" nodeIndex={0} styles={{ fontSize: 12, whiteSpace: "normal" }}>
-      <TPhrasing anonymous nodeIndex={0} styles={{ fontSize: 12, whiteSpace: "normal" }}>
-        <TText anonymous nodeIndex={0} data="This text should inherit baseStyles" styles={{ fontSize: 12, whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TEmpty tagName="head" nodeIndex={0} nativeStyles={{ fontSize: 12 }} webStyles={{ whiteSpace: "normal"}} />
+  <TBlock tagName="body" nodeIndex={1} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TPhrasing anonymous nodeIndex={0} nativeStyles={{ fontSize: 12 }} webStyles={{ whiteSpace: "normal"}}>
+        <TText anonymous nodeIndex={0} data="This text should inherit baseStyles" nativeStyles={{ fontSize: 12 }} webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
     </TBlock>
   </TBlock>
@@ -77,11 +77,11 @@ exports[`TRenderEngine > buildTTree method should have its children inherit from
 `;
 
 exports[`TRenderEngine > buildTTree method should have its children inherit from baseStyles when provided a html snippet 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ fontSize: 12, whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ fontSize: 12, whiteSpace: "normal" }}>
-    <TBlock tagName="div" nodeIndex={0} styles={{ fontSize: 12, whiteSpace: "normal" }}>
-      <TPhrasing anonymous nodeIndex={0} styles={{ fontSize: 12, whiteSpace: "normal" }}>
-        <TText anonymous nodeIndex={0} data="This text should inherit baseStyles" styles={{ fontSize: 12, whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TPhrasing anonymous nodeIndex={0} nativeStyles={{ fontSize: 12 }} webStyles={{ whiteSpace: "normal"}}>
+        <TText anonymous nodeIndex={0} data="This text should inherit baseStyles" nativeStyles={{ fontSize: 12 }} webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
     </TBlock>
   </TBlock>
@@ -90,10 +90,10 @@ exports[`TRenderEngine > buildTTree method should have its children inherit from
 `;
 
 exports[`TRenderEngine > buildTTree method should not provide a root fontSize when enableUserAgentStyles is set to false 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TText tagName="span" nodeIndex={0} data="A" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TText tagName="span" nodeIndex={0} data="A" webStyles={{ whiteSpace: "normal"}} />
     </TPhrasing>
   </TBlock>
 </TDocument>
@@ -101,34 +101,34 @@ exports[`TRenderEngine > buildTTree method should not provide a root fontSize wh
 `;
 
 exports[`TRenderEngine > buildTTree method should retain own baseStyles when provided a html snippet 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal", marginTop: 10 }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} nativeStyles={{ marginTop: 10 }} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
 
 `;
 
 exports[`TRenderEngine > buildTTree method should still parse inline CSS styles when enableUserAgentStyles is set to false 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal", paddingTop: 1 }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="div" nodeIndex={0} nativeStyles={{ paddingTop: 1 }} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
 
 `;
 
 exports[`TRenderEngine > buildTTree method should support disabling hoisting 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TPhrasing tagName="a" nodeIndex={0} href="https://domain.com" styles={{ whiteSpace: "normal" }}>
-      <TText anonymous nodeIndex={0} data="This is " styles={{ whiteSpace: "normal" }} />
-      <TText tagName="span" nodeIndex={1} data="phrasing content" styles={{ whiteSpace: "normal" }} />
-      <TText anonymous nodeIndex={2} data=" " styles={{ whiteSpace: "normal" }} />
-      <TBlock tagName="img" nodeIndex={3} src="https://domain.com/logo.jpg" styles={{ whiteSpace: "normal" }} />
-      <TText anonymous nodeIndex={4} data=" and this is " styles={{ whiteSpace: "normal" }} />
-      <TText tagName="strong" nodeIndex={5} data="too" styles={{ whiteSpace: "normal" }} />
-      <TText anonymous nodeIndex={6} data="." styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing tagName="a" nodeIndex={0} href="https://domain.com" webStyles={{ whiteSpace: "normal"}}>
+      <TText anonymous nodeIndex={0} data="This is " webStyles={{ whiteSpace: "normal"}} />
+      <TText tagName="span" nodeIndex={1} data="phrasing content" webStyles={{ whiteSpace: "normal"}} />
+      <TText anonymous nodeIndex={2} data=" " webStyles={{ whiteSpace: "normal"}} />
+      <TBlock tagName="img" nodeIndex={3} src="https://domain.com/logo.jpg" webStyles={{ whiteSpace: "normal"}} />
+      <TText anonymous nodeIndex={4} data=" and this is " webStyles={{ whiteSpace: "normal"}} />
+      <TText tagName="strong" nodeIndex={5} data="too" webStyles={{ whiteSpace: "normal"}} />
+      <TText anonymous nodeIndex={6} data="." webStyles={{ whiteSpace: "normal"}} />
     </TPhrasing>
   </TBlock>
 </TDocument>
@@ -136,19 +136,19 @@ exports[`TRenderEngine > buildTTree method should support disabling hoisting 1`]
 `;
 
 exports[`TRenderEngine > buildTTree method should support disabling whitespace collapsing 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="a" nodeIndex={0} href="https://domain.com" styles={{ whiteSpace: "normal" }}>
-      <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TText anonymous nodeIndex={0} data="\\nThis is\\n" styles={{ whiteSpace: "normal" }} />
-        <TText tagName="span" nodeIndex={1} data="phrasing content" styles={{ whiteSpace: "normal" }} />
-        <TText anonymous nodeIndex={2} data="\\n" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="a" nodeIndex={0} href="https://domain.com" webStyles={{ whiteSpace: "normal"}}>
+      <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TText anonymous nodeIndex={0} data="\\nThis is\\n" webStyles={{ whiteSpace: "normal"}} />
+        <TText tagName="span" nodeIndex={1} data="phrasing content" webStyles={{ whiteSpace: "normal"}} />
+        <TText anonymous nodeIndex={2} data="\\n" webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
-      <TBlock tagName="img" nodeIndex={3} src="https://domain.com/logo.jpg" styles={{ whiteSpace: "normal" }} />
-      <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TText anonymous nodeIndex={4} data="\\n    and this is " styles={{ whiteSpace: "normal" }} />
-        <TText tagName="strong" nodeIndex={5} data="too" styles={{ whiteSpace: "normal" }} />
-        <TText anonymous nodeIndex={6} data=".\\n" styles={{ whiteSpace: "normal" }} />
+      <TBlock tagName="img" nodeIndex={3} src="https://domain.com/logo.jpg" webStyles={{ whiteSpace: "normal"}} />
+      <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TText anonymous nodeIndex={4} data="\\n    and this is " webStyles={{ whiteSpace: "normal"}} />
+        <TText tagName="strong" nodeIndex={5} data="too" webStyles={{ whiteSpace: "normal"}} />
+        <TText anonymous nodeIndex={6} data=".\\n" webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
     </TBlock>
   </TBlock>
@@ -157,10 +157,10 @@ exports[`TRenderEngine > buildTTree method should support disabling whitespace c
 `;
 
 exports[`TRenderEngine > buildTTree method should support domVisitors 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TText tagName="em" nodeIndex={0} data="hey" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TText tagName="em" nodeIndex={0} data="hey" webStyles={{ whiteSpace: "normal"}} />
     </TPhrasing>
   </TBlock>
 </TDocument>
@@ -168,10 +168,10 @@ exports[`TRenderEngine > buildTTree method should support domVisitors 1`] = `
 `;
 
 exports[`TRenderEngine > buildTTree method should support ignoreDomNode 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TText tagName="em" nodeIndex={0} data="" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TText tagName="em" nodeIndex={0} data="" webStyles={{ whiteSpace: "normal"}} />
     </TPhrasing>
   </TBlock>
 </TDocument>
@@ -179,18 +179,18 @@ exports[`TRenderEngine > buildTTree method should support ignoreDomNode 1`] = `
 `;
 
 exports[`TRenderEngine > buildTTree method should support ignoredDomTags 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
 </TDocument>
 
 `;
 
 exports[`TRenderEngine > buildTTree method should support ignoredTags 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="article" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TText anonymous nodeIndex={0} data="Text" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="article" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TText anonymous nodeIndex={0} data="Text" webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
     </TBlock>
   </TBlock>
@@ -199,11 +199,11 @@ exports[`TRenderEngine > buildTTree method should support ignoredTags 1`] = `
 `;
 
 exports[`TRenderEngine > buildTTree method should support selectDomRoot returning a child 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="article" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TText anonymous nodeIndex={0} data="Text" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="article" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TText anonymous nodeIndex={0} data="Text" webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
     </TBlock>
   </TBlock>
@@ -212,12 +212,12 @@ exports[`TRenderEngine > buildTTree method should support selectDomRoot returnin
 `;
 
 exports[`TRenderEngine > buildTTree method should support selectDomRoot returning a falsy value 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TBlock tagName="article" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-          <TText anonymous nodeIndex={0} data="Text" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TBlock tagName="article" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+          <TText anonymous nodeIndex={0} data="Text" webStyles={{ whiteSpace: "normal"}} />
         </TPhrasing>
       </TBlock>
     </TBlock>
@@ -227,12 +227,12 @@ exports[`TRenderEngine > buildTTree method should support selectDomRoot returnin
 `;
 
 exports[`TRenderEngine > buildTTree method should support selectDomRoot returning the passed node 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TBlock tagName="article" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-          <TText anonymous nodeIndex={0} data="Text" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TBlock tagName="article" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+          <TText anonymous nodeIndex={0} data="Text" webStyles={{ whiteSpace: "normal"}} />
         </TPhrasing>
       </TBlock>
     </TBlock>
@@ -242,11 +242,11 @@ exports[`TRenderEngine > buildTTree method should support selectDomRoot returnin
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to change a model type to block 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="em" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TText anonymous nodeIndex={0} data="This should be a block!" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="em" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TText anonymous nodeIndex={0} data="This should be a block!" webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
     </TBlock>
   </TBlock>
@@ -255,11 +255,11 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to change a mod
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to make an untranslatable element translatable 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="button" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TText anonymous nodeIndex={0} data="Hello" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="button" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TText anonymous nodeIndex={0} data="Hello" webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
     </TBlock>
   </TBlock>
@@ -268,11 +268,11 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to make an untr
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom block tags 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="customtag" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TText anonymous nodeIndex={0} data="This should be a block!" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="customtag" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TText anonymous nodeIndex={0} data="This should be a block!" webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
     </TBlock>
   </TBlock>
@@ -281,10 +281,10 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to register cus
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom mixed tags should handle mixed tags surrounding blocks like blocks 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TBlock tagName="customtag" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TBlock tagName="div" nodeIndex={0} styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TBlock tagName="customtag" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
     </TBlock>
   </TBlock>
 </TDocument>
@@ -292,11 +292,11 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to register cus
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom mixed tags should translate mixed tags inside phrasing with text children to TText 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TPhrasing tagName="span" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-        <TText tagName="customtag" nodeIndex={0} data="hi!" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TPhrasing tagName="span" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+        <TText tagName="customtag" nodeIndex={0} data="hi!" webStyles={{ whiteSpace: "normal"}} />
       </TPhrasing>
     </TPhrasing>
   </TBlock>
@@ -305,10 +305,10 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to register cus
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom textual tags should preserve tag when isOpaque is set to true. 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TText tagName="customtag" nodeIndex={0} data="" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TText tagName="customtag" nodeIndex={0} data="" webStyles={{ whiteSpace: "normal"}} />
     </TPhrasing>
   </TBlock>
 </TDocument>
@@ -316,10 +316,10 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to register cus
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom textual tags should translate to TText 1`] = `
-<TDocument tagName="html" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-  <TBlock tagName="body" nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-    <TPhrasing anonymous nodeIndex={0} styles={{ whiteSpace: "normal" }}>
-      <TText tagName="customtag" nodeIndex={0} data="This should be a text!" styles={{ whiteSpace: "normal" }} />
+<TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+  <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+    <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
+      <TText tagName="customtag" nodeIndex={0} data="This should be a text!" webStyles={{ whiteSpace: "normal"}} />
     </TPhrasing>
   </TBlock>
 </TDocument>

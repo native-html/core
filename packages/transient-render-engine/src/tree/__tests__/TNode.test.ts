@@ -4,7 +4,6 @@ import TTextCtor from '../TTextCtor';
 import { defaultInit } from './shared';
 import { TNodeImpl, TNodeInit } from '../tree-types';
 import HTMLContentModel from '../../model/HTMLContentModel';
-import { TStylesShape } from '../../styles/TStyles';
 
 const TTest = function (this: Mutable<TNodeImpl>, init: TNodeInit) {
   this.initialize(init);
@@ -87,8 +86,12 @@ describe('TNode class', () => {
     it('should provide a JSX representation', () => {
       const node = newTNode({
         styles: {
-          nativeBlockRet: { backgroundColor: 'red' }
-        } as TStylesShape
+          nativeBlockRet: { backgroundColor: 'red' },
+          nativeBlockFlow: {},
+          nativeTextFlow: {},
+          nativeTextRet: {},
+          webTextFlow: {}
+        }
       });
       expect(
         node.snapshot({ withNodeIndex: true, withStyles: true })

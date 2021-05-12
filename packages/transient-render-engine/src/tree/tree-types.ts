@@ -1,3 +1,4 @@
+import { CSSProcessedProps } from '@native-html/css-processor';
 import { DOMElement, DOMText } from '../dom/dom-utils';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
@@ -118,9 +119,27 @@ export interface TNodePrintOptions {
 }
 
 /**
+ * Processed styles which can be passed to `View` elements.
+ *
  * @public
  */
-export interface TNodeShape {
+export type NativeBlockStyles = TStylesShape['nativeBlockFlow'] &
+  TStylesShape['nativeBlockRet'];
+
+/**
+ * Processed styles which can be passed to `Text` elements.
+ *
+ * @public
+ */
+export type NativeTextStyles = TStylesShape['nativeBlockFlow'] &
+  TStylesShape['nativeBlockRet'] &
+  TStylesShape['nativeTextFlow'] &
+  TStylesShape['nativeTextRet'];
+
+/**
+ * @public
+ */
+export interface TNodeShape<T extends TNodeType> {
   /**
    * Attributes for this tag.
    */
@@ -139,12 +158,6 @@ export interface TNodeShape {
    * Non-anonymous nodes will hold a reference to a DOM node.
    */
   readonly domNode: DOMElement | null;
-  /**
-   * Styles for this node, organized in categories.
-   *
-   * See {@link TStylesShape}.
-   */
-  readonly styles: TStylesShape;
   /**
    * The tag name for this node.
    *
@@ -183,7 +196,7 @@ export interface TNodeShape {
   /**
    * The type of this tnode.
    */
-  readonly type: TNodeType;
+  readonly type: T;
 
   /**
    * `true` when this tag is not a valid HTML tag **and** there is no custom
@@ -222,6 +235,18 @@ export interface TNodeShape {
    * @param contentModel - The content model to test against.
    */
   matchContentModel(contentModel: HTMLContentModel): boolean;
+
+  /**
+   * Get own native styles.
+   */
+  getNativeStyles(): T extends 'text' | 'phrasing'
+    ? NativeTextStyles
+    : NativeBlockStyles;
+
+  /**
+   * Get styles that cannot be handled by React Native.
+   */
+  getWebStyles(): CSSProcessedProps['web']['text']['flow'];
 }
 
 /**
@@ -242,33 +267,27 @@ export interface DocumentContext {
 
 export type TNode = TBlock | TDocument | TEmpty | TPhrasing | TText;
 
-export interface TBlock extends TNodeShape {
-  readonly type: 'block';
+export interface TBlock extends TNodeShape<'block'> {
   readonly tagName: string;
   readonly domNode: DOMElement;
 }
 
-export interface TDocument extends TNodeShape {
+export interface TDocument extends TNodeShape<'document'> {
   /**
    * An object containing special information for this document, such as lang,
    * dir, charset, baseHref...
    */
   readonly context: Readonly<DocumentContext>;
-  readonly type: 'document';
 }
 
-export interface TEmpty extends TNodeShape {
-  readonly type: 'empty';
+export interface TEmpty extends TNodeShape<'empty'> {
   readonly domNode: DOMElement;
 }
 
-export interface TPhrasing extends TNodeShape {
-  readonly type: 'phrasing';
-}
+export interface TPhrasing extends TNodeShape<'phrasing'> {}
 
-export interface TText extends TNodeShape {
+export interface TText extends TNodeShape<'text'> {
   readonly data: string;
-  readonly type: 'text';
   readonly textNode: DOMText;
 }
 
@@ -307,12 +326,14 @@ export interface TNodeMethods {
 
 export interface TNodeImpl<T = TNodeInit>
   extends TNodeMethods,
-    Omit<TNodeShape, 'children'> {
+    Omit<TNodeShape<TNodeType>, 'children' | 'parent'> {
   __nodeIndex: number | null;
   __trimmedLeft: boolean;
   __trimmedRight: boolean;
+  readonly styles: TStylesShape;
   readonly children: ReadonlyArray<TNodeImpl>;
   readonly init: T;
+  readonly parent: TNodeImpl | null;
   readonly hasWhiteSpaceCollapsingEnabled: boolean;
   readonly parentStyles: TStylesShape | null;
   readonly elementModel: HTMLElementModel<string, HTMLContentModel> | null;
