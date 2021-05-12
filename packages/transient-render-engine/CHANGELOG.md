@@ -1,3 +1,16 @@
+# [8.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@7.3.0...@native-html/transient-render-engine@8.0.0) (2021-05-12)
+
+
+### Features
+
+* new getNativeStyles and getWebStyles utilities in TNodes ([d1e9603](https://github.com/native-html/core/commit/d1e96031b0a4ae9d2074e9b330cb8d3e2523a23a))
+
+
+### BREAKING CHANGES
+
+* the `styles` field is not exposed anymore. Use
+`tnode.getNativeStyles` and `tnode.getWebStyles` instead.
+
 # [7.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@7.2.0...@native-html/transient-render-engine@7.3.0) (2021-05-10)
 
 
