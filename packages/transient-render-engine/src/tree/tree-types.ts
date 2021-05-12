@@ -218,6 +218,12 @@ export interface TNodeShape<T extends TNodeType> {
   readonly markers: Readonly<Markers>;
 
   /**
+   * TStyles for this TNode. You should not use these unless required.
+   * Use {@link TNodeShape.getNativeStyles} instead.
+   */
+  readonly styles: TStylesShape;
+
+  /**
    * Create a JSX string representation of this node and its children.
    *
    * @remarks The snapshot is _just_ a representation. For example, it will
@@ -330,7 +336,6 @@ export interface TNodeImpl<T = TNodeInit>
   __nodeIndex: number | null;
   __trimmedLeft: boolean;
   __trimmedRight: boolean;
-  readonly styles: TStylesShape;
   readonly children: ReadonlyArray<TNodeImpl>;
   readonly init: T;
   readonly parent: TNodeImpl | null;
