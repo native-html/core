@@ -1,3 +1,10 @@
+## [1.8.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.8.0...@native-html/css-processor@1.8.1) (2021-05-12)
+
+
+### Bug Fixes
+
+* **css:** line-height validator should discard percent units ([dd09f98](https://github.com/native-html/core/commit/dd09f9838acd79ff6b88676e93dc590717d31976))
+
 # [1.8.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.7.0...@native-html/css-processor@1.8.0) (2021-05-07)
 
 
