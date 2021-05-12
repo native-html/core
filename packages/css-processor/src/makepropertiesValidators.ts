@@ -283,7 +283,7 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
       model: nativeTranslatableTextFlowModel
     }),
     // TODO handle unitless heights
-    lineHeight: new LongSizeCSSPropertyValidator({
+    lineHeight: new LongNonPercentSizeCSSPropertyValidator({
       config,
       propertyName: 'lineHeight',
       model: nativeTranslatableTextFlowModel

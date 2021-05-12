@@ -706,10 +706,12 @@ describe('CSSProcessor', () => {
       },
       letterSpacing: { ...flowedNativeTextSpec, ...sizeSpec },
       lineHeight: {
-        ...flowedNativeTextSpec,
-        inlineIncomingValues: [...sizeSpec.inlineIncomingValues], // uniteless
-        mixedIncomingValues: [...(sizeSpec.mixedIncomingValues as any)],
-        outValues: [...sizeSpec.outValues]
+        compat: 'native',
+        display: 'text',
+        propagation: 'flow',
+        inlineIncomingValues: ['1px', '1em'],
+        mixedIncomingValues: null,
+        outValues: [1, 16]
       },
       textAlign: {
         ...flowedNativeTextSpec,
