@@ -22,7 +22,8 @@
   ],
   "repository": {
     "type": "git",
-    "url": "git+ssh://git@github.com/native-html/core.git"
+    "url": "git+ssh://git@github.com/native-html/core.git",
+    "directory": "packages/css-processor"
   },
   "scripts": {
     "test": "yarn test:jest && yarn test:ts && yarn test:lint",
