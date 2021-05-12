@@ -1,3 +1,10 @@
+# [8.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.0.0...@native-html/transient-render-engine@8.1.0) (2021-05-12)
+
+
+### Features
+
+* rehabilitate `styles` in TNode ([f6240f5](https://github.com/native-html/core/commit/f6240f5ff2e2d32a4202633a381e9339942af18e))
+
 # [8.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@7.3.0...@native-html/transient-render-engine@8.0.0) (2021-05-12)
 
 
