@@ -1,3 +1,10 @@
+## [8.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.1.0...@native-html/transient-render-engine@8.1.1) (2021-05-14)
+
+
+### Bug Fixes
+
+* **tre:** in DomHandler, don't increment ignore counter on ignored text nodes ([4ca069b](https://github.com/native-html/core/commit/4ca069b444347ef770da1834d0bea551f035f416))
+
 # [8.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.0.0...@native-html/transient-render-engine@8.1.0) (2021-05-12)
 
 
