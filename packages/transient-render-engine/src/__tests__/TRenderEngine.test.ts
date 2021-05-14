@@ -342,7 +342,7 @@ describe('TRenderEngine > buildTTree method', () => {
     const tdoc = customTTreeBuilder.buildTTree('<em></em>');
     expect(tdoc).toMatchSnapshot();
   });
-  it('should support ignoreDomNode', () => {
+  it('should support ignoreDomNode with text nodes', () => {
     const customTTreeBuilder = new TRenderEngine({
       ignoreDomNode: (node) => node.type === 'text'
     });

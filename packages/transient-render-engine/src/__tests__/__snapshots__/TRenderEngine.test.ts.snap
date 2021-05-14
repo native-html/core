@@ -167,7 +167,7 @@ exports[`TRenderEngine > buildTTree method should support domVisitors 1`] = `
 
 `;
 
-exports[`TRenderEngine > buildTTree method should support ignoreDomNode 1`] = `
+exports[`TRenderEngine > buildTTree method should support ignoreDomNode with text nodes 1`] = `
 <TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
   <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
     <TPhrasing anonymous nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>

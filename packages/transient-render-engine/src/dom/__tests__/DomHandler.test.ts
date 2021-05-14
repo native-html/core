@@ -1,21 +1,22 @@
 import { NodeWithChildren, Element } from 'domhandler';
+import render from 'dom-serializer';
 import parseDocument from '../parseDocument';
+
+function expectRendersHtml(doc: any, target: string) {
+  expect(render(doc)).toBe(target);
+}
 
 describe('DOMParser', () => {
   it('should parse', () => {
-    const doc = parseDocument('<div><span>Text</span><div></div></div>');
-    expect((doc.children[0] as NodeWithChildren).children).toHaveLength(2);
-    expect(
-      ((doc.children[0] as NodeWithChildren).children[0] as NodeWithChildren)
-        .children
-    ).toHaveLength(1);
+    const html = '<div><span>Text</span><div></div></div>';
+    expectRendersHtml(parseDocument(html), html);
   });
   describe('ignoreTags option', () => {
     it('should support ignoredTags', () => {
       const doc = parseDocument('<div><span></span></div>', {
         ignoredTags: ['span']
       });
-      expect((doc.children[0] as NodeWithChildren).children).toHaveLength(0);
+      expectRendersHtml(doc, '<div></div>');
     });
     it('should ignore children of ignoredTags', () => {
       const doc = parseDocument(
@@ -24,7 +25,7 @@ describe('DOMParser', () => {
           ignoredTags: ['span']
         }
       );
-      expect((doc.children[0] as NodeWithChildren).children).toHaveLength(0);
+      expectRendersHtml(doc, '<div></div>');
     });
     it('should include siblings of ignoredTags', () => {
       const doc = parseDocument(
@@ -33,7 +34,7 @@ describe('DOMParser', () => {
           ignoredTags: ['span']
         }
       );
-      expect((doc.children[0] as NodeWithChildren).children).toHaveLength(2);
+      expectRendersHtml(doc, '<div>Text<strong></strong></div>');
     });
   });
   describe('ignoreNode option', () => {
@@ -41,31 +42,43 @@ describe('DOMParser', () => {
       const doc = parseDocument('<div><span></span></div>', {
         ignoreNode: (node) => (node as Element).name === 'span'
       });
-      expect((doc.children[0] as NodeWithChildren).children).toHaveLength(0);
+      expectRendersHtml(doc, '<div></div>');
     });
     it('should ignore text nodes', () => {
       const doc = parseDocument('<div>Text!</div>', {
         ignoreNode: (node) => node.type === 'text'
       });
-      expect((doc.children[0] as NodeWithChildren).children).toHaveLength(0);
+      expectRendersHtml(doc, '<div></div>');
     });
-    it('should ignore children of ignored nodes', () => {
+    it('should ignore children elements of ignored nodes', () => {
       const doc = parseDocument(
         '<div><span><strong><em></em><mark></mark></strong>Text node!</span></div>',
         {
           ignoreNode: (node) => (node as Element).name === 'span'
         }
       );
-      expect((doc.children[0] as NodeWithChildren).children).toHaveLength(0);
+      expectRendersHtml(doc, '<div></div>');
     });
-    it('should include siblings of ignored nodes', () => {
+    it('should retain sibling text nodes of ignored nodes', () => {
+      const doc = parseDocument(
+        '<div><a href="">you a noisy one</a>Can you see the anchor? It has been ignored!</div>',
+        {
+          ignoreNode: (node) => (node as Element).name === 'a'
+        }
+      );
+      expectRendersHtml(
+        doc,
+        '<div>Can you see the anchor? It has been ignored!</div>'
+      );
+    });
+    it('should retain siblings elements of ignored nodes', () => {
       const doc = parseDocument(
         '<div><span></span>Text<strong></strong></div>',
         {
           ignoreNode: (node) => (node as Element).name === 'span'
         }
       );
-      expect((doc.children[0] as NodeWithChildren).children).toHaveLength(2);
+      expectRendersHtml(doc, "<div>Text<strong></strong></div>")
     });
   });
   describe('visitors option', () => {

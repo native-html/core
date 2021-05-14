@@ -6,7 +6,7 @@ import {
   Node,
   Text
 } from 'domhandler';
-import { isDOMText } from './dom-utils';
+import { isDOMElement, isDOMText } from './dom-utils';
 
 /**
  * A record of callback to visit the DOM.
@@ -77,13 +77,20 @@ export default class DomHandler extends OriginalDomHandler {
 
   addNode(node: Node): void {
     if (this.isIgnored(node)) {
-      this.ignoredTagsCount++;
+      // increment only for elements.
+      if (isDOMElement(node)) {
+        this.ignoredTagsCount++;
+      }
     } else {
       super.addNode(node);
       if (isDOMText(node)) {
         this.visitors.onText?.(node);
       }
     }
+  }
+
+  ontext(text: string) {
+    super.ontext(text);
   }
 
   onopentag(name: string, attribs: any): void {
