@@ -60,8 +60,9 @@ android/keystores/debug.keystore
 # Expo
 .expo/*
 
-# yarn berry
+# yarn berry (zero install)
 .yarn/*
+!.yarn/cache
 !.yarn/releases
 !.yarn/plugins
 !.yarn/sdks

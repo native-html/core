@@ -1,4 +1,4 @@
-import { NodeWithChildren, Element } from 'domhandler';
+import { Element } from 'domhandler';
 import render from 'dom-serializer';
 import parseDocument from '../parseDocument';
 
@@ -71,14 +71,21 @@ describe('DOMParser', () => {
         '<div>Can you see the anchor? It has been ignored!</div>'
       );
     });
-    it('should retain siblings elements of ignored nodes', () => {
+    it('should retain next siblings elements of ignored nodes', () => {
       const doc = parseDocument(
         '<div><span></span>Text<strong></strong></div>',
         {
           ignoreNode: (node) => (node as Element).name === 'span'
         }
       );
-      expectRendersHtml(doc, "<div>Text<strong></strong></div>")
+      expectRendersHtml(doc, '<div>Text<strong></strong></div>');
+    });
+    it('should retain previous siblings elements of ignored nodes', () => {
+      const html = `<div> <a>A</a>B</div>`;
+      const doc = parseDocument(html, {
+        ignoreNode: (node) => (node as Element).name === 'a'
+      });
+      expectRendersHtml(doc, '<div> B</div>');
     });
   });
   describe('visitors option', () => {
