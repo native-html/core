@@ -1,4 +1,3 @@
-import lookupRecord from '../lookupRecord';
 import internalHTMLElementModels, {
   DefaultHTMLElementModels
 } from './defaultHTMLElementModels';
@@ -22,7 +21,7 @@ export default class HTMLModelRegistry<E extends string> {
   getElementModelFromTagName(
     tagName: E | TagName
   ): HTMLElementModel<string, any> | null {
-    if (lookupRecord(this.modelRecords, tagName)) {
+    if (tagName in this.modelRecords) {
       return this.modelRecords[tagName];
     }
     return null;
