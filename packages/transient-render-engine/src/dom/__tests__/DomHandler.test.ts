@@ -59,6 +59,16 @@ describe('DOMParser', () => {
       );
       expectRendersHtml(doc, '<div></div>');
     });
+    it('should provide parent in ignoreNode', () => {
+      const html = `<p><a></a></p>`;
+      const ignoreNode = jest.fn((node, parent) => {
+        expect(parent).not.toBeNull();
+        return false;
+      });
+      parseDocument(html, {
+        ignoreNode
+      });
+    });
     it('should retain sibling text nodes of ignored nodes', () => {
       const doc = parseDocument(
         '<div><a href="">you a noisy one</a>Can you see the anchor? It has been ignored!</div>',

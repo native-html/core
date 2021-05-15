@@ -4,7 +4,8 @@ import {
   Document,
   Element,
   Node,
-  Text
+  Text,
+  NodeWithChildren
 } from 'domhandler';
 import { isDOMElement, isDOMText } from './dom-utils';
 
@@ -44,7 +45,7 @@ export interface DomVisitorCallbacks {
 export interface DomHandlerOptions extends OriginalDomHandlerOptions {
   ignoredTags?: string[];
   visitors?: DomVisitorCallbacks;
-  ignoreNode?: (node: Node) => boolean;
+  ignoreNode?: (node: Node, parent: NodeWithChildren) => boolean;
 }
 
 export default class DomHandler extends OriginalDomHandler {
@@ -63,7 +64,10 @@ export default class DomHandler extends OriginalDomHandler {
     const isIgnored = this.isIgnored.bind(this);
     if (options.ignoreNode) {
       this.isIgnored = (node) => {
-        return isIgnored(node) || options.ignoreNode!(node);
+        return (
+          isIgnored(node) ||
+          options.ignoreNode!(node, this.tagStack[this.tagStack.length - 1])
+        );
       };
     }
   }

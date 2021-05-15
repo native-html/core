@@ -73,11 +73,15 @@ export interface TRenderEngineOptions<E extends string = never> {
   /**
    * Ignore specific DOM nodes.
    *
+   * **Warning**: when this function is invoked, the node has not yet been
+   * attached to its parent or siblings. Use the second argument (`parent`)
+   * if you need to perform logic based on parent.
+   *
    * @remarks The function is applied during parsing, thus with very little
    * overhead. However, it means that one node next siblings won't be
    * available.
    */
-  readonly ignoreDomNode?: (node: DOMNode) => boolean;
+  readonly ignoreDomNode?: (node: DOMNode, parent: DOMNodeWithChildren) => boolean;
 
   /**
    * Select the DOM root before TTree generation. For example, you could
