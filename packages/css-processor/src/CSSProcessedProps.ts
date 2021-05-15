@@ -40,7 +40,8 @@ const propagationCategories: ReadonlyArray<CSSPropertyPropagationCategory> = [
  * and (react) native support (native, web).
  */
 export class CSSProcessedProps
-  implements Record<CSSPropertyCompatCategory, CSSDisplayRegistry> {
+  implements Record<CSSPropertyCompatCategory, CSSDisplayRegistry>
+{
   readonly native: {
     text: {
       flow: Partial<
@@ -108,9 +109,8 @@ export class CSSProcessedProps
         this[compatCategory][displayCategory][propagationCategory] = {};
       }
       //@ts-ignore
-      this[compatCategory][displayCategory][propagationCategory][
-        propertyName
-      ] = propertyValue;
+      this[compatCategory][displayCategory][propagationCategory][propertyName] =
+        propertyValue;
     }
     return this;
   }

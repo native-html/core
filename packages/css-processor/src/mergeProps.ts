@@ -5,7 +5,7 @@ function mergeProps<T extends Record<string, any>>(props: Array<T | null>): T {
   if (filteredProps.length) {
     return Object.assign({}, ...filteredProps);
   }
-  return (emptyProps as unknown) as T;
+  return emptyProps as unknown as T;
 }
 
 export default mergeProps;

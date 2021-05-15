@@ -22,10 +22,11 @@ import { WebTextFlowProperties } from './processor-types';
 /**
  * All those styles that result from processing inline styles.
  */
-export type CSSFlattenProcessedTypes = CSSProcessedProps['native']['text']['flow'] &
-  CSSProcessedProps['native']['block']['flow'] &
-  CSSProcessedProps['native']['text']['retain'] &
-  CSSProcessedProps['native']['block']['retain'];
+export type CSSFlattenProcessedTypes =
+  CSSProcessedProps['native']['text']['flow'] &
+    CSSProcessedProps['native']['block']['flow'] &
+    CSSProcessedProps['native']['text']['retain'] &
+    CSSProcessedProps['native']['block']['retain'];
 
 /**
  * These properties can be set to any of the supoprted CSS sizes, including em,

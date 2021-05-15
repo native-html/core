@@ -10,25 +10,23 @@ import {
 import { CSSPropertySpecs } from './processor-types';
 import { ShortMergeRequest } from './ShortMergeRequest';
 
-const nativeDirectionalStyleKeys: Record<
-  NativeDirectionalStyleKeys,
-  'block'
-> = {
-  borderBottomEndRadius: 'block',
-  borderBottomStartRadius: 'block',
-  borderEndColor: 'block',
-  borderEndWidth: 'block',
-  borderStartColor: 'block',
-  borderStartWidth: 'block',
-  borderTopEndRadius: 'block',
-  borderTopStartRadius: 'block',
-  end: 'block',
-  marginEnd: 'block',
-  marginStart: 'block',
-  paddingEnd: 'block',
-  paddingStart: 'block',
-  start: 'block'
-};
+const nativeDirectionalStyleKeys: Record<NativeDirectionalStyleKeys, 'block'> =
+  {
+    borderBottomEndRadius: 'block',
+    borderBottomStartRadius: 'block',
+    borderEndColor: 'block',
+    borderEndWidth: 'block',
+    borderStartColor: 'block',
+    borderStartWidth: 'block',
+    borderTopEndRadius: 'block',
+    borderTopStartRadius: 'block',
+    end: 'block',
+    marginEnd: 'block',
+    marginStart: 'block',
+    paddingEnd: 'block',
+    paddingStart: 'block',
+    start: 'block'
+  };
 
 const extraLongViewStyles: Record<ExtraNativeLongViewStyleKeys, 'block'> = {
   elevation: 'block',

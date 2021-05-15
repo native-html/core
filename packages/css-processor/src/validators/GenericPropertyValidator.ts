@@ -11,7 +11,8 @@ import { ShortMergeRequest } from '../ShortMergeRequest';
 export abstract class GenericCSSPropertyValidator<
   C extends CSSPropertyModel = any,
   N = any
-> implements CSSPropertySpecs {
+> implements CSSPropertySpecs
+{
   protected readonly model: C;
   protected readonly config: CSSProcessorConfig;
   public readonly compatCategory: CSSPropertyCompatCategory;
