@@ -1,3 +1,10 @@
+# [8.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.1.2...@native-html/transient-render-engine@8.2.0) (2021-05-15)
+
+
+### Features
+
+* **tre:** add parent as second argument of `ignoreNode` ([53afd74](https://github.com/native-html/core/commit/53afd74a558199c45c979ad0b530e71c1c6cbfd1))
+
 ## [8.1.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.1.1...@native-html/transient-render-engine@8.1.2) (2021-05-15)
 
 
