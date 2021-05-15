@@ -45,7 +45,10 @@ export interface DomVisitorCallbacks {
 export interface DomHandlerOptions extends OriginalDomHandlerOptions {
   ignoredTags?: string[];
   visitors?: DomVisitorCallbacks;
-  ignoreNode?: (node: Node, parent: NodeWithChildren) => boolean;
+  ignoreNode?: (
+    node: Node,
+    parent: NodeWithChildren
+  ) => boolean | void | unknown;
 }
 
 export default class DomHandler extends OriginalDomHandler {
@@ -72,7 +75,7 @@ export default class DomHandler extends OriginalDomHandler {
     }
   }
 
-  isIgnored(node: Node): boolean {
+  isIgnored(node: Node): boolean | unknown | void {
     return (
       (this.ignoredTags[(node as Element).name] as boolean) ||
       this.ignoredTagsCount > -1
@@ -80,7 +83,7 @@ export default class DomHandler extends OriginalDomHandler {
   }
 
   addNode(node: Node): void {
-    if (this.isIgnored(node)) {
+    if (this.isIgnored(node) === true) {
       // increment only for elements.
       if (isDOMElement(node)) {
         this.ignoredTagsCount++;

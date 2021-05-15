@@ -80,8 +80,14 @@ export interface TRenderEngineOptions<E extends string = never> {
    * @remarks The function is applied during parsing, thus with very little
    * overhead. However, it means that one node next siblings won't be
    * available.
+   *
+   * @returns `true` if this node should not be included in the DOM, anything
+   * else otherwise.
    */
-  readonly ignoreDomNode?: (node: DOMNode, parent: DOMNodeWithChildren) => boolean;
+  readonly ignoreDomNode?: (
+    node: DOMNode,
+    parent: DOMNodeWithChildren
+  ) => boolean | void | unknown;
 
   /**
    * Select the DOM root before TTree generation. For example, you could
@@ -236,7 +242,7 @@ export class TRenderEngine {
     const collapsedTDoc = this.whitespaceCollapsingEnabled
       ? collapse(hoistedTDoc)
       : tdoc;
-    return collapsedTDoc as unknown as TDocument;
+    return (collapsedTDoc as unknown) as TDocument;
   }
 
   buildTTree(html: string): TDocument {
