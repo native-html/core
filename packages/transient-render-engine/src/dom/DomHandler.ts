@@ -7,7 +7,6 @@ import {
   Text
 } from 'domhandler';
 import { isDOMElement, isDOMText } from './dom-utils';
-import render from 'dom-serializer';
 
 /**
  * A record of callback to visit the DOM.
@@ -82,12 +81,7 @@ export default class DomHandler extends OriginalDomHandler {
       if (isDOMElement(node)) {
         this.ignoredTagsCount++;
       }
-      if (isDOMText(node)) {
-        this.lastNode = null;
-      }
-      console.info('Ignoring', JSON.stringify(render(node)), this.ignoredTagsCount);
     } else {
-      console.info('Including', JSON.stringify(render(node)), this.ignoredTagsCount)
       super.addNode(node);
       if (isDOMText(node)) {
         this.visitors.onText?.(node);
@@ -96,13 +90,15 @@ export default class DomHandler extends OriginalDomHandler {
   }
 
   ontext(text: string) {
-    console.info('ontext', JSON.stringify(text), this.ignoredTagsCount);
-    super.ontext(text);
+    // Only include text when out of an
+    // ignoring session.
+    if (this.ignoredTagsCount < 0) {
+      super.ontext(text);
+    }
   }
 
   onopentag(name: string, attribs: any): void {
     super.onopentag(name, attribs);
-    console.info('onopentag', name, this.ignoredTagsCount);
   }
 
   onclosetag() {
@@ -114,11 +110,6 @@ export default class DomHandler extends OriginalDomHandler {
     if (this.ignoredTagsCount > -1) {
       this.ignoredTagsCount--;
     }
-    console.info(
-      'onclosetag',
-      this.tagStack[this.tagStack.length - 1].tagName,
-      this.ignoredTagsCount
-    );
   }
 
   onend(): void {
