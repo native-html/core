@@ -1,3 +1,10 @@
+## [8.1.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.1.1...@native-html/transient-render-engine@8.1.2) (2021-05-15)
+
+
+### Bug Fixes
+
+* **tre:** don't append text nested in ignored tags ([f1f2e04](https://github.com/native-html/core/commit/f1f2e0424ca5662e67088e1d9610f7e5126ba01a))
+
 ## [8.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.1.0...@native-html/transient-render-engine@8.1.1) (2021-05-14)
 
 
