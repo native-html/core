@@ -43,10 +43,10 @@ const collapseWhiteSpacesWithEastAsianCharset = compose(
   removeCollapsibleAroundSegmentBreak
 );
 
-const TTextCtor = (function TText(this: Mutable<TTextImpl>, init: TTextInit) {
+const TTextCtor = function TText(this: Mutable<TTextImpl>, init: TTextInit) {
   this.initialize(init);
   this.isVoid = this.elementModel ? this.elementModel.isVoid : false;
-} as Function) as GenericTNodeCtor<TTextInit, TTextImpl>;
+} as Function as GenericTNodeCtor<TTextInit, TTextImpl>;
 
 //@ts-ignore
 TTextCtor.prototype = new TNodeCtor('text', 'TText', {

@@ -16,4 +16,5 @@ enum HTMLContentModel {
    */
   none = 'none'
 }
+
 export default HTMLContentModel;

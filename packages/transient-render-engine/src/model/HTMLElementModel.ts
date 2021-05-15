@@ -31,7 +31,8 @@ export interface HTMLElementModelProperties<
 export default class HTMLElementModel<
   T extends string,
   M extends HTMLContentModel
-> implements HTMLElementModelProperties<T, M> {
+> implements HTMLElementModelProperties<T, M>
+{
   public readonly tagName: T;
   public readonly contentModel: M;
   public readonly isOpaque: boolean;
@@ -58,14 +59,17 @@ export default class HTMLElementModel<
     this.setMarkersForTNode = setMarkersForTNode;
   }
 
-  static fromCustomModel<T extends string, M extends HTMLContentModel>({
+  static fromCustomModel<
+    CustomTags extends string,
+    ContentModel extends HTMLContentModel
+  >({
     contentModel,
     tagName,
     isOpaque = false,
     isVoid = false,
     ...optionalFields
-  }: CustomElementModel<Exclude<T, TagName>, M>) {
-    return new HTMLElementModel<Exclude<T, TagName>, M>({
+  }: CustomElementModel<Exclude<CustomTags, TagName>, ContentModel>) {
+    return new HTMLElementModel<Exclude<CustomTags, TagName>, ContentModel>({
       tagName,
       contentModel,
       isOpaque,
@@ -74,7 +78,7 @@ export default class HTMLElementModel<
     });
   }
 
-  static fromNativeModel<T extends TagName, E extends ElementCategory>({
+  static fromNativeModel<TN extends TagName, E extends ElementCategory>({
     tagName,
     category,
     isOpaque,
@@ -82,7 +86,7 @@ export default class HTMLElementModel<
     isVoid = false,
     getUADerivedStyleFromAttributes,
     setMarkersForTNode: getMarkersForTNode
-  }: NativeElementModel<T, E>) {
+  }: NativeElementModel<TN, E>) {
     const isPhrasing = phrasingCategories.indexOf(category) !== -1;
     const isTranslatable =
       isPhrasing || translatableBlockCategories.indexOf(category) !== -1;
@@ -95,7 +99,7 @@ export default class HTMLElementModel<
         ? HTMLContentModel.block
         : HTMLContentModel.none;
     return new HTMLElementModel<
-      T,
+      TN,
       E extends 'edits' | 'anchor'
         ? HTMLContentModel.mixed
         : E extends 'sectioning' | 'grouping' | 'tabular'
@@ -125,10 +129,10 @@ export default class HTMLElementModel<
     );
   }
 
-  extend<N extends HTMLContentModel>(
-    props: Partial<HTMLElementModelProperties<T, N>>
-  ): HTMLElementModel<T, N> {
-    return new HTMLElementModel<T, N>({
+  extend<CM extends HTMLContentModel>(
+    props: Partial<HTMLElementModelProperties<T, CM>>
+  ): HTMLElementModel<T, CM> {
+    return new HTMLElementModel<T, CM>({
       ...this,
       ...props
     });

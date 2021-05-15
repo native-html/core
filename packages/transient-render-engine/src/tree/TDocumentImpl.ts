@@ -68,12 +68,12 @@ const htmlModel = HTMLElementModel.fromNativeModel({
   category: 'grouping'
 });
 
-const TDocumentCtor = (function TDocument(
+const TDocumentCtor = function TDocument(
   this: Mutable<TDocumentImpl>,
   init: TDocumentInit
 ) {
   this.initialize(init as TNodeInit);
-} as Function) as GenericTNodeCtor<TDocumentInit, TDocumentImpl>;
+} as Function as GenericTNodeCtor<TDocumentInit, TDocumentImpl>;
 
 TDocumentCtor.prototype = Object.create(TBlockImpl.prototype);
 
@@ -103,7 +103,7 @@ TDocumentCtor.prototype.parseChildren = function parseChildren(
   let head: TEmptyImpl | undefined;
   for (const child of this.children) {
     if (child.tagName === 'head') {
-      head = (child as unknown) as TEmptyImpl;
+      head = child as unknown as TEmptyImpl;
       break;
     }
   }

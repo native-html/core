@@ -4,12 +4,9 @@ import { TNodeImpl, TNodeInit } from './tree-types';
 
 export interface TBlockImpl extends TNodeImpl {}
 
-const TBlockCtor = (function TBlock(
-  this: Mutable<TBlockImpl>,
-  init: TNodeInit
-) {
+const TBlockCtor = function TBlock(this: Mutable<TBlockImpl>, init: TNodeInit) {
   this.initialize(init);
-} as Function) as GenericTNodeCtor<TNodeInit, TBlockImpl>;
+} as Function as GenericTNodeCtor<TNodeInit, TBlockImpl>;
 
 //@ts-ignore
 TBlockCtor.prototype = new TNodeCtor('block', 'TBlock');

@@ -8,7 +8,8 @@ import { Markers } from '../tree/tree-types';
 import { TStyles } from './TStyles';
 import { StylesConfig } from './types';
 
-export const emptyProcessedPropsReg: CSSProcessedProps = new CSSProcessedProps();
+export const emptyProcessedPropsReg: CSSProcessedProps =
+  new CSSProcessedProps();
 
 function mapMixedStyleRecordToCSSProcessedPropsReg(
   processor: CSSProcessor,

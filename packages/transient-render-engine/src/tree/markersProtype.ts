@@ -1,14 +1,5 @@
 import { Markers } from './tree-types';
 
-type MarkersShape = Omit<Markers, 'extends'>;
-
-interface TNodeDescriptor {
-  tagName: string | null;
-  classes: string[];
-  id: string | null;
-  attributes: Record<string, string>;
-}
-
 const markersProtype: Markers = {
   anchor: false,
   edits: 'none',

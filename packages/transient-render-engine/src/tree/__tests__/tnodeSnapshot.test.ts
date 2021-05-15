@@ -6,7 +6,7 @@ function runTNodeSnapshot(
   html: string,
   params: TNodePrintOptions = { withNodeIndex: true, withStyles: true }
 ) {
-  return tnodeSnapshot((translateTreeTest(html) as unknown) as TNode, params);
+  return tnodeSnapshot(translateTreeTest(html) as unknown as TNode, params);
 }
 describe('tnodeToString', () => {
   it('should handle deeply nested tags', () => {

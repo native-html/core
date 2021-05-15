@@ -185,55 +185,53 @@ const unsupportedModelMap: HTMLModelRecord<
   })
 };
 
-const attribsModelMap: HTMLModelRecord<
-  AttribTagNames,
-  HTMLContentModel.none
-> = {
-  accesskey: HTMLElementModel.fromNativeModel({
-    tagName: 'accesskey',
-    category: 'untranslatable'
-  }),
-  caption: HTMLElementModel.fromNativeModel({
-    tagName: 'caption',
-    category: 'untranslatable'
-  }),
-  col: HTMLElementModel.fromNativeModel({
-    tagName: 'col',
-    category: 'untranslatable',
-    isVoid: true
-  }),
-  colgroup: HTMLElementModel.fromNativeModel({
-    tagName: 'colgroup',
-    category: 'untranslatable'
-  }),
-  datalist: HTMLElementModel.fromNativeModel({
-    tagName: 'datalist',
-    category: 'untranslatable'
-  }),
-  source: HTMLElementModel.fromNativeModel({
-    tagName: 'source',
-    category: 'untranslatable',
-    isVoid: true
-  }),
-  track: HTMLElementModel.fromNativeModel({
-    tagName: 'track',
-    category: 'untranslatable',
-    isVoid: true
-  }),
-  optgroup: HTMLElementModel.fromNativeModel({
-    tagName: 'optgroup',
-    category: 'untranslatable'
-  }),
-  option: HTMLElementModel.fromNativeModel({
-    tagName: 'option',
-    category: 'untranslatable'
-  }),
-  param: HTMLElementModel.fromNativeModel({
-    tagName: 'param',
-    category: 'untranslatable',
-    isVoid: true
-  })
-};
+const attribsModelMap: HTMLModelRecord<AttribTagNames, HTMLContentModel.none> =
+  {
+    accesskey: HTMLElementModel.fromNativeModel({
+      tagName: 'accesskey',
+      category: 'untranslatable'
+    }),
+    caption: HTMLElementModel.fromNativeModel({
+      tagName: 'caption',
+      category: 'untranslatable'
+    }),
+    col: HTMLElementModel.fromNativeModel({
+      tagName: 'col',
+      category: 'untranslatable',
+      isVoid: true
+    }),
+    colgroup: HTMLElementModel.fromNativeModel({
+      tagName: 'colgroup',
+      category: 'untranslatable'
+    }),
+    datalist: HTMLElementModel.fromNativeModel({
+      tagName: 'datalist',
+      category: 'untranslatable'
+    }),
+    source: HTMLElementModel.fromNativeModel({
+      tagName: 'source',
+      category: 'untranslatable',
+      isVoid: true
+    }),
+    track: HTMLElementModel.fromNativeModel({
+      tagName: 'track',
+      category: 'untranslatable',
+      isVoid: true
+    }),
+    optgroup: HTMLElementModel.fromNativeModel({
+      tagName: 'optgroup',
+      category: 'untranslatable'
+    }),
+    option: HTMLElementModel.fromNativeModel({
+      tagName: 'option',
+      category: 'untranslatable'
+    }),
+    param: HTMLElementModel.fromNativeModel({
+      tagName: 'param',
+      category: 'untranslatable',
+      isVoid: true
+    })
+  };
 
 const interactiveModelMap: HTMLModelRecord<
   InteractiveTagNames,

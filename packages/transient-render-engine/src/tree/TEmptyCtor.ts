@@ -11,12 +11,12 @@ export interface TEmptyInit extends TNodeInit {
   domNode: DOMElement;
 }
 
-const TEmptyCtor = (function TEmpty(
+const TEmptyCtor = function TEmpty(
   this: Mutable<TEmptyImpl>,
   init: TEmptyInit
 ) {
   this.initialize(init);
-} as Function) as GenericTNodeCtor<TEmptyInit, TEmptyImpl>;
+} as Function as GenericTNodeCtor<TEmptyInit, TEmptyImpl>;
 
 //@ts-ignore
 TEmptyCtor.prototype = new TNodeCtor('empty', 'TEmpty');

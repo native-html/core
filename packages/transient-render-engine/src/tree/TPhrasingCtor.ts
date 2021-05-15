@@ -8,12 +8,12 @@ function isChildEmpty(c: TNodeImpl) {
   return c.isEmpty();
 }
 
-const TPhrasingCtor = (function TPhrasing(
+const TPhrasingCtor = function TPhrasing(
   this: Mutable<TNodeImpl>,
   init: TNodeInit
 ) {
   this.initialize(init);
-} as Function) as GenericTNodeCtor<TNodeInit, TPhrasingImpl>;
+} as Function as GenericTNodeCtor<TNodeInit, TPhrasingImpl>;
 
 //@ts-ignore
 TPhrasingCtor.prototype = new TNodeCtor('phrasing', 'TPhrasing');

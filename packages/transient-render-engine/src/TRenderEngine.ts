@@ -232,7 +232,7 @@ export class TRenderEngine {
     const collapsedTDoc = this.whitespaceCollapsingEnabled
       ? collapse(hoistedTDoc)
       : tdoc;
-    return (collapsedTDoc as unknown) as TDocument;
+    return collapsedTDoc as unknown as TDocument;
   }
 
   buildTTree(html: string): TDocument {

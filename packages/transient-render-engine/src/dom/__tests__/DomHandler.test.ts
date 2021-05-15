@@ -81,7 +81,7 @@ describe('DOMParser', () => {
       expectRendersHtml(doc, '<div>Text<strong></strong></div>');
     });
     it('should retain previous siblings elements of ignored nodes', () => {
-      const html = `<div> <a>A</a>B</div>`;
+      const html = '<div> <a>A</a>B</div>';
       const doc = parseDocument(html, {
         ignoreNode: (node) => (node as Element).name === 'a'
       });
