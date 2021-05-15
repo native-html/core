@@ -60,7 +60,7 @@ describe('DOMParser', () => {
       expectRendersHtml(doc, '<div></div>');
     });
     it('should provide parent in ignoreNode', () => {
-      const html = `<p><a></a></p>`;
+      const html = '<p><a></a></p>';
       const ignoreNode = jest.fn((node, parent) => {
         expect(parent).not.toBeNull();
         return false;
