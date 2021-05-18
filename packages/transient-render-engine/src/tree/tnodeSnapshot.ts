@@ -62,7 +62,7 @@ export default function tnodeSnapshot(
   const {
     parentLeftPrefix = '',
     isChild = false,
-    isLast = false,
+    isLast = true,
     withStyles,
     withNodeIndex
   } = params;

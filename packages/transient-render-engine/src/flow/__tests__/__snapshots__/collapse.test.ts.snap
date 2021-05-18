@@ -7,7 +7,6 @@ exports[`collapse function should collapse a node with white-space set to "norma
     <TText tagName="strong" nodeIndex={1} data=" Should collapse" webStyles={{ whiteSpace: "normal"}} />
   </TPhrasing>
 </TBlock>
-
 `;
 
 exports[`collapse function should collapse a tree such as specified in RFC002 example 1`] = `
@@ -23,7 +22,6 @@ exports[`collapse function should collapse a tree such as specified in RFC002 ex
     <TText anonymous nodeIndex={2} data="." />
   </TPhrasing>
 </TBlock>
-
 `;
 
 exports[`collapse function should collapse adjacent tags 1`] = `
@@ -31,7 +29,6 @@ exports[`collapse function should collapse adjacent tags 1`] = `
   <TText tagName="span" nodeIndex={0} data="foo " />
   <TText tagName="span" nodeIndex={1} data="bar" />
 </TPhrasing>
-
 `;
 
 exports[`collapse function should collapse when white-space CSS property is not set 1`] = `
@@ -40,7 +37,6 @@ exports[`collapse function should collapse when white-space CSS property is not 
     <TText anonymous nodeIndex={0} data="This is great!" />
   </TPhrasing>
 </TBlock>
-
 `;
 
 exports[`collapse function should collapse when white-space CSS property is set to "normal" 1`] = `
@@ -49,7 +45,6 @@ exports[`collapse function should collapse when white-space CSS property is set 
     <TText anonymous nodeIndex={0} data="This is great!" webStyles={{ whiteSpace: "normal"}} />
   </TPhrasing>
 </TBlock>
-
 `;
 
 exports[`collapse function should handle <br> tags 1`] = `
@@ -60,7 +55,6 @@ exports[`collapse function should handle <br> tags 1`] = `
     <TText anonymous nodeIndex={2} data="collapse" />
   </TPhrasing>
 </TBlock>
-
 `;
 
 exports[`collapse function should handle body tag 1`] = `
@@ -71,7 +65,6 @@ exports[`collapse function should handle body tag 1`] = `
     </TPhrasing>
   </TBlock>
 </TBlock>
-
 `;
 
 exports[`collapse function should handle deeply nested HTML 1`] = `
@@ -92,7 +85,6 @@ exports[`collapse function should handle deeply nested HTML 1`] = `
     </TBlock>
   </TBlock>
 </TBlock>
-
 `;
 
 exports[`collapse function should handle direct style inheritance 1`] = `
@@ -101,7 +93,6 @@ exports[`collapse function should handle direct style inheritance 1`] = `
     <TText tagName="span" nodeIndex={0} data="This is nice!" nativeStyles={{ fontSize: 18, color: "red" }} />
   </TPhrasing>
 </TBlock>
-
 `;
 
 exports[`collapse function should handle indirect style inheritance 1`] = `
@@ -112,7 +103,6 @@ exports[`collapse function should handle indirect style inheritance 1`] = `
     </TPhrasing>
   </TBlock>
 </TBlock>
-
 `;
 
 exports[`collapse function should handle nested anchors 1`] = `
@@ -125,7 +115,6 @@ exports[`collapse function should handle nested anchors 1`] = `
     <TText tagName="strong" nodeIndex={1} data="too" />
   </TPhrasing>
 </TPhrasing>
-
 `;
 
 exports[`collapse function should hoist blocks recursively 1`] = `
@@ -141,7 +130,6 @@ exports[`collapse function should hoist blocks recursively 1`] = `
     <TBlock tagName="img" nodeIndex={1} src="https://domain.com/logo.jpg" />
   </TBlock>
 </TBlock>
-
 `;
 
 exports[`collapse function should not collapse when white-space CSS property is set to "pre" 1`] = `
@@ -150,7 +138,6 @@ exports[`collapse function should not collapse when white-space CSS property is 
     <TText anonymous nodeIndex={0} data="  This is great!  " webStyles={{ whiteSpace: "pre"}} />
   </TPhrasing>
 </TBlock>
-
 `;
 
 exports[`collapse function should remove children from TPhrasing nodes which are empty after timming 1`] = `
@@ -158,18 +145,11 @@ exports[`collapse function should remove children from TPhrasing nodes which are
   <TText anonymous nodeIndex={0} data="Foo" />
   <TText anonymous nodeIndex={1} data=" Bar" />
 </TPhrasing>
-
 `;
 
-exports[`collapse function should remove empty anonymous TPhrasing children from TPhrasing nodes 1`] = `
-<TPhrasing anonymous nodeIndex={0} />
+exports[`collapse function should remove empty anonymous TPhrasing children from TPhrasing nodes 1`] = `<TPhrasing anonymous nodeIndex={0} />`;
 
-`;
-
-exports[`collapse function should support removeLineBreaksAroundEastAsianDiscardSet param 1`] = `
-<TText tagName="span" nodeIndex={0} data="⼀⿚" />
-
-`;
+exports[`collapse function should support removeLineBreaksAroundEastAsianDiscardSet param 1`] = `<TText tagName="span" nodeIndex={0} data="⼀⿚" />`;
 
 exports[`collapse function should withold TEmpty nodes 1`] = `
 <TBlock tagName="div" nodeIndex={0}>
@@ -178,5 +158,4 @@ exports[`collapse function should withold TEmpty nodes 1`] = `
   </TPhrasing>
   <TEmpty tagName="link" nodeIndex={1} href="mailto:don@company.com" />
 </TBlock>
-
 `;

@@ -9,7 +9,6 @@ exports[`TRenderEngine > buildTTree method given a HTML document, should return 
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should handle html snippets 1`] = `
@@ -18,7 +17,6 @@ exports[`TRenderEngine > buildTTree method should handle html snippets 1`] = `
     <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should handle html snippets with multiple root nodes 1`] = `
@@ -28,7 +26,6 @@ exports[`TRenderEngine > buildTTree method should handle html snippets with mult
     <TBlock tagName="div" nodeIndex={1} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should handle special case when baseStyle.fontSize is not a number 1`] = `
@@ -39,7 +36,6 @@ exports[`TRenderEngine > buildTTree method should handle special case when baseS
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should handle the case where the root element is a body element 1`] = `
@@ -48,7 +44,6 @@ exports[`TRenderEngine > buildTTree method should handle the case where the root
     <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should have its children inherit from UA styles when enableUserAgentStyles is enabled should work with em tags 1`] = `
@@ -59,7 +54,6 @@ exports[`TRenderEngine > buildTTree method should have its children inherit from
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should have its children inherit from baseStyles when provided a full html page markup 1`] = `
@@ -73,7 +67,6 @@ exports[`TRenderEngine > buildTTree method should have its children inherit from
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should have its children inherit from baseStyles when provided a html snippet 1`] = `
@@ -86,7 +79,6 @@ exports[`TRenderEngine > buildTTree method should have its children inherit from
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should not provide a root fontSize when enableUserAgentStyles is set to false 1`] = `
@@ -97,7 +89,6 @@ exports[`TRenderEngine > buildTTree method should not provide a root fontSize wh
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should retain own baseStyles when provided a html snippet 1`] = `
@@ -106,7 +97,6 @@ exports[`TRenderEngine > buildTTree method should retain own baseStyles when pro
     <TBlock tagName="div" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should still parse inline CSS styles when enableUserAgentStyles is set to false 1`] = `
@@ -115,7 +105,6 @@ exports[`TRenderEngine > buildTTree method should still parse inline CSS styles 
     <TBlock tagName="div" nodeIndex={0} nativeStyles={{ paddingTop: 1 }} webStyles={{ whiteSpace: "normal"}} />
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should support disabling hoisting 1`] = `
@@ -132,7 +121,6 @@ exports[`TRenderEngine > buildTTree method should support disabling hoisting 1`]
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should support disabling whitespace collapsing 1`] = `
@@ -153,7 +141,6 @@ exports[`TRenderEngine > buildTTree method should support disabling whitespace c
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should support domVisitors 1`] = `
@@ -164,7 +151,6 @@ exports[`TRenderEngine > buildTTree method should support domVisitors 1`] = `
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should support ignoreDomNode with text nodes 1`] = `
@@ -175,14 +161,12 @@ exports[`TRenderEngine > buildTTree method should support ignoreDomNode with tex
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should support ignoredDomTags 1`] = `
 <TDocument tagName="html" nodeIndex={0} webStyles={{ whiteSpace: "normal"}}>
   <TBlock tagName="body" nodeIndex={0} webStyles={{ whiteSpace: "normal"}} />
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should support ignoredTags 1`] = `
@@ -195,7 +179,6 @@ exports[`TRenderEngine > buildTTree method should support ignoredTags 1`] = `
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should support selectDomRoot returning a child 1`] = `
@@ -208,7 +191,6 @@ exports[`TRenderEngine > buildTTree method should support selectDomRoot returnin
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should support selectDomRoot returning a falsy value 1`] = `
@@ -223,7 +205,6 @@ exports[`TRenderEngine > buildTTree method should support selectDomRoot returnin
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > buildTTree method should support selectDomRoot returning the passed node 1`] = `
@@ -238,7 +219,6 @@ exports[`TRenderEngine > buildTTree method should support selectDomRoot returnin
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to change a model type to block 1`] = `
@@ -251,7 +231,6 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to change a mod
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to make an untranslatable element translatable 1`] = `
@@ -264,7 +243,6 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to make an untr
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom block tags 1`] = `
@@ -277,7 +255,6 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to register cus
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom mixed tags should handle mixed tags surrounding blocks like blocks 1`] = `
@@ -288,7 +265,6 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to register cus
     </TBlock>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom mixed tags should translate mixed tags inside phrasing with text children to TText 1`] = `
@@ -301,7 +277,6 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to register cus
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom textual tags should preserve tag when isOpaque is set to true. 1`] = `
@@ -312,7 +287,6 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to register cus
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;
 
 exports[`TRenderEngine > customizeHTMLModels option should allow to register custom textual tags should translate to TText 1`] = `
@@ -323,5 +297,4 @@ exports[`TRenderEngine > customizeHTMLModels option should allow to register cus
     </TPhrasing>
   </TBlock>
 </TDocument>
-
 `;

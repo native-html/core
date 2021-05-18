@@ -14,7 +14,6 @@ exports[`hoist function should comply with RFC002 example (hoisting)  1`] = `
     <TText anonymous nodeIndex={6} data=".\\n" />
   </TPhrasing>
 </TBlock>
-
 `;
 
 exports[`hoist function should hoist multiple blocks 1`] = `
@@ -25,7 +24,6 @@ exports[`hoist function should hoist multiple blocks 1`] = `
   </TPhrasing>
   <TBlock tagName="img" nodeIndex={2} />
 </TBlock>
-
 `;
 
 exports[`hoist function should not let TEmpty tags break inline context  1`] = `
@@ -34,7 +32,6 @@ exports[`hoist function should not let TEmpty tags break inline context  1`] = `
   <TEmpty tagName="c" unregistered nodeIndex={1} />
   <TText anonymous nodeIndex={2} data=" ahah" />
 </TPhrasing>
-
 `;
 
 exports[`hoist function should preserve parents before hoisting 1`] = `
@@ -44,14 +41,12 @@ exports[`hoist function should preserve parents before hoisting 1`] = `
   </TPhrasing>
   <TBlock tagName="img" nodeIndex={1} />
 </TBlock>
-
 `;
 
 exports[`hoist function should preserve styles of encompassing blocks 1`] = `
 <TBlock tagName="a" nodeIndex={0} href="http://google.fr">
   <TBlock tagName="div" nodeIndex={0} nativeStyles={{ backgroundColor: "red" }} />
 </TBlock>
-
 `;
 
 exports[`hoist function should preserve text of encompassing blocks 1`] = `
@@ -62,10 +57,6 @@ exports[`hoist function should preserve text of encompassing blocks 1`] = `
     </TPhrasing>
   </TBlock>
 </TBlock>
-
 `;
 
-exports[`hoist function should preserve void text elements 1`] = `
-<TText tagName="br" nodeIndex={0} data="" />
-
-`;
+exports[`hoist function should preserve void text elements 1`] = `<TText tagName="br" nodeIndex={0} data="" />`;

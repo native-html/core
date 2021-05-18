@@ -1,6 +1,3 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`TNode class snapshot should provide a JSX representation 1`] = `
-"<TTest anonymous nodeIndex={0} nativeStyles={{ backgroundColor: \\"red\\" }} />
-"
-`;
+exports[`TNode class snapshot should provide a JSX representation 1`] = `"<TTest anonymous nodeIndex={0} nativeStyles={{ backgroundColor: \\"red\\" }} />"`;
