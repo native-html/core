@@ -6,6 +6,8 @@ export type { TStylesShape } from './styles/TStyles';
 export type {
   DocumentContext,
   Markers,
+  NativeBlockStyles,
+  NativeTextStyles,
   SetMarkersForTNode,
   TBlock,
   TDocument,
@@ -15,7 +17,9 @@ export type {
   TNodeShape,
   TNodeType,
   TPhrasing,
-  TText
+  TText,
+  WebBlockStyles,
+  WebTextStyles
 } from './tree/tree-types';
 export * from './dom/dom-utils';
 export type { DomVisitorCallbacks } from './dom/DomHandler';
