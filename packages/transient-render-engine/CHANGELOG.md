@@ -1,3 +1,10 @@
+# [8.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.3.0...@native-html/transient-render-engine@8.4.0) (2021-05-18)
+
+
+### Features
+
+* **tre:** export Native and Web styles types ([342e6f4](https://github.com/native-html/core/commit/342e6f4d8c25619a4eda89797c3929baa914202e))
+
 # [8.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.2.0...@native-html/transient-render-engine@8.3.0) (2021-05-18)
 
 
