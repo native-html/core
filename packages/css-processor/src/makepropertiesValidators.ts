@@ -19,46 +19,53 @@ import { LongForgivingCSSPropertyValidator } from './validators/LongForgivingCSS
 import { LongNonPercentSizeCSSPropertyValidator } from './validators/LongNonPercentSizeCSSPropertyValidator';
 
 const nativeTranslatableBlockFlowModel = {
-  inheritable: true as true,
-  native: true as true,
-  translatable: true as true,
-  display: 'block' as 'block'
-};
+  inheritable: true,
+  native: true,
+  translatable: true,
+  display: 'block'
+} as const;
 
 const nativeTranslatableBlockRetainModel = {
-  inheritable: false as false,
-  native: true as true,
-  translatable: true as true,
-  display: 'block' as 'block'
-};
+  inheritable: false,
+  native: true,
+  translatable: true,
+  display: 'block'
+} as const;
 
 const nativeUntranslatableBlockRetainModel = {
-  inheritable: false as false,
-  native: true as true,
-  translatable: false as false,
-  display: 'block' as 'block'
-};
+  inheritable: false,
+  native: true,
+  translatable: false,
+  display: 'block'
+} as const;
 
 const nativeTranslatableTextFlowModel = {
-  inheritable: true as true,
-  native: true as true,
-  translatable: true as true,
-  display: 'text' as 'text'
-};
+  inheritable: true,
+  native: true,
+  translatable: true,
+  display: 'text'
+} as const;
 
 const nativeTranslatableTextRetainModel = {
-  inheritable: false as false,
-  native: true as true,
-  translatable: true as true,
-  display: 'text' as 'text'
-};
+  inheritable: false,
+  native: true,
+  translatable: true,
+  display: 'text'
+} as const;
 
 const webTextFlowModel = {
-  inheritable: true as true,
-  native: false as false,
-  translatable: false as false,
-  display: 'text' as 'text'
-};
+  inheritable: true,
+  native: false,
+  translatable: false,
+  display: 'text'
+} as const;
+
+const webBlockRetainModel = {
+  inheritable: false,
+  native: false,
+  translatable: false,
+  display: 'block'
+} as const;
 
 export type ValidatorsType = ReturnType<typeof makepropertiesValidators>;
 
@@ -148,6 +155,14 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
         bottom: 'marginBottom',
         left: 'marginLeft'
       }
+    ),
+    objectFit: new LongEnumerationCSSPropertyValidator(
+      {
+        config,
+        model: webBlockRetainModel,
+        propertyName: 'objectFit'
+      },
+      ['fill', 'contain', 'cover', 'none', 'scale-down']
     ),
     padding: new ShortCardinalCSSpropertyValidator(
       {

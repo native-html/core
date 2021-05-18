@@ -19,3 +19,8 @@ export const testBackgroundColor: AssertEqual<
   Extract<keyof MixedStyleDeclaration, 'backgroundColor'>,
   'backgroundColor'
 > = true;
+
+export const testObjectFit: AssertEqual<
+  Extract<keyof MixedStyleDeclaration, 'objectFit'>,
+  'objectFit'
+> = true;

@@ -10,7 +10,10 @@ import {
   ExtraNativeUntranslatedLongStyles,
   ExtraNativeViewStyle
 } from './native-types';
-import { WebTextFlowProperties } from './processor-types';
+import {
+  WebBlockRetainProperties,
+  WebTextFlowProperties
+} from './processor-types';
 
 // https://www.w3.org/TR/CSS22/
 // https://www.w3.org/TR/css3-cascade/
@@ -89,6 +92,7 @@ export type MixedStyleDeclaration = Omit<
   MixedSizeCSSPropertiesKeys
 > &
   WebTextFlowProperties &
+  WebBlockRetainProperties &
   ExtraNativeTextStyle &
   ExtraNativeViewStyle &
   ExtraNativeShortStyle &

@@ -92,6 +92,10 @@ export interface WebTextFlowProperties
   listStyleType?: CSSListStyleTypePropertyBase | string;
 }
 
+export interface WebBlockRetainProperties {
+  objectFit?: 'contain' | 'cover' | 'fill' | 'none' | 'scale-down';
+}
+
 export interface CSSPropertySpecs<
   C extends CSSPropertyCompatCategory = CSSPropertyCompatCategory,
   D extends CSSPropertyDisplayCategory = CSSPropertyDisplayCategory,

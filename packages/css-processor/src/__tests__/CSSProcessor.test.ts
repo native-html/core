@@ -512,6 +512,11 @@ describe('CSSProcessor', () => {
         mixedIncomingValues: [7 / 2, 3, 2 / 3, 'not a ratio', null],
         outValues: [7 / 2, 3, 2 / 3, null, null]
       },
+      objectFit: {
+        ...retainedWebBlockSpec,
+        inlineIncomingValues: propertiesValidators.objectFit.allowedList,
+        mixedIncomingValues: propertiesValidators.objectFit.allowedList
+      },
       flexBasis: nativeRetainedBlockSizeSpecModel,
       flexDirection: {
         ...nativeRetainedBlockSpec,
