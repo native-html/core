@@ -41,6 +41,7 @@ export interface TStylesShape {
   readonly nativeTextRet: CSSProcessedProps['native']['text']['retain'];
   readonly nativeBlockRet: CSSProcessedProps['native']['block']['retain'];
   readonly webTextFlow: CSSProcessedProps['web']['text']['flow'];
+  readonly webBlockRet: CSSProcessedProps['web']['block']['retain'];
 }
 
 export class TStyles implements TStylesShape {
@@ -49,6 +50,8 @@ export class TStyles implements TStylesShape {
   public readonly nativeTextRet: CSSProcessedProps['native']['text']['retain'];
   public readonly nativeBlockRet: CSSProcessedProps['native']['block']['retain'];
   public readonly webTextFlow: CSSProcessedProps['web']['text']['flow'];
+  public readonly webBlockRet: CSSProcessedProps['web']['block']['retain'];
+
   constructor(
     ownProcessedProps: CSSProcessedProps,
     parentStyles?: TStyles | null
@@ -75,6 +78,7 @@ export class TStyles implements TStylesShape {
       ownProcessedProps.native.text.retain
     );
     this.nativeBlockRet = ownProcessedProps.native.block.retain;
+    this.webBlockRet = ownProcessedProps.web.block.retain;
   }
 
   static empty(): TStyles {

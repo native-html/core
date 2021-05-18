@@ -1,4 +1,3 @@
-import { CSSProcessedProps } from '@native-html/css-processor';
 import { DOMElement, DOMText } from '../dom/dom-utils';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
@@ -137,6 +136,20 @@ export type NativeTextStyles = TStylesShape['nativeBlockFlow'] &
   TStylesShape['nativeTextRet'];
 
 /**
+ * Processed Web text styles.
+ *
+ * @public
+ */
+export type WebTextStyles = TStylesShape['webTextFlow'];
+
+/**
+ * Processed Web block styles.
+ *
+ * @public
+ */
+export type WebBlockStyles = TStylesShape['webBlockRet'];
+
+/**
  * @public
  */
 export interface TNodeShape<T extends TNodeType> {
@@ -252,7 +265,7 @@ export interface TNodeShape<T extends TNodeType> {
   /**
    * Get styles that cannot be handled by React Native.
    */
-  getWebStyles(): CSSProcessedProps['web']['text']['flow'];
+  getWebStyles(): WebTextStyles & WebBlockStyles;
 }
 
 /**

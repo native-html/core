@@ -90,7 +90,8 @@ describe('TNode class', () => {
           nativeBlockFlow: {},
           nativeTextFlow: {},
           nativeTextRet: {},
-          webTextFlow: {}
+          webTextFlow: {},
+          webBlockRet: {}
         }
       });
       expect(

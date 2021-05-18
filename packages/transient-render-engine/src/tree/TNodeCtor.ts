@@ -188,7 +188,10 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   },
 
   getWebStyles() {
-    return this.styles.webTextFlow;
+    return {
+      ...this.styles.webTextFlow,
+      ...this.styles.webBlockRet
+    } as any;
   },
 
   collapseChildren() {
