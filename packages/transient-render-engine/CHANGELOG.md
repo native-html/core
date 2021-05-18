@@ -1,3 +1,10 @@
+# [8.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.2.0...@native-html/transient-render-engine@8.3.0) (2021-05-18)
+
+
+### Features
+
+* **tre:** expose webBlockRet styles to support "objectFit" mixed style ([4f3f6f2](https://github.com/native-html/core/commit/4f3f6f2408cb74ac0173c7d57444e2a3c85870b1))
+
 # [8.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.1.2...@native-html/transient-render-engine@8.2.0) (2021-05-15)
 
 
