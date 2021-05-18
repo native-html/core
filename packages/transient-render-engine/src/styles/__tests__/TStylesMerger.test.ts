@@ -321,6 +321,27 @@ describe('TStylesMerger', () => {
           expect(processedProps.nativeBlockRet).toStrictEqual({});
         });
       });
+      it('should override UA styles with inline styles', () => {
+        const stylesMerger = new TStylesMerger(
+          {
+            ...defaultStylesConfig,
+            enableUserAgentStyles: true
+          },
+          modelRegistry
+        );
+        const processedProps = stylesMerger.buildStyles(
+          'margin-top: 0;',
+          null,
+          {
+            classes: [],
+            attributes: {},
+            id: null,
+            tagName: 'p',
+            markers: Object.create(markersProtype)
+          }
+        );
+        expect(processedProps.nativeBlockRet.marginTop).toBe(0);
+      });
       describe('regarding <a> tags', () => {
         it('should default to null UA styles when attribute "href" is unset', () => {
           const stylesMerger = new TStylesMerger(
