@@ -1,3 +1,10 @@
+# [1.9.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.8.1...@native-html/css-processor@1.9.0) (2021-05-18)
+
+
+### Features
+
+* **css-processor:** support objectFit CSS property ([2d5c242](https://github.com/native-html/core/commit/2d5c242190470dda40c7ab28a8d01f21f6098355))
+
 ## [1.8.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.8.0...@native-html/css-processor@1.8.1) (2021-05-12)
 
 
