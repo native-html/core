@@ -1,3 +1,10 @@
+## [8.4.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.4.0...@native-html/transient-render-engine@8.4.1) (2021-05-18)
+
+
+### Bug Fixes
+
+* **tre:** don't append an extraneous line return in snapshot() ([091d5dd](https://github.com/native-html/core/commit/091d5dda3eaaa59fd027f198ca9d87ede7d90031))
+
 # [8.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.3.0...@native-html/transient-render-engine@8.4.0) (2021-05-18)
 
 
