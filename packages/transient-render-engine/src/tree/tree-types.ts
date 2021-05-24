@@ -113,7 +113,13 @@ export interface Markers {
  * @public
  */
 export interface TNodePrintOptions {
+  /**
+   * Include styles in snapshot.
+   */
   withStyles: boolean;
+  /**
+   * Include node index in snapshot.
+   */
   withNodeIndex: boolean;
 }
 

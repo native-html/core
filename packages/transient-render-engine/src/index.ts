@@ -16,6 +16,7 @@ export type {
   TNodeDescriptor,
   TNodeShape,
   TNodeType,
+  TNodePrintOptions,
   TPhrasing,
   TText,
   WebBlockStyles,
