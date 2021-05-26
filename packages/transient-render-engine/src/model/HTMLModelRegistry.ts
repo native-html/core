@@ -1,5 +1,5 @@
 import internalHTMLElementModels, {
-  DefaultHTMLElementModels
+  DefaultHTMLElementModelsStatic
 } from './defaultHTMLElementModels';
 import HTMLElementModel from './HTMLElementModel';
 import { HTMLModelRecord, TagName } from './model-types';
@@ -10,7 +10,7 @@ export default class HTMLModelRegistry<E extends string> {
 
   constructor(
     customize?: (
-      defaultHTMLElementModels: DefaultHTMLElementModels
+      defaultHTMLElementModels: DefaultHTMLElementModelsStatic
     ) => HTMLModelRecord<E | TagName>
   ) {
     if (typeof customize === 'function') {

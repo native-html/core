@@ -14,7 +14,7 @@ import { defaultStylesConfig } from './styles/defaults';
 import { TStyles } from './styles/TStyles';
 import HTMLModelRegistry from './model/HTMLModelRegistry';
 import { HTMLModelRecord, TagName } from './model/model-types';
-import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
+import { DefaultHTMLElementModelsStatic } from './model/defaultHTMLElementModels';
 import { DataFlowParams } from './flow/types';
 import {
   Document,
@@ -45,7 +45,7 @@ export interface TRenderEngineOptions<E extends string = never> {
    * @remarks If you need to add new tags, always use lowercase names.
    */
   readonly customizeHTMLModels?: (
-    defaultHTMLElementModels: DefaultHTMLElementModels
+    defaultHTMLElementModels: DefaultHTMLElementModelsStatic
   ) => HTMLModelRecord<TagName | E>;
   /**
    * Remove line breaks around special east-asian characters such as defined here:

@@ -28,4 +28,4 @@ export { TRenderEngine } from './TRenderEngine';
 export { TRenderEngine as default } from './TRenderEngine';
 export type { TRenderEngineOptions } from './TRenderEngine';
 export { default as defaultHTMLElementModels } from './model/defaultHTMLElementModels';
-export type { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
+export type { DefaultHTMLElementModelsStatic } from './model/defaultHTMLElementModels';

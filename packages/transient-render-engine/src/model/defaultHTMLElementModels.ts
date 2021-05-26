@@ -791,6 +791,6 @@ const defaultHTMLElementModels = {
   ...untranslatableModelMap
 };
 
-export type DefaultHTMLElementModels = typeof defaultHTMLElementModels;
+export type DefaultHTMLElementModelsStatic = typeof defaultHTMLElementModels;
 
 export default defaultHTMLElementModels;
