@@ -1,3 +1,23 @@
+# [9.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.4.1...@native-html/transient-render-engine@9.0.0) (2021-05-26)
+
+
+### Code Refactoring
+
+* **tre:** avoid renaming reexports ([965094d](https://github.com/native-html/core/commit/965094da304813a8a26d7acca8cb42af159695de))
+
+
+### Features
+
+* **tre:** export TNodePrintOptions ([46b40a2](https://github.com/native-html/core/commit/46b40a23579c3d3949bc9124b3272b3625246ce8))
+
+
+### BREAKING CHANGES
+
+* **tre:** reexported classes from domhandler have been renamed to
+their original name, so DOMNode is now Node.
+* **tre:** isDOMText has been renamed to isText and isDOMNode to
+isNode.
+
 ## [8.4.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@8.4.0...@native-html/transient-render-engine@8.4.1) (2021-05-18)
 
 
