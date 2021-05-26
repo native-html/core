@@ -1,4 +1,4 @@
-import { DOMElement, DOMText } from '../../dom/dom-utils';
+import { Element, Text } from '../../dom/dom-utils';
 import TNodeCtor, { Mutable } from '../TNodeCtor';
 import TTextCtor from '../TTextCtor';
 import { defaultInit } from './shared';
@@ -32,7 +32,7 @@ describe('TNode class', () => {
     it('should return true when node has one collapsible-right children', () => {
       const node = newTNode();
       const collapsibleChild = new TTextCtor({
-        textNode: new DOMText('  '),
+        textNode: new Text('  '),
         ...defaultInit
       });
       node.bindChildren([collapsibleChild]);
@@ -48,8 +48,8 @@ describe('TNode class', () => {
         ...node.cloneInitParams(),
         parentStyles: undefined,
         styles: undefined,
-        textNode: new DOMText('  '),
-        domNode: new DOMElement('span', { style: 'color: blue;' }),
+        textNode: new Text('  '),
+        domNode: new Element('span', { style: 'color: blue;' }),
         elementModel: null,
         nodeIndex: 10
       });

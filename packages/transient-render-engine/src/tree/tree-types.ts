@@ -1,4 +1,4 @@
-import { DOMElement, DOMText } from '../dom/dom-utils';
+import { Element, Text } from '../dom/dom-utils';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
 import { TStylesShape } from '../styles/TStyles';
@@ -12,7 +12,7 @@ export interface TNodeInit {
     readonly removeLineBreaksAroundEastAsianDiscardSet: boolean;
   };
   readonly parent?: TNodeImpl | null;
-  readonly domNode?: DOMElement | null;
+  readonly domNode?: Element | null;
   readonly styles?: TStylesShape | null;
   readonly parentStyles?: TStylesShape | null;
   readonly nodeIndex?: number;
@@ -176,7 +176,7 @@ export interface TNodeShape<T extends TNodeType> {
   /**
    * Non-anonymous nodes will hold a reference to a DOM node.
    */
-  readonly domNode: DOMElement | null;
+  readonly domNode: Element | null;
   /**
    * The tag name for this node.
    *
@@ -294,7 +294,7 @@ export type TNode = TBlock | TDocument | TEmpty | TPhrasing | TText;
 
 export interface TBlock extends TNodeShape<'block'> {
   readonly tagName: string;
-  readonly domNode: DOMElement;
+  readonly domNode: Element;
 }
 
 export interface TDocument extends TNodeShape<'document'> {
@@ -306,14 +306,14 @@ export interface TDocument extends TNodeShape<'document'> {
 }
 
 export interface TEmpty extends TNodeShape<'empty'> {
-  readonly domNode: DOMElement;
+  readonly domNode: Element;
 }
 
 export interface TPhrasing extends TNodeShape<'phrasing'> {}
 
 export interface TText extends TNodeShape<'text'> {
   readonly data: string;
-  readonly textNode: DOMText;
+  readonly textNode: Text;
 }
 
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';

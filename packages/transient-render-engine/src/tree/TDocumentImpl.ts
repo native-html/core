@@ -1,6 +1,6 @@
 import { GenericTNodeCtor, Mutable } from './TNodeCtor';
 import HTMLElementModel from '../model/HTMLElementModel';
-import { isDOMElement, isDOMText } from '../dom/dom-utils';
+import { isDomElement, isDomText } from '../dom/dom-utils';
 import { TEmptyImpl } from './TEmptyCtor';
 import { TNodeInit, TNodeImpl, DocumentContext } from './tree-types';
 import TBlockImpl from './TBlockCtor';
@@ -41,7 +41,7 @@ function extractContextFromHead(head: TEmptyImpl, lang?: string, dir?: string) {
   }
   const domNode = head.domNode;
   const children = domNode.children;
-  children.filter(isDOMElement).forEach((child) => {
+  children.filter(isDomElement).forEach((child) => {
     if (child.tagName === 'meta') {
       if (child.attribs.name) {
         context.meta.push(child.attribs as any);
@@ -51,7 +51,7 @@ function extractContextFromHead(head: TEmptyImpl, lang?: string, dir?: string) {
     } else if (child.tagName === 'link') {
       context.links.push(child.attribs);
     } else if (child.tagName === 'title') {
-      for (const titleChild of child.children.filter(isDOMText)) {
+      for (const titleChild of child.children.filter(isDomText)) {
         context.title = titleChild.data.trim();
         break;
       }

@@ -7,7 +7,7 @@ import {
   Text,
   NodeWithChildren
 } from 'domhandler';
-import { isDOMElement, isDOMText } from './dom-utils';
+import { isDomElement, isDomText } from './dom-utils';
 
 /**
  * A record of callback to visit the DOM.
@@ -85,12 +85,12 @@ export default class DomHandler extends OriginalDomHandler {
   addNode(node: Node): void {
     if (this.isIgnored(node) === true) {
       // increment only for elements.
-      if (isDOMElement(node)) {
+      if (isDomElement(node)) {
         this.ignoredTagsCount++;
       }
     } else {
       super.addNode(node);
-      if (isDOMText(node)) {
+      if (isDomText(node)) {
         this.visitors.onText?.(node);
       }
     }

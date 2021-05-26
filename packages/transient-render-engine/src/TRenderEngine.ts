@@ -17,11 +17,11 @@ import { HTMLModelRecord, TagName } from './model/model-types';
 import { DefaultHTMLElementModels } from './model/defaultHTMLElementModels';
 import { DataFlowParams } from './flow/types';
 import {
-  DOMDocument,
-  DOMElement,
-  DOMNode,
-  DOMNodeWithChildren,
-  isDOMElement
+  Document,
+  Element,
+  Node,
+  NodeWithChildren,
+  isDomElement
 } from './dom/dom-utils';
 import { SetMarkersForTNode, TDocument } from './tree/tree-types';
 import { DomHandlerOptions, DomVisitorCallbacks } from './dom/DomHandler';
@@ -85,8 +85,8 @@ export interface TRenderEngineOptions<E extends string = never> {
    * else otherwise.
    */
   readonly ignoreDomNode?: (
-    node: DOMNode,
-    parent: DOMNodeWithChildren
+    node: Node,
+    parent: NodeWithChildren
   ) => boolean | void | unknown;
 
   /**
@@ -98,7 +98,7 @@ export interface TRenderEngineOptions<E extends string = never> {
    * construction. Before normalization implies that a body will be added in
    * the tree **after** selecting root.
    */
-  readonly selectDomRoot?: (node: DOMNodeWithChildren) => any;
+  readonly selectDomRoot?: (node: NodeWithChildren) => any;
 
   /**
    * Customize markers logic by extracting markers from TNode properties such
@@ -189,27 +189,27 @@ export class TRenderEngine {
     this.selectDomRoot = options?.selectDomRoot;
   }
 
-  private normalizeDocument(document: DOMDocument) {
-    let body: DOMElement | undefined;
-    let head: DOMElement | undefined;
+  private normalizeDocument(document: Document) {
+    let body: Element | undefined;
+    let head: Element | undefined;
     for (const child of document.children) {
       if (body && head) {
         break;
       }
-      if (isDOMElement(child) && child.tagName === 'body') {
+      if (isDomElement(child) && child.tagName === 'body') {
         body = child;
       }
-      if (isDOMElement(child) && child.tagName === 'head') {
+      if (isDomElement(child) && child.tagName === 'head') {
         head = child;
       }
     }
     //@ts-ignore
     if (!body && !head) {
-      body = new DOMElement('body', {});
+      body = new Element('body', {});
       body.childNodes = document.children;
       document.children.forEach((c) => {
-        c.parent = body as DOMElement;
-        c.parentNode = body as DOMElement;
+        c.parent = body as Element;
+        c.parentNode = body as Element;
       });
       body.parent = document;
       body.parentNode = document;
@@ -221,14 +221,14 @@ export class TRenderEngine {
   parseDocument(html: string) {
     let document = parseDocument(html, this.htmlParserOptions);
     if (this.selectDomRoot) {
-      const selected = this.selectDomRoot(document) as DOMDocument;
+      const selected = this.selectDomRoot(document) as Document;
       if (selected && selected !== document) {
         document.childNodes = [selected];
         selected.parent = document;
       }
     }
     for (const child of document.children) {
-      if (isDOMElement(child) && child.tagName === 'html') {
+      if (isDomElement(child) && child.tagName === 'html') {
         document = child;
         break;
       }
@@ -236,7 +236,7 @@ export class TRenderEngine {
     return this.normalizeDocument(document);
   }
 
-  buildTTreeFromDoc(document: DOMDocument | DOMElement): TDocument {
+  buildTTreeFromDoc(document: Document | Element): TDocument {
     const tdoc = translateDocument(document, this.dataFlowParams);
     const hoistedTDoc = this.hoistingEnabled ? hoist(tdoc) : tdoc;
     const collapsedTDoc = this.whitespaceCollapsingEnabled

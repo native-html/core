@@ -1,4 +1,4 @@
-import { DOMText } from '../dom/dom-utils';
+import { Text } from '../dom/dom-utils';
 import HTMLContentModel from '../model/HTMLContentModel';
 
 import compose from 'ramda/src/compose';
@@ -14,7 +14,7 @@ import {
 import TNodeCtor, { GenericTNodeCtor, Mutable } from './TNodeCtor';
 
 export interface TTextInit extends TNodeInit {
-  readonly textNode: DOMText;
+  readonly textNode: Text;
 }
 
 export interface TTextImpl extends TNodeImpl<TTextInit> {

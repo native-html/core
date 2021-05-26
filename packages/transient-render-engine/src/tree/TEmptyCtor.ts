@@ -1,14 +1,14 @@
 import HTMLContentModel from '../model/HTMLContentModel';
-import { DOMElement } from '../dom/dom-utils';
+import { Element } from '../dom/dom-utils';
 import { TNodeImpl, TNodeInit } from './tree-types';
 import TNodeCtor, { GenericTNodeCtor, Mutable } from './TNodeCtor';
 
 export interface TEmptyImpl extends TNodeImpl<TEmptyInit> {
-  readonly domNode: DOMElement;
+  readonly domNode: Element;
 }
 
 export interface TEmptyInit extends TNodeInit {
-  domNode: DOMElement;
+  domNode: Element;
 }
 
 const TEmptyCtor = function TEmpty(

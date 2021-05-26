@@ -11,7 +11,7 @@ import {
   rfc002Source
 } from './shared';
 import { defaultInit, translateTreeTest } from './utils';
-import { DOMText } from '../../dom/dom-utils';
+import { Text } from '../../dom/dom-utils';
 
 function makeTTree(
   html: string,
@@ -25,7 +25,7 @@ function makeTTree(
 }
 
 function makeTextChildren() {
-  return [new TTextCtor({ textNode: new DOMText(''), ...defaultInit })];
+  return [new TTextCtor({ textNode: new Text(''), ...defaultInit })];
 }
 
 describe('collapse function', () => {
@@ -79,9 +79,9 @@ describe('collapse function', () => {
     const ttree = new TPhrasingCtor(defaultInit);
     ttree.bindChildren([
       // This node will be empty after trimming right, and should be removed
-      new TTextCtor({ textNode: new DOMText(' '), ...defaultInit }),
-      new TTextCtor({ textNode: new DOMText(' Foo'), ...defaultInit }),
-      new TTextCtor({ textNode: new DOMText(' Bar'), ...defaultInit })
+      new TTextCtor({ textNode: new Text(' '), ...defaultInit }),
+      new TTextCtor({ textNode: new Text(' Foo'), ...defaultInit }),
+      new TTextCtor({ textNode: new Text(' Bar'), ...defaultInit })
     ]);
     const collapsed = collapse(ttree);
     expect(collapsed.children).toHaveLength(2);

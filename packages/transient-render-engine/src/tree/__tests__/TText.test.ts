@@ -1,15 +1,15 @@
-import { DOMText } from '../../dom/dom-utils';
+import { Text } from '../../dom/dom-utils';
 import HTMLContentModel from '../../model/HTMLContentModel';
 import TTextCtor from '../TTextCtor';
 import { defaultInit } from './shared';
 
-const textNode = new DOMText(' This is Great!');
+const textNode = new Text(' This is Great!');
 
 describe('TText class', () => {
   describe('trimLeft method', () => {
     it('should remove the first character', () => {
       const text = new TTextCtor({
-        textNode: new DOMText(' This is Great'),
+        textNode: new Text(' This is Great'),
         ...defaultInit
       });
       text.trimLeft();
@@ -19,7 +19,7 @@ describe('TText class', () => {
   describe('trimRight method', () => {
     it('should remove the last character', () => {
       const text = new TTextCtor({
-        textNode: new DOMText('This is Great '),
+        textNode: new Text('This is Great '),
         ...defaultInit
       });
       text.trimRight();

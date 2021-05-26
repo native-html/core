@@ -4,13 +4,7 @@ import { TTextCtor } from '../tree/TTextCtor';
 import { TPhrasingCtor } from '../tree/TPhrasingCtor';
 import { TBlockCtor } from '../tree/TBlockCtor';
 import { TDocumentCtor, TDocumentImpl } from '../tree/TDocumentImpl';
-import {
-  isDOMElement,
-  isDOMText,
-  DOMElement,
-  DOMNode,
-  DOMText
-} from '../dom/dom-utils';
+import { isDomElement, isDomText, Element, Node, Text } from '../dom/dom-utils';
 import { TStyles } from '../styles/TStyles';
 
 import { TEmptyCtor } from '../tree/TEmptyCtor';
@@ -22,7 +16,7 @@ export function mapNodeList({
   parentStyles,
   params
 }: {
-  nodeList: DOMNode[];
+  nodeList: Node[];
   parentStyles?: TStyles;
   parent: TNodeImpl | null;
   params: DataFlowParams;
@@ -46,7 +40,7 @@ export function mapNodeList({
 
 export function bindChildren(
   node: TNodeImpl,
-  children: DOMNode[],
+  children: Node[],
   params: DataFlowParams
 ) {
   if (!node.elementModel || !node.elementModel.isOpaque) {
@@ -66,7 +60,7 @@ function translateElement({
   params,
   parent,
   parentStyles
-}: TranslateParams<DOMElement>): TNodeImpl | null {
+}: TranslateParams<Element>): TNodeImpl | null {
   const tagName = node.tagName;
   const sharedProps: Omit<TNodeInit, 'contentModel' | 'elementModel'> = {
     nodeIndex,
@@ -86,8 +80,8 @@ function translateElement({
   }
   if (elementModel.isTranslatableTextual()) {
     if (node.children.length === 1) {
-      const child = node.children[0] as DOMNode;
-      if (isDOMText(child)) {
+      const child = node.children[0] as Node;
+      if (isDomText(child)) {
         return new TTextCtor({
           ...sharedProps,
           elementModel,
@@ -100,7 +94,7 @@ function translateElement({
         ...sharedProps,
         elementModel,
         domNode: node,
-        textNode: new DOMText('')
+        textNode: new Text('')
       });
     }
     const phrasing = new TPhrasingCtor({
@@ -129,7 +123,7 @@ function translateElement({
   });
 }
 
-interface TranslateParams<T = DOMNode> {
+interface TranslateParams<T = Node> {
   node: T;
   params: DataFlowParams;
   parent: TNodeImpl | null;
@@ -143,8 +137,8 @@ export function translateNode({
   params,
   nodeIndex,
   parent
-}: TranslateParams<DOMNode | null>): TNodeImpl | null {
-  if (isDOMText(node)) {
+}: TranslateParams<Node | null>): TNodeImpl | null {
+  if (isDomText(node)) {
     return new TTextCtor({
       textNode: node,
       context: params,
@@ -155,7 +149,7 @@ export function translateNode({
       parent
     });
   }
-  if (isDOMElement(node)) {
+  if (isDomElement(node)) {
     return translateElement({
       node,
       parentStyles,

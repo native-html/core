@@ -1,4 +1,5 @@
-enum HTMLContentModel {
+// eslint-disable-next-line no-shadow
+export enum HTMLContentModel {
   /**
    * Translatable to TBlock.
    */
