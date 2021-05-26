@@ -55,7 +55,7 @@ function makeBenchmark(name, options, target) {
 }
 
 async function run() {
-  const translateTarget = 32;
+  const translateTarget = 40;
   const { meanMs: translateMeanMs } = await makeBenchmark(
     'translate only',
     {
