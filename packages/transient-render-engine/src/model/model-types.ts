@@ -168,21 +168,36 @@ export type HTMLModelRecord<
   [k in T]: HTMLElementModel<k, M>;
 };
 
+/**
+ * @typeParam T - The name of the tag to which the model will apply.
+ */
 export interface ElementModelBase<T extends string> {
   /**
    * The tag name associated with this model.
    */
   readonly tagName: T;
   /**
-   * An opaque element translated TNode will have a `domNode` property.
+   * An opaque element translated {@link TNode} will have no translated {@link TNode}
+   * children.
    */
   readonly isOpaque?: boolean;
   /**
    * Equivalent of "user-agent" styles. The default styles for the element.
    *
-   * @remarks These styles will get merged over by `tagsStyles`.
+   * @remarks These styles will be merged over by `tagsStyles`.
    */
   readonly mixedUAStyles?: MixedStyleDeclaration;
+
+  /**
+   * `true` when the associated tag is a {@link https://html.spec.whatwg.org/multipage/syntax.html#void-elements | void element}.
+   *
+   * @remarks
+   *
+   * - Void elements cannot have children.
+   * - TText-translated void elements will be preserved even though they don't
+   *   have children.
+   */
+  readonly isVoid?: boolean;
 
   /**
    * Derive markers for one TNode.
@@ -190,7 +205,7 @@ export interface ElementModelBase<T extends string> {
   setMarkersForTNode?: SetMarkersForTNode;
 
   /**
-   * Conditional "user-agent" styles.
+   * A function to create conditional "user-agent" styles.
    *
    * @remarks For example, &lt;a&gt; tags will have underline decoration and be
    * colored blue only when `href` is defined.
@@ -203,32 +218,36 @@ export interface ElementModelBase<T extends string> {
 
 /**
  * An object to specify custom tags.
+ *
+ * @typeParam T - The name of the tag to which the model will apply.
+ * @typeParam M - The {@link HTMLContentModel} associated with this tag.
  */
 export interface CustomElementModel<
   T extends string,
   M extends HTMLContentModel
 > extends ElementModelBase<T> {
-  tagName: Exclude<T, TagName>;
-  contentModel: M;
-  isVoid?: boolean;
+  /**
+   * The {@link HTMLContentModel} attached to this model.
+   */
+  readonly contentModel: M;
+  /**
+   * The tag name associated with this model.
+   */
+  readonly tagName: Exclude<T, TagName>;
 }
 
 /**
  * An object to specify tags parts of the HTML4 and HTML5 standards.
+ *
+ * @typeParam T - The name of the tag to which the model will apply.
+ * @typeParam C - The {@link ElementCategory} associated with this tag.
  */
 export interface NativeElementModel<
   T extends string = TagName,
   C = ElementCategory
 > extends ElementModelBase<T> {
   /**
-   * Void elements such as specified in HTML4:
-   *
-   * - Void elements cannot have children.
-   * - TText-translated void elements will be preserved even though they don't have children.
-   */
-  isVoid?: boolean;
-  /**
    * The category of this element as per HTML5 standard.
    */
-  category: C;
+  readonly category: C;
 }

@@ -16,29 +16,83 @@ const translatableBlockCategories: ElementCategory[] = [
   'sectioning'
 ];
 
+/**
+ * An object to specify custom tags.
+ *
+ * @typeParam T - The name of the tag to which the model will apply.
+ * @typeParam M - The {@link HTMLContentModel} associated with this tag.
+ */
 export interface HTMLElementModelProperties<
   T extends string,
   M extends HTMLContentModel
 > extends ElementModelBase<T> {
+  /**
+   * The {@link HTMLContentModel} attached to this model.
+   */
   readonly contentModel: M;
+  /**
+   * `true` when the associated tag is a {@link https://html.spec.whatwg.org/multipage/syntax.html#void-elements | void element}.
+   *
+   * @remarks
+   *
+   * - Void elements cannot have children.
+   * - TText-translated void elements will be preserved even though they don't
+   *   have children.
+   */
   readonly isVoid: boolean;
 }
 
 /**
  * An object defining engine internals for tags, such as default styles
  * (UAStyles), content model (how this tag is treated during hoisting)... etc.
+ *
+ * @typeParam T - The name of the tag to which the model will apply.
+ * @typeParam M - The {@link HTMLContentModel} associated with this tag.
  */
 export default class HTMLElementModel<
   T extends string,
   M extends HTMLContentModel
 > implements HTMLElementModelProperties<T, M>
 {
+  /**
+   * The tag name associated with this model.
+   */
   public readonly tagName: T;
+  /**
+   * The {@link HTMLContentModel} attached to this model.
+   */
   public readonly contentModel: M;
+  /**
+   * An opaque element translated {@link TNode} will have no translated {@link TNode}
+   * children.
+   */
   public readonly isOpaque: boolean;
+  /**
+   * `true` when the associated tag is a {@link https://html.spec.whatwg.org/multipage/syntax.html#void-elements | void element}.
+   *
+   * @remarks
+   *
+   * - Void elements cannot have children.
+   * - TText-translated void elements will be preserved even though they don't
+   *   have children.
+   */
   public readonly isVoid: boolean;
+  /**
+   * Equivalent of "user-agent" styles. The default styles for the element.
+   *
+   * @remarks These styles will be merged over by `tagsStyles`.
+   */
   public readonly mixedUAStyles?: MixedStyleDeclaration;
+  /**
+   * A function to create conditional "user-agent" styles.
+   *
+   * @remarks For example, &lt;a&gt; tags will have underline decoration and be
+   * colored blue only when `href` is defined.
+   */
   public readonly getUADerivedStyleFromAttributes: NativeElementModel['getUADerivedStyleFromAttributes'];
+  /**
+   * Derive markers for one TNode.
+   */
   public readonly setMarkersForTNode?: SetMarkersForTNode;
 
   private constructor({
@@ -59,16 +113,27 @@ export default class HTMLElementModel<
     this.setMarkersForTNode = setMarkersForTNode;
   }
 
+  /**
+   * Create an {@link HTMLElementModel} from a custom description.
+   *
+   * @param customElementModel - The custom model declaration.
+   */
   static fromCustomModel<
     CustomTags extends string,
     ContentModel extends HTMLContentModel
-  >({
-    contentModel,
-    tagName,
-    isOpaque = false,
-    isVoid = false,
-    ...optionalFields
-  }: CustomElementModel<Exclude<CustomTags, TagName>, ContentModel>) {
+  >(
+    customElementModel: CustomElementModel<
+      Exclude<CustomTags, TagName>,
+      ContentModel
+    >
+  ) {
+    const {
+      contentModel,
+      tagName,
+      isOpaque = false,
+      isVoid = false,
+      ...optionalFields
+    } = customElementModel;
     return new HTMLElementModel<Exclude<CustomTags, TagName>, ContentModel>({
       tagName,
       contentModel,
@@ -78,15 +143,23 @@ export default class HTMLElementModel<
     });
   }
 
-  static fromNativeModel<TN extends TagName, E extends ElementCategory>({
-    tagName,
-    category,
-    isOpaque,
-    mixedUAStyles,
-    isVoid = false,
-    getUADerivedStyleFromAttributes,
-    setMarkersForTNode: getMarkersForTNode
-  }: NativeElementModel<TN, E>) {
+  /**
+   * Create an {@link HTMLElementModel} from a native description.
+   *
+   * @param nativeElementModel - The native model declaration.
+   */
+  static fromNativeModel<TN extends TagName, E extends ElementCategory>(
+    nativeElementModel: NativeElementModel<TN, E>
+  ) {
+    const {
+      tagName,
+      category,
+      isOpaque,
+      mixedUAStyles,
+      isVoid = false,
+      getUADerivedStyleFromAttributes,
+      setMarkersForTNode: getMarkersForTNode
+    } = nativeElementModel;
     const isPhrasing = phrasingCategories.indexOf(category) !== -1;
     const isTranslatable =
       isPhrasing || translatableBlockCategories.indexOf(category) !== -1;
@@ -129,15 +202,27 @@ export default class HTMLElementModel<
     );
   }
 
+  /**
+   * Create a new {@link HTMLElementModel} by merging properties into this model.
+   *
+   * @param properties - The {@link HTMLElementModelProperties} to merge into this model.
+   * @typeParam CM - The {@link HTMLContentModel} attached to the new model.
+   */
   extend<CM extends HTMLContentModel>(
-    props: Partial<HTMLElementModelProperties<T, CM>>
+    properties: Partial<HTMLElementModelProperties<T, CM>>
   ): HTMLElementModel<T, CM> {
     return new HTMLElementModel<T, CM>({
       ...this,
-      ...props
+      ...properties
     });
   }
 
+  /**
+   * A function to create conditional "user-agent" styles.
+   *
+   * @remarks For example, &lt;a&gt; tags will have underline decoration and be
+   * colored blue only when `href` is defined.
+   */
   getUADerivedCSSProcessedPropsFromAttributes(
     attributes: Record<string, string>,
     markers: Markers

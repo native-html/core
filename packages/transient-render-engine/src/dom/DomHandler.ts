@@ -16,30 +16,24 @@ import { isDomElement, isDomText } from './dom-utils';
  */
 export interface DomVisitorCallbacks {
   /**
-   * A callback invoked when encountering a DOMDocument.
+   * A callback invoked when encountering a {@link Document}.
    *
    * @param document - The document to visit.
    *
    */
   onDocument?(document: Document): void;
   /**
-   * A callback invoked when encountering a DOMElement.
+   * A callback invoked when encountering an {@link Element}.
    *
-   * @param document - The element to visit.
-   *
-   * @returns - Nothing if the walk should continue, `true` if the walk
-   * should stop.
+   * @param element - The element to visit.
    */
-  onElement?(element: Element): void | boolean;
+  onElement?(element: Element): void;
   /**
-   * A callback invoked when encountering a DOMText.
+   * A callback invoked when encountering a {@link Text} node.
    *
    * @param text - The text to visit.
-   *
-   * @returns - Nothing if the walk should continue, `true` if the walk
-   * should stop.
    */
-  onText?(text: Text): void | boolean;
+  onText?(text: Text): void;
 }
 
 export interface DomHandlerOptions extends OriginalDomHandlerOptions {
