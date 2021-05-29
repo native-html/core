@@ -33,17 +33,20 @@ export interface TNodeDescriptor {
 }
 
 /**
- * A function to set markers for a specific TNode.
+ * A function to set markers for a specific {@link TNode}.
+ *
+ * @param targetMarkers - The markers instance to alter.
+ * @param parentMarkers - Th direct ascendant markers instance for this tnode.
+ * @param tnode - The minimalistic {@link TNodeDescriptor} to which the
+ * `targetMarkers` will be attached.
  *
  * @public
  */
-export interface SetMarkersForTNode {
-  (
-    targetMarkers: Markers,
-    parentMarkers: Readonly<Markers>,
-    tnode: TNodeDescriptor
-  ): void;
-}
+export type SetMarkersForTNode = (
+  targetMarkers: Markers,
+  parentMarkers: Readonly<Markers>,
+  tnode: TNodeDescriptor
+) => void;
 
 /**
  * Markers form an abstraction in which one node provides semantic information
@@ -51,9 +54,21 @@ export interface SetMarkersForTNode {
  * for "insertion" of content in the context of an edit will provide the {
  * edits: 'ins' } marker to all its descendants.
  *
+ * @remarks
  * Custom renderers can use markers to change their layout and convey their
  * semantic meaning. Markers can be derived from attributes, such as `lang` and
  * `dir` attributes, or tag names, such as `a`, `ins`, `del`...
+ *
+ * **TypeScript users**: You can add fields to the {@link Markers} interface via
+ * {@link https://www.typescriptlang.org/docs/handbook/declaration-merging.html#module-augmentation | module augmentation}:
+ *
+ * ```ts
+ * declare module '@native-html/transient-render-engine' {
+ *   interface Markers {
+ *     customField?: boolean;
+ *   }
+ * }
+ * ```
  */
 export interface Markers {
   /**
