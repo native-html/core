@@ -1,3 +1,10 @@
+# [9.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.0.3...@native-html/transient-render-engine@9.1.0) (2021-06-24)
+
+
+### Features
+
+* new TNode.hasClass method ([3cd1330](https://github.com/native-html/core/commit/3cd13304171e286c00a6038cbe0ed31decd5d453))
+
 ## [9.0.3](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.0.2...@native-html/transient-render-engine@9.0.3) (2021-05-29)
 
 ## [9.0.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.0.1...@native-html/transient-render-engine@9.0.2) (2021-05-28)
