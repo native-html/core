@@ -203,6 +203,10 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     return tnodeToString(this as any, { withStyles, withNodeIndex });
   },
 
+  hasClass(className) {
+    return this.classes.indexOf(className) > -1;
+  },
+
   toString() {
     return this.snapshot();
   },

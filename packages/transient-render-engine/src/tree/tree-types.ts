@@ -270,6 +270,13 @@ export interface TNodeShape<T extends TNodeType> {
   snapshot(options?: Partial<TNodePrintOptions>): string;
 
   /**
+   * Check if this {@link TNode} has the given `className`.
+   *
+   * @param className - The class to check.
+   */
+  hasClass(className: string): boolean;
+
+  /**
    * Test if the given content model matches this TNode content model.
    *
    * @param contentModel - The content model to test against.
@@ -350,6 +357,7 @@ export interface TNodeMethods {
   trimRight(this: TNodeImpl): void;
   matchContentModel(contentModel: HTMLContentModel): boolean;
   collapse(this: TNodeImpl): void;
+  hasClass(className: string): boolean;
   /**
    * Collpase this node children.
    *

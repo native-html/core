@@ -100,4 +100,14 @@ describe('TNode class', () => {
       expect(node.toString()).toBe(node.snapshot(/*false*/));
     });
   });
+  describe('hasClass', () => {
+    it('should return true when underlying DOM node has class', () => {
+      const node = newTNode({
+        domNode: new Element('div', {
+          class: 'a b c d efg'
+        })
+      });
+      expect(node.hasClass('efg')).toBe(true);
+    });
+  });
 });
