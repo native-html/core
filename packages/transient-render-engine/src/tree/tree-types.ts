@@ -171,6 +171,8 @@ export type WebTextStyles = TStylesShape['webTextFlow'];
 export type WebBlockStyles = TStylesShape['webBlockRet'];
 
 /**
+ * The base type for all {@link TNode} types.
+ *
  * @public
  */
 export interface TNodeShape<T extends TNodeType> {
@@ -312,13 +314,23 @@ export interface DocumentContext {
   links: Record<string, string>[];
 }
 
+/**
+ * A transient render node (TNode) is a ready-to-render data structure.
+ */
 export type TNode = TBlock | TDocument | TEmpty | TPhrasing | TText;
 
+/**
+ * TBlocks are transient render nodes to be rendered in React Native `Views`.
+ */
 export interface TBlock extends TNodeShape<'block'> {
   readonly tagName: string;
   readonly domNode: Element;
 }
 
+/**
+ * TDocument is the root of a transient render tree. It has a special
+ * `context` field holding metadata about the page.
+ */
 export interface TDocument extends TNodeShape<'document'> {
   /**
    * An object containing special information for this document, such as lang,
@@ -327,17 +339,35 @@ export interface TDocument extends TNodeShape<'document'> {
   readonly context: Readonly<DocumentContext>;
 }
 
+/**
+ * TEmpty are transient render nodes for a non-renderable elements, e.g.
+ * for elements which have an {@link HTMLContentModel} set to **none**.
+ */
 export interface TEmpty extends TNodeShape<'empty'> {
   readonly domNode: Element;
 }
 
+/**
+ * TPhrasing are transient render nodes to be rendered in React Native `Text`
+ * components. TPhrasing nodes have {@link TText}, {@link TPhrasing} or
+ * {@link TEmpty} children.
+ */
 export interface TPhrasing extends TNodeShape<'phrasing'> {}
 
+/**
+ * TText are a transient render nodes to be rendered in React Native `Text`
+ * components. They don't have children, and have a special `data` field
+ * holding the text to be rendered.
+ */
 export interface TText extends TNodeShape<'text'> {
   readonly data: string;
   readonly textNode: Text;
+  readonly children: [];
 }
 
+/**
+ * Distinct {@link TNode} types.
+ */
 export type TNodeType = 'block' | 'phrasing' | 'text' | 'empty' | 'document';
 
 export interface TNodeMethods {
