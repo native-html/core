@@ -362,7 +362,6 @@ export interface TPhrasing extends TNodeShape<'phrasing'> {}
 export interface TText extends TNodeShape<'text'> {
   readonly data: string;
   readonly textNode: Text;
-  readonly children: [];
 }
 
 /**
