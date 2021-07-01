@@ -1,4 +1,4 @@
-import { CSSProcessor, MixedStyleDeclaration } from './CSSProcessor';
+import { CSSProcessor } from './CSSProcessor';
 export { CSSProcessedProps } from './CSSProcessedProps';
 export * from './config';
 export * from './default';
@@ -7,5 +7,9 @@ export * from './property-types';
 export * from './native-types';
 export { default as mergeProps } from './mergeProps';
 export { CSSProcessor };
-export type { MixedStyleDeclaration };
+export type {
+  CSSFlattenProcessedTypes,
+  MixedSizeCSSPropertiesKeys,
+  MixedStyleDeclaration
+} from './CSSProcessor';
 export default CSSProcessor;
