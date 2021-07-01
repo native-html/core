@@ -166,4 +166,9 @@ describe('collapse function', () => {
     const ttree = makeTTree(src);
     expect(ttree).toMatchSnapshot();
   });
+  it('should retain whitespaces between block and textual nodes', () => {
+    const src = '<div><strong>Tags:</strong>\n<a href="">hello</a>';
+    const ttree = makeTTree(src);
+    expect(ttree).toMatchSnapshot();
+  });
 });

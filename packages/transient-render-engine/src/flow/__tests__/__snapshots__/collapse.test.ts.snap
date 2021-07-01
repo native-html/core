@@ -149,6 +149,16 @@ exports[`collapse function should remove children from TPhrasing nodes which are
 
 exports[`collapse function should remove empty anonymous TPhrasing children from TPhrasing nodes 1`] = `<TPhrasing anonymous nodeIndex={0} />`;
 
+exports[`collapse function should retain whitespaces between block and textual nodes 1`] = `
+<TBlock tagName="div" nodeIndex={0}>
+  <TPhrasing anonymous nodeIndex={0}>
+    <TText tagName="strong" nodeIndex={0} data="Tags:" />
+    <TText anonymous nodeIndex={1} data=" " />
+    <TText tagName="a" nodeIndex={2} data="hello" href="" />
+  </TPhrasing>
+</TBlock>
+`;
+
 exports[`collapse function should support removeLineBreaksAroundEastAsianDiscardSet param 1`] = `<TText tagName="span" nodeIndex={0} data="⼀⿚" />`;
 
 exports[`collapse function should withold TEmpty nodes 1`] = `
