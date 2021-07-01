@@ -1,3 +1,10 @@
+# [1.10.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.9.0...@native-html/css-processor@1.10.0) (2021-07-01)
+
+
+### Features
+
+* **css-processor:** export missing types ([2f82497](https://github.com/native-html/core/commit/2f82497dfb383832884275e86fd4198da072be38))
+
 # [1.9.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.8.1...@native-html/css-processor@1.9.0) (2021-05-18)
 
 
