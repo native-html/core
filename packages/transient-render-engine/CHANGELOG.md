@@ -1,3 +1,10 @@
+# [9.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.1.0...@native-html/transient-render-engine@9.2.0) (2021-07-01)
+
+
+### Features
+
+* **tre:** reexport css-processor types ([59e81e9](https://github.com/native-html/core/commit/59e81e9a6032bf0faab5212b1a9d63781969f448))
+
 # [9.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.0.3...@native-html/transient-render-engine@9.1.0) (2021-06-24)
 
 
