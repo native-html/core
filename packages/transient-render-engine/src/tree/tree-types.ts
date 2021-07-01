@@ -171,7 +171,7 @@ export type WebTextStyles = TStylesShape['webTextFlow'];
 export type WebBlockStyles = TStylesShape['webBlockRet'];
 
 /**
- * The base type for all {@link TNode} types.
+ * Shared properties for all {@link TNode} types.
  *
  * @public
  */
@@ -182,12 +182,12 @@ export interface TNodeShape<T extends TNodeType> {
   readonly attributes: Record<string, string>;
   /**
    * The id for this node, extracted from the id attribute of the
-   * underlying DOMNode.
+   * underlying {@link Node}.
    */
   readonly id: string | null;
   /**
    * A list of classes for this node, extracted from the class attribute of the
-   * underlying DOMNode.
+   * underlying {@link Node}.
    */
   readonly classes: string[];
   /**
@@ -320,7 +320,7 @@ export interface DocumentContext {
 export type TNode = TBlock | TDocument | TEmpty | TPhrasing | TText;
 
 /**
- * TBlocks are transient render nodes to be rendered in React Native `Views`.
+ * Transient render nodes to be rendered in React Native `Views`.
  */
 export interface TBlock extends TNodeShape<'block'> {
   readonly tagName: string;
@@ -328,7 +328,7 @@ export interface TBlock extends TNodeShape<'block'> {
 }
 
 /**
- * TDocument is the root of a transient render tree. It has a special
+ * The root of a transient render tree. It has a special
  * `context` field holding metadata about the page.
  */
 export interface TDocument extends TNodeShape<'document'> {
@@ -340,7 +340,7 @@ export interface TDocument extends TNodeShape<'document'> {
 }
 
 /**
- * TEmpty are transient render nodes for a non-renderable elements, e.g.
+ * Transient render nodes for a non-renderable elements, e.g.
  * for elements which have an {@link HTMLContentModel} set to **none**.
  */
 export interface TEmpty extends TNodeShape<'empty'> {
@@ -348,14 +348,14 @@ export interface TEmpty extends TNodeShape<'empty'> {
 }
 
 /**
- * TPhrasing are transient render nodes to be rendered in React Native `Text`
+ * Transient render nodes to be rendered in React Native `Text`
  * components. TPhrasing nodes have {@link TText}, {@link TPhrasing} or
  * {@link TEmpty} children.
  */
 export interface TPhrasing extends TNodeShape<'phrasing'> {}
 
 /**
- * TText are a transient render nodes to be rendered in React Native `Text`
+ * Transient render nodes to be rendered in React Native `Text`
  * components. They don't have children, and have a special `data` field
  * holding the text to be rendered.
  */
