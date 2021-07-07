@@ -14,6 +14,8 @@ exports[`translateNode function should comply with RFC002 example (translating) 
 
 exports[`translateNode function should ignore unregistered tags 1`] = `<TEmpty tagName="nonexistingtag" unregistered nodeIndex={0} />`;
 
+exports[`translateNode function should pass regression with rgb() including spaces 1`] = `<TText tagName="span" nodeIndex={0} data="A" nativeStyles={{ color: "rgb(101, 123, 131)" }} />`;
+
 exports[`translateNode function should translate a phrasing element with one text child node to a TText element 1`] = `
 <TPhrasing tagName="span" nodeIndex={0}>
   <TText tagName="strong" nodeIndex={0} data="Hello!" />

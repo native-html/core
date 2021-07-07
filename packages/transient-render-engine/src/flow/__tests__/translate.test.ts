@@ -23,6 +23,12 @@ describe('translateNode function', () => {
     );
     expect(tdoc).toMatchSnapshot();
   });
+  it('should pass regression with rgb() including spaces', () => {
+    const span = translateTreeTest(
+      '<span style="color: rgb(101, 123, 131);">A</span>'
+    );
+    expect(span).toMatchSnapshot();
+  });
   it('should set parent', () => {
     const tdoc = translateTreeTest(rfc002Source);
     expect(tdoc.children).toHaveLength(7);
