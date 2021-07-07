@@ -1,7 +1,7 @@
 import { LongForgivingCSSPropertyValidator } from './LongForgivingCSSPropertyValidator';
 import { CSSPropertyModel } from './types';
 
-const COLOR_REGEX = /^(rgb|rgba|hsl|hsla)\([\d,%.]+\)|[#]?\w+$/;
+const COLOR_REGEX = /^(rgb|rgba|hsl|hsla)\([\d,%. ]+\)|[#]?\w+$/;
 
 export class LongColorCSSPropertyValidator<
   C extends CSSPropertyModel
