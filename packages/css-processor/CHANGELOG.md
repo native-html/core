@@ -1,3 +1,10 @@
+## [1.10.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.10.0...@native-html/css-processor@1.10.1) (2021-07-07)
+
+
+### Bug Fixes
+
+* **css-processor:** allow spaces in CSS color functions such as rgb(...) ([dc71e4a](https://github.com/native-html/core/commit/dc71e4afa6ad5b89264aeaf22e8ab50c13bfe443))
+
 # [1.10.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.9.0...@native-html/css-processor@1.10.0) (2021-07-01)
 
 
