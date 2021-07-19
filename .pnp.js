@@ -7238,7 +7238,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@babel/runtime", "npm:7.14.0"],
             ["@react-native-community/bob", "npm:0.17.1"],
             ["@release-it/conventional-changelog", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#patch:@release-it/conventional-changelog@npm%3A2.0.0#patches/@release-it-conventional-changelog.patch::version=2.0.0&hash=6e3e22&locator=core%40workspace%3A."],
-            ["@types/csstype", null],
             ["@types/jest", "npm:26.0.23"],
             ["@types/react", "npm:17.0.5"],
             ["@types/react-native", "npm:0.64.5"],
@@ -7258,11 +7257,9 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["typescript", "patch:typescript@npm%3A4.2.4#builtin<compat/typescript>::version=4.2.4&hash=a45b0e"]
           ],
           "packagePeers": [
-            "@types/csstype",
             "@types/react-native",
             "@types/types__react-native",
-            "@types/types__react",
-            "csstype"
+            "@types/types__react"
           ],
           "linkType": "SOFT",
         }],

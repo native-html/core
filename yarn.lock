@@ -1951,7 +1951,6 @@ __metadata:
   peerDependencies:
     "@types/react": "*"
     "@types/react-native": "*"
-    csstype: ^3.0.8
   languageName: unknown
   linkType: soft
 
@@ -1990,7 +1989,7 @@ __metadata:
     typescript: ~4.2.4
   peerDependencies:
     "@types/react-native": "*"
-    react-native: ^0.63.0
+    react-native: ^*
   languageName: unknown
   linkType: soft
 

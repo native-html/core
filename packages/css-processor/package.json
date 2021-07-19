@@ -46,7 +46,6 @@
     "@types/react": "^17.0.5",
     "@types/react-native": "^0.64.4",
     "babel-jest": "^26.6.3",
-    "csstype": "^3.0.8",
     "eslint": "^7.25.0",
     "jest": "^26.6.3",
     "metro-react-native-babel-preset": "^0.66.0",
@@ -59,11 +58,11 @@
   },
   "peerDependencies": {
     "@types/react": "*",
-    "@types/react-native": "*",
-    "csstype": "^3.0.8"
+    "@types/react-native": "*"
   },
   "dependencies": {
-    "css-to-react-native": "^3.0.0"
+    "css-to-react-native": "^3.0.0",
+    "csstype": "^3.0.8"
   },
   "publishConfig": {
     "access": "public"
