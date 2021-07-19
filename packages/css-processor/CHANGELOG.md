@@ -1,3 +1,10 @@
+## [1.10.2](https://github.com/native-html/core/compare/@native-html/css-processor@1.10.1...@native-html/css-processor@1.10.2) (2021-07-19)
+
+
+### Bug Fixes
+
+* **css-processor:** explicitly depend on csstype ([87f8aa9](https://github.com/native-html/core/commit/87f8aa9cd38504fe57a36b9da5da7b8161a91aca))
+
 ## [1.10.1](https://github.com/native-html/core/compare/@native-html/css-processor@1.10.0...@native-html/css-processor@1.10.1) (2021-07-07)
 
 
