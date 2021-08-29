@@ -859,7 +859,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "@types/ramda",
-        "npm:0.27.40"
+        "npm:0.27.44"
       ],
       [
         "@types/react",
@@ -2095,7 +2095,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "htmlparser2",
-        "npm:6.1.0"
+        "npm:7.1.0"
       ],
       [
         "http-cache-semantics",
@@ -7310,7 +7310,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@release-it/conventional-changelog", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#patch:@release-it/conventional-changelog@npm%3A2.0.0#patches/@release-it-conventional-changelog.patch::version=2.0.0&hash=6e3e22&locator=core%40workspace%3A."],
             ["@tsconfig/react-native", "npm:1.0.3"],
             ["@types/jest", "npm:26.0.23"],
-            ["@types/ramda", "npm:0.27.40"],
+            ["@types/ramda", "npm:0.27.44"],
             ["@types/react-native", "npm:0.64.5"],
             ["@types/types__react-native", null],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
@@ -7320,7 +7320,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["domhandler", "npm:4.2.0"],
             ["domutils", "npm:2.6.0"],
             ["eslint", "npm:7.26.0"],
-            ["htmlparser2", "npm:6.1.0"],
+            ["htmlparser2", "npm:7.1.0"],
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
             ["prettier", "npm:2.3.0"],
@@ -7352,7 +7352,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@release-it/conventional-changelog", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#patch:@release-it/conventional-changelog@npm%3A2.0.0#patches/@release-it-conventional-changelog.patch::version=2.0.0&hash=6e3e22&locator=core%40workspace%3A."],
             ["@tsconfig/react-native", "npm:1.0.3"],
             ["@types/jest", "npm:26.0.23"],
-            ["@types/ramda", "npm:0.27.40"],
+            ["@types/ramda", "npm:0.27.44"],
             ["@types/react-native", "npm:0.64.5"],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
             ["csstype", "npm:3.0.8"],
@@ -7361,7 +7361,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["domhandler", "npm:4.2.0"],
             ["domutils", "npm:2.6.0"],
             ["eslint", "npm:7.26.0"],
-            ["htmlparser2", "npm:6.1.0"],
+            ["htmlparser2", "npm:7.1.0"],
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
             ["prettier", "npm:2.3.0"],
@@ -7983,10 +7983,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["@types/ramda", [
-        ["npm:0.27.40", {
-          "packageLocation": "./.yarn/cache/@types-ramda-npm-0.27.40-74cd6fc0d7-e970bfb981.zip/node_modules/@types/ramda/",
+        ["npm:0.27.44", {
+          "packageLocation": "./.yarn/cache/@types-ramda-npm-0.27.44-12231e2490-d34236eeba.zip/node_modules/@types/ramda/",
           "packageDependencies": [
-            ["@types/ramda", "npm:0.27.40"],
+            ["@types/ramda", "npm:0.27.44"],
             ["ts-toolbelt", "npm:6.15.5"]
           ],
           "linkType": "HARD",
@@ -10635,6 +10635,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["domhandler", "npm:4.2.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:2.8.0", {
+          "packageLocation": "./.yarn/cache/domutils-npm-2.8.0-0325139e5c-f1d0cfab06.zip/node_modules/domutils/",
+          "packageDependencies": [
+            ["domutils", "npm:2.8.0"],
+            ["dom-serializer", "npm:1.3.1"],
+            ["domelementtype", "npm:2.2.0"],
+            ["domhandler", "npm:4.2.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["dot-case", [
@@ -10757,6 +10767,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/entities-npm-2.2.0-0fc8d5b2f7-ebd62621a1.zip/node_modules/entities/",
           "packageDependencies": [
             ["entities", "npm:2.2.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:3.0.1", {
+          "packageLocation": "./.yarn/cache/entities-npm-3.0.1-21eeb201ba-563426e9ab.zip/node_modules/entities/",
+          "packageDependencies": [
+            ["entities", "npm:3.0.1"]
           ],
           "linkType": "HARD",
         }]
@@ -12374,14 +12391,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["htmlparser2", [
-        ["npm:6.1.0", {
-          "packageLocation": "./.yarn/cache/htmlparser2-npm-6.1.0-4ef89ab31e-37b0b2c0ae.zip/node_modules/htmlparser2/",
+        ["npm:7.1.0", {
+          "packageLocation": "./.yarn/cache/htmlparser2-npm-7.1.0-7f1e285d5d-8b2d32a55d.zip/node_modules/htmlparser2/",
           "packageDependencies": [
-            ["htmlparser2", "npm:6.1.0"],
+            ["htmlparser2", "npm:7.1.0"],
             ["domelementtype", "npm:2.2.0"],
             ["domhandler", "npm:4.2.0"],
-            ["domutils", "npm:2.6.0"],
-            ["entities", "npm:2.2.0"]
+            ["domutils", "npm:2.8.0"],
+            ["entities", "npm:3.0.1"]
           ],
           "linkType": "HARD",
         }]
