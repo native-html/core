@@ -2095,7 +2095,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "htmlparser2",
-        "npm:7.1.0"
+        "npm:7.1.1"
       ],
       [
         "http-cache-semantics",
@@ -7320,7 +7320,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["domhandler", "npm:4.2.0"],
             ["domutils", "npm:2.6.0"],
             ["eslint", "npm:7.26.0"],
-            ["htmlparser2", "npm:7.1.0"],
+            ["htmlparser2", "npm:7.1.1"],
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
             ["prettier", "npm:2.3.0"],
@@ -7361,7 +7361,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["domhandler", "npm:4.2.0"],
             ["domutils", "npm:2.6.0"],
             ["eslint", "npm:7.26.0"],
-            ["htmlparser2", "npm:7.1.0"],
+            ["htmlparser2", "npm:7.1.1"],
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
             ["prettier", "npm:2.3.0"],
@@ -12391,10 +12391,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["htmlparser2", [
-        ["npm:7.1.0", {
-          "packageLocation": "./.yarn/cache/htmlparser2-npm-7.1.0-7f1e285d5d-8b2d32a55d.zip/node_modules/htmlparser2/",
+        ["npm:7.1.1", {
+          "packageLocation": "./.yarn/cache/htmlparser2-npm-7.1.1-1b2bdc114d-f0033544fd.zip/node_modules/htmlparser2/",
           "packageDependencies": [
-            ["htmlparser2", "npm:7.1.0"],
+            ["htmlparser2", "npm:7.1.1"],
             ["domelementtype", "npm:2.2.0"],
             ["domhandler", "npm:4.2.0"],
             ["domutils", "npm:2.8.0"],

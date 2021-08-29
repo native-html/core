@@ -83,7 +83,7 @@
     "csstype": "^3.0.8",
     "domelementtype": "^2.2.0",
     "domhandler": "^4.2.0",
-    "htmlparser2": "^7.1.0",
+    "htmlparser2": "^7.1.1",
     "ramda": "^0.27.1"
   }
 }

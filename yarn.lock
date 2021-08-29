@@ -1978,7 +1978,7 @@ __metadata:
     domhandler: ^4.2.0
     domutils: ^2.6.0
     eslint: ^7.25.0
-    htmlparser2: ^7.1.0
+    htmlparser2: ^7.1.1
     jest: ^26.6.3
     metro-react-native-babel-preset: ^0.66.0
     prettier: ^2.2.1
@@ -6221,15 +6221,15 @@ __metadata:
   languageName: node
   linkType: hard
 
-"htmlparser2@npm:^7.1.0":
-  version: 7.1.0
-  resolution: "htmlparser2@npm:7.1.0"
+"htmlparser2@npm:^7.1.1":
+  version: 7.1.1
+  resolution: "htmlparser2@npm:7.1.1"
   dependencies:
     domelementtype: ^2.0.1
     domhandler: ^4.0.0
     domutils: ^2.8.0
     entities: ^3.0.1
-  checksum: 8b2d32a55d3e604b06f4b0134691ba75ed7ee4beda82b097a7b01255639be11748f1fb641c49928da292cf15df79f56917882c8401068a2309987a7b12c87e9b
+  checksum: f0033544fd359615ad7433cacd5c3ed409590c47142fdd740e7256fa7978f6800662c4519ef9ced47cea13f4eb8df3eeea6c9c2793638a52e5faeaeb54b018c8
   languageName: node
   linkType: hard
 
