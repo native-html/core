@@ -87,7 +87,7 @@ const preStyles: MixedStyleDeclaration = {
 };
 
 const accessibleHeader: ReactNativePropsDefinitions = {
-  all: {
+  native: {
     accessibilityRole: 'header'
   }
 };
@@ -526,7 +526,7 @@ const renderedEmbeddedModelMap: HTMLModelRecord<
     category: 'embedded',
     isVoid: true,
     reactNativeProps: {
-      all: {
+      native: {
         accessibilityRole: 'image'
       }
     }
@@ -796,7 +796,7 @@ const defaultHTMLElementModels = {
       targetMarkers.anchor = true;
     },
     reactNativeProps: {
-      all: {
+      native: {
         accessible: true,
         accessibilityRole: 'link'
       }

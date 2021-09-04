@@ -103,7 +103,7 @@ describe('TNode class', () => {
           contentModel: HTMLContentModel.block,
           tagName: 'foo',
           reactNativeProps: {
-            all: {
+            native: {
               accessibilityLabel: 'Hello'
             }
           }
@@ -171,14 +171,14 @@ describe('TNode class', () => {
             text: {
               accessibilityLabel: 'The Article Title'
             },
-            all: {
+            native: {
               testID: 'article-title'
             }
           },
           getDynamicReactNativeProps(tnode) {
             if (tnode.hasClass('header')) {
               return {
-                all: {
+                native: {
                   accessibilityRole: 'header'
                 }
               };

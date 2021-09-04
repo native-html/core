@@ -50,11 +50,11 @@ function transformPropsDefinitionsToSwitch(
   }
   return {
     text: {
-      ...definition.all,
+      ...definition.native,
       ...definition.text
     },
     view: {
-      ...definition.all,
+      ...definition.native,
       ...definition.view
     }
   };

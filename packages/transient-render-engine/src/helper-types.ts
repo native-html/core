@@ -53,7 +53,7 @@ export type ReactNativePropsDefinitions = {
   /**
    * Props that will apply to both `View` and `Text`-wrapped renderers.
    */
-  all?: StylessReactNativeProps;
+  native?: StylessReactNativeProps;
 };
 
 /**
