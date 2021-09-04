@@ -23,6 +23,7 @@ export type {
   WebTextStyles
 } from './tree/tree-types';
 export * from './dom/dom-utils';
+export * from './helper-types';
 export type { DomVisitorCallbacks } from './dom/DomHandler';
 export { TRenderEngine } from './TRenderEngine';
 export { TRenderEngine as default } from './TRenderEngine';

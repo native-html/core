@@ -1,4 +1,5 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
+import { ReactNativePropsDefinitions } from '../helper-types';
 import { SetMarkersForTNode } from '../tree/tree-types';
 import HTMLContentModel from './HTMLContentModel';
 import {
@@ -84,6 +85,10 @@ export default class HTMLElementModel<
    */
   public readonly mixedUAStyles?: MixedStyleDeclaration;
   /**
+   * React Native props to pass to renderers.
+   */
+  readonly reactNativeProps?: ReactNativePropsDefinitions;
+  /**
    * A function to create conditional "user-agent" styles.
    *
    * @remarks For example, &lt;a&gt; tags will have underline decoration and be
@@ -99,6 +104,12 @@ export default class HTMLElementModel<
    * colored blue only when `href` is defined.
    */
   public readonly getUADynamicMixedStyles: NativeElementModel['getUADynamicMixedStyles'];
+
+  /**
+   * A function to pass conditional React Native props to renderers for a specific TNode.
+   */
+  public readonly getDynamicReactNativeProps: NativeElementModel['getDynamicReactNativeProps'];
+
   /**
    * Derive markers for one TNode.
    */
@@ -113,6 +124,8 @@ export default class HTMLElementModel<
     getUADerivedStyleFromAttributes,
     getUADynamicMixedStyles,
     setMarkersForTNode,
+    getDynamicReactNativeProps,
+    reactNativeProps
   }: HTMLElementModelProperties<T, M>) {
     this.tagName = tagName;
     this.contentModel = contentModel;
@@ -122,6 +135,8 @@ export default class HTMLElementModel<
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
     this.getUADynamicMixedStyles = getUADynamicMixedStyles;
     this.setMarkersForTNode = setMarkersForTNode;
+    this.getDynamicReactNativeProps = getDynamicReactNativeProps;
+    this.reactNativeProps = reactNativeProps;
   }
 
   /**

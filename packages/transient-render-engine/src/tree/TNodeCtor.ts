@@ -1,3 +1,7 @@
+import {
+  ReactNativePropsSwitch,
+  ReactNativePropsDefinitions
+} from '../helper-types';
 import { TStyles } from '../styles/TStyles';
 import markersProtype from './markersProtype';
 import tnodeToString from './tnodeSnapshot';
@@ -38,15 +42,65 @@ function setMarkersFromAttributes(
   }
 }
 
+function transformPropsDefinitionsToSwitch(
+  definition?: ReactNativePropsDefinitions | null
+): ReactNativePropsSwitch | null {
+  if (!definition) {
+    return null;
+  }
+  return {
+    text: {
+      ...definition.all,
+      ...definition.text
+    },
+    view: {
+      ...definition.all,
+      ...definition.view
+    }
+  };
+}
+
 const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   children: Object.freeze([]) as any,
   init: Object.freeze({}) as any,
   classes: Object.freeze([]) as any,
   styles: Object.freeze(TStyles.empty()) as any,
+  markers: markersProtype,
   __nodeIndex: null,
   __trimmedLeft: false,
   __trimmedRight: false,
-  markers: markersProtype,
+  __nativeProps: false,
+  __generateNativeProps() {
+    const elm = this.elementModel;
+    if (elm) {
+      if (!elm.getDynamicReactNativeProps && !elm.reactNativeProps) {
+        return null;
+      }
+      const staticSwitchProps = transformPropsDefinitionsToSwitch(
+        elm.reactNativeProps
+      );
+      if (!elm.getDynamicReactNativeProps) {
+        return staticSwitchProps;
+      }
+      const derivedSwitch = transformPropsDefinitionsToSwitch(
+        elm.getDynamicReactNativeProps(this as any) || null
+      );
+      if (staticSwitchProps && derivedSwitch) {
+        return {
+          view: {
+            ...staticSwitchProps.view,
+            ...derivedSwitch.view
+          },
+          text: {
+            ...staticSwitchProps.text,
+            ...derivedSwitch.text
+          }
+        };
+      }
+      return derivedSwitch;
+    }
+    return null;
+  },
   get attributes() {
     return this.domNode?.attribs || emptyAttrs;
   },
@@ -217,6 +271,13 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
     }
     setMarkersFromAttributes(targetMarkers, parentMarkers, this);
     this.init.context.setMarkersForTNode?.(targetMarkers, parentMarkers, this);
+  },
+
+  getReactNativeProps() {
+    if (this.__nativeProps === false) {
+      this.__nativeProps = this.__generateNativeProps();
+    }
+    return this.__nativeProps;
   },
 
   initialize<Impl extends TNodeImpl<TNodeInit> = TNodeImpl>(

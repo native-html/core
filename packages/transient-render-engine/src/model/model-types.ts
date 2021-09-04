@@ -1,8 +1,11 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
+import { ReactNativePropsDefinitions } from '../helper-types';
 import {
   Markers,
   SetMarkersForTNode,
-  TNodeDescriptor
+  TNodeDescriptor,
+  TNodeShape,
+  TNodeType
 } from '../tree/tree-types';
 import HTMLContentModel from './HTMLContentModel';
 import HTMLElementModel from './HTMLElementModel';
@@ -180,17 +183,24 @@ export interface ElementModelBase<T extends string> {
    * The tag name associated with this model.
    */
   readonly tagName: T;
+
   /**
    * An opaque element translated {@link TNode} will have no translated {@link TNode}
    * children.
    */
   readonly isOpaque?: boolean;
+
   /**
    * Equivalent of "user-agent" styles. The default styles for the element.
    *
    * @remarks These styles will be merged over by `tagsStyles`.
    */
   readonly mixedUAStyles?: MixedStyleDeclaration;
+
+  /**
+   * React Native props to pass to renderers.
+   */
+  readonly reactNativeProps?: ReactNativePropsDefinitions;
 
   /**
    * `true` when the associated tag is a {@link https://html.spec.whatwg.org/multipage/syntax.html#void-elements | void element}.
@@ -230,6 +240,13 @@ export interface ElementModelBase<T extends string> {
   getUADynamicMixedStyles?: (
     tnode: TNodeDescriptor
   ) => MixedStyleDeclaration | null | undefined | void;
+
+  /**
+   * A function to create conditional React Native props for a specific TNode.
+   */
+  getDynamicReactNativeProps?: (
+    tnode: TNodeShape<TNodeType>
+  ) => ReactNativePropsDefinitions | null | undefined | void;
 }
 
 /**

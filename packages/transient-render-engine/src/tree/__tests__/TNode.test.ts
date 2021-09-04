@@ -4,6 +4,7 @@ import TTextCtor from '../TTextCtor';
 import { defaultInit } from './shared';
 import { TNodeImpl, TNodeInit } from '../tree-types';
 import HTMLContentModel from '../../model/HTMLContentModel';
+import HTMLElementModel from '../../model/HTMLElementModel';
 
 const TTest = function (this: Mutable<TNodeImpl>, init: TNodeInit) {
   this.initialize(init);
@@ -80,6 +81,122 @@ describe('TNode class', () => {
     it('should return null when no elementModel is available', () => {
       const node = newTNode();
       expect(node.contentModel).toBe(null);
+    });
+  });
+  describe('getReactNativeProps', () => {
+    it("should return null when neither 'reactNativeProps' nor 'getDynamicReactNativeProps' are defined for this element model.", () => {
+      const node = newTNode({
+        elementModel: HTMLElementModel.fromCustomModel({
+          tagName: 'foo',
+          contentModel: HTMLContentModel.block
+        })
+      });
+      expect(node.getReactNativeProps()).toBeNull();
+    });
+    it('should return null for anonymous nodes', () => {
+      const node = newTNode();
+      expect(node.getReactNativeProps()).toBeNull();
+    });
+    it("should support 'reactNativeProps' from the element model", () => {
+      const node = newTNode({
+        elementModel: HTMLElementModel.fromCustomModel({
+          contentModel: HTMLContentModel.block,
+          tagName: 'foo',
+          reactNativeProps: {
+            all: {
+              accessibilityLabel: 'Hello'
+            }
+          }
+        })
+      });
+      expect(node.getReactNativeProps()).toMatchObject({
+        text: {
+          accessibilityLabel: 'Hello'
+        },
+        view: {
+          accessibilityLabel: 'Hello'
+        }
+      });
+    });
+    it("should support 'getDynamicReactNativeProps' returning null from the element model", () => {
+      const node = newTNode({
+        elementModel: HTMLElementModel.fromCustomModel({
+          contentModel: HTMLContentModel.block,
+          tagName: 'foo',
+          getDynamicReactNativeProps() {
+            return null;
+          }
+        })
+      });
+      expect(node.getReactNativeProps()).toBeNull();
+      // Test twice to make sure the cache is working
+      expect(node.getReactNativeProps()).toBeNull();
+    });
+    it("should support 'getDynamicReactNativeProps' returning non-null from the element model", () => {
+      const node = newTNode({
+        domNode: new Element('foo', {
+          'data-rn-accessibility-label': 'Hello'
+        }),
+        elementModel: HTMLElementModel.fromCustomModel({
+          contentModel: HTMLContentModel.block,
+          tagName: 'foo',
+          getDynamicReactNativeProps(tnode) {
+            if (tnode.attributes['data-rn-accessibility-label']) {
+              return {
+                text: {
+                  accessibilityLabel:
+                    tnode.attributes['data-rn-accessibility-label']
+                }
+              };
+            }
+          }
+        })
+      });
+      expect(node.getReactNativeProps()).toEqual({
+        text: {
+          accessibilityLabel: 'Hello'
+        },
+        view: {}
+      });
+    });
+    it("should merge props from 'reactNativeProps' and 'getDynamicReactNativeProps'", () => {
+      const node = newTNode({
+        domNode: new Element('foo', {
+          class: 'header'
+        }),
+        elementModel: HTMLElementModel.fromCustomModel({
+          contentModel: HTMLContentModel.block,
+          tagName: 'foo',
+          reactNativeProps: {
+            text: {
+              accessibilityLabel: 'The Article Title'
+            },
+            all: {
+              testID: 'article-title'
+            }
+          },
+          getDynamicReactNativeProps(tnode) {
+            if (tnode.hasClass('header')) {
+              return {
+                all: {
+                  accessibilityRole: 'header'
+                }
+              };
+            }
+          }
+        })
+      });
+      expect(node.getReactNativeProps()).toEqual({
+        text: {
+          accessibilityLabel: 'The Article Title',
+          accessibilityRole: 'header',
+          testID: 'article-title'
+        },
+        view: {
+          accessibilityRole: 'header',
+          testID: 'article-title'
+        }
+      });
     });
   });
   describe('snapshot', () => {

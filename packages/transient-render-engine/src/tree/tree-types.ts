@@ -1,4 +1,5 @@
 import { Element, Text } from '../dom/dom-utils';
+import { ReactNativePropsSwitch } from '../helper-types';
 import HTMLContentModel from '../model/HTMLContentModel';
 import HTMLElementModel from '../model/HTMLElementModel';
 import { TStylesShape } from '../styles/TStyles';
@@ -296,6 +297,11 @@ export interface TNodeShape<T extends TNodeType> {
    * Get styles that cannot be handled by React Native.
    */
   getWebStyles(): WebTextStyles & WebBlockStyles;
+
+  /**
+   * Get React Native `View`, `Text` or mixed `View`/`Text` props for this {@link TNodeShape}.
+   */
+  getReactNativeProps: () => ReactNativePropsSwitch | null;
 }
 
 /**
@@ -399,6 +405,7 @@ export interface TNodeMethods {
   toString(): string;
   initialize(init: TNodeInit): void;
   setMarkers: SetMarkersForTNode;
+  getReactNativeProps: () => ReactNativePropsSwitch | null;
 }
 
 export interface TNodeImpl<T = TNodeInit>
@@ -407,6 +414,8 @@ export interface TNodeImpl<T = TNodeInit>
   __nodeIndex: number | null;
   __trimmedLeft: boolean;
   __trimmedRight: boolean;
+  __nativeProps: ReactNativePropsSwitch | null | false;
+  __generateNativeProps: () => ReactNativePropsSwitch | null;
   readonly children: ReadonlyArray<TNodeImpl>;
   readonly init: T;
   readonly parent: TNodeImpl | null;
