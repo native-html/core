@@ -1,5 +1,9 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
-import { Markers, SetMarkersForTNode } from '../tree/tree-types';
+import {
+  Markers,
+  SetMarkersForTNode,
+  TNodeDescriptor
+} from '../tree/tree-types';
 import HTMLContentModel from './HTMLContentModel';
 import HTMLElementModel from './HTMLElementModel';
 
@@ -209,11 +213,23 @@ export interface ElementModelBase<T extends string> {
    *
    * @remarks For example, &lt;a&gt; tags will have underline decoration and be
    * colored blue only when `href` is defined.
+   *
+   * @deprecated Use {@link ElementModelBase.getUADynamicMixedStyles} instead.
    */
   getUADerivedStyleFromAttributes?: (
     attributes: Record<string, string>,
     markers: Markers
   ) => MixedStyleDeclaration | null;
+
+  /**
+   * A function to create conditional "user-agent" styles.
+   *
+   * @remarks For example, &lt;a&gt; tags will have underline decoration and be
+   * colored blue only when `href` is defined.
+   */
+  getUADynamicMixedStyles?: (
+    tnode: TNodeDescriptor
+  ) => MixedStyleDeclaration | null | undefined | void;
 }
 
 /**

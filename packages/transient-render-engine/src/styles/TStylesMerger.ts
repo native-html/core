@@ -4,7 +4,7 @@ import CSSProcessor, {
   MixedStyleDeclaration
 } from '@native-html/css-processor';
 import HTMLModelRegistry from '../model/HTMLModelRegistry';
-import { Markers } from '../tree/tree-types';
+import { TNodeDescriptor } from '../tree/tree-types';
 import { TStyles } from './TStyles';
 import { StylesConfig } from './types';
 
@@ -72,13 +72,7 @@ export class TStylesMerger {
   buildStyles(
     inlineStyle: string,
     parentStyles: TStyles | null,
-    descriptor: {
-      tagName: string | null;
-      classes: string[];
-      id: string | null;
-      attributes: Record<string, string>;
-      markers: Markers;
-    }
+    descriptor: TNodeDescriptor
   ): TStyles {
     const ownInlinePropsReg =
       this.enableCSSInlineProcessing && inlineStyle
@@ -94,11 +88,13 @@ export class TStylesMerger {
     const userClassesOwnPropsList = classes.map(
       (c) => this.classesStyles[c] || null
     );
-    const derivedPropsFromAttributes = this.enableUserAgentStyles
-      ? model?.getUADerivedCSSProcessedPropsFromAttributes(
+    const dynamicPropsFromAttributes = this.enableUserAgentStyles
+      ? (model?.getUADynamicMixedStyles?.(descriptor) || null) ??
+        model?.getUADerivedStyleFromAttributes?.(
           descriptor.attributes,
           descriptor.markers
-        ) || null
+        ) ??
+        null
       : null;
     const userAgentTagProps = this.enableUserAgentStyles
       ? model?.mixedUAStyles ?? null
@@ -107,8 +103,8 @@ export class TStylesMerger {
     const mergedOwnProps = emptyProcessedPropsReg.merge(
       userAgentTagProps &&
         this.processor.compileStyleDeclaration(userAgentTagProps),
-      derivedPropsFromAttributes &&
-        this.processor.compileStyleDeclaration(derivedPropsFromAttributes),
+      dynamicPropsFromAttributes &&
+        this.processor.compileStyleDeclaration(dynamicPropsFromAttributes),
       userTagOwnProps,
       ...userClassesOwnPropsList,
       userIdOwnProps,

@@ -1,5 +1,5 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
-import { Markers, SetMarkersForTNode } from '../tree/tree-types';
+import { SetMarkersForTNode } from '../tree/tree-types';
 import HTMLContentModel from './HTMLContentModel';
 import {
   CustomElementModel,
@@ -88,8 +88,17 @@ export default class HTMLElementModel<
    *
    * @remarks For example, &lt;a&gt; tags will have underline decoration and be
    * colored blue only when `href` is defined.
+   *
+   * @deprecated Use {@link HTMLElementModel.getUADynamicMixedStyles} instead.
    */
   public readonly getUADerivedStyleFromAttributes: NativeElementModel['getUADerivedStyleFromAttributes'];
+  /**
+   * A function to create conditional "user-agent" styles.
+   *
+   * @remarks For example, &lt;a&gt; tags will have underline decoration and be
+   * colored blue only when `href` is defined.
+   */
+  public readonly getUADynamicMixedStyles: NativeElementModel['getUADynamicMixedStyles'];
   /**
    * Derive markers for one TNode.
    */
@@ -102,7 +111,8 @@ export default class HTMLElementModel<
     mixedUAStyles,
     isVoid,
     getUADerivedStyleFromAttributes,
-    setMarkersForTNode
+    getUADynamicMixedStyles,
+    setMarkersForTNode,
   }: HTMLElementModelProperties<T, M>) {
     this.tagName = tagName;
     this.contentModel = contentModel;
@@ -110,6 +120,7 @@ export default class HTMLElementModel<
     this.isVoid = isVoid;
     this.mixedUAStyles = mixedUAStyles;
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
+    this.getUADynamicMixedStyles = getUADynamicMixedStyles;
     this.setMarkersForTNode = setMarkersForTNode;
   }
 
@@ -152,13 +163,10 @@ export default class HTMLElementModel<
     nativeElementModel: NativeElementModel<TN, E>
   ) {
     const {
-      tagName,
       category,
       isOpaque,
-      mixedUAStyles,
       isVoid = false,
-      getUADerivedStyleFromAttributes,
-      setMarkersForTNode: getMarkersForTNode
+      ...otherProps
     } = nativeElementModel;
     const isPhrasing = phrasingCategories.indexOf(category) !== -1;
     const isTranslatable =
@@ -181,13 +189,10 @@ export default class HTMLElementModel<
         ? HTMLContentModel.textual
         : HTMLContentModel.none
     >({
-      tagName,
       isVoid,
       contentModel: contentModel as any,
-      mixedUAStyles,
       isOpaque: isOpaque ?? category === 'embedded',
-      getUADerivedStyleFromAttributes,
-      setMarkersForTNode: getMarkersForTNode
+      ...otherProps
     });
   }
 
@@ -215,21 +220,5 @@ export default class HTMLElementModel<
       ...this,
       ...properties
     });
-  }
-
-  /**
-   * A function to create conditional "user-agent" styles.
-   *
-   * @remarks For example, &lt;a&gt; tags will have underline decoration and be
-   * colored blue only when `href` is defined.
-   */
-  getUADerivedCSSProcessedPropsFromAttributes(
-    attributes: Record<string, string>,
-    markers: Markers
-  ): MixedStyleDeclaration | null {
-    if (this.getUADerivedStyleFromAttributes) {
-      return this.getUADerivedStyleFromAttributes(attributes, markers);
-    }
-    return null;
   }
 }
