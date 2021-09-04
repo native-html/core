@@ -788,7 +788,7 @@ const defaultHTMLElementModels = {
     tagName: 'a',
     category: 'anchor',
     getUADynamicMixedStyles: ({ attributes }) => {
-      if (typeof attributes.href === 'string' && attributes.href.length > 0) {
+      if (typeof attributes.href === 'string') {
         return anchorStyle;
       }
     },

@@ -403,7 +403,7 @@ describe('TStylesMerger', () => {
           const processedProps = stylesMerger.buildStyles('', null, {
             classes: [],
             attributes: {
-              href: ''
+              href: 'https://domain.com'
             },
             id: null,
             tagName: 'a',
