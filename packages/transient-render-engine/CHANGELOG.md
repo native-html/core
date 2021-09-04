@@ -1,3 +1,10 @@
+## [10.0.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.0.0...@native-html/transient-render-engine@10.0.1) (2021-09-04)
+
+
+### Bug Fixes
+
+* **tre:** provide accessibility props when `<a>` has a non-empty `href` attribute ([aa82791](https://github.com/native-html/core/commit/aa82791b04b2196a1b80037ba31c09f860867dd7))
+
 # [10.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.3.0...@native-html/transient-render-engine@10.0.0) (2021-09-04)
 
 
