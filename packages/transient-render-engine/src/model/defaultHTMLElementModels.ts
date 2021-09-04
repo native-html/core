@@ -1,4 +1,5 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
+import { ReactNativePropsDefinitions } from '../helper-types';
 import HTMLContentModel from './HTMLContentModel';
 import HTMLElementModel from './HTMLElementModel';
 import {
@@ -85,6 +86,12 @@ const preStyles: MixedStyleDeclaration = {
   ...bigMarginTopBottomStyle
 };
 
+const accessibleHeader: ReactNativePropsDefinitions = {
+  all: {
+    accessibilityRole: 'header'
+  }
+};
+
 function headerStyle(
   fontSize: string,
   marginSize: string
@@ -125,32 +132,38 @@ const sectioningModelMap: HTMLModelRecord<
   h1: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h1',
-    mixedUAStyles: headerStyle('2em', '.67em')
+    mixedUAStyles: headerStyle('2em', '.67em'),
+    reactNativeProps: accessibleHeader
   }),
   h2: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h2',
-    mixedUAStyles: headerStyle('1.5em', '.83em')
+    mixedUAStyles: headerStyle('1.5em', '.83em'),
+    reactNativeProps: accessibleHeader
   }),
   h3: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h3',
-    mixedUAStyles: headerStyle('1.17em', '1em')
+    mixedUAStyles: headerStyle('1.17em', '1em'),
+    reactNativeProps: accessibleHeader
   }),
   h4: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h4',
-    mixedUAStyles: headerStyle('1em', '1.33em')
+    mixedUAStyles: headerStyle('1em', '1.33em'),
+    reactNativeProps: accessibleHeader
   }),
   h5: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h5',
-    mixedUAStyles: headerStyle('.83em', '1.67em')
+    mixedUAStyles: headerStyle('.83em', '1.67em'),
+    reactNativeProps: accessibleHeader
   }),
   h6: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h6',
-    mixedUAStyles: headerStyle('.67em', '2.33em')
+    mixedUAStyles: headerStyle('.67em', '2.33em'),
+    reactNativeProps: accessibleHeader
   }),
   header: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
@@ -347,7 +360,6 @@ const groupingModelMap: HTMLModelRecord<
       if (attributes.type === 'cite') {
         return leftBorderQuoteStyle;
       }
-      return null;
     },
     mixedUAStyles: spacedBlockStyle
   }),
@@ -512,7 +524,12 @@ const renderedEmbeddedModelMap: HTMLModelRecord<
   img: HTMLElementModel.fromNativeModel({
     tagName: 'img',
     category: 'embedded',
-    isVoid: true
+    isVoid: true,
+    reactNativeProps: {
+      all: {
+        accessibilityRole: 'image'
+      }
+    }
   }).extend({
     contentModel: HTMLContentModel.block
   }),
@@ -774,10 +791,15 @@ const defaultHTMLElementModels = {
       if (typeof attributes.href === 'string') {
         return anchorStyle;
       }
-      return null;
     },
     setMarkersForTNode(targetMarkers) {
       targetMarkers.anchor = true;
+    },
+    reactNativeProps: {
+      all: {
+        accessible: true,
+        accessibilityRole: 'link'
+      }
     }
   }),
   ...textLevelModelMap,
