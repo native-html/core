@@ -1,3 +1,16 @@
+# [10.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.3.0...@native-html/transient-render-engine@10.0.0) (2021-09-04)
+
+
+### Code Refactoring
+
+* rename `ReactNativePropsDefinitions.all` to `native` for consistency ([292e75e](https://github.com/native-html/core/commit/292e75e57e0818894637887b875dea9e2cb00984))
+
+
+### BREAKING CHANGES
+
+* rename `ReactNativePropsDefinitions.all` to `native`
+for consistency with RNRH.
+
 # [9.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.2.4...@native-html/transient-render-engine@9.3.0) (2021-09-04)
 
 
