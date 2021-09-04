@@ -1,3 +1,12 @@
+# [9.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.2.4...@native-html/transient-render-engine@9.3.0) (2021-09-04)
+
+
+### Features
+
+* add accessibility role to headings (h1...h6) ([6cfa7d5](https://github.com/native-html/core/commit/6cfa7d5fff88050f96f091539e011d38f74a7df8))
+* new `HTMLElement.reactNativeProps` and `getDynamicReactNativeProps` ([a02d972](https://github.com/native-html/core/commit/a02d97296126b007e52755cc9063013090fbf151))
+* **tre:** new `getUADynamicMixedStyles` to replace `getUADerivedStyleFromAttributes` ([4199b5a](https://github.com/native-html/core/commit/4199b5a0150b84a567e5968d6f72e32a7b9d7c4f))
+
 ## [9.2.4](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.2.3...@native-html/transient-render-engine@9.2.4) (2021-08-29)
 
 ## [9.2.3](https://github.com/native-html/core/compare/@native-html/transient-render-engine@9.2.2...@native-html/transient-render-engine@9.2.3) (2021-08-29)
