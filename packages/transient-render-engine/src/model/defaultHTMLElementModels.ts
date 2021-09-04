@@ -788,18 +788,22 @@ const defaultHTMLElementModels = {
     tagName: 'a',
     category: 'anchor',
     getUADynamicMixedStyles: ({ attributes }) => {
-      if (typeof attributes.href === 'string') {
+      if (typeof attributes.href === 'string' && attributes.href.length > 0) {
         return anchorStyle;
+      }
+    },
+    getDynamicReactNativeProps({ attributes }) {
+      if (typeof attributes.href === 'string' && attributes.href.length > 0) {
+        return {
+          native: {
+            accessible: true,
+            accessibilityRole: 'link'
+          }
+        };
       }
     },
     setMarkersForTNode(targetMarkers) {
       targetMarkers.anchor = true;
-    },
-    reactNativeProps: {
-      native: {
-        accessible: true,
-        accessibilityRole: 'link'
-      }
     }
   }),
   ...textLevelModelMap,
