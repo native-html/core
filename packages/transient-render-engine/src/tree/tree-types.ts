@@ -415,7 +415,8 @@ export interface TNodeImpl<T = TNodeInit>
   __trimmedLeft: boolean;
   __trimmedRight: boolean;
   __nativeProps: ReactNativePropsSwitch | null | false;
-  __generateNativeProps: () => ReactNativePropsSwitch | null;
+  __generateNativePropsFromModel: () => ReactNativePropsSwitch | null;
+  __generateNativePropsFromStyles: () => ReactNativePropsSwitch | null;
   readonly children: ReadonlyArray<TNodeImpl>;
   readonly init: T;
   readonly parent: TNodeImpl | null;

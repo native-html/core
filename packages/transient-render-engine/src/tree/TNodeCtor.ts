@@ -70,7 +70,17 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   __trimmedLeft: false,
   __trimmedRight: false,
   __nativeProps: false,
-  __generateNativeProps() {
+  __generateNativePropsFromStyles() {
+    if (this.styles.webTextFlow.userSelect) {
+      return {
+        text: {
+          selectable: this.styles.webTextFlow.userSelect !== 'none'
+        }
+      };
+    }
+    return null;
+  },
+  __generateNativePropsFromModel() {
     const elm = this.elementModel;
     if (elm) {
       if (!elm.getDynamicReactNativeProps && !elm.reactNativeProps) {
@@ -275,7 +285,21 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
 
   getReactNativeProps() {
     if (this.__nativeProps === false) {
-      this.__nativeProps = this.__generateNativeProps();
+      const fromModel = this.__generateNativePropsFromModel();
+      const fromStyles = this.__generateNativePropsFromStyles();
+      this.__nativeProps =
+        fromModel && fromStyles
+          ? {
+              text: {
+                ...fromModel.text,
+                ...fromStyles.text
+              },
+              view: {
+                ...fromModel.view,
+                ...fromStyles.view
+              }
+            }
+          : fromModel || fromStyles;
     }
     return this.__nativeProps;
   },
