@@ -31,11 +31,16 @@ TBlockCtor.prototype.collapseChildren = function collapseChildren() {
   this.spliceChildren(indexesToSplice);
 };
 
-TBlockCtor.prototype.getNativeStyles = function getNativeStyles() {
-  return {
-    ...this.styles.nativeBlockFlow,
-    ...this.styles.nativeBlockRet
-  };
+TBlockCtor.prototype.getNativeStyles = function getNativeStyles(
+  this: TNodeImpl
+) {
+  if (this.__nativeStyles === false) {
+    this.__nativeStyles = {
+      ...this.styles.nativeBlockFlow,
+      ...this.styles.nativeBlockRet
+    };
+  }
+  return this.__nativeStyles;
 };
 
 export default TBlockCtor;

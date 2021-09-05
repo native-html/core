@@ -115,6 +115,8 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   __trimmedLeft: false,
   __trimmedRight: false,
   __nativeProps: false,
+  __nativeStyles: false,
+  __webStyles: false,
   __generateNativePropsFromTNode() {
     let ret: ReactNativePropsSwitch | null = null;
     if (this.styles.webTextFlow.userSelect) {
@@ -291,19 +293,25 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   },
 
   getNativeStyles() {
-    return {
-      ...this.styles.nativeBlockFlow,
-      ...this.styles.nativeBlockRet,
-      ...this.styles.nativeTextFlow,
-      ...this.styles.nativeTextRet
-    };
+    if (this.__nativeStyles === false) {
+      this.__nativeStyles = {
+        ...this.styles.nativeBlockFlow,
+        ...this.styles.nativeBlockRet,
+        ...this.styles.nativeTextFlow,
+        ...this.styles.nativeTextRet
+      };
+    }
+    return this.__nativeStyles;
   },
 
   getWebStyles() {
-    return {
-      ...this.styles.webTextFlow,
-      ...this.styles.webBlockRet
-    } as any;
+    if (this.__webStyles === false) {
+      this.__webStyles = {
+        ...this.styles.webTextFlow,
+        ...this.styles.webBlockRet
+      } as ReturnType<TNodeImpl['getWebStyles']>;
+    }
+    return this.__webStyles;
   },
 
   collapseChildren() {
