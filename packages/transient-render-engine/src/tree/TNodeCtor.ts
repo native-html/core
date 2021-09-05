@@ -1,3 +1,4 @@
+import { AccessibilityProps, AccessibilityRole } from 'react-native';
 import {
   ReactNativePropsSwitch,
   ReactNativePropsDefinitions
@@ -28,6 +29,21 @@ function updateNodeIndexes(node: Mutable<TNodeImpl>, i: number) {
 
 const emptyAttrs = Object.freeze({});
 const emptyClasses = Object.freeze([]);
+
+function findNativeRole(role: string): AccessibilityRole | undefined {
+  if (role === 'img') {
+    return 'image';
+  }
+  if (role === 'button' || role === 'switch' || role === 'checkbox') {
+    return role;
+  }
+  if (role === 'heading') {
+    return 'header';
+  }
+  if (role === 'dialog') {
+    return 'alert';
+  }
+}
 
 function setMarkersFromAttributes(
   targetMarkers: Markers,
@@ -60,6 +76,28 @@ function transformPropsDefinitionsToSwitch(
   };
 }
 
+function mergeSwitches(
+  prev: ReactNativePropsSwitch | null | void | undefined,
+  next: ReactNativePropsSwitch | null | void | undefined
+) {
+  if (!prev) {
+    return next || null;
+  }
+  if (!next) {
+    return null;
+  }
+  return {
+    text: {
+      ...prev.text,
+      ...next.text
+    },
+    view: {
+      ...prev.view,
+      ...next.view
+    }
+  };
+}
+
 const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   children: Object.freeze([]) as any,
   init: Object.freeze({}) as any,
@@ -70,15 +108,36 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   __trimmedLeft: false,
   __trimmedRight: false,
   __nativeProps: false,
-  __generateNativePropsFromStyles() {
+  __generateNativePropsFromTNode() {
+    let ret: ReactNativePropsSwitch | null = null;
     if (this.styles.webTextFlow.userSelect) {
-      return {
+      ret = mergeSwitches(ret, {
         text: {
           selectable: this.styles.webTextFlow.userSelect !== 'none'
         }
-      };
+      });
     }
-    return null;
+    if (this.attributes['aria-label']) {
+      const accessibilityProps: AccessibilityProps = {
+        accessibilityLabel: this.attributes['aria-label']
+      };
+      ret = mergeSwitches(ret, {
+        view: accessibilityProps,
+        text: accessibilityProps
+      });
+    }
+    if (this.attributes['aria-role']) {
+      const role = this.attributes['aria-role'];
+      const accessibilityRole = findNativeRole(role);
+      if (accessibilityRole) {
+        ret = mergeSwitches(ret, {
+          view: {
+            accessibilityRole: accessibilityRole
+          }
+        });
+      }
+    }
+    return ret;
   },
   __generateNativePropsFromModel() {
     const elm = this.elementModel;
@@ -95,19 +154,7 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
       const derivedSwitch = transformPropsDefinitionsToSwitch(
         elm.getDynamicReactNativeProps(this as any) || null
       );
-      if (staticSwitchProps && derivedSwitch) {
-        return {
-          view: {
-            ...staticSwitchProps.view,
-            ...derivedSwitch.view
-          },
-          text: {
-            ...staticSwitchProps.text,
-            ...derivedSwitch.text
-          }
-        };
-      }
-      return derivedSwitch;
+      return mergeSwitches(staticSwitchProps, derivedSwitch);
     }
     return null;
   },
@@ -286,20 +333,8 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
   getReactNativeProps() {
     if (this.__nativeProps === false) {
       const fromModel = this.__generateNativePropsFromModel();
-      const fromStyles = this.__generateNativePropsFromStyles();
-      this.__nativeProps =
-        fromModel && fromStyles
-          ? {
-              text: {
-                ...fromModel.text,
-                ...fromStyles.text
-              },
-              view: {
-                ...fromModel.view,
-                ...fromStyles.view
-              }
-            }
-          : fromModel || fromStyles;
+      const fromStyles = this.__generateNativePropsFromTNode();
+      this.__nativeProps = mergeSwitches(fromModel, fromStyles);
     }
     return this.__nativeProps;
   },
