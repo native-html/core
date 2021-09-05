@@ -1,3 +1,18 @@
+# [10.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.0.2...@native-html/transient-render-engine@10.1.0) (2021-09-05)
+
+
+### Features
+
+* enhance accessibility of `img` elements ([cb0410c](https://github.com/native-html/core/commit/cb0410ced64fcd82cbe1c083c7cfcad3d5371030))
+* pass `aria-label` and `aria-role` to as native props ([39101de](https://github.com/native-html/core/commit/39101dea9feed42cb5e84ab6e1df98ac75bee3d3))
+* provide sensible accessibility values for interactive elements and svg ([486e649](https://github.com/native-html/core/commit/486e6499b032dc8abc47ebea63916314e1f05791))
+* **tre:** add support for `user-select` CSS property ([42da28f](https://github.com/native-html/core/commit/42da28f1ed865b5b1aac29d977efcec61a18a9bd))
+
+
+### Performance Improvements
+
+* memoize return values in `getNativeStyles` and `getWebStyles` ([32090fb](https://github.com/native-html/core/commit/32090fbb115fa955e3461a1c44f1c74db8445e84))
+
 ## [10.0.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.0.1...@native-html/transient-render-engine@10.0.2) (2021-09-04)
 
 
