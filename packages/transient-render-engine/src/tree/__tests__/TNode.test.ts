@@ -5,6 +5,7 @@ import { defaultInit } from './shared';
 import { TNodeImpl, TNodeInit } from '../tree-types';
 import HTMLContentModel from '../../model/HTMLContentModel';
 import HTMLElementModel from '../../model/HTMLElementModel';
+import { AccessibilityRole } from 'react-native';
 
 const TTest = function (this: Mutable<TNodeImpl>, init: TNodeInit) {
   this.initialize(init);
@@ -198,6 +199,79 @@ describe('TNode class', () => {
         }
       });
     });
+    it('should support `user-select: none;` CSS property', () => {
+      const node = newTNode({
+        domNode: new Element('div', {
+          style: 'user-select: none;'
+        })
+      });
+      expect(node.getReactNativeProps()).toEqual({
+        text: {
+          selectable: false
+        }
+      });
+    });
+    it('should support `user-select: text;` CSS property', () => {
+      const node = newTNode({
+        domNode: new Element('div', {
+          style: 'user-select: text;'
+        })
+      });
+      expect(node.getReactNativeProps()).toEqual({
+        text: {
+          selectable: true
+        }
+      });
+    });
+    it('should support `aria-label` HTML attribute', () => {
+      const node = newTNode({
+        domNode: new Element('div', {
+          'aria-label': 'La vie est belle'
+        })
+      });
+      expect(node.getReactNativeProps()).toEqual({
+        view: {
+          accessibilityLabel: 'La vie est belle'
+        },
+        text: {
+          accessibilityLabel: 'La vie est belle'
+        }
+      });
+    });
+
+    const rolesMap: Record<string, AccessibilityRole | null> = {
+      img: 'image',
+      button: 'button',
+      switch: 'switch',
+      checkbox: 'checkbox',
+      heading: 'header',
+      link: 'link',
+      dialog: 'alert',
+      radio: 'radio',
+      radiogroup: 'radiogroup',
+      foo: null
+    };
+    for (const [ariaRole, accessibleRole] of Object.entries(rolesMap)) {
+      it(`should support aria-role='${ariaRole}' HTML attribute`, () => {
+        const node = newTNode({
+          domNode: new Element('div', {
+            'aria-role': ariaRole
+          })
+        });
+        expect(node.getReactNativeProps()).toEqual(
+          accessibleRole
+            ? {
+                text: {
+                  accessibilityRole: accessibleRole
+                },
+                view: {
+                  accessibilityRole: accessibleRole
+                }
+              }
+            : null
+        );
+      });
+    }
   });
   describe('snapshot', () => {
     it('should provide a JSX representation', () => {

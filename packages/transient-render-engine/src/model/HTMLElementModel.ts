@@ -85,7 +85,13 @@ export default class HTMLElementModel<
    */
   public readonly mixedUAStyles?: MixedStyleDeclaration;
   /**
-   * React Native props to pass to renderers.
+   * Default react Native props to pass to renderers.
+   *
+   * @remarks Some props might be overriden by props derived from the
+   * {@link TNode} attributes. For example, if you pass `accessibilityLabel`
+   * and there is an `aria-label` attribute attached to one node, the
+   * `aria-label` will be used. If you want to be able to override the
+   * `aria-label`, use {@link getDynamicReactNativeProps} instead.
    */
   readonly reactNativeProps?: ReactNativePropsDefinitions;
   /**
@@ -106,7 +112,16 @@ export default class HTMLElementModel<
   public readonly getUADynamicMixedStyles: NativeElementModel['getUADynamicMixedStyles'];
 
   /**
-   * A function to pass conditional React Native props to renderers for a specific TNode.
+   * A function to create conditional React Native props for a specific TNode.
+   * Those props will be deep-merged over the pre-generated props. You can
+   * preserve some of the pre-generated props since you receive them as second
+   * argument.
+   *
+   * **Merge strategy** (rightmost overrides leftmost): _static props from model_,
+   * _auto-generated props from attributes_, _props returned by this function_.
+   *
+   * @param tnode - The TNode for which to create React Native props.
+   * @param preGeneratedProps - The props that were pre-generated for the TNode based on attributes (style, aria-* ...) and {@link HTMLELementModel.reactNativeProps}.
    */
   public readonly getDynamicReactNativeProps: NativeElementModel['getDynamicReactNativeProps'];
 
