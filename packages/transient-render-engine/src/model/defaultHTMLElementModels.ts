@@ -266,7 +266,12 @@ const interactiveModelMap: HTMLModelRecord<
 > = {
   button: HTMLElementModel.fromNativeModel({
     tagName: 'button',
-    category: 'interactive'
+    category: 'interactive',
+    reactNativeProps: {
+      native: {
+        accessibilityRole: 'button'
+      }
+    }
   }),
   fieldset: HTMLElementModel.fromNativeModel({
     tagName: 'fieldset',
@@ -299,7 +304,13 @@ const interactiveModelMap: HTMLModelRecord<
   }),
   select: HTMLElementModel.fromNativeModel({
     tagName: 'select',
-    category: 'interactive'
+    category: 'interactive',
+    reactNativeProps: {
+      native: {
+        accessible: true,
+        accessibilityRole: 'combobox'
+      }
+    }
   }),
   details: HTMLElementModel.fromNativeModel({
     tagName: 'details',
@@ -609,7 +620,22 @@ const emptyEmbeddedModelMap: HTMLModelRecord<
     tagName: 'svg',
     category: 'embedded',
     isVoid: false, // allows svg elems
-    isOpaque: true
+    isOpaque: true,
+    getDynamicReactNativeProps({ attributes }) {
+      if (attributes['aria-label']) {
+        return {
+          native: {
+            accessibilityLabel: attributes['aria-label'],
+            accessibilityRole: 'image'
+          }
+        };
+      }
+      return {
+        native: {
+          accessibilityRole: 'none'
+        }
+      };
+    }
   }),
   video: HTMLElementModel.fromNativeModel({
     tagName: 'video',
