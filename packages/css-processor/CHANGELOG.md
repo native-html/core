@@ -1,3 +1,10 @@
+# [1.11.0](https://github.com/native-html/core/compare/@native-html/css-processor@1.10.2...@native-html/css-processor@1.11.0) (2021-09-05)
+
+
+### Features
+
+* **css-processor:** support `user-select` CSS property ([079a1ec](https://github.com/native-html/core/commit/079a1ec6bb3e86fb655556e147265c9cb3a8a337))
+
 ## [1.10.2](https://github.com/native-html/core/compare/@native-html/css-processor@1.10.1...@native-html/css-processor@1.10.2) (2021-07-19)
 
 
