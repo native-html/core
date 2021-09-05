@@ -14,7 +14,8 @@ import {
   TextLevelTagNames,
   UnsupportedTagNames,
   UntranslatableTagNames,
-  HTMLModelRecord
+  HTMLModelRecord,
+  ElementModelBase
 } from './model-types';
 
 const UA_ANCHOR_COL = '#245dc1';
@@ -104,6 +105,18 @@ function headerStyle(
   };
 }
 
+const getDynamicReactNativePropsWithHref: ElementModelBase<any>['getDynamicReactNativeProps'] =
+  function getDynamicReactNativePropsWithHref({ attributes }) {
+    if (typeof attributes.href === 'string' && attributes.href.length > 0) {
+      return {
+        native: {
+          accessible: true,
+          accessibilityRole: 'link'
+        }
+      };
+    }
+  };
+
 const sectioningModelMap: HTMLModelRecord<
   SectioningTagNames,
   HTMLContentModel.block
@@ -190,7 +203,8 @@ const unsupportedModelMap: HTMLModelRecord<
   area: HTMLElementModel.fromNativeModel({
     tagName: 'area',
     category: 'untranslatable',
-    isVoid: true
+    isVoid: true,
+    getDynamicReactNativeProps: getDynamicReactNativePropsWithHref
   }),
   map: HTMLElementModel.fromNativeModel({
     tagName: 'map',
@@ -525,10 +539,22 @@ const renderedEmbeddedModelMap: HTMLModelRecord<
     tagName: 'img',
     category: 'embedded',
     isVoid: true,
-    reactNativeProps: {
-      native: {
-        accessibilityRole: 'image'
+    getDynamicReactNativeProps({ attributes }) {
+      // see https://w3c.github.io/html-aria/#el-img
+      const label = attributes.alt || attributes['aria-label'];
+      if (label) {
+        return {
+          native: {
+            accessibilityLabel: label,
+            accessibilityRole: 'image'
+          }
+        };
       }
+      return {
+        native: {
+          accessibilityRole: 'none'
+        }
+      };
     }
   }).extend({
     contentModel: HTMLContentModel.block
@@ -792,16 +818,7 @@ const defaultHTMLElementModels = {
         return anchorStyle;
       }
     },
-    getDynamicReactNativeProps({ attributes }) {
-      if (typeof attributes.href === 'string' && attributes.href.length > 0) {
-        return {
-          native: {
-            accessible: true,
-            accessibilityRole: 'link'
-          }
-        };
-      }
-    },
+    getDynamicReactNativeProps: getDynamicReactNativePropsWithHref,
     setMarkersForTNode(targetMarkers) {
       targetMarkers.anchor = true;
     }
