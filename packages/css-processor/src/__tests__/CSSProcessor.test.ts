@@ -626,6 +626,12 @@ describe('CSSProcessor', () => {
         ...numberSpec,
         ...nativeRetainedBlockSpec
       },
+      userSelect: {
+        ...flowedWebTextSpec,
+        inlineIncomingValues: ['auto', 'text', 'none', 'contain', 'all'],
+        mixedIncomingValues: ['auto', 'text', 'none', 'contain', 'all'],
+        outValues: ['auto', 'text', 'none', 'contain', 'all']
+      },
       whiteSpace: {
         ...flowedWebTextSpec,
         inlineIncomingValues: [

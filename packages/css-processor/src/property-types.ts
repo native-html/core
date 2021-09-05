@@ -129,7 +129,7 @@ export type CSSLongNativeUntranslatableTextFlowedPropKey = Extract<
  */
 export type CSSLongWebTextFlowedPropKey = Extract<
   keyof StandardLonghandProperties,
-  'whiteSpace' | 'listStyleType'
+  'whiteSpace' | 'listStyleType' | 'userSelect'
 >;
 
 /**

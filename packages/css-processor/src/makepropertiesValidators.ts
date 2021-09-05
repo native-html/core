@@ -328,6 +328,14 @@ export default function makepropertiesValidators(config: CSSProcessorConfig) {
       model: webTextFlowModel,
       propertyName: 'listStyleType'
     }),
+    userSelect: new LongEnumerationCSSPropertyValidator(
+      {
+        config,
+        model: webTextFlowModel,
+        propertyName: 'userSelect'
+      },
+      ['auto', 'text', 'none', 'contain', 'all']
+    ),
     alignContent: new LongEnumerationCSSPropertyValidator(
       {
         config,
