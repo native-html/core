@@ -1,3 +1,10 @@
+## [10.2.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.2.0...@native-html/transient-render-engine@10.2.1) (2021-09-11)
+
+
+### Bug Fixes
+
+* set accessibilityLabel for headings to bypass RN limitation ([52d5be7](https://github.com/native-html/core/commit/52d5be7f9e862a9a014a8205bab19fa5726b3a79))
+
 # [10.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.1.0...@native-html/transient-render-engine@10.2.0) (2021-09-11)
 
 
