@@ -249,6 +249,8 @@ describe('TNode class', () => {
       dialog: 'alert',
       radio: 'radio',
       radiogroup: 'radiogroup',
+      presentation: 'none',
+      search: 'search',
       foo: null
     };
     for (const [ariaRole, accessibleRole] of Object.entries(rolesMap)) {

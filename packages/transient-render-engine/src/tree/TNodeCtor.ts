@@ -40,13 +40,17 @@ function findNativeRole(role: string): AccessibilityRole | undefined {
   if (role === 'dialog') {
     return 'alert';
   }
+  if (role === 'presentation') {
+    return 'none';
+  }
   if (
     role === 'button' ||
     role === 'switch' ||
     role === 'checkbox' ||
     role === 'radio' ||
     role === 'radiogroup' ||
-    role === 'link'
+    role === 'link' ||
+    role === 'search'
   ) {
     return role;
   }
