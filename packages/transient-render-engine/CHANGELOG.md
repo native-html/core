@@ -1,3 +1,10 @@
+# [10.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.1.0...@native-html/transient-render-engine@10.2.0) (2021-09-11)
+
+
+### Features
+
+* support aria-role="search" and aria-role="presentation" ([4372c4b](https://github.com/native-html/core/commit/4372c4b6aa48aeb8318d4921fa5e72658d04815b))
+
 # [10.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.0.2...@native-html/transient-render-engine@10.1.0) (2021-09-05)
 
 
