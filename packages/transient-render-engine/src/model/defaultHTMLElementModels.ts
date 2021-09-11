@@ -1,5 +1,5 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
-import { ReactNativePropsDefinitions } from '../helper-types';
+import { textContent } from 'domutils';
 import HTMLContentModel from './HTMLContentModel';
 import HTMLElementModel from './HTMLElementModel';
 import {
@@ -87,12 +87,6 @@ const preStyles: MixedStyleDeclaration = {
   ...bigMarginTopBottomStyle
 };
 
-const accessibleHeader: ReactNativePropsDefinitions = {
-  native: {
-    accessibilityRole: 'header'
-  }
-};
-
 function headerStyle(
   fontSize: string,
   marginSize: string
@@ -104,6 +98,18 @@ function headerStyle(
     ...boldStyle
   };
 }
+
+const getDynamicReactNativePropsForHeading: ElementModelBase<any>['getDynamicReactNativeProps'] =
+  ({ domNode }) => {
+    const textLabel = textContent(domNode!);
+    return {
+      native: {
+        accessible: true,
+        accessibilityLabel: textLabel,
+        accessibilityRole: 'header'
+      }
+    };
+  };
 
 const getDynamicReactNativePropsWithHref: ElementModelBase<any>['getDynamicReactNativeProps'] =
   function getDynamicReactNativePropsWithHref({ attributes }) {
@@ -146,37 +152,37 @@ const sectioningModelMap: HTMLModelRecord<
     category: 'sectioning',
     tagName: 'h1',
     mixedUAStyles: headerStyle('2em', '.67em'),
-    reactNativeProps: accessibleHeader
+    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
   }),
   h2: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h2',
     mixedUAStyles: headerStyle('1.5em', '.83em'),
-    reactNativeProps: accessibleHeader
+    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
   }),
   h3: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h3',
     mixedUAStyles: headerStyle('1.17em', '1em'),
-    reactNativeProps: accessibleHeader
+    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
   }),
   h4: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h4',
     mixedUAStyles: headerStyle('1em', '1.33em'),
-    reactNativeProps: accessibleHeader
+    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
   }),
   h5: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h5',
     mixedUAStyles: headerStyle('.83em', '1.67em'),
-    reactNativeProps: accessibleHeader
+    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
   }),
   h6: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h6',
     mixedUAStyles: headerStyle('.67em', '2.33em'),
-    reactNativeProps: accessibleHeader
+    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
   }),
   header: HTMLElementModel.fromNativeModel({
     category: 'sectioning',

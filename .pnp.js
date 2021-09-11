@@ -1615,7 +1615,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "domutils",
-        "npm:2.6.0"
+        "npm:2.8.0"
       ],
       [
         "dot-case",
@@ -7318,7 +7318,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["dom-serializer", "npm:1.3.1"],
             ["domelementtype", "npm:2.2.0"],
             ["domhandler", "npm:4.2.0"],
-            ["domutils", "npm:2.6.0"],
+            ["domutils", "npm:2.8.0"],
             ["eslint", "npm:7.26.0"],
             ["htmlparser2", "npm:7.1.1"],
             ["jest", "npm:26.6.3"],
@@ -7359,7 +7359,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["dom-serializer", "npm:1.3.1"],
             ["domelementtype", "npm:2.2.0"],
             ["domhandler", "npm:4.2.0"],
-            ["domutils", "npm:2.6.0"],
+            ["domutils", "npm:2.8.0"],
             ["eslint", "npm:7.26.0"],
             ["htmlparser2", "npm:7.1.1"],
             ["jest", "npm:26.6.3"],
@@ -10626,16 +10626,6 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["domutils", [
-        ["npm:2.6.0", {
-          "packageLocation": "./.yarn/cache/domutils-npm-2.6.0-7eb389c806-9da9185109.zip/node_modules/domutils/",
-          "packageDependencies": [
-            ["domutils", "npm:2.6.0"],
-            ["dom-serializer", "npm:1.3.1"],
-            ["domelementtype", "npm:2.2.0"],
-            ["domhandler", "npm:4.2.0"]
-          ],
-          "linkType": "HARD",
-        }],
         ["npm:2.8.0", {
           "packageLocation": "./.yarn/cache/domutils-npm-2.8.0-0325139e5c-f1d0cfab06.zip/node_modules/domutils/",
           "packageDependencies": [
