@@ -24,3 +24,5 @@ export const testObjectFit: AssertEqual<
   Extract<keyof MixedStyleDeclaration, 'objectFit'>,
   'objectFit'
 > = true;
+
+export const testEmptyStyle: MixedStyleDeclaration = {};
