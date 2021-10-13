@@ -1,3 +1,10 @@
+# [10.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.2.1...@native-html/transient-render-engine@10.3.0) (2021-10-13)
+
+
+### Features
+
+* **tre:** enhanced context for `getDynamicReactNativeProps` and `getUADynamicMixedStyles` ([b7dd796](https://github.com/native-html/core/commit/b7dd7968556599b9f0b0b3131a61defdaba7e3bb))
+
 ## [10.2.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.2.0...@native-html/transient-render-engine@10.2.1) (2021-09-11)
 
 
