@@ -29,7 +29,7 @@ jobs:
       name: Behavior Tests
     - run: yarn build:css-processor
       name: Build
-    - uses: codecov/codecov-action@v1
+    - uses: codecov/codecov-action@v2
       with:
         flags: css-processor
         fail_ci_if_error: true

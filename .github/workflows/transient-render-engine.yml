@@ -33,7 +33,7 @@ jobs:
       name: Behavior Tests
     - run: yarn build:transient-render-engine
       name: Build
-    - uses: codecov/codecov-action@v1
+    - uses: codecov/codecov-action@v2
       with:
         flags: transient-render-engine
         fail_ci_if_error: true
