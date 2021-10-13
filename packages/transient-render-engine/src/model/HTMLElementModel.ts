@@ -121,7 +121,9 @@ export default class HTMLElementModel<
    * _auto-generated props from attributes_, _props returned by this function_.
    *
    * @param tnode - The TNode for which to create React Native props.
-   * @param preGeneratedProps - The props that were pre-generated for the TNode based on attributes (style, aria-* ...) and {@link HTMLELementModel.reactNativeProps}.
+   * @param preGeneratedProps - The props that were pre-generated for the TNode
+   * based on attributes (style, aria-* ...) and
+   * {@link HTMLELementModel.reactNativeProps}.
    */
   public readonly getDynamicReactNativeProps: NativeElementModel['getDynamicReactNativeProps'];
 

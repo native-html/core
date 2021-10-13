@@ -26,11 +26,50 @@ export interface TNodeInit {
  * @public
  */
 export interface TNodeDescriptor {
-  tagName: string | null;
-  classes: string[];
-  id: string | null;
-  attributes: Record<string, string>;
-  markers: Markers;
+  /**
+   * Attributes for this tag.
+   */
+  readonly attributes: Record<string, string>;
+  /**
+   * The id for this node, extracted from the id attribute of the
+   * underlying {@link Node}.
+   */
+  readonly id: string | null;
+  /**
+   * A list of classes for this node, extracted from the class attribute of the
+   * underlying {@link Node}.
+   */
+  readonly classes: string[];
+  /**
+   * A reference to the underlying DOM node.
+   */
+  readonly domNode: Element | null;
+  /**
+   * The tag name for this node.
+   *
+   * @remarks Anonymous nodes generated during hoisting won't have a tag name.
+   * Also, some TText nodes don't have a tagName.
+   */
+  readonly tagName: string | null;
+  /**
+   * Markers form an abstraction in which one node provides semantic information
+   * to itself and all its descendants. For example, `ins` elements, which stand
+   * for "insertion" of content in the context of an edit will provide the {
+   * edits: 'ins' } marker to all its descendants.
+   *
+   * @remarks This attribute must be considered immutable. Never try to
+   * change it by hand, or you might update the markers of an anscestor! For
+   * performance reasons, markers instances might be shared from parent to
+   * children when they are equal.
+   */
+  readonly markers: Readonly<Markers>;
+
+  /**
+   * Check if this {@link TNode} has the given `className`.
+   *
+   * @param className - The class to check.
+   */
+  hasClass(className: string): boolean;
 }
 
 /**

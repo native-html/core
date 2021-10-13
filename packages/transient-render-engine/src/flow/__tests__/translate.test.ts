@@ -1,3 +1,4 @@
+import HTMLModelRegistry from '../../model/HTMLModelRegistry';
 import { TStyles } from '../../styles/TStyles';
 import { TEmptyCtor } from '../../tree/TEmptyCtor';
 import { mapNodeList } from '../translate';
@@ -28,6 +29,31 @@ describe('translateNode function', () => {
       '<span style="color: rgb(101, 123, 131);">A</span>'
     );
     expect(span).toMatchSnapshot();
+  });
+  describe('regarding `getUADynamicMixedStyles`', () => {
+    it('should be able to set styles conditionnaly', () => {
+      const tdoc = translateTreeTest(
+        '<div><span class="hello" data-custom="true">text</span></div>',
+        {
+          modelRegistry: new HTMLModelRegistry((models) => ({
+            ...models,
+            span: models.span.extend({
+              getUADynamicMixedStyles(tnode) {
+                if (
+                  tnode.hasClass('hello') &&
+                  tnode.attributes['data-custom']
+                ) {
+                  return { color: 'blue' };
+                }
+              }
+            })
+          }))
+        }
+      );
+      const span = tdoc.children[0];
+      expect(span.tagName).toBe('span');
+      expect(span.styles.nativeTextFlow.color).toBe('blue');
+    });
   });
   it('should set parent', () => {
     const tdoc = translateTreeTest(rfc002Source);

@@ -1,6 +1,6 @@
 import { Markers } from './tree-types';
 
-const markersProtype: Markers = {
+const markersPrototype: Markers = {
   anchor: false,
   edits: 'none',
   lang: 'en',
@@ -23,4 +23,4 @@ const markersProtype: Markers = {
   }
 };
 
-export default markersProtype;
+export default markersPrototype;

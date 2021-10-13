@@ -1,6 +1,7 @@
 import { CSSProcessedProps } from '@native-html/css-processor';
 import HTMLModelRegistry from '../../model/HTMLModelRegistry';
-import markersProtype from '../../tree/markersProtype';
+import markersPrototype from '../../tree/markersPrototype';
+import { TNodeDescriptor } from '../../tree/tree-types';
 import { defaultStylesConfig } from '../defaults';
 import { TStyles } from '../TStyles';
 import { TStylesMerger } from '../TStylesMerger';
@@ -8,6 +9,23 @@ import { TStylesMerger } from '../TStylesMerger';
 const emptyStyles = new TStyles(new CSSProcessedProps());
 
 const modelRegistry = new HTMLModelRegistry();
+
+function makeTNodeDescriptor(
+  partial?: Partial<TNodeDescriptor>
+): TNodeDescriptor {
+  return {
+    attributes: {},
+    classes: [],
+    domNode: null as any,
+    hasClass(className) {
+      return partial?.classes?.includes(className) || false;
+    },
+    id: null,
+    markers: Object.create(markersPrototype),
+    tagName: null,
+    ...partial
+  };
+}
 
 describe('TStylesMerger', () => {
   describe('buildStyles method', () => {
@@ -24,13 +42,14 @@ describe('TStylesMerger', () => {
         modelRegistry
       );
       expect(
-        stylesMerger.buildStyles('color: blue', null, {
-          classes: [],
-          id: 'main',
-          tagName: 'div',
-          attributes: {},
-          markers: Object.create(markersProtype)
-        }).nativeTextFlow.color
+        stylesMerger.buildStyles(
+          'color: blue',
+          null,
+          makeTNodeDescriptor({
+            id: 'main',
+            tagName: 'div'
+          })
+        ).nativeTextFlow.color
       ).toEqual('blue');
     });
     it('should override classes styles with inline styles', () => {
@@ -46,13 +65,14 @@ describe('TStylesMerger', () => {
         modelRegistry
       );
       expect(
-        stylesMerger.buildStyles('color: blue', null, {
-          id: null,
-          classes: ['main'],
-          tagName: 'div',
-          attributes: {},
-          markers: Object.create(markersProtype)
-        }).nativeTextFlow.color
+        stylesMerger.buildStyles(
+          'color: blue',
+          null,
+          makeTNodeDescriptor({
+            classes: ['main'],
+            tagName: 'div'
+          })
+        ).nativeTextFlow.color
       ).toEqual('blue');
     });
     it('should override tags styles with inline styles', () => {
@@ -68,13 +88,13 @@ describe('TStylesMerger', () => {
         modelRegistry
       );
       expect(
-        stylesMerger.buildStyles('color: blue', null, {
-          id: null,
-          classes: [],
-          tagName: 'div',
-          attributes: {},
-          markers: Object.create(markersProtype)
-        }).nativeTextFlow.color
+        stylesMerger.buildStyles(
+          'color: blue',
+          null,
+          makeTNodeDescriptor({
+            tagName: 'div'
+          })
+        ).nativeTextFlow.color
       ).toEqual('blue');
     });
     it('should override tags styles with classes styles', () => {
@@ -95,13 +115,14 @@ describe('TStylesMerger', () => {
         modelRegistry
       );
       expect(
-        stylesMerger.buildStyles('', null, {
-          id: null,
-          classes: ['main'],
-          tagName: 'div',
-          attributes: {},
-          markers: Object.create(markersProtype)
-        }).nativeTextFlow.color
+        stylesMerger.buildStyles(
+          '',
+          null,
+          makeTNodeDescriptor({
+            classes: ['main'],
+            tagName: 'div'
+          })
+        ).nativeTextFlow.color
       ).toEqual('blue');
     });
     it('should ignore unregistered classes', () => {
@@ -111,13 +132,15 @@ describe('TStylesMerger', () => {
         },
         modelRegistry
       );
-      const styles = stylesMerger.buildStyles('', null, {
-        id: 'main',
-        classes: ['content'],
-        tagName: 'div',
-        attributes: {},
-        markers: Object.create(markersProtype)
-      });
+      const styles = stylesMerger.buildStyles(
+        '',
+        null,
+        makeTNodeDescriptor({
+          id: 'main',
+          classes: ['content'],
+          tagName: 'div'
+        })
+      );
       expect(styles).toStrictEqual(emptyStyles);
     });
     it('should merge multiple classes', () => {
@@ -135,13 +158,15 @@ describe('TStylesMerger', () => {
         },
         modelRegistry
       );
-      const styles = stylesMerger.buildStyles('', null, {
-        id: 'main',
-        classes: ['content', 'content--highlight'],
-        tagName: 'div',
-        attributes: {},
-        markers: Object.create(markersProtype)
-      });
+      const styles = stylesMerger.buildStyles(
+        '',
+        null,
+        makeTNodeDescriptor({
+          id: 'main',
+          classes: ['content', 'content--highlight'],
+          tagName: 'div'
+        })
+      );
       expect(styles.nativeTextFlow).toMatchObject({
         color: 'blue'
       });
@@ -165,13 +190,15 @@ describe('TStylesMerger', () => {
         modelRegistry
       );
       expect(
-        stylesMerger.buildStyles('', null, {
-          id: 'main',
-          classes: ['content', 'content--highlight'],
-          tagName: 'div',
-          attributes: {},
-          markers: Object.create(markersProtype)
-        }).nativeTextFlow
+        stylesMerger.buildStyles(
+          '',
+          null,
+          makeTNodeDescriptor({
+            id: 'main',
+            classes: ['content', 'content--highlight'],
+            tagName: 'div'
+          })
+        ).nativeTextFlow
       ).toStrictEqual({
         color: 'green'
       });
@@ -194,13 +221,15 @@ describe('TStylesMerger', () => {
         modelRegistry
       );
       expect(
-        stylesMerger.buildStyles('', null, {
-          id: 'main',
-          classes: ['content'],
-          tagName: 'div',
-          attributes: {},
-          markers: Object.create(markersProtype)
-        }).nativeTextFlow
+        stylesMerger.buildStyles(
+          '',
+          null,
+          makeTNodeDescriptor({
+            id: 'main',
+            classes: ['content'],
+            tagName: 'div'
+          })
+        ).nativeTextFlow
       ).toStrictEqual({
         color: 'red'
       });
@@ -215,13 +244,13 @@ describe('TStylesMerger', () => {
       const parentStyles = new TStyles(
         stylesMerger.compileInlineCSS('color:red;')
       );
-      const styles = stylesMerger.buildStyles('', parentStyles, {
-        classes: [],
-        id: null,
-        tagName: null,
-        attributes: {},
-        markers: Object.create(markersProtype)
-      });
+      const styles = stylesMerger.buildStyles(
+        '',
+        parentStyles,
+        makeTNodeDescriptor({
+          tagName: null
+        })
+      );
       expect(styles.nativeTextFlow.color).toStrictEqual('red');
     });
     it('should override parent flowed styles when override exists', () => {
@@ -240,13 +269,9 @@ describe('TStylesMerger', () => {
         stylesMerger.buildStyles(
           '',
           new TStyles(stylesMerger.compileInlineCSS('color:red;')),
-          {
-            classes: [],
-            id: null,
-            tagName: 'div',
-            attributes: {},
-            markers: Object.create(markersProtype)
-          }
+          makeTNodeDescriptor({
+            tagName: 'div'
+          })
         ).nativeTextFlow.color
       ).toStrictEqual('blue');
     });
@@ -260,13 +285,13 @@ describe('TStylesMerger', () => {
             },
             modelRegistry
           );
-          const processedProps = stylesMerger.buildStyles('', null, {
-            classes: [],
-            attributes: {},
-            id: null,
-            tagName: 'blockquote',
-            markers: Object.create(markersProtype)
-          });
+          const processedProps = stylesMerger.buildStyles(
+            '',
+            null,
+            makeTNodeDescriptor({
+              tagName: 'blockquote'
+            })
+          );
           expect(processedProps.nativeBlockRet).toStrictEqual({
             marginBottom: 16,
             marginTop: 16,
@@ -282,15 +307,16 @@ describe('TStylesMerger', () => {
             },
             modelRegistry
           );
-          const processedProps = stylesMerger.buildStyles('', null, {
-            classes: [],
-            attributes: {
-              type: 'cite'
-            },
-            id: null,
-            tagName: 'blockquote',
-            markers: Object.create(markersProtype)
-          });
+          const processedProps = stylesMerger.buildStyles(
+            '',
+            null,
+            makeTNodeDescriptor({
+              attributes: {
+                type: 'cite'
+              },
+              tagName: 'blockquote'
+            })
+          );
           expect(processedProps.nativeBlockRet).toStrictEqual({
             borderLeftWidth: 2,
             borderLeftColor: '#CCC',
@@ -310,13 +336,13 @@ describe('TStylesMerger', () => {
             },
             modelRegistry
           );
-          const processedProps = stylesMerger.buildStyles('', null, {
-            classes: [],
-            attributes: {},
-            id: null,
-            tagName: 'div',
-            markers: Object.create(markersProtype)
-          });
+          const processedProps = stylesMerger.buildStyles(
+            '',
+            null,
+            makeTNodeDescriptor({
+              tagName: 'div'
+            })
+          );
           expect(processedProps.nativeBlockFlow).toStrictEqual({});
           expect(processedProps.nativeBlockRet).toStrictEqual({});
         });
@@ -332,13 +358,9 @@ describe('TStylesMerger', () => {
         const processedProps = stylesMerger.buildStyles(
           'margin-top: 0;',
           null,
-          {
-            classes: [],
-            attributes: {},
-            id: null,
-            tagName: 'p',
-            markers: Object.create(markersProtype)
-          }
+          makeTNodeDescriptor({
+            tagName: 'p'
+          })
         );
         expect(processedProps.nativeBlockRet.marginTop).toBe(0);
       });
@@ -351,13 +373,13 @@ describe('TStylesMerger', () => {
             },
             modelRegistry
           );
-          const processedProps = stylesMerger.buildStyles('', null, {
-            classes: [],
-            attributes: {},
-            id: null,
-            tagName: 'a',
-            markers: Object.create(markersProtype)
-          });
+          const processedProps = stylesMerger.buildStyles(
+            '',
+            null,
+            makeTNodeDescriptor({
+              tagName: 'a'
+            })
+          );
           expect(processedProps.nativeTextFlow).toStrictEqual({});
           expect(processedProps.nativeTextRet).toStrictEqual({});
         });
@@ -369,15 +391,16 @@ describe('TStylesMerger', () => {
             },
             modelRegistry
           );
-          const processedProps = stylesMerger.buildStyles('', null, {
-            classes: [],
-            attributes: {
-              href: ''
-            },
-            id: null,
-            tagName: 'a',
-            markers: Object.create(markersProtype)
-          });
+          const processedProps = stylesMerger.buildStyles(
+            '',
+            null,
+            makeTNodeDescriptor({
+              attributes: {
+                href: ''
+              },
+              tagName: 'a'
+            })
+          );
           expect(processedProps.nativeTextFlow).toStrictEqual({
             color: '#245dc1'
           });
@@ -400,15 +423,16 @@ describe('TStylesMerger', () => {
             },
             modelRegistry
           );
-          const processedProps = stylesMerger.buildStyles('', null, {
-            classes: [],
-            attributes: {
-              href: 'https://domain.com'
-            },
-            id: null,
-            tagName: 'a',
-            markers: Object.create(markersProtype)
-          });
+          const processedProps = stylesMerger.buildStyles(
+            '',
+            null,
+            makeTNodeDescriptor({
+              attributes: {
+                href: 'https://domain.com'
+              },
+              tagName: 'a'
+            })
+          );
           expect(processedProps.nativeTextFlow).toStrictEqual({
             color: 'red'
           });

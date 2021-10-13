@@ -1,4 +1,5 @@
 import { MixedStyleDeclaration } from '@native-html/css-processor';
+import { Element } from 'domhandler';
 import {
   ReactNativePropsDefinitions,
   ReactNativePropsSwitch
@@ -247,7 +248,8 @@ export interface ElementModelBase<T extends string> {
    * colored blue only when `href` is defined.
    */
   getUADynamicMixedStyles?: (
-    tnode: TNodeDescriptor
+    tnode: TNodeDescriptor,
+    element: Element
   ) => MixedStyleDeclaration | null | undefined | void;
 
   /**
@@ -264,7 +266,8 @@ export interface ElementModelBase<T extends string> {
    */
   getDynamicReactNativeProps?: (
     tnode: TNodeShape<TNodeType>,
-    preGeneratedProps: ReactNativePropsSwitch | null
+    preGeneratedProps: ReactNativePropsSwitch | null,
+    element: Element
   ) => ReactNativePropsDefinitions | null | undefined | void;
 }
 

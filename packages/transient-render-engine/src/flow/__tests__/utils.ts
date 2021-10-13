@@ -35,9 +35,15 @@ export function translateTreeTest(
   params?: Partial<DataFlowParams>
 ): TNodeImpl {
   const documentTree = parseDOM(source);
+  const stylesMerger = params?.modelRegistry
+    ? new TStylesMerger(
+        { ...defaultStylesConfig, enableUserAgentStyles: true },
+        params.modelRegistry
+      )
+    : defaultStylesMerger;
   return translateNode({
     node: documentTree[0],
-    params: { ...defaultDataFlowParams, ...params },
+    params: { ...defaultDataFlowParams, ...params, stylesMerger },
     parent: null
   }) as TNodeImpl;
 }

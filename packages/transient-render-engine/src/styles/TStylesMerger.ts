@@ -89,7 +89,8 @@ export class TStylesMerger {
       (c) => this.classesStyles[c] || null
     );
     const dynamicPropsFromAttributes = this.enableUserAgentStyles
-      ? (model?.getUADynamicMixedStyles?.(descriptor) || null) ??
+      ? (model?.getUADynamicMixedStyles?.(descriptor, descriptor.domNode!) ||
+          null) ??
         model?.getUADerivedStyleFromAttributes?.(
           descriptor.attributes,
           descriptor.markers
