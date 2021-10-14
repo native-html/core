@@ -30,13 +30,17 @@ export type StylessReactNativeTextProps = Omit<TextProps, 'style'>;
 /**
  * React Native `View` props, minus the `style` prop.
  */
-export type StylessReactNativeViewProps = Omit<ViewProps, 'style'>;
+export type StylessReactNativeViewProps = Omit<ViewProps, 'style'> & {
+  onPress?: () => void;
+};
 
 /**
  * An intersection between React Native `View` and `Text` props, minus the
  * `style` prop.
  */
-export type StylessReactNativeProps = Omit<ReactNativeProps, 'style'>;
+export type StylessReactNativeProps = Omit<ReactNativeProps, 'style'> & {
+  onPress?: () => void;
+};
 
 /**
  * An object containing props targetting either `Text`, `View`, or both.
