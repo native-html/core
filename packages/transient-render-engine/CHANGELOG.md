@@ -1,3 +1,10 @@
+# [10.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.3.0...@native-html/transient-render-engine@10.4.0) (2021-10-14)
+
+
+### Features
+
+* **tre:** add `onPress` support in native props ([8185e0d](https://github.com/native-html/core/commit/8185e0d5bf3d22635ae620141bba65cf6987e151))
+
 # [10.3.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.2.1...@native-html/transient-render-engine@10.3.0) (2021-10-13)
 
 
