@@ -1,3 +1,24 @@
+# [11.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.4.0...@native-html/transient-render-engine@11.0.0) (2021-10-15)
+
+
+### Code Refactoring
+
+* rename `getDynamicReactNativeProps` to `getReactNativeProps` for consistency ([3401890](https://github.com/native-html/core/commit/340189047b9f9d775b6ea73bf892ae79c6f85a6e))
+* rename `getuadynamicmixedstyles` to `getmixeduastyles` for consistency ([a1ce296](https://github.com/native-html/core/commit/a1ce296092a216437ab75abae7a30e6c46f4b5db))
+
+
+### Features
+
+* add new typescript util, `ExtractTNodeFromType` ([9b1b008](https://github.com/native-html/core/commit/9b1b0081a8cca688e05ec3435a2169e6652839a6))
+
+
+### BREAKING CHANGES
+
+* rename `getDynamicReactNativeProps` to
+`getReactNativeProps` for consistency
+* rename `getuadynamicmixedstyles` to `getmixeduastyles`
+for consistency
+
 # [10.4.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.3.0...@native-html/transient-render-engine@10.4.0) (2021-10-14)
 
 
