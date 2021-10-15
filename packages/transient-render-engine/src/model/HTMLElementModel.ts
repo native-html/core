@@ -100,7 +100,7 @@ export default class HTMLElementModel<
    * @remarks For example, &lt;a&gt; tags will have underline decoration and be
    * colored blue only when `href` is defined.
    *
-   * @deprecated Use {@link HTMLElementModel.getUADynamicMixedStyles} instead.
+   * @deprecated Use {@link HTMLElementModel.getMixedUAStyles} instead.
    */
   public readonly getUADerivedStyleFromAttributes: NativeElementModel['getUADerivedStyleFromAttributes'];
   /**
@@ -109,7 +109,7 @@ export default class HTMLElementModel<
    * @remarks For example, &lt;a&gt; tags will have underline decoration and be
    * colored blue only when `href` is defined.
    */
-  public readonly getUADynamicMixedStyles: NativeElementModel['getUADynamicMixedStyles'];
+  public readonly getMixedUAStyles: NativeElementModel['getMixedUAStyles'];
 
   /**
    * A function to create conditional React Native props for a specific TNode.
@@ -139,7 +139,7 @@ export default class HTMLElementModel<
     mixedUAStyles,
     isVoid,
     getUADerivedStyleFromAttributes,
-    getUADynamicMixedStyles,
+    getMixedUAStyles,
     setMarkersForTNode,
     getDynamicReactNativeProps,
     reactNativeProps
@@ -150,7 +150,7 @@ export default class HTMLElementModel<
     this.isVoid = isVoid;
     this.mixedUAStyles = mixedUAStyles;
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
-    this.getUADynamicMixedStyles = getUADynamicMixedStyles;
+    this.getMixedUAStyles = getMixedUAStyles;
     this.setMarkersForTNode = setMarkersForTNode;
     this.getDynamicReactNativeProps = getDynamicReactNativeProps;
     this.reactNativeProps = reactNativeProps;

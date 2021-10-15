@@ -387,7 +387,7 @@ const groupingModelMap: HTMLModelRecord<
   blockquote: HTMLElementModel.fromNativeModel({
     tagName: 'blockquote',
     category: 'grouping',
-    getUADynamicMixedStyles: ({ attributes }) => {
+    getMixedUAStyles: ({ attributes }) => {
       if (attributes.type === 'cite') {
         return leftBorderQuoteStyle;
       }
@@ -845,7 +845,7 @@ const defaultHTMLElementModels = {
   a: HTMLElementModel.fromNativeModel({
     tagName: 'a',
     category: 'anchor',
-    getUADynamicMixedStyles: ({ attributes }) => {
+    getMixedUAStyles: ({ attributes }) => {
       if (typeof attributes.href === 'string') {
         return anchorStyle;
       }

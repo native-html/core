@@ -30,7 +30,7 @@ describe('translateNode function', () => {
     );
     expect(span).toMatchSnapshot();
   });
-  describe('regarding `getUADynamicMixedStyles`', () => {
+  describe('regarding `getMixedUAStyles`', () => {
     it('should be able to set styles conditionnaly', () => {
       const tdoc = translateTreeTest(
         '<div><span class="hello" data-custom="true">text</span></div>',
@@ -38,7 +38,7 @@ describe('translateNode function', () => {
           modelRegistry: new HTMLModelRegistry((models) => ({
             ...models,
             span: models.span.extend({
-              getUADynamicMixedStyles(tnode) {
+              getMixedUAStyles(tnode) {
                 if (
                   tnode.hasClass('hello') &&
                   tnode.attributes['data-custom']

@@ -234,7 +234,7 @@ export interface ElementModelBase<T extends string> {
    * @remarks For example, &lt;a&gt; tags will have underline decoration and be
    * colored blue only when `href` is defined.
    *
-   * @deprecated Use {@link ElementModelBase.getUADynamicMixedStyles} instead.
+   * @deprecated Use {@link ElementModelBase.getMixedUAStyles} instead.
    */
   getUADerivedStyleFromAttributes?: (
     attributes: Record<string, string>,
@@ -247,7 +247,7 @@ export interface ElementModelBase<T extends string> {
    * @remarks For example, &lt;a&gt; tags will have underline decoration and be
    * colored blue only when `href` is defined.
    */
-  getUADynamicMixedStyles?: (
+  getMixedUAStyles?: (
     tnode: TNodeDescriptor,
     element: Element
   ) => MixedStyleDeclaration | null | undefined | void;
