@@ -99,7 +99,7 @@ function headerStyle(
   };
 }
 
-const getDynamicReactNativePropsForHeading: ElementModelBase<any>['getDynamicReactNativeProps'] =
+const getReactNativePropsForHeading: ElementModelBase<any>['getReactNativeProps'] =
   ({ domNode }) => {
     const textLabel = textContent(domNode!);
     return {
@@ -111,8 +111,8 @@ const getDynamicReactNativePropsForHeading: ElementModelBase<any>['getDynamicRea
     };
   };
 
-const getDynamicReactNativePropsWithHref: ElementModelBase<any>['getDynamicReactNativeProps'] =
-  function getDynamicReactNativePropsWithHref({ attributes }) {
+const getReactNativePropsWithHref: ElementModelBase<any>['getReactNativeProps'] =
+  function getReactNativePropsWithHref({ attributes }) {
     if (typeof attributes.href === 'string' && attributes.href.length > 0) {
       return {
         native: {
@@ -152,37 +152,37 @@ const sectioningModelMap: HTMLModelRecord<
     category: 'sectioning',
     tagName: 'h1',
     mixedUAStyles: headerStyle('2em', '.67em'),
-    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
+    getReactNativeProps: getReactNativePropsForHeading
   }),
   h2: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h2',
     mixedUAStyles: headerStyle('1.5em', '.83em'),
-    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
+    getReactNativeProps: getReactNativePropsForHeading
   }),
   h3: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h3',
     mixedUAStyles: headerStyle('1.17em', '1em'),
-    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
+    getReactNativeProps: getReactNativePropsForHeading
   }),
   h4: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h4',
     mixedUAStyles: headerStyle('1em', '1.33em'),
-    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
+    getReactNativeProps: getReactNativePropsForHeading
   }),
   h5: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h5',
     mixedUAStyles: headerStyle('.83em', '1.67em'),
-    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
+    getReactNativeProps: getReactNativePropsForHeading
   }),
   h6: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
     tagName: 'h6',
     mixedUAStyles: headerStyle('.67em', '2.33em'),
-    getDynamicReactNativeProps: getDynamicReactNativePropsForHeading
+    getReactNativeProps: getReactNativePropsForHeading
   }),
   header: HTMLElementModel.fromNativeModel({
     category: 'sectioning',
@@ -210,7 +210,7 @@ const unsupportedModelMap: HTMLModelRecord<
     tagName: 'area',
     category: 'untranslatable',
     isVoid: true,
-    getDynamicReactNativeProps: getDynamicReactNativePropsWithHref
+    getReactNativeProps: getReactNativePropsWithHref
   }),
   map: HTMLElementModel.fromNativeModel({
     tagName: 'map',
@@ -556,7 +556,7 @@ const renderedEmbeddedModelMap: HTMLModelRecord<
     tagName: 'img',
     category: 'embedded',
     isVoid: true,
-    getDynamicReactNativeProps({ attributes }) {
+    getReactNativeProps({ attributes }) {
       // see https://w3c.github.io/html-aria/#el-img
       const label = attributes.alt || attributes['aria-label'];
       if (label) {
@@ -627,7 +627,7 @@ const emptyEmbeddedModelMap: HTMLModelRecord<
     category: 'embedded',
     isVoid: false, // allows svg elems
     isOpaque: true,
-    getDynamicReactNativeProps({ attributes }) {
+    getReactNativeProps({ attributes }) {
       if (attributes['aria-label']) {
         return {
           native: {
@@ -850,7 +850,7 @@ const defaultHTMLElementModels = {
         return anchorStyle;
       }
     },
-    getDynamicReactNativeProps: getDynamicReactNativePropsWithHref,
+    getReactNativeProps: getReactNativePropsWithHref,
     setMarkersForTNode(targetMarkers) {
       targetMarkers.anchor = true;
     }

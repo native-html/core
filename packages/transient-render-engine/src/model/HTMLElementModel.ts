@@ -91,7 +91,7 @@ export default class HTMLElementModel<
    * {@link TNode} attributes. For example, if you pass `accessibilityLabel`
    * and there is an `aria-label` attribute attached to one node, the
    * `aria-label` will be used. If you want to be able to override the
-   * `aria-label`, use {@link getDynamicReactNativeProps} instead.
+   * `aria-label`, use {@link getReactNativeProps} instead.
    */
   readonly reactNativeProps?: ReactNativePropsDefinitions;
   /**
@@ -125,7 +125,7 @@ export default class HTMLElementModel<
    * based on attributes (style, aria-* ...) and
    * {@link HTMLELementModel.reactNativeProps}.
    */
-  public readonly getDynamicReactNativeProps: NativeElementModel['getDynamicReactNativeProps'];
+  public readonly getReactNativeProps: NativeElementModel['getReactNativeProps'];
 
   /**
    * Derive markers for one TNode.
@@ -141,7 +141,7 @@ export default class HTMLElementModel<
     getUADerivedStyleFromAttributes,
     getMixedUAStyles,
     setMarkersForTNode,
-    getDynamicReactNativeProps,
+    getReactNativeProps,
     reactNativeProps
   }: HTMLElementModelProperties<T, M>) {
     this.tagName = tagName;
@@ -152,7 +152,7 @@ export default class HTMLElementModel<
     this.getUADerivedStyleFromAttributes = getUADerivedStyleFromAttributes;
     this.getMixedUAStyles = getMixedUAStyles;
     this.setMarkersForTNode = setMarkersForTNode;
-    this.getDynamicReactNativeProps = getDynamicReactNativeProps;
+    this.getReactNativeProps = getReactNativeProps;
     this.reactNativeProps = reactNativeProps;
   }
 

@@ -208,7 +208,7 @@ export interface ElementModelBase<T extends string> {
    * {@link TNode} attributes. For example, if you pass `accessibilityLabel`
    * and there is an `aria-label` attribute attached to one node, the
    * `aria-label` will be used. If you want to be able to override the
-   * `aria-label`, use {@link getDynamicReactNativeProps} instead.
+   * `aria-label`, use {@link getReactNativeProps} instead.
    */
   readonly reactNativeProps?: ReactNativePropsDefinitions;
 
@@ -264,8 +264,8 @@ export interface ElementModelBase<T extends string> {
    * @param tnode - The TNode for which to create React Native props.
    * @param preGeneratedProps - The props that were pre-generated for the TNode based on attributes (style, aria-* ...) and {@link HTMLELementModel.reactNativeProps}.
    */
-  getDynamicReactNativeProps?: (
-    tnode: TNodeShape<TNodeType>,
+  getReactNativeProps?: (
+    tnode: ExtractTNodeFromType<TNodeType>,
     preGeneratedProps: ReactNativePropsSwitch | null,
     element: Element
   ) => ReactNativePropsDefinitions | null | undefined | void;

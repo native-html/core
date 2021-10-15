@@ -85,7 +85,7 @@ describe('TNode class', () => {
     });
   });
   describe('getReactNativeProps', () => {
-    it("should return null when neither 'reactNativeProps' nor 'getDynamicReactNativeProps' are defined for this element model.", () => {
+    it("should return null when neither 'reactNativeProps' nor 'getReactNativeProps' are defined for this element model.", () => {
       const node = newTNode({
         elementModel: HTMLElementModel.fromCustomModel({
           tagName: 'foo',
@@ -119,12 +119,12 @@ describe('TNode class', () => {
         }
       });
     });
-    it("should support 'getDynamicReactNativeProps' returning null from the element model", () => {
+    it("should support 'getReactNativeProps' returning null from the element model", () => {
       const node = newTNode({
         elementModel: HTMLElementModel.fromCustomModel({
           contentModel: HTMLContentModel.block,
           tagName: 'foo',
-          getDynamicReactNativeProps() {
+          getReactNativeProps() {
             return null;
           }
         })
@@ -133,7 +133,7 @@ describe('TNode class', () => {
       // Test twice to make sure the cache is working
       expect(node.getReactNativeProps()).toBeNull();
     });
-    it("should support 'getDynamicReactNativeProps' returning non-null from the element model", () => {
+    it("should support 'getReactNativeProps' returning non-null from the element model", () => {
       const node = newTNode({
         domNode: new Element('foo', {
           'data-rn-accessibility-label': 'Hello'
@@ -141,7 +141,7 @@ describe('TNode class', () => {
         elementModel: HTMLElementModel.fromCustomModel({
           contentModel: HTMLContentModel.block,
           tagName: 'foo',
-          getDynamicReactNativeProps(tnode) {
+          getReactNativeProps(tnode) {
             if (tnode.attributes['data-rn-accessibility-label']) {
               return {
                 text: {
@@ -160,7 +160,7 @@ describe('TNode class', () => {
         view: {}
       });
     });
-    it("should merge props from 'reactNativeProps' and 'getDynamicReactNativeProps'", () => {
+    it("should merge props from 'reactNativeProps' and 'getReactNativeProps'", () => {
       const node = newTNode({
         domNode: new Element('foo', {
           class: 'header'
@@ -176,7 +176,7 @@ describe('TNode class', () => {
               testID: 'article-title'
             }
           },
-          getDynamicReactNativeProps(tnode) {
+          getReactNativeProps(tnode) {
             if (tnode.hasClass('header')) {
               return {
                 native: {
