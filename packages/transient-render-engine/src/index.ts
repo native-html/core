@@ -5,6 +5,7 @@ export { default as HTMLContentModel } from './model/HTMLContentModel';
 export type { TStylesShape } from './styles/TStyles';
 export type {
   DocumentContext,
+  ExtractTNodeFromType,
   Markers,
   NativeBlockStyles,
   NativeTextStyles,

@@ -365,6 +365,23 @@ export interface DocumentContext {
 export type TNode = TBlock | TDocument | TEmpty | TPhrasing | TText;
 
 /**
+ * Utilitary type to extract TNode from its literal type.
+ */
+export type ExtractTNodeFromType<Type> = Type extends TNodeType
+  ? Type extends 'block'
+    ? TBlock
+    : Type extends 'phrasing'
+    ? TPhrasing
+    : Type extends 'text'
+    ? TText
+    : Type extends 'empty'
+    ? TEmpty
+    : Type extends 'document'
+    ? TDocument
+    : never
+  : never;
+
+/**
  * Transient render nodes to be rendered in React Native `Views`.
  */
 export interface TBlock extends TNodeShape<'block'> {

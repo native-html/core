@@ -5,10 +5,10 @@ import {
   ReactNativePropsSwitch
 } from '../helper-types';
 import {
+  ExtractTNodeFromType,
   Markers,
   SetMarkersForTNode,
   TNodeDescriptor,
-  TNodeShape,
   TNodeType
 } from '../tree/tree-types';
 import HTMLContentModel from './HTMLContentModel';
