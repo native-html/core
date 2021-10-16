@@ -558,7 +558,7 @@ const renderedEmbeddedModelMap: HTMLModelRecord<
     isVoid: true,
     getReactNativeProps({ attributes }) {
       // see https://w3c.github.io/html-aria/#el-img
-      const label = attributes.alt || attributes['aria-label'];
+      const label = attributes['aria-label'] || attributes.alt;
       if (label) {
         return {
           native: {
