@@ -1,3 +1,10 @@
+# [11.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.0.0...@native-html/transient-render-engine@11.1.0) (2021-10-16)
+
+
+### Features
+
+* **tre:** allow `HTMLElementModel.extend` to take a merge function ([ab7019f](https://github.com/native-html/core/commit/ab7019f904a1ef6372bc4cfd95fff259fa74376e))
+
 # [11.0.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@10.4.0...@native-html/transient-render-engine@11.0.0) (2021-10-15)
 
 
