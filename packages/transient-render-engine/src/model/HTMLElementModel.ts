@@ -1,3 +1,4 @@
+/* eslint-disable no-dupe-class-members */
 import { MixedStyleDeclaration } from '@native-html/css-processor';
 import { ReactNativePropsDefinitions } from '../helper-types';
 import { SetMarkersForTNode } from '../tree/tree-types';
@@ -240,14 +241,33 @@ export default class HTMLElementModel<
   }
 
   /**
-   * Create a new {@link HTMLElementModel} by merging properties into this model.
+   * Create a new {@link HTMLElementModel} by shallow-merging properties into this model.
    *
-   * @param properties - The {@link HTMLElementModelProperties} to merge into this model.
+   * @param merger - A function to generate the new properties to shallwo-merge into this model.
+   * @typeParam CM - The {@link HTMLContentModel} attached to the new model.
+   */
+  extend<CM extends HTMLContentModel>(
+    merger: (
+      properties: HTMLElementModelProperties<T, CM>
+    ) => Partial<HTMLElementModelProperties<T, CM>>
+  ): HTMLElementModel<T, CM>;
+  /**
+   * Create a new {@link HTMLElementModel} by shallow-merging properties into this model.
+   *
+   * @param properties - The {@link HTMLElementModelProperties} to shallow-merge into this model.
    * @typeParam CM - The {@link HTMLContentModel} attached to the new model.
    */
   extend<CM extends HTMLContentModel>(
     properties: Partial<HTMLElementModelProperties<T, CM>>
+  ): HTMLElementModel<T, CM>;
+  extend<CM extends HTMLContentModel>(
+    arg:
+      | ((
+          fields: HTMLElementModel<T, M>
+        ) => Partial<HTMLElementModelProperties<T, CM>>)
+      | Partial<HTMLElementModelProperties<T, CM>>
   ): HTMLElementModel<T, CM> {
+    const properties = typeof arg === 'function' ? arg(this) : arg;
     return new HTMLElementModel<T, CM>({
       ...this,
       ...properties
