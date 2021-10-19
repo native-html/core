@@ -243,7 +243,7 @@ export default class HTMLElementModel<
   /**
    * Create a new {@link HTMLElementModel} by shallow-merging properties into this model.
    *
-   * @param merger - A function to generate the new properties to shallwo-merge into this model.
+   * @param merger - A function to generate the new properties to shallow-merge into this model.
    * @typeParam CM - The {@link HTMLContentModel} attached to the new model.
    */
   extend<CM extends HTMLContentModel>(
