@@ -254,10 +254,10 @@ describe('TNode class', () => {
       foo: null
     };
     for (const [ariaRole, accessibleRole] of Object.entries(rolesMap)) {
-      it(`should support aria-role='${ariaRole}' HTML attribute`, () => {
+      it(`should support role='${ariaRole}' HTML attribute`, () => {
         const node = newTNode({
           domNode: new Element('div', {
-            'aria-role': ariaRole
+            role: ariaRole
           })
         });
         expect(node.getReactNativeProps()).toEqual(

@@ -30,29 +30,29 @@ function updateNodeIndexes(node: Mutable<TNodeImpl>, i: number) {
 const emptyAttrs = Object.freeze({});
 const emptyClasses = Object.freeze([]);
 
-function findNativeRole(role: string): AccessibilityRole | undefined {
-  if (role === 'img') {
+function findNativeRole(ariaRole: string): AccessibilityRole | undefined {
+  if (ariaRole === 'img') {
     return 'image';
   }
-  if (role === 'heading') {
+  if (ariaRole === 'heading') {
     return 'header';
   }
-  if (role === 'dialog') {
+  if (ariaRole === 'dialog') {
     return 'alert';
   }
-  if (role === 'presentation') {
+  if (ariaRole === 'presentation') {
     return 'none';
   }
   if (
-    role === 'button' ||
-    role === 'switch' ||
-    role === 'checkbox' ||
-    role === 'radio' ||
-    role === 'radiogroup' ||
-    role === 'link' ||
-    role === 'search'
+    ariaRole === 'button' ||
+    ariaRole === 'switch' ||
+    ariaRole === 'checkbox' ||
+    ariaRole === 'radio' ||
+    ariaRole === 'radiogroup' ||
+    ariaRole === 'link' ||
+    ariaRole === 'search'
   ) {
-    return role;
+    return ariaRole;
   }
 }
 
@@ -139,8 +139,8 @@ const prototype: Omit<TNodeImpl, 'displayName' | 'type'> = {
         text: accessibilityProps
       });
     }
-    if (this.attributes['aria-role']) {
-      const role = this.attributes['aria-role'];
+    if (this.attributes.role) {
+      const role = this.attributes.role;
       const accessibilityRole = findNativeRole(role);
       if (accessibilityRole) {
         const accessibilityProps: AccessibilityProps = {
