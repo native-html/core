@@ -1,6 +1,6 @@
 {
   "name": "@native-html/transient-render-engine",
-  "version": "11.1.0",
+  "version": "11.1.1",
   "description": "An engine which produces an intermediary structure from HTML to create a React Native render tree.",
   "main": "lib/commonjs/index.js",
   "types": "lib/typescript/index.d.ts",

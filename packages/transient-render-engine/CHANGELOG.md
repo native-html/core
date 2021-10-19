@@ -1,3 +1,11 @@
+## [11.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.1.0...@native-html/transient-render-engine@11.1.1) (2021-10-19)
+
+
+### Bug Fixes
+
+* **tre:** map HTML `role` attribute instead of notional `aria-role` ([50031a4](https://github.com/native-html/core/commit/50031a484b9f3dd4c83122892b0cce1110a0d81c))
+* **tre:** prefer `aria-label` over `alt` in `img` element model ([54e05a1](https://github.com/native-html/core/commit/54e05a11958806d9bc30ce2860c099326e8924c0))
+
 # [11.1.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.0.0...@native-html/transient-render-engine@11.1.0) (2021-10-16)
 
 
