@@ -556,10 +556,10 @@ const renderedEmbeddedModelMap: HTMLModelRecord<
     tagName: 'img',
     category: 'embedded',
     isVoid: true,
-    getReactNativeProps({ attributes }) {
+    getReactNativeProps({ attributes }, props) {
       // see https://w3c.github.io/html-aria/#el-img
       const label = attributes['aria-label'] || attributes.alt;
-      if (label) {
+      if (label && (!props?.view || props.view.accessibilityRole !== 'none')) {
         return {
           native: {
             accessibilityLabel: label,

@@ -1,3 +1,4 @@
+import { ReactNativePropsSwitch } from '../../helper-types';
 import HTMLModelRegistry from '../../model/HTMLModelRegistry';
 import { TStyles } from '../../styles/TStyles';
 import { TEmptyCtor } from '../../tree/TEmptyCtor';
@@ -105,6 +106,68 @@ describe('translateNode function', () => {
     expect(ttree.tagName).toBe('table');
     ttree.children.forEach((child, i) => {
       expect(child.nodeIndex).toBe(i);
+    });
+  });
+  describe('regarding images accessiblity', () => {
+    it('should not provide accessibility to images with role="presentation"', () => {
+      const ttree = translateTreeTest(
+        '<img role="presentation" alt="foo" src="https://" />'
+      );
+      expect(ttree.getReactNativeProps()).toEqual<ReactNativePropsSwitch>({
+        text: {
+          accessibilityRole: 'none'
+        },
+        view: {
+          accessibilityRole: 'none'
+        }
+      });
+    });
+
+    it('should provide accessibility to images with role="image" and non-empty alt', () => {
+      const ttree = translateTreeTest(
+        '<img role="image" alt="foo" src="https://" />'
+      );
+      expect(ttree.getReactNativeProps()).toEqual<ReactNativePropsSwitch>({
+        text: {
+          accessibilityLabel: 'foo',
+          accessibilityRole: 'image'
+        },
+        view: {
+          accessibilityLabel: 'foo',
+          accessibilityRole: 'image'
+        }
+      });
+    });
+    it('should provide accessibility to images with role="image" and non-empty aria-label', () => {
+      const ttree = translateTreeTest(
+        '<img role="image" aria-label="foo" src="https://" />'
+      );
+      expect(ttree.getReactNativeProps()).toEqual<ReactNativePropsSwitch>({
+        text: {
+          accessibilityLabel: 'foo',
+          accessibilityRole: 'image'
+        },
+        view: {
+          accessibilityLabel: 'foo',
+          accessibilityRole: 'image'
+        }
+      });
+    });
+
+    it('should prefer aria-label over alt to generate an accessibilityLabel prop', () => {
+      const ttree = translateTreeTest(
+        '<img role="image" aria-label="foo" alt="bar" src="https://" />'
+      );
+      expect(ttree.getReactNativeProps()).toEqual<ReactNativePropsSwitch>({
+        text: {
+          accessibilityLabel: 'foo',
+          accessibilityRole: 'image'
+        },
+        view: {
+          accessibilityLabel: 'foo',
+          accessibilityRole: 'image'
+        }
+      });
     });
   });
   describe('regarding markers', () => {
