@@ -1,3 +1,12 @@
+## [11.1.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.1.1...@native-html/transient-render-engine@11.1.2) (2021-10-20)
+
+
+### Bug Fixes
+
+* **tre:** accurate `nodeIndex` field description matching current impl ([b10dce3](https://github.com/native-html/core/commit/b10dce3d9090eaab37da6cd4e70e1c642cc87490))
+* **tre:** do not set `accessibilityLabel` for images with presentation role ([91f0937](https://github.com/native-html/core/commit/91f0937b4ee29e002144eab45db0334f0356c606))
+* **tre:** typo in documentation ([2db3ef8](https://github.com/native-html/core/commit/2db3ef8bbe7671917f151e07203a966c64b92e60))
+
 ## [11.1.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.1.0...@native-html/transient-render-engine@11.1.1) (2021-10-19)
 
 
