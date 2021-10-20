@@ -250,13 +250,8 @@ export interface TNodeShape<T extends TNodeType> {
    */
   readonly parent: TDocument | TBlock | TPhrasing | null;
   /**
-   * The position of this element relatively to its parents, before hoisting,
-   * after collapsing.
-   *
-   * @remarks
-   * "Before hoisting" implies that this index corresponds to the node position
-   * in the DOM, after removal of empty elements as per whitespace collapsing
-   * algorithm.
+   * The position of this element relatively to its parents, after hoisting and
+   * collapsing.
    */
   readonly nodeIndex: number;
   /**
