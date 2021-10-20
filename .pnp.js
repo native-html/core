@@ -1479,7 +1479,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "csstype",
-        "npm:3.0.8"
+        "npm:3.0.9"
       ],
       [
         "currently-unhandled",
@@ -1599,7 +1599,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "dom-serializer",
-        "npm:1.3.1"
+        "npm:1.3.2"
       ],
       [
         "domelementtype",
@@ -2095,7 +2095,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "htmlparser2",
-        "npm:7.1.1"
+        "npm:7.1.2"
       ],
       [
         "http-cache-semantics",
@@ -7245,7 +7245,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/types__react-native", null],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
             ["css-to-react-native", "npm:3.0.0"],
-            ["csstype", "npm:3.0.8"],
+            ["csstype", "npm:3.0.9"],
             ["eslint", "npm:7.26.0"],
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
@@ -7280,7 +7280,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-native", "npm:0.64.5"],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
             ["css-to-react-native", "npm:3.0.0"],
-            ["csstype", "npm:3.0.8"],
+            ["csstype", "npm:3.0.9"],
             ["eslint", "npm:7.26.0"],
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
@@ -7314,13 +7314,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/react-native", "npm:0.64.5"],
             ["@types/types__react-native", null],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
-            ["csstype", "npm:3.0.8"],
-            ["dom-serializer", "npm:1.3.1"],
+            ["csstype", "npm:3.0.9"],
+            ["dom-serializer", "npm:1.3.2"],
             ["domelementtype", "npm:2.2.0"],
-            ["domhandler", "npm:4.2.0"],
+            ["domhandler", "npm:4.2.2"],
             ["domutils", "npm:2.8.0"],
             ["eslint", "npm:7.26.0"],
-            ["htmlparser2", "npm:7.1.1"],
+            ["htmlparser2", "npm:7.1.2"],
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
             ["prettier", "npm:2.3.0"],
@@ -7355,13 +7355,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["@types/ramda", "npm:0.27.44"],
             ["@types/react-native", "npm:0.64.5"],
             ["babel-jest", "virtual:caddf51df4928b33a437ca87b8f5ddfb6205ebd6d8231f74d4ee7223f3866e6f815b221aa1e2bd33e98915f701e95bae72a93d2288b49a34a6246bdbc2a4a132#npm:26.6.3"],
-            ["csstype", "npm:3.0.8"],
-            ["dom-serializer", "npm:1.3.1"],
+            ["csstype", "npm:3.0.9"],
+            ["dom-serializer", "npm:1.3.2"],
             ["domelementtype", "npm:2.2.0"],
-            ["domhandler", "npm:4.2.0"],
+            ["domhandler", "npm:4.2.2"],
             ["domutils", "npm:2.8.0"],
             ["eslint", "npm:7.26.0"],
-            ["htmlparser2", "npm:7.1.1"],
+            ["htmlparser2", "npm:7.1.2"],
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
             ["prettier", "npm:2.3.0"],
@@ -10208,6 +10208,13 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["csstype", "npm:3.0.8"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:3.0.9", {
+          "packageLocation": "./.yarn/cache/csstype-npm-3.0.9-0801c4a6d7-e5d6ebc458.zip/node_modules/csstype/",
+          "packageDependencies": [
+            ["csstype", "npm:3.0.9"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["currently-unhandled", [
@@ -10594,6 +10601,16 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["entities", "npm:2.2.0"]
           ],
           "linkType": "HARD",
+        }],
+        ["npm:1.3.2", {
+          "packageLocation": "./.yarn/cache/dom-serializer-npm-1.3.2-133de2b9ce-1a5d6970d2.zip/node_modules/dom-serializer/",
+          "packageDependencies": [
+            ["dom-serializer", "npm:1.3.2"],
+            ["domelementtype", "npm:2.2.0"],
+            ["domhandler", "npm:4.2.0"],
+            ["entities", "npm:2.2.0"]
+          ],
+          "linkType": "HARD",
         }]
       ]],
       ["domelementtype", [
@@ -10620,6 +10637,14 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
           "packageLocation": "./.yarn/cache/domhandler-npm-4.2.0-e0e096a781-1bdb0ae6b9.zip/node_modules/domhandler/",
           "packageDependencies": [
             ["domhandler", "npm:4.2.0"],
+            ["domelementtype", "npm:2.2.0"]
+          ],
+          "linkType": "HARD",
+        }],
+        ["npm:4.2.2", {
+          "packageLocation": "./.yarn/cache/domhandler-npm-4.2.2-9a6cc9317e-bc4dd6f6a1.zip/node_modules/domhandler/",
+          "packageDependencies": [
+            ["domhandler", "npm:4.2.2"],
             ["domelementtype", "npm:2.2.0"]
           ],
           "linkType": "HARD",
@@ -12381,12 +12406,12 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["htmlparser2", [
-        ["npm:7.1.1", {
-          "packageLocation": "./.yarn/cache/htmlparser2-npm-7.1.1-1b2bdc114d-f0033544fd.zip/node_modules/htmlparser2/",
+        ["npm:7.1.2", {
+          "packageLocation": "./.yarn/cache/htmlparser2-npm-7.1.2-35aba759f6-8c561e5562.zip/node_modules/htmlparser2/",
           "packageDependencies": [
-            ["htmlparser2", "npm:7.1.1"],
+            ["htmlparser2", "npm:7.1.2"],
             ["domelementtype", "npm:2.2.0"],
-            ["domhandler", "npm:4.2.0"],
+            ["domhandler", "npm:4.2.2"],
             ["domutils", "npm:2.8.0"],
             ["entities", "npm:3.0.1"]
           ],

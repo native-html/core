@@ -62,7 +62,7 @@
   },
   "dependencies": {
     "css-to-react-native": "^3.0.0",
-    "csstype": "^3.0.8"
+    "csstype": "^3.0.9"
   },
   "publishConfig": {
     "access": "public"
