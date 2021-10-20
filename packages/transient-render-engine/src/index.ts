@@ -1,6 +1,7 @@
 export type { StylesConfig, MixedStyleRecord } from './styles/types';
 export * from './model/model-types';
 export { default as HTMLElementModel } from './model/HTMLElementModel';
+export type { HTMLElementModelShape } from './model/HTMLElementModel';
 export { default as HTMLContentModel } from './model/HTMLContentModel';
 export type { TStylesShape } from './styles/TStyles';
 export type {

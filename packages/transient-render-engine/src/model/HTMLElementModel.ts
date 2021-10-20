@@ -24,7 +24,7 @@ const translatableBlockCategories: ElementCategory[] = [
  * @typeParam T - The name of the tag to which the model will apply.
  * @typeParam M - The {@link HTMLContentModel} associated with this tag.
  */
-export interface HTMLElementModelProperties<
+export interface HTMLElementModelShape<
   T extends string,
   M extends HTMLContentModel
 > extends ElementModelBase<T> {
@@ -42,6 +42,11 @@ export interface HTMLElementModelProperties<
    *   have children.
    */
   readonly isVoid: boolean;
+  /**
+   * An opaque element translated {@link TNode} will have no translated {@link TNode}
+   * children.
+   */
+  readonly isOpaque: boolean;
 }
 
 /**
@@ -54,7 +59,7 @@ export interface HTMLElementModelProperties<
 export default class HTMLElementModel<
   T extends string,
   M extends HTMLContentModel
-> implements HTMLElementModelProperties<T, M>
+> implements HTMLElementModelShape<T, M>
 {
   /**
    * The tag name associated with this model.
@@ -144,7 +149,7 @@ export default class HTMLElementModel<
     setMarkersForTNode,
     getReactNativeProps,
     reactNativeProps
-  }: HTMLElementModelProperties<T, M>) {
+  }: HTMLElementModelShape<T, M>) {
     this.tagName = tagName;
     this.contentModel = contentModel;
     this.isOpaque = isOpaque || false;
@@ -248,24 +253,24 @@ export default class HTMLElementModel<
    */
   extend<CM extends HTMLContentModel>(
     merger: (
-      properties: HTMLElementModelProperties<T, CM>
-    ) => Partial<HTMLElementModelProperties<T, CM>>
+      shape: HTMLElementModelShape<T, CM>
+    ) => Partial<HTMLElementModelShape<T, CM>>
   ): HTMLElementModel<T, CM>;
   /**
    * Create a new {@link HTMLElementModel} by shallow-merging properties into this model.
    *
-   * @param properties - The {@link HTMLElementModelProperties} to shallow-merge into this model.
+   * @param shape - The {@link HTMLElementModelShape} to shallow-merge into this model.
    * @typeParam CM - The {@link HTMLContentModel} attached to the new model.
    */
   extend<CM extends HTMLContentModel>(
-    properties: Partial<HTMLElementModelProperties<T, CM>>
+    shape: Partial<HTMLElementModelShape<T, CM>>
   ): HTMLElementModel<T, CM>;
   extend<CM extends HTMLContentModel>(
     arg:
       | ((
-          fields: HTMLElementModel<T, M>
-        ) => Partial<HTMLElementModelProperties<T, CM>>)
-      | Partial<HTMLElementModelProperties<T, CM>>
+          shape: HTMLElementModelShape<T, M>
+        ) => Partial<HTMLElementModelShape<T, CM>>)
+      | Partial<HTMLElementModelShape<T, CM>>
   ): HTMLElementModel<T, CM> {
     const properties = typeof arg === 'function' ? arg(this) : arg;
     return new HTMLElementModel<T, CM>({
