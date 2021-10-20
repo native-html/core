@@ -1,3 +1,10 @@
+# [11.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.1.2...@native-html/transient-render-engine@11.2.0) (2021-10-20)
+
+
+### Features
+
+* **tre:** enhanced typings and documentation ([e467185](https://github.com/native-html/core/commit/e46718561c7d6d41db37ebd7d08059e3298c47fc))
+
 ## [11.1.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.1.1...@native-html/transient-render-engine@11.1.2) (2021-10-20)
 
 
