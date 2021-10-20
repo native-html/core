@@ -163,27 +163,22 @@ export default class HTMLElementModel<
   }
 
   /**
-   * Create an {@link HTMLElementModel} from a custom description.
+   * Create an {@link HTMLElementModel} from a custom template.
    *
-   * @param customElementModel - The custom model declaration.
+   * @param template - The custom template.
    */
   static fromCustomModel<
     CustomTags extends string,
     ContentModel extends HTMLContentModel
-  >(
-    customElementModel: CustomElementModel<
-      Exclude<CustomTags, TagName>,
-      ContentModel
-    >
-  ) {
+  >(template: CustomElementModel<CustomTags, ContentModel>) {
     const {
       contentModel,
       tagName,
       isOpaque = false,
       isVoid = false,
       ...optionalFields
-    } = customElementModel;
-    return new HTMLElementModel<Exclude<CustomTags, TagName>, ContentModel>({
+    } = template;
+    return new HTMLElementModel<CustomTags, ContentModel>({
       tagName,
       contentModel,
       isOpaque,
