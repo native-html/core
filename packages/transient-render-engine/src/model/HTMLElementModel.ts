@@ -91,20 +91,38 @@ export default class HTMLElementModel<
    */
   public readonly mixedUAStyles?: MixedStyleDeclaration;
   /**
-   * Default react Native props to pass to renderers.
+   * React Native props grouped by native components. Those props
+   * will be passed to the underlying native component at render time.
    *
    * @remarks Some props might be overriden by props derived from the
    * {@link TNode} attributes. For example, if you pass `accessibilityLabel`
    * and there is an `aria-label` attribute attached to one node, the
    * `aria-label` will be used. If you want to be able to override the
-   * `aria-label`, use {@link getReactNativeProps} instead.
+   * `aria-label`, use {@link HTMLElementModel.getReactNativeProps} instead.
+   *
+   * @example
+   *
+   * ```ts
+   * import {HTMLElementModel, HTMLContentModel} from 'react-native-render-html';
+   *
+   * const customHTMLElementModels = {
+   *  'nav-button': HTMLElementModel.fromCustomModel({
+   *    tagName: 'nav-button',
+   *    contentModel: HTMLContentModel.block,
+   *    reactNativeProps: {
+   *      native: {
+   *        onPress() {
+   *          console.info('nav-button pressed');
+   *        },
+   *      },
+   *    },
+   *  }),
+   *};
+   * ```
    */
   readonly reactNativeProps?: ReactNativePropsDefinitions;
   /**
    * A function to create conditional "user-agent" styles.
-   *
-   * @remarks For example, &lt;a&gt; tags will have underline decoration and be
-   * colored blue only when `href` is defined.
    *
    * @deprecated Use {@link HTMLElementModel.getMixedUAStyles} instead.
    */
@@ -116,20 +134,49 @@ export default class HTMLElementModel<
    * colored blue only when `href` is defined.
    */
   public readonly getMixedUAStyles: NativeElementModel['getMixedUAStyles'];
-
   /**
-   * A function to create conditional React Native props for a specific TNode.
+   * A function to create React Native props from a {@link TNode} grouped by
+   * native components.
+   *
    * Those props will be deep-merged over the pre-generated props. You can
    * preserve some of the pre-generated props since you receive them as second
    * argument.
    *
-   * **Merge strategy** (rightmost overrides leftmost): _static props from model_,
-   * _auto-generated props from attributes_, _props returned by this function_.
+   * **Merge strategy** (latest overrides former):
    *
-   * @param tnode - The TNode for which to create React Native props.
-   * @param preGeneratedProps - The props that were pre-generated for the TNode
-   * based on attributes (style, aria-* ...) and
-   * {@link HTMLELementModel.reactNativeProps}.
+   * 1. props from `reactNativeProps`,
+   * 2. auto-generated props from attributes
+   * 3. props returned by this function
+   *
+   * @param tnode - The {@link TNode} for which to create React Native props.
+   * @param preGeneratedProps - The props that were pre-generated for the {@link TNode}
+   * based on attributes (e.g. aria-label ...) and
+   * {@link ElementModelBase.reactNativeProps}.
+   * @returns React Native props grouped by native components (see
+   * {@link ReactNativePropsDefinitions}). Those props will be passed to the
+   * underlying native component at render time.
+   *
+   * @example
+   *
+   * ```ts
+   * import { defaultHTMLElementModels } from "react-native-render-html";
+   *
+   * const customHTMLElementModels = {
+   *   a: defaultHTMLElementModels.a.extend({
+   *     getReactNativeProps(tnode) {
+   *       const attributes = tnode.attributes;
+   *       return {
+   *         native: {
+   *           accessibilityHint:
+   *             attributes['data-scope'] === 'internal'
+   *               ? 'Open in a new screen.'
+   *               : 'Open in system web browser.',
+   *         },
+   *       };
+   *     },
+   *   }),
+   * };
+   * ```
    */
   public readonly getReactNativeProps: NativeElementModel['getReactNativeProps'];
 

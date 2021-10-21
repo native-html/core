@@ -47,15 +47,15 @@ export type StylessReactNativeProps = Omit<ReactNativeProps, 'style'> & {
  */
 export type ReactNativePropsDefinitions = {
   /**
-   * Props that will only apply to `Text`-wrapped renderers.
+   * Props that will only apply to `Text`-backed renderers.
    */
   text?: StylessReactNativeTextProps;
   /**
-   * Props that will only apply to `View`-wrapped renderers.
+   * Props that will only apply to `View`-backed renderers.
    */
   view?: StylessReactNativeViewProps;
   /**
-   * Props that will apply to both `View` and `Text`-wrapped renderers.
+   * Props that will apply to both `View` and `Text`-backed renderers.
    */
   native?: StylessReactNativeProps;
 };

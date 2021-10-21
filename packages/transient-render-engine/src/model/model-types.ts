@@ -209,7 +209,7 @@ export interface ElementModelBase<T extends string> {
    * {@link TNode} attributes. For example, if you pass `accessibilityLabel`
    * and there is an `aria-label` attribute attached to one node, the
    * `aria-label` will be used. If you want to be able to override the
-   * `aria-label`, use {@link getReactNativeProps} instead.
+   * `aria-label`, use {@link ElementModelBase.getReactNativeProps} instead.
    *
    * @example
    *
@@ -251,9 +251,6 @@ export interface ElementModelBase<T extends string> {
 
   /**
    * A function to create conditional "user-agent" styles.
-   *
-   * @remarks For example, &lt;a&gt; tags will have underline decoration and be
-   * colored blue only when `href` is defined.
    *
    * @deprecated Use {@link ElementModelBase.getMixedUAStyles} instead.
    */
