@@ -800,7 +800,8 @@ const textLevelModelMap: HTMLModelRecord<
   }),
   b: HTMLElementModel.fromNativeModel({
     tagName: 'b',
-    category: 'textual'
+    category: 'textual',
+    mixedUAStyles: boldStyle
   }),
   u: HTMLElementModel.fromNativeModel({
     tagName: 'u',
