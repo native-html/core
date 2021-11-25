@@ -1,3 +1,10 @@
+## [11.2.2](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.2.1...@native-html/transient-render-engine@11.2.2) (2021-11-25)
+
+
+### Bug Fixes
+
+* **tre:** add bold style for "b" tag ([5b1e1cc](https://github.com/native-html/core/commit/5b1e1cc64ae17c720683d36f4d703525f306eec8))
+
 ## [11.2.1](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.2.0...@native-html/transient-render-engine@11.2.1) (2021-10-21)
 
 # [11.2.0](https://github.com/native-html/core/compare/@native-html/transient-render-engine@11.1.2...@native-html/transient-render-engine@11.2.0) (2021-10-20)
