@@ -84,6 +84,6 @@
     "domhandler": "^4.2.2",
     "domutils": "^2.8.0",
     "htmlparser2": "^7.1.2",
-    "ramda": "^0.27.1"
+    "ramda": "^0.27.2"
   }
 }

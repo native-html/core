@@ -3203,7 +3203,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
       ],
       [
         "ramda",
-        "npm:0.27.1"
+        "npm:0.27.2"
       ],
       [
         "rc",
@@ -7324,7 +7324,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
             ["prettier", "npm:2.3.0"],
-            ["ramda", "npm:0.27.1"],
+            ["ramda", "npm:0.27.2"],
             ["react", "npm:17.0.2"],
             ["react-native", null],
             ["release-config", "workspace:packages/release-config"],
@@ -7365,7 +7365,7 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
             ["jest", "npm:26.6.3"],
             ["metro-react-native-babel-preset", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.66.0"],
             ["prettier", "npm:2.3.0"],
-            ["ramda", "npm:0.27.1"],
+            ["ramda", "npm:0.27.2"],
             ["react", "npm:17.0.2"],
             ["release-config", "workspace:packages/release-config"],
             ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=703bfd&locator=core%40workspace%3A."],
@@ -16049,10 +16049,10 @@ function $$SETUP_STATE(hydrateRuntimeState, basePath) {
         }]
       ]],
       ["ramda", [
-        ["npm:0.27.1", {
-          "packageLocation": "./.yarn/cache/ramda-npm-0.27.1-5818f2cb83-9aa4655dff.zip/node_modules/ramda/",
+        ["npm:0.27.2", {
+          "packageLocation": "./.yarn/cache/ramda-npm-0.27.2-5f4ede0eb9-ecddbb398a.zip/node_modules/ramda/",
           "packageDependencies": [
-            ["ramda", "npm:0.27.1"]
+            ["ramda", "npm:0.27.2"]
           ],
           "linkType": "HARD",
         }]

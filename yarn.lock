@@ -1982,7 +1982,7 @@ __metadata:
     jest: ^26.6.3
     metro-react-native-babel-preset: ^0.66.0
     prettier: ^2.2.1
-    ramda: ^0.27.1
+    ramda: ^0.27.2
     react: 17.0.2
     release-config: "workspace:*"
     release-it: ^14.6.1
@@ -9508,10 +9508,10 @@ __metadata:
   languageName: node
   linkType: hard
 
-"ramda@npm:^0.27.1":
-  version: 0.27.1
-  resolution: "ramda@npm:0.27.1"
-  checksum: 9aa4655dffdca66f8ba2ceabebe51996d6c75f6a2fb901a150885ace22c5950c211dd589868780b7a91c1443771702634d4370e7572d8c63c60e4b4f61aa57a9
+"ramda@npm:^0.27.2":
+  version: 0.27.2
+  resolution: "ramda@npm:0.27.2"
+  checksum: ecddbb398af40bd7e498cabf3a53242ed6aef627b8feeab132950dc0e552b33963e749e5a198c303b603995f89b6c988c29700e374a68970fff10ccff735f49f
   languageName: node
   linkType: hard
 
