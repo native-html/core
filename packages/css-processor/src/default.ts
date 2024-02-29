@@ -37,5 +37,6 @@ export const defaultCSSProcessorConfig: CSSProcessorConfig = {
   inlinePropertiesWhitelist: null,
   isFontSupported() {
     return true;
-  }
+  },
+  skipFontFamilyNormalization: false
 };

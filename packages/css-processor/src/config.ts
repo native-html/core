@@ -84,6 +84,13 @@ export interface CSSProcessorConfig {
   readonly rootFontSize: number;
 
   /**
+   * Do not normalize font family. It's useful when running on the web where
+   * you can use more than one font family, and it's not as strict as native
+   * platforms.
+   */
+  readonly skipFontFamilyNormalization?: boolean;
+
+  /**
    * Determine is the provided font is supported on running platform.
    *
    * @param fontName - The name of the font to validate. Any quotes have been removed.

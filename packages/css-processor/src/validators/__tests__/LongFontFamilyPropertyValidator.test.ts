@@ -38,5 +38,15 @@ describe('FontFamilyPropertyValidator', () => {
         )
       ).toBe('GreatFont');
     });
+    it('should return font as is when config.skipFontFamilyNormalization is true', () => {
+      const registry = registryFromConfig({
+        skipFontFamilyNormalization: true
+      });
+      expect(
+        registry.validators.fontFamily.normalizeInlineCSSValue(
+          'Helvetica, sans-serif'
+        )
+      ).toBe('Helvetica, sans-serif');
+    });
   });
 });
