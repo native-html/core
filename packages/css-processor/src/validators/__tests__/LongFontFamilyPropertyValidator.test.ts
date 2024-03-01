@@ -38,9 +38,9 @@ describe('FontFamilyPropertyValidator', () => {
         )
       ).toBe('GreatFont');
     });
-    it('should return font as is when config.skipFontFamilyNormalization is true', () => {
+    it('should return font as is when config.skipFontFamilyValidation is true', () => {
       const registry = registryFromConfig({
-        skipFontFamilyNormalization: true
+        skipFontFamilyValidation: true
       });
       expect(
         registry.validators.fontFamily.normalizeInlineCSSValue(

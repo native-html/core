@@ -88,7 +88,7 @@ export interface CSSProcessorConfig {
    * you can use more than one font family, and it's not as strict as native
    * platforms.
    */
-  readonly skipFontFamilyNormalization?: boolean;
+  readonly skipFontFamilyValidation?: boolean;
 
   /**
    * Determine is the provided font is supported on running platform.

@@ -38,5 +38,5 @@ export const defaultCSSProcessorConfig: CSSProcessorConfig = {
   isFontSupported() {
     return true;
   },
-  skipFontFamilyNormalization: false
+  skipFontFamilyValidation: false
 };

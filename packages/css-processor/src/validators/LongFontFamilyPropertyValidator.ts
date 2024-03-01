@@ -8,7 +8,7 @@ export class LongFontFamilyPropertyValidator<
   C extends CSSPropertyModel
 > extends LongCSSPropertyValidator<C, string> {
   normalizeRawInlineCSSValue(value: string): string | null {
-    if (this.config.skipFontFamilyNormalization) {
+    if (this.config.skipFontFamilyValidation) {
       return value;
     }
 
