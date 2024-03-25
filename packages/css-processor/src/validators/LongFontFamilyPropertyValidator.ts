@@ -8,6 +8,10 @@ export class LongFontFamilyPropertyValidator<
   C extends CSSPropertyModel
 > extends LongCSSPropertyValidator<C, string> {
   normalizeRawInlineCSSValue(value: string): string | null {
+    if (this.config.skipFontFamilyValidation) {
+      return value;
+    }
+
     const values = value.split(SEPARATOR_REGEX);
     for (const font of values) {
       const normalizedFont = normalizeFontName(font);
