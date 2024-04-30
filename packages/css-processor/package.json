@@ -57,8 +57,7 @@
     "typescript": "~4.2.4"
   },
   "peerDependencies": {
-    "@types/react": "*",
-    "@types/react-native": "*"
+    "@types/react": "*"
   },
   "dependencies": {
     "css-to-react-native": "^3.0.0",
