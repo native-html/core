@@ -14,7 +14,7 @@ jobs:
 
     strategy:
       matrix:
-        node-version: [14.x]
+        node-version: [20.x]
 
     steps:
     - uses: actions/checkout@v2
@@ -36,4 +36,4 @@ jobs:
     - uses: codecov/codecov-action@v2
       with:
         flags: transient-render-engine
-        fail_ci_if_error: true
+        fail_ci_if_error: false
