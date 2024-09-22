@@ -33,7 +33,8 @@ jobs:
       name: Behavior Tests
     - run: yarn build:css-processor
       name: Build
-    - uses: codecov/codecov-action@v2
+    - uses: codecov/codecov-action@v4
       with:
         flags: css-processor
-        fail_ci_if_error: false
+        fail_ci_if_error: true
+        token: ${{ secrets.CODECOV_TOKEN }}
