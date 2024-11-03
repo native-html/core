@@ -21,24 +21,24 @@ jobs:
         node-version: [20.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: yarn install --immutable
-    - run: yarn build:css-processor
-      name: Build dependencies
-    - run: yarn test:transient-render-engine:ts
-      name: Typescript Tests
-    - run: yarn run test:transient-render-engine:lint
-      name: Linting Tests
-    - run: yarn run test:transient-render-engine:jest --coverage
-      name: Behavior Tests
-    - run: yarn build:transient-render-engine
-      name: Build
-    - uses: codecov/codecov-action@v4
-      with:
-        flags: transient-render-engine
-        fail_ci_if_error: true
-        token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install --immutable
+      - run: yarn workspace @native-html/css-processor build
+        name: Build dependencies
+      - run: yarn workspace @native-html/transient-render-engine test:jest --coverage
+        name: Jest Tests
+      - run: yarn workspace @native-html/transient-render-engine test:lint
+        name: Linting Tests
+      - run: yarn workspace @native-html/transient-render-engine test:ts
+        name: Typescript Tests
+      - run: yarn workspace @native-html/transient-render-engine build
+        name: Build
+      - uses: codecov/codecov-action@v4
+        with:
+          flags: transient-render-engine
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}
