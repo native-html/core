@@ -1,6 +1,7 @@
 {
   "name": "prettier",
-  "version": "2.2.1-pnpify",
+  "version": "2.3.0-sdk",
   "main": "./index.js",
-  "type": "commonjs"
+  "type": "commonjs",
+  "bin": "./bin-prettier.js"
 }
