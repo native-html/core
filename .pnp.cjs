@@ -1063,7 +1063,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "@tsconfig/react-native",\
-      "npm:1.0.5"\
+      "npm:3.0.5"\
     ],\
     [\
       "@types/argparse",\
@@ -4959,7 +4959,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "typescript",\
-      "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"\
+      "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"\
     ],\
     [\
       "ua-parser-js",\
@@ -5280,7 +5280,7 @@ const RAW_RUNTIME_STATE =
           ["@commitlint/config-conventional", "npm:12.1.4"],\
           ["@react-native-community/eslint-config", "virtual:7cc7fc7e39931b0f5fedec38525a1a6a4807e64c3f1e3487554c835cdbc9892968243d1b6627dc35ddeef8bcd428995494b624e95eb125fae3c03cfcc60a4d1c#npm:2.0.0"],\
           ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
-          ["@tsconfig/react-native", "npm:1.0.5"],\
+          ["@tsconfig/react-native", "npm:3.0.5"],\
           ["@typescript-eslint/eslint-plugin", "virtual:7cc7fc7e39931b0f5fedec38525a1a6a4807e64c3f1e3487554c835cdbc9892968243d1b6627dc35ddeef8bcd428995494b624e95eb125fae3c03cfcc60a4d1c#npm:4.33.0"],\
           ["@typescript-eslint/parser", "virtual:7cc7fc7e39931b0f5fedec38525a1a6a4807e64c3f1e3487554c835cdbc9892968243d1b6627dc35ddeef8bcd428995494b624e95eb125fae3c03cfcc60a4d1c#npm:4.33.0"],\
           ["commitlint", "npm:12.1.4"],\
@@ -5296,7 +5296,7 @@ const RAW_RUNTIME_STATE =
           ["husky", "npm:6.0.0"],\
           ["jest", "npm:26.6.3"],\
           ["prettier", "npm:2.8.8"],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -13302,7 +13302,7 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:18.3.1"],\
           ["release-config", "workspace:packages/release-config"],\
           ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=993654&locator=core%40workspace%3A."],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "linkType": "SOFT"\
       }],\
@@ -13332,7 +13332,7 @@ const RAW_RUNTIME_STATE =
           ["react", "npm:18.3.1"],\
           ["release-config", "workspace:packages/release-config"],\
           ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=993654&locator=core%40workspace%3A."],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -13377,7 +13377,7 @@ const RAW_RUNTIME_STATE =
           ["react-test-renderer", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:18.3.1"],\
           ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=993654&locator=core%40workspace%3A."],\
           ["stringify-entities", "npm:3.1.0"],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"],\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"],\
           ["urijs", "npm:1.19.11"]\
         ],\
         "linkType": "SOFT"\
@@ -13416,7 +13416,7 @@ const RAW_RUNTIME_STATE =
           ["react-native", "virtual:bd0c3e9520eadcf369dde10e7d6c40b2d2b5ac95adb12dc0617b69b7ec1357c347c76776a4a01f276785e9a221952580a452e396182ba12c132beab8771e6eab#npm:0.76.1"],\
           ["release-config", "workspace:packages/release-config"],\
           ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=993654&locator=core%40workspace%3A."],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "packagePeers": [\
           "@types/react-native",\
@@ -13456,7 +13456,7 @@ const RAW_RUNTIME_STATE =
           ["react-native", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1"],\
           ["release-config", "workspace:packages/release-config"],\
           ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=993654&locator=core%40workspace%3A."],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "packagePeers": [\
           "@types/react-native",\
@@ -13495,7 +13495,7 @@ const RAW_RUNTIME_STATE =
           ["react-native", "virtual:91fb95ba9570aacfe57175ac8d33065428f43d59b16f321771ecd1b943d7477c1c0a646d4f840d33a5caab284cbdb306de22695cebb7c23e1cd499835ce284e9#npm:0.76.1"],\
           ["release-config", "workspace:packages/release-config"],\
           ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=993654&locator=core%40workspace%3A."],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -14552,10 +14552,10 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["@tsconfig/react-native", [\
-      ["npm:1.0.5", {\
-        "packageLocation": "./.yarn/cache/@tsconfig-react-native-npm-1.0.5-69d1b8a090-cb89fac084.zip/node_modules/@tsconfig/react-native/",\
+      ["npm:3.0.5", {\
+        "packageLocation": "./.yarn/cache/@tsconfig-react-native-npm-3.0.5-1a1a1b17ee-e59df75d2b.zip/node_modules/@tsconfig/react-native/",\
         "packageDependencies": [\
-          ["@tsconfig/react-native", "npm:1.0.5"]\
+          ["@tsconfig/react-native", "npm:3.0.5"]\
         ],\
         "linkType": "HARD"\
       }]\
@@ -15059,7 +15059,7 @@ const RAW_RUNTIME_STATE =
           ["regexpp", "npm:3.1.0"],\
           ["semver", "npm:7.3.5"],\
           ["tsutils", "virtual:1ea53508f95ad38f8970c3af357ea40ace8f9b90d57a7b206510e6c6ade815f555e9e987a54a3faddd9e6892ec1741f1bce7fb9097a3a3b94db9feac8d24443a#npm:3.21.0"],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "packagePeers": [\
           "@types/eslint",\
@@ -15204,7 +15204,7 @@ const RAW_RUNTIME_STATE =
           ["@typescript-eslint/typescript-estree", "virtual:6b9891b3733eb126bffe554b1740e15ad8a7058d48a0fc8708fa96dc01f718ad25e217c2932d4ccc3af1d179047c0674c155e15b2c11505e0901833392083510#npm:4.33.0"],\
           ["debug", "virtual:6230e12b1d7dee1735a865cef131ea49c043e7f202fd08b14ceb90686e406b76a07840fc9510f1069465ad9695242b42830fc7fea7b01648a261463b7848122f#npm:4.3.7"],\
           ["eslint", "npm:7.32.0"],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "packagePeers": [\
           "@types/eslint",\
@@ -15355,7 +15355,7 @@ const RAW_RUNTIME_STATE =
           ["is-glob", "npm:4.0.1"],\
           ["semver", "npm:7.3.5"],\
           ["tsutils", "virtual:1ea53508f95ad38f8970c3af357ea40ace8f9b90d57a7b206510e6c6ade815f555e9e987a54a3faddd9e6892ec1741f1bce7fb9097a3a3b94db9feac8d24443a#npm:3.21.0"],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "packagePeers": [\
           "@types/typescript",\
@@ -18417,7 +18417,7 @@ const RAW_RUNTIME_STATE =
           ["@commitlint/config-conventional", "npm:12.1.4"],\
           ["@react-native-community/eslint-config", "virtual:7cc7fc7e39931b0f5fedec38525a1a6a4807e64c3f1e3487554c835cdbc9892968243d1b6627dc35ddeef8bcd428995494b624e95eb125fae3c03cfcc60a4d1c#npm:2.0.0"],\
           ["@react-native-community/eslint-plugin", "npm:1.3.0"],\
-          ["@tsconfig/react-native", "npm:1.0.5"],\
+          ["@tsconfig/react-native", "npm:3.0.5"],\
           ["@typescript-eslint/eslint-plugin", "virtual:7cc7fc7e39931b0f5fedec38525a1a6a4807e64c3f1e3487554c835cdbc9892968243d1b6627dc35ddeef8bcd428995494b624e95eb125fae3c03cfcc60a4d1c#npm:4.33.0"],\
           ["@typescript-eslint/parser", "virtual:7cc7fc7e39931b0f5fedec38525a1a6a4807e64c3f1e3487554c835cdbc9892968243d1b6627dc35ddeef8bcd428995494b624e95eb125fae3c03cfcc60a4d1c#npm:4.33.0"],\
           ["commitlint", "npm:12.1.4"],\
@@ -18433,7 +18433,7 @@ const RAW_RUNTIME_STATE =
           ["husky", "npm:6.0.0"],\
           ["jest", "npm:26.6.3"],\
           ["prettier", "npm:2.8.8"],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "linkType": "SOFT"\
       }]\
@@ -30990,7 +30990,7 @@ const RAW_RUNTIME_STATE =
           ["tsutils", "virtual:1ea53508f95ad38f8970c3af357ea40ace8f9b90d57a7b206510e6c6ade815f555e9e987a54a3faddd9e6892ec1741f1bce7fb9097a3a3b94db9feac8d24443a#npm:3.21.0"],\
           ["@types/typescript", null],\
           ["tslib", "npm:1.14.1"],\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "packagePeers": [\
           "@types/typescript",\
@@ -31179,17 +31179,17 @@ const RAW_RUNTIME_STATE =
       }]\
     ]],\
     ["typescript", [\
-      ["patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98", {\
-        "packageLocation": "./.yarn/cache/typescript-patch-1f53dbaf4a-1ea3cb3bd8.zip/node_modules/typescript/",\
-        "packageDependencies": [\
-          ["typescript", "patch:typescript@npm%3A4.2.4#optional!builtin<compat/typescript>::version=4.2.4&hash=334f98"]\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c", {\
         "packageLocation": "./.yarn/cache/typescript-patch-c145cea93e-f5f9a4133c.zip/node_modules/typescript/",\
         "packageDependencies": [\
           ["typescript", "patch:typescript@npm%3A5.4.2#optional!builtin<compat/typescript>::version=5.4.2&hash=5adc0c"]\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40", {\
+        "packageLocation": "./.yarn/cache/typescript-patch-8964a48ba3-00504c01ee.zip/node_modules/typescript/",\
+        "packageDependencies": [\
+          ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
         ],\
         "linkType": "HARD"\
       }]\
