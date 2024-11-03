@@ -8,7 +8,7 @@ name: performances
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 
 jobs:

@@ -8,7 +8,7 @@ name: transient-render-engine
 on:
   push:
     branches:
-      - master
+      - main
   pull_request:
 
 jobs:
