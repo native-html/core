@@ -8,6 +8,7 @@
 # VSCode
 .vscode/*
 !.vscode/extensions.json
+!.vscode/settings.json
 
 jsconfig.json
 
