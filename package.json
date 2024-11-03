@@ -13,6 +13,11 @@
   "scripts": {
     "build:css-processor": "yarn workspace @native-html/css-processor build",
     "build:transient-render-engine": "yarn workspace @native-html/transient-render-engine build",
+    "build:render-html": "yarn workspace @native-html/render-html build",
+    "test:render-html": "yarn workspace @native-html/css-processor test",
+    "test:render-html:ts": "yarn workspace @native-html/render-html test:ts",
+    "test:render-html:lint": "yarn workspace @native-html/render-html test:lint",
+    "test:render-html:jest": "yarn workspace @native-html/render-html test:jest",
     "test:css-processor": "yarn workspace @native-html/css-processor test",
     "test:css-processor:ts": "yarn workspace @native-html/css-processor test:ts",
     "test:css-processor:lint": "yarn workspace @native-html/css-processor test:lint",
