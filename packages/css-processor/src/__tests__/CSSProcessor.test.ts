@@ -125,7 +125,7 @@ function testSpecs(examples: Record<string, Specs>) {
   for (const key in examples) {
     const spec = examples[key];
     const validator = processor.registry.getValidatorForProperty(
-      key as keyof MixedStyleDeclaration
+      String(key as keyof MixedStyleDeclaration)
     );
     spec.inlineIncomingValues.forEach((v, i) => {
       const outProp = spec.outProps?.[i];

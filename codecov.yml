@@ -14,6 +14,10 @@ coverage:
         target: auto
         flags:
           - transient-render-engine
+      render-html:
+        target: auto
+        flags:
+          - render-html
 
 flags:
   css-processor:
@@ -22,3 +26,6 @@ flags:
   transient-render-engine:
     paths:
       - packages/transient-render-engine/
+  render-html:
+    paths:
+      - packages/render-html/

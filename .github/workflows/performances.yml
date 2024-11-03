@@ -21,15 +21,15 @@ jobs:
         node-version: [20.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: yarn install --immutable
-    - run: yarn build:css-processor
-      name: Build dependencies
-    - run: yarn build:transient-render-engine
-      name: Build
-    - run: yarn test:transient-render-engine:perf
-      name: Performance testing
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install --immutable
+      - run: yarn workspace @native-html/css-processor build
+        name: Build dependencies
+      - run: yarn workspace @native-html/transient-render-engine build
+        name: Build
+      - run: yarn workspace @native-html/transient-render-engine benchmark
+        name: Benchmark

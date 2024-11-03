@@ -95,7 +95,7 @@ export class CSSProcessedProps
         retain: emptyProps,
         flow: emptyProps
       }
-    };
+    } as CSSProcessedProps[T];
   }
 
   public withProperty<K extends keyof MixedStyleDeclaration>(

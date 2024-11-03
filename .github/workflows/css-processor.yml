@@ -19,22 +19,21 @@ jobs:
         node-version: [20.x]
 
     steps:
-    - uses: actions/checkout@v4
-    - name: Use Node.js ${{ matrix.node-version }}
-      uses: actions/setup-node@v4
-      with:
-        node-version: ${{ matrix.node-version }}
-    - run: yarn install --immutable
-    - run: yarn test:css-processor:ts
-      name: Typescript Tests
-    - run: yarn run test:css-processor:lint
-      name: Linting Tests
-    - run: yarn run test:css-processor:jest --coverage
-      name: Behavior Tests
-    - run: yarn build:css-processor
-      name: Build
-    - uses: codecov/codecov-action@v4
-      with:
-        flags: css-processor
-        fail_ci_if_error: true
-        token: ${{ secrets.CODECOV_TOKEN }}
+      - uses: actions/checkout@v4
+      - name: Use Node.js ${{ matrix.node-version }}
+        uses: actions/setup-node@v4
+        with:
+          node-version: ${{ matrix.node-version }}
+      - run: yarn install --immutable
+      - run: yarn workspace @native-html/css-processor test:ts
+        name: Typescript Tests
+      - run: yarn workspace @native-html/css-processor test:jest --coverage
+        name: Jest Tests
+      - run: yarn workspace @native-html/css-processor test:lint
+        name: Linting Tests
+      - run: yarn workspace @native-html/css-processor build
+      - uses: codecov/codecov-action@v4
+        with:
+          flags: css-processor
+          fail_ci_if_error: true
+          token: ${{ secrets.CODECOV_TOKEN }}

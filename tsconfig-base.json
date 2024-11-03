@@ -2,9 +2,15 @@
   "$schema": "http://json.schemastore.org/tsconfig",
   "extends": "@tsconfig/react-native",
   "compilerOptions": {
-    "lib": ["ES2017"],
+    "lib": ["ES2017", "DOM"],
     "declaration": true,
     "skipLibCheck": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "@native-html/transient-render-engine": [
+        "./packages/transient-render-engine/src"
+      ],
+      "@native-html/css-processor": ["./packages/css-processor/src"]
+    }
   }
 }
