@@ -5,6 +5,12 @@
     "lib": ["ES2017"],
     "declaration": true,
     "skipLibCheck": true,
-    "isolatedModules": true
+    "isolatedModules": true,
+    "paths": {
+      "@native-html/transient-render-engine": [
+        "./packages/transient-render-engine/src"
+      ],
+      "@native-html/css-processor": ["./packages/css-processor/src"]
+    }
   }
 }
