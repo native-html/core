@@ -40,11 +40,20 @@ const extraLongViewStyles: Record<ExtraNativeLongViewStyleKeys, 'block'> = {
   shadowOffset: 'block',
   shadowOpacity: 'block',
   shadowRadius: 'block',
-  testID: 'block',
   tintColor: 'block',
   transformMatrix: 'block',
   translateX: 'block',
-  translateY: 'block'
+  translateY: 'block',
+  borderCurve: 'block',
+  gap: 'block',
+  inset: 'block',
+  insetBlock: 'block',
+  insetInline: 'block',
+  marginBlock: 'block',
+  marginInline: 'block',
+  paddingBlock: 'block',
+  paddingInline: 'block',
+  objectFit: 'block'
 };
 
 const extraTextStyles: Record<keyof ExtraNativeTextStyle, 'text'> = {
@@ -76,8 +85,10 @@ export class CSSNativeParseRun extends CSSParseRun {
     key: K,
     value: any
   ): void {
-    const validator = this.validationMap.getValidatorForProperty(key);
-    if (validator) {
+    const validator = this.validationMap.getValidatorForProperty(
+      String(key)
+    ) as any;
+    if (validator && 'normalizeNativeValue' in validator) {
       const normalizedValue = validator.normalizeNativeValue(value);
       if (normalizedValue instanceof ShortMergeRequest) {
         normalizedValue.forEach(([innerKey, innerValue]) => {
@@ -103,7 +114,9 @@ export class CSSNativeParseRun extends CSSParseRun {
       );
     } else {
       console.warn(
-        `Native style property "${key}" is not supported and has been ignored.`
+        `Native style property "${String(
+          key
+        )}" is not supported and has been ignored.`
       );
     }
   }

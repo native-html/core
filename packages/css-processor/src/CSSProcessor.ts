@@ -96,8 +96,7 @@ export type MixedStyleDeclaration = Omit<
   ExtraNativeTextStyle &
   ExtraNativeViewStyle &
   ExtraNativeShortStyle &
-  ExtraNativeUntranslatedLongStyles &
-  {
+  ExtraNativeUntranslatedLongStyles & {
     [k in MixedSizeCSSPropertiesKeys]?: number | string;
   };
 

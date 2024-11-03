@@ -1003,7 +1003,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "@react-native/virtualized-lists",\
-      "virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:0.76.1"\
+      "virtual:493fefa47f9a7bcd5e5a251cff8708d2ff469d984fdbd409b07ee506a0932b436e85d495fb80e570d17adbd62573c68eeb98ec18a202ae99e483f7bbc818185f#npm:0.76.1"\
     ],\
     [\
       "@release-it/conventional-changelog",\
@@ -4219,7 +4219,7 @@ const RAW_RUNTIME_STATE =
     ],\
     [\
       "react-native",\
-      "virtual:91fb95ba9570aacfe57175ac8d33065428f43d59b16f321771ecd1b943d7477c1c0a646d4f840d33a5caab284cbdb306de22695cebb7c23e1cd499835ce284e9#npm:0.76.1"\
+      "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"\
     ],\
     [\
       "react-native-accessibility-engine",\
@@ -13197,7 +13197,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react", "npm:18.3.12"],\
           ["@types/react-native", null],\
           ["react", "npm:18.3.1"],\
-          ["react-native", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1"]\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"]\
         ],\
         "packagePeers": [\
           "@jsamr/counter-style",\
@@ -13300,6 +13300,7 @@ const RAW_RUNTIME_STATE =
           ["param-case", "npm:3.0.4"],\
           ["prettier", "npm:2.8.8"],\
           ["react", "npm:18.3.1"],\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"],\
           ["release-config", "workspace:packages/release-config"],\
           ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=993654&locator=core%40workspace%3A."],\
           ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
@@ -13330,6 +13331,7 @@ const RAW_RUNTIME_STATE =
           ["param-case", "npm:3.0.4"],\
           ["prettier", "npm:2.8.8"],\
           ["react", "npm:18.3.1"],\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"],\
           ["release-config", "workspace:packages/release-config"],\
           ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=993654&locator=core%40workspace%3A."],\
           ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
@@ -13370,7 +13372,7 @@ const RAW_RUNTIME_STATE =
           ["prop-types", "npm:15.8.1"],\
           ["ramda", "npm:0.27.2"],\
           ["react", "npm:18.3.1"],\
-          ["react-native", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1"],\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"],\
           ["react-native-accessibility-engine", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:3.2.0"],\
           ["react-native-builder-bob", "npm:0.18.3"],\
           ["react-performance-testing", "npm:2.0.0"],\
@@ -13453,7 +13455,7 @@ const RAW_RUNTIME_STATE =
           ["prettier", "npm:2.8.8"],\
           ["ramda", "npm:0.27.2"],\
           ["react", "npm:18.3.1"],\
-          ["react-native", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1"],\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"],\
           ["release-config", "workspace:packages/release-config"],\
           ["release-it", "patch:release-it@npm%3A14.0.4#patches/release-it.patch::version=14.0.4&hash=993654&locator=core%40workspace%3A."],\
           ["typescript", "patch:typescript@npm%3A5.6.3#optional!builtin<compat/typescript>::version=5.6.3&hash=8c6c40"]\
@@ -14200,25 +14202,6 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
-      ["virtual:0654af2ef6ca2b4f9e6e03e006e2c8431c81fbb2351c0b2bd19723d858ac13a9a7117871d2c9979a8291ce6a6ce7358333cde033d8adbb19f009ca1e65b37754#npm:0.76.1", {\
-        "packageLocation": "./.yarn/__virtual__/@react-native-virtualized-lists-virtual-d51f49d8a6/0/cache/@react-native-virtualized-lists-npm-0.76.1-91973f0c77-100920545f.zip/node_modules/@react-native/virtualized-lists/",\
-        "packageDependencies": [\
-          ["@react-native/virtualized-lists", "virtual:0654af2ef6ca2b4f9e6e03e006e2c8431c81fbb2351c0b2bd19723d858ac13a9a7117871d2c9979a8291ce6a6ce7358333cde033d8adbb19f009ca1e65b37754#npm:0.76.1"],\
-          ["@types/react", "npm:18.3.12"],\
-          ["@types/react-native", null],\
-          ["invariant", "npm:2.2.4"],\
-          ["nullthrows", "npm:1.1.1"],\
-          ["react", "npm:18.3.1"],\
-          ["react-native", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1"]\
-        ],\
-        "packagePeers": [\
-          "@types/react-native",\
-          "@types/react",\
-          "react-native",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
-      }],\
       ["virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:0.76.1", {\
         "packageLocation": "./.yarn/__virtual__/@react-native-virtualized-lists-virtual-617be892cc/0/cache/@react-native-virtualized-lists-npm-0.76.1-91973f0c77-100920545f.zip/node_modules/@react-native/virtualized-lists/",\
         "packageDependencies": [\
@@ -14229,6 +14212,25 @@ const RAW_RUNTIME_STATE =
           ["nullthrows", "npm:1.1.1"],\
           ["react", null],\
           ["react-native", "virtual:bd0c3e9520eadcf369dde10e7d6c40b2d2b5ac95adb12dc0617b69b7ec1357c347c76776a4a01f276785e9a221952580a452e396182ba12c132beab8771e6eab#npm:0.76.1"]\
+        ],\
+        "packagePeers": [\
+          "@types/react-native",\
+          "@types/react",\
+          "react-native",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
+      ["virtual:493fefa47f9a7bcd5e5a251cff8708d2ff469d984fdbd409b07ee506a0932b436e85d495fb80e570d17adbd62573c68eeb98ec18a202ae99e483f7bbc818185f#npm:0.76.1", {\
+        "packageLocation": "./.yarn/__virtual__/@react-native-virtualized-lists-virtual-b3b715e20d/0/cache/@react-native-virtualized-lists-npm-0.76.1-91973f0c77-100920545f.zip/node_modules/@react-native/virtualized-lists/",\
+        "packageDependencies": [\
+          ["@react-native/virtualized-lists", "virtual:493fefa47f9a7bcd5e5a251cff8708d2ff469d984fdbd409b07ee506a0932b436e85d495fb80e570d17adbd62573c68eeb98ec18a202ae99e483f7bbc818185f#npm:0.76.1"],\
+          ["@types/react", "npm:18.3.12"],\
+          ["@types/react-native", null],\
+          ["invariant", "npm:2.2.4"],\
+          ["nullthrows", "npm:1.1.1"],\
+          ["react", "npm:18.3.1"],\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"]\
         ],\
         "packagePeers": [\
           "@types/react-native",\
@@ -14465,7 +14467,7 @@ const RAW_RUNTIME_STATE =
           ["jest-matcher-utils", "npm:29.7.0"],\
           ["pretty-format", "npm:29.7.0"],\
           ["react", "npm:18.3.1"],\
-          ["react-native", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1"],\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"],\
           ["react-test-renderer", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:18.3.1"],\
           ["redent", "npm:3.0.0"]\
         ],\
@@ -14528,7 +14530,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-test-renderer", "npm:17.0.9"],\
           ["pretty-format", "npm:26.6.2"],\
           ["react", "npm:18.3.1"],\
-          ["react-native", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1"],\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"],\
           ["react-test-renderer", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:18.3.1"]\
         ],\
         "packagePeers": [\
@@ -28134,6 +28136,57 @@ const RAW_RUNTIME_STATE =
         ],\
         "linkType": "SOFT"\
       }],\
+      ["virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1", {\
+        "packageLocation": "./.yarn/unplugged/react-native-virtual-493fefa47f/node_modules/react-native/",\
+        "packageDependencies": [\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"],\
+          ["@jest/create-cache-key-function", "npm:29.7.0"],\
+          ["@react-native/assets-registry", "npm:0.76.1"],\
+          ["@react-native/codegen", "virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:0.76.1"],\
+          ["@react-native/community-cli-plugin", "virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:0.76.1"],\
+          ["@react-native/gradle-plugin", "npm:0.76.1"],\
+          ["@react-native/js-polyfills", "npm:0.76.1"],\
+          ["@react-native/normalize-colors", "npm:0.76.1"],\
+          ["@react-native/virtualized-lists", "virtual:493fefa47f9a7bcd5e5a251cff8708d2ff469d984fdbd409b07ee506a0932b436e85d495fb80e570d17adbd62573c68eeb98ec18a202ae99e483f7bbc818185f#npm:0.76.1"],\
+          ["@types/react", "npm:18.3.12"],\
+          ["abort-controller", "npm:3.0.0"],\
+          ["anser", "npm:1.4.10"],\
+          ["ansi-regex", "npm:5.0.0"],\
+          ["babel-jest", "virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:29.7.0"],\
+          ["babel-plugin-syntax-hermes-parser", "npm:0.23.1"],\
+          ["base64-js", "npm:1.5.1"],\
+          ["chalk", "npm:4.1.1"],\
+          ["commander", "npm:12.1.0"],\
+          ["event-target-shim", "npm:5.0.1"],\
+          ["flow-enums-runtime", "npm:0.0.6"],\
+          ["glob", "npm:7.1.7"],\
+          ["invariant", "npm:2.2.4"],\
+          ["jest-environment-node", "npm:29.7.0"],\
+          ["jsc-android", "npm:250231.0.0"],\
+          ["memoize-one", "npm:5.2.1"],\
+          ["metro-runtime", "npm:0.81.0"],\
+          ["metro-source-map", "npm:0.81.0"],\
+          ["mkdirp", "npm:0.5.6"],\
+          ["nullthrows", "npm:1.1.1"],\
+          ["pretty-format", "npm:29.7.0"],\
+          ["promise", "npm:8.3.0"],\
+          ["react", "npm:18.3.1"],\
+          ["react-devtools-core", "npm:5.3.2"],\
+          ["react-refresh", "npm:0.14.2"],\
+          ["regenerator-runtime", "npm:0.13.11"],\
+          ["scheduler", "npm:0.24.0-canary-efb381bbf-20230505"],\
+          ["semver", "npm:7.6.3"],\
+          ["stacktrace-parser", "npm:0.1.10"],\
+          ["whatwg-fetch", "npm:3.6.20"],\
+          ["ws", "virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:6.2.3"],\
+          ["yargs", "npm:17.7.2"]\
+        ],\
+        "packagePeers": [\
+          "@types/react",\
+          "react"\
+        ],\
+        "linkType": "HARD"\
+      }],\
       ["virtual:50ab0503575575810a333d1109caf13ac0d06edc382d7c4b088e87811137fd7c69ac608a0e09628bf7fcd70710583664959d5c7129546e4dc345dd64e99521db#npm:0.63.5", {\
         "packageLocation": "./.yarn/unplugged/react-native-virtual-6cf302c09b/node_modules/react-native/",\
         "packageDependencies": [\
@@ -28275,57 +28328,6 @@ const RAW_RUNTIME_STATE =
           "react"\
         ],\
         "linkType": "HARD"\
-      }],\
-      ["virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1", {\
-        "packageLocation": "./.yarn/unplugged/react-native-virtual-0654af2ef6/node_modules/react-native/",\
-        "packageDependencies": [\
-          ["react-native", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1"],\
-          ["@jest/create-cache-key-function", "npm:29.7.0"],\
-          ["@react-native/assets-registry", "npm:0.76.1"],\
-          ["@react-native/codegen", "virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:0.76.1"],\
-          ["@react-native/community-cli-plugin", "virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:0.76.1"],\
-          ["@react-native/gradle-plugin", "npm:0.76.1"],\
-          ["@react-native/js-polyfills", "npm:0.76.1"],\
-          ["@react-native/normalize-colors", "npm:0.76.1"],\
-          ["@react-native/virtualized-lists", "virtual:0654af2ef6ca2b4f9e6e03e006e2c8431c81fbb2351c0b2bd19723d858ac13a9a7117871d2c9979a8291ce6a6ce7358333cde033d8adbb19f009ca1e65b37754#npm:0.76.1"],\
-          ["@types/react", "npm:18.3.12"],\
-          ["abort-controller", "npm:3.0.0"],\
-          ["anser", "npm:1.4.10"],\
-          ["ansi-regex", "npm:5.0.0"],\
-          ["babel-jest", "virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:29.7.0"],\
-          ["babel-plugin-syntax-hermes-parser", "npm:0.23.1"],\
-          ["base64-js", "npm:1.5.1"],\
-          ["chalk", "npm:4.1.1"],\
-          ["commander", "npm:12.1.0"],\
-          ["event-target-shim", "npm:5.0.1"],\
-          ["flow-enums-runtime", "npm:0.0.6"],\
-          ["glob", "npm:7.1.7"],\
-          ["invariant", "npm:2.2.4"],\
-          ["jest-environment-node", "npm:29.7.0"],\
-          ["jsc-android", "npm:250231.0.0"],\
-          ["memoize-one", "npm:5.2.1"],\
-          ["metro-runtime", "npm:0.81.0"],\
-          ["metro-source-map", "npm:0.81.0"],\
-          ["mkdirp", "npm:0.5.6"],\
-          ["nullthrows", "npm:1.1.1"],\
-          ["pretty-format", "npm:29.7.0"],\
-          ["promise", "npm:8.3.0"],\
-          ["react", "npm:18.3.1"],\
-          ["react-devtools-core", "npm:5.3.2"],\
-          ["react-refresh", "npm:0.14.2"],\
-          ["regenerator-runtime", "npm:0.13.11"],\
-          ["scheduler", "npm:0.24.0-canary-efb381bbf-20230505"],\
-          ["semver", "npm:7.6.3"],\
-          ["stacktrace-parser", "npm:0.1.10"],\
-          ["whatwg-fetch", "npm:3.6.20"],\
-          ["ws", "virtual:0c94583afc9bb8b7ec6095f61fc6f105fcfbd8e857d9944403e4ab72b08583557ffa049c89ced7f20751d2a858fca907e046025c3ce40d1016dbb4489b830b85#npm:6.2.3"],\
-          ["yargs", "npm:17.7.2"]\
-        ],\
-        "packagePeers": [\
-          "@types/react",\
-          "react"\
-        ],\
-        "linkType": "HARD"\
       }]\
     ]],\
     ["react-native-accessibility-engine", [\
@@ -28345,7 +28347,7 @@ const RAW_RUNTIME_STATE =
           ["@types/react-test-renderer", "npm:17.0.9"],\
           ["lodash.groupby", "npm:4.6.0"],\
           ["react", "npm:18.3.1"],\
-          ["react-native", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:0.76.1"],\
+          ["react-native", "virtual:17fcf3e10ac8bd39c0d9fbfd6746294981268b395dfd85bce8d98da8da52c944c5f28eb8dfef7a699de6a22e8b6433c00645ce4ce7f24e391fb2903a4454c638#npm:0.76.1"],\
           ["react-test-renderer", "virtual:e0f1c1ecae8c0a5ce98974dffa3f0e4a804a25c5290a9457289bf9f8a566c132c16dce23c3a89be991b817bd80444c95dad274c17b7a50bf4dcbf7279404fc60#npm:18.3.1"]\
         ],\
         "packagePeers": [\
