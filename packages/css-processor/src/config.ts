@@ -99,4 +99,14 @@ export interface CSSProcessorConfig {
    * Menlo), false otherwise.
    */
   isFontSupported(fontName: string): boolean | string;
+
+  /**
+   * Enable a per-instance LRU cache for compiled inline CSS strings.
+   *
+   * @experimental Disabled by default. Bounded by {@link CSSProcessorConfig.maxCssLruCacheSize}.
+   */
+  readonly enableExperimentalCssLRUCache?: boolean;
+
+  /** Max entries in the inline-CSS LRU cache. Defaults to 256. */
+  readonly maxCssLruCacheSize?: number;
 }

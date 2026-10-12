@@ -134,8 +134,8 @@ function testSpecs(examples: Record<string, Specs>) {
         outProp !== undefined
           ? outProp
           : outValue != null
-          ? { [key]: outValue }
-          : null;
+            ? { [key]: outValue }
+            : null;
       it(`compileInlineCSS method should ${
         expectedValue === null ? 'ignore' : 'register'
       } "${paramCase(key)}" ${
@@ -160,8 +160,8 @@ function testSpecs(examples: Record<string, Specs>) {
           outProp !== undefined
             ? outProp
             : outValue != null
-            ? { [key]: outValue }
-            : null;
+              ? { [key]: outValue }
+              : null;
         it(`compileStyleDeclaration should ${
           expectedValue === null ? 'ignore' : 'register'
         } "${key}" ${
@@ -1143,5 +1143,46 @@ describe('CSSProcessor', () => {
       }
     };
     testSpecs(examples);
+  });
+});
+
+describe('CSSProcessor inline-CSS LRU cache', () => {
+  it('does not cache by default (flag off)', () => {
+    const proc = new CSSProcessor();
+    const a = proc.compileInlineCSS('color:red');
+    const b = proc.compileInlineCSS('color:red');
+    expect(a).not.toBe(b);
+  });
+
+  it('returns the same instance for identical strings when enabled', () => {
+    const proc = new CSSProcessor({ enableExperimentalCssLRUCache: true });
+    const a = proc.compileInlineCSS('color:red');
+    const b = proc.compileInlineCSS('color:red');
+    expect(a).toBe(b);
+  });
+
+  it('evicts the least-recently-used entry once the cache is full', () => {
+    const proc = new CSSProcessor({
+      enableExperimentalCssLRUCache: true,
+      maxCssLruCacheSize: 2
+    });
+    const first = proc.compileInlineCSS('color:red');
+    proc.compileInlineCSS('color:blue');
+    proc.compileInlineCSS('color:green'); // evicts 'color:red'
+    const firstAgain = proc.compileInlineCSS('color:red');
+    expect(firstAgain).not.toBe(first);
+  });
+
+  it('keeps a touched entry alive after eviction pressure', () => {
+    const proc = new CSSProcessor({
+      enableExperimentalCssLRUCache: true,
+      maxCssLruCacheSize: 2
+    });
+    const first = proc.compileInlineCSS('color:red');
+    proc.compileInlineCSS('color:blue');
+    proc.compileInlineCSS('color:red'); // touch — moves 'red' to most-recent
+    proc.compileInlineCSS('color:green'); // evicts 'color:blue', not 'color:red'
+    const firstAgain = proc.compileInlineCSS('color:red');
+    expect(firstAgain).toBe(first);
   });
 });

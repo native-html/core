@@ -4,6 +4,7 @@ import { CSSNativeParseRun } from './CSSNativeParseRun';
 import { CSSProcessedProps } from './CSSProcessedProps';
 import { CSSPropertiesValidationRegistry } from './CSSPropertiesValidationRegistry';
 import { defaultCSSProcessorConfig } from './default';
+import { createLRUCache, LRUCache } from './lruCache';
 import {
   ExtraNativeShortStyle,
   ExtraNativeTextStyle,
@@ -102,12 +103,18 @@ export type MixedStyleDeclaration = Omit<
 
 export class CSSProcessor {
   public readonly registry: CSSPropertiesValidationRegistry;
+  private readonly inlineCssCache: LRUCache<string, CSSProcessedProps> | null;
   constructor(userConfig?: Partial<CSSProcessorConfig>) {
     const config = {
       ...defaultCSSProcessorConfig,
       ...userConfig
     };
     this.registry = new CSSPropertiesValidationRegistry(config);
+    this.inlineCssCache = config.enableExperimentalCssLRUCache
+      ? createLRUCache<string, CSSProcessedProps>(
+          config.maxCssLruCacheSize ?? 256
+        )
+      : null;
   }
 
   /**
@@ -126,7 +133,16 @@ export class CSSProcessor {
   }
 
   compileInlineCSS(inlineCSS: string): CSSProcessedProps {
+    const cache = this.inlineCssCache;
+    if (cache) {
+      const cached = cache.get(inlineCSS);
+      if (cached !== undefined) {
+        return cached;
+      }
+    }
     const parseRun = new CSSInlineParseRun(inlineCSS, this.registry);
-    return parseRun.exec();
+    const result = parseRun.exec();
+    cache?.set(inlineCSS, result);
+    return result;
   }
 }
