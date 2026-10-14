@@ -3,6 +3,10 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [2.0.2](github.com/native-html/render/compare/@native-html/css-processor@2.0.2-alpha.0...@native-html/css-processor@2.0.2) (2026-10-14)
+
+**Note:** Version bump only for package @native-html/css-processor
+
 ## [2.0.2-alpha.0](github.com/native-html/render/compare/@native-html/css-processor@2.0.0-alpha.0...@native-html/css-processor@2.0.2-alpha.0) (2026-10-06)
 
 **Note:** Version bump only for package @native-html/css-processor

@@ -1,6 +1,6 @@
 {
   "name": "@native-html/render",
-  "version": "1.0.4-alpha.2",
+  "version": "1.0.4",
   "author": "Jules Sam. Randolph <jules.sam.randolph@gmail.com> (https://github.com/jsamr)",
   "license": "MIT",
   "description": "The hackable, full-featured Open Source HTML rendering solution for React Native.",
