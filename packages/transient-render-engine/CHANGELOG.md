@@ -3,6 +3,18 @@
 All notable changes to this project will be documented in this file.
 See [Conventional Commits](https://conventionalcommits.org) for commit guidelines.
 
+## [12.0.2](github.com/native-html/render/compare/@native-html/transient-render-engine@12.0.2-alpha.0...@native-html/transient-render-engine@12.0.2) (2026-10-14)
+
+**Note:** Version bump only for package @native-html/transient-render-engine
+
+## [12.0.2-alpha.0](github.com/native-html/render/compare/@native-html/transient-render-engine@12.0.0-alpha.0...@native-html/transient-render-engine@12.0.2-alpha.0) (2026-10-06)
+
+### Bug Fixes
+
+* adjust key generating in the library ([a555d6c](github.com/native-html/render/commits/a555d6c836e11af5dc6e98c0b5335e835ac17391)) - by @5ZYSZ3K
+* change all ramda imports to be direct ([4e25f2e](github.com/native-html/render/commits/4e25f2eeaa56916fa1ba7a68c0c76789396dcad9)) - by @5ZYSZ3K
+* **transient-render-engine:** preserve nested inline boundary spaces ([5855a72](github.com/native-html/render/commits/5855a72dd7205230752de4d5bb9ae7e624aee0b1)) - by @
+
 ## [12.0.1](github.com/native-html/render/compare/@native-html/transient-render-engine@12.0.0-alpha.0...@native-html/transient-render-engine@12.0.1) (2026-05-07)
 
 ### Bug Fixes
